@@ -2,7 +2,7 @@
 layout: post
 title: Deploy CVMFS on Kubernetes
 date: 2020-02-26 13:00
-tags: [kubernetes, jetstream, jupyterhub]
+categories: [kubernetes, jetstream, jupyterhub]
 slug: cvmfs-kubernetes
 ---
 
