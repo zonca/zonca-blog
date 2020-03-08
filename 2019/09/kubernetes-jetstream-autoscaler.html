@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Cluster Autoscaler for Kubernetes on Jetstream | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy Cluster Autoscaler for Kubernetes on Jetstream" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster." />
+<meta property="og:description" content="The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster." />
+<link rel="canonical" href="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html" />
+<meta property="og:url" content="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-09-12T12:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster.","headline":"Deploy Cluster Autoscaler for Kubernetes on Jetstream","dateModified":"2019-09-12T12:00:00-05:00","datePublished":"2019-09-12T12:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html"},"url":"https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Cluster Autoscaler for Kubernetes on Jetstream | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy Cluster Autoscaler for Kubernetes on Jetstream" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster." />
+<meta property="og:description" content="The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster." />
+<link rel="canonical" href="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html" />
+<meta property="og:url" content="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-09-12T12:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster.","headline":"Deploy Cluster Autoscaler for Kubernetes on Jetstream","dateModified":"2019-09-12T12:00:00-05:00","datePublished":"2019-09-12T12:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html"},"url":"https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Deploy Cluster Autoscaler for Kubernetes on Jetstream</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-09-12T12:00:00-05:00" itemprop="datePublished">
+        Sep 12, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>The <a href="https://github.com/kubernetes/autoscaler">Kubernetes Cluster Autoscaler</a> is a service
+that runs within a Kubernetes cluster and when there are not enough resources to accomodate
+the pods that are queued to run, it contacts the API of the cloud provider to create
+more Virtual Machines to join the Kubernetes Cluster.</p>
+
+<p>Initially the Cluster Autoscaler only supported commercial cloud provides, but back in
+March 2019 <a href="https://github.com/kubernetes/autoscaler/pull/1690">a user contributed Openstack support based on Magnum</a>.</p>
+
+<p>First step you should have a Magnum-based deployment running on Jetstream,
+see <a href="https://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">my recent tutorial about that</a>.</p>
+
+<p>Therefore you should also have already a copy of the repository of all configuration
+files checked out on your local machine that you are using to interact with the openstack API,
+if not:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream.git
+</code></pre></div></div>
+
+<p>and enter the folder dedicated to the autoscaler:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd jupyterhub-deploy-kubernetes-jetstream/kubernetes_magnum/autoscaler
+</code></pre></div></div>
+
+<h2 id="setup-credentials">Setup credentials</h2>
+
+<p>We first create the service account needed by the autoscaler to interact with the Kubernetes API:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create <span class="nt">-f</span> cluster-autoscaler-svcaccount.yaml 
+</code></pre></div></div>
+
+<p>Then we need to provide all connection details for the autoscaler to interact with the Openstack API,
+those are contained in the <code class="highlighter-rouge">cloud-config</code> of our cluster available in the master node and setup
+by Magnum.
+Get the <code class="highlighter-rouge">IP</code> of your master node from:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack server list
+<span class="nv">IP</span><span class="o">=</span>xxx.xxx.xxx.xxx
+</code></pre></div></div>
+
+<p>Now ssh into the master node and access the <code class="highlighter-rouge">cloud-config</code> file:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh fedora@<span class="nv">$IP</span>
+<span class="nb">cat</span> /etc/kubernetes/cloud-config 
+</code></pre></div></div>
+
+<p>now copy the <code class="highlighter-rouge">[Global]</code> section at the end of <code class="highlighter-rouge">cluster-autoscaler-secret.yaml</code> on the local machine.
+Also remove the line of <code class="highlighter-rouge">ca-file</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create <span class="nt">-f</span> cluster-autoscaler-secret.yaml
+</code></pre></div></div>
+
+<h2 id="launch-the-autoscaler-deployment">Launch the Autoscaler deployment</h2>
+
+<p>Create the Autoscaler deployment:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create <span class="nt">-f</span> cluster-autoscaler-deployment-master.yaml
+</code></pre></div></div>
+
+<p>Alternatively, I also added a version for a cluster where we are not deploying pods on master <code class="highlighter-rouge">cluster-autoscaler-deployment.yaml</code>.</p>
+
+<p>Check that the deployment is active:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl <span class="nt">-n</span> kube-system get pods
+NAME                   DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+cluster-autoscaler     1         1         1            0           10s
+</code></pre></div></div>
+
+<p>And check its logs:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl <span class="nt">-n</span> kube-system logs cluster-autoscaler-59f4cf4f4-4k4p2
+
+I0905 05:29:21.589062       1 leaderelection.go:217] attempting to acquire leader lease  kube-system/cluster-autoscaler...
+I0905 05:29:39.412449       1 leaderelection.go:227] successfully acquired lease kube-system/cluster-autoscaler
+I0905 05:29:43.896557       1 magnum_manager_heat.go:293] For stack ID 17ab3ae7-1a81-43e6-98ec-b6ffd04f91d3, stack name is k8s-lu3bksbwsln3
+I0905 05:29:44.146319       1 magnum_manager_heat.go:310] Found nested kube_minions stack: name k8s-lu3bksbwsln3-kube_minions-r4lhlv5xuwu3, ID d0590824-cc70-4da5-b9ff-8581d99c666b
+</code></pre></div></div>
+
+<p>If you redeploy the cluster and keep a older authentication, you’ll see “Authentication failed” in the logs of the autoscaler pod, you need to update the secret every time you redeploy the cluster.</p>
+
+<h2 id="test-the-autoscaler">Test the autoscaler</h2>
+
+<p>Now we need to produce a significant load on the cluster so that the autoscaler is triggered to request Openstack Magnum to create more Virtual Machines.</p>
+
+<p>We can create a deployment of the NGINX container (any other would work for this test):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create deployment autoscaler-demo <span class="nt">--image</span><span class="o">=</span>nginx
+</code></pre></div></div>
+
+<p>And then create a large number of replicas:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl scale deployment autoscaler-demo <span class="nt">--replicas</span><span class="o">=</span>300
+</code></pre></div></div>
+
+<p>We are using 2 nodes with a large amount of memory and CPU, so they can accommodate more then 200 of those pods. The rest remains in the queue:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get deployment autoscaler-demo
+NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+autoscaler-demo   300       300       300          213         18m
+</code></pre></div></div>
+
+<p>And this triggers the autoscaler:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl <span class="nt">-n</span> kube-system logs cluster-autoscaler-59f4cf4f4-4k4p2
+
+I0905 05:34:47.401149       1 scale_up.go:689] Scale-up: setting group DefaultNodeGroup size to 2
+I0905 05:34:49.267280       1 magnum_nodegroup.go:101] Increasing size by 1, 1-&gt;2
+I0905 05:35:22.222387       1 magnum_nodegroup.go:67] Waited <span class="k">for </span>cluster UPDATE_IN_PROGRESS status
+</code></pre></div></div>
+
+<p>Check also in the Openstack API:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack coe cluster list
++------+------+---------+------------+--------------+--------------------+
+| uuid | name | keypair | node_count | master_count | status             |
++------+------+---------+------------+--------------+--------------------+
+| 09fcf| k8s  | comet   |          2 |            1 | UPDATE_IN_PROGRESS |
++------+------+---------+------------+--------------+--------------------+
+</code></pre></div></div>
+
+<p>It takes about 4 minutes for a new VM to boot, be configured by Magnum and join the Kubernetes cluster.</p>
+
+<p>Checking the logs again should show another line:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>I0912 17:18:28.290987       1 magnum_nodegroup.go:67] Waited <span class="k">for </span>cluster UPDATE_COMPLETE status
+</code></pre></div></div>
+<p>Then you should have all 3 nodes available:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get nodes
+NAME                        STATUS   ROLES    AGE   VERSION
+k8s-6bawhy45wr5t-master-0   Ready    master   38m   v1.11.1
+k8s-6bawhy45wr5t-minion-0   Ready    &lt;none&gt;   38m   v1.11.1
+k8s-6bawhy45wr5t-minion-1   Ready    &lt;none&gt;   30m   v1.11.1
+</code></pre></div></div>
+
+<p>and all 300 NGINX containers deployed:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get deployments
+NAME              DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+autoscaler-demo   300       300       300          300         35m
+</code></pre></div></div>
+
+<p>You can also test scaling down by scaling back the number of NGINX containers to only a few and check in the logs
+of the autoscaler that this process triggers the scale-down process.</p>
+
+<p>In <code class="highlighter-rouge">cluster-autoscaler-deployment-master.yaml</code> I have configured the scale down process to trigger just after 1 minute, to simplify testing. For production, better increase this to 10 minutes or more. Check the <a href="https://github.com/zonca/autoscaler/blob/cluster-autoscaler-1.14-magnum/cluster-autoscaler/FAQ.md">documentation of Cluster Autoscaler 1.14</a> for all other available options.</p>
+
+<h2 id="note-about-the-cluster-autoscaler-container">Note about the Cluster Autoscaler container</h2>
+
+<p>The Magnum provider was added in Cluster Autoscaler 1.15, however this version is not compatible with Kubernetes 1.11 which is currently available on Jetstream. Therefore I have taken the development version of Cluster Autoscaler 1.14 and compiled it myself. I also noticed that the scale down process was not working due to incompatible IDs when the Cloud Provider tried to lookup the ID of a Minion in the Stack. I am now directly using the MachineID instead of going through these indices. This version is available in <a href="https://github.com/zonca/autoscaler/tree/cluster-autoscaler-1.14-magnum">my fork of <code class="highlighter-rouge">autoscaler</code></a> and it is built into docker containers on the <a href="https://cloud.docker.com/repository/docker/zonca/k8s-cluster-autoscaler-jetstream"><code class="highlighter-rouge">zonca/k8s-cluster-autoscaler-jetstream</code> repository on Docker Hub</a>.
+The image tags are the short version of the repository git commit hash.</p>
+
+<p>I build the container using the <code class="highlighter-rouge">run_gobuilder.sh</code> and <code class="highlighter-rouge">run_build_autoscaler_container.sh</code> scripts included in the repository.</p>
+
+<h2 id="note-about-images-used-by-magnum">Note about images used by Magnum</h2>
+
+<p>I have tested this deployment using the <code class="highlighter-rouge">Fedora-Atomic-27-20180419</code> image on Jetstream at Indiana University.
+The Fedora Atomic 28 image had a long hang-up during boot and took more than 10 minutes to start and that caused timeout in the autoscaler and anyway it would have been too long for a user waiting to start a notebook.</p>
+
+<p>I also tried updating the Fedora Atomic 28 image with <code class="highlighter-rouge">sudo atomic host upgrade</code> and while this fixed the slow startup issue, it generated a broken Kubernetes installation, i.e. the Kubernetes services didn’t detect the master node as part of the cluster, <code class="highlighter-rouge">kubectl get nodes</code> only showed the minion.</p>
+
+  </div><a class="u-url" href="/2019/09/kubernetes-jetstream-autoscaler.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

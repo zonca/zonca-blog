@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Run Hadoop Python jobs on Amazon with MrJob | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Run Hadoop Python jobs on Amazon with MrJob" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="First we need to install mrjob with: pip install mrjob I am starting with a simple example of word counting. Previously I implemented this directly using the hadoop streaming interface, therefore mapper and reducer were scripts that read from standard input and print to standard output, see mapper.py and reducer.py in: https://github.com/zonca/python-wordcount-hadoop With MrJob instead the interface is a little different, we implement the mapper  method of our subclass of MrJob that already gets a “line” argument and yields the output as a tuple like (“word”, 1). MrJob makes the implementation of the reducer particularly simple. Using hadoop-streaming directly, we needed also to first parse back the output of the mapper into python objects, while MrJob does it for you and gives directly the key and the list of count, that we just need to sum. The code is pretty simple: First we can test locally with 2 different methods, either: python word_count_mrjob.py gutemberg/20417.txt.utf-8 or: python word_count_mrjob.py --runner=local gutemberg/20417.txt.utf-8 The first is a simple local test, the seconds sets some hadoop variables and uses multiprocessing to run the mapper in parallel. Run on Amazon Elastic Map Reduce Next step is submitting the job to EMR. First get an account on Amazon Web Services from aws.amazon.com . Setup MrJob with Amazon: http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup Then we just need to choose the &quot;emr&quot; runner for MrJob to take care of: Copy the python module to Amazon S3, with requirements Copy the input data to S3 Create a small EC2 instance (of course we could set it up to run 1000 instead) Run Hadoop to process the jobs Create a local web service that allows easy monitoring of the cluster When completed, copy the results back (this can be disabled to just leave the results on S3. e.g.: python word_count_mrjob.py --runner=emr --aws-region=us-west-2 gutemberg/20417.txt.utf-8 It is important to make sure that the aws-region used by MrJob is the same we used for creating the SSH key on the EC2 console in the MrJob configuration step, i.e. SSH keys are region-specific. Logs and output of the run MrJob copies the needed files to S3: . runemr.sh using configs in /home/zonca/.mrjob.conf using existing scratch bucket mrjob-ecd1d07aeee083dd using s3://mrjob-ecd1d07aeee083dd/tmp/ as our scratch dir on S3 creating tmp directory /tmp/mrjobjob.zonca.20130901.192250.785550 Copying non-input files into s3://mrjob-ecd1d07aeee083dd/tmp/mrjobjob.zonca.20130901.192250.785550/files/ Waiting 5.0s for S3 eventual consistency Creating Elastic MapReduce job flow Job flow created with ID: j-2E83MO9QZQILB Created new job flow j-2E83MO9QZQILB Creates the instances: Job launched 30.9s ago, status STARTING: Starting instances Job launched 123.9s ago, status BOOTSTRAPPING: Running bootstrap actions Job launched 250.5s ago, status RUNNING: Running step (mrjobjob.zonca.20130901.192250.785550: Step 1 of 1) Creates an SSH tunnel to the tracker: Opening ssh tunnel to Hadoop job tracker Connect to job tracker at: http://localhost:40630/jobtracker.jsp Therefore we can connect to that address to check realtime information about the cluster running on EC2, for example: Once the job completes, MrJob copies the output back to the local machine, here are few lines from the file: &quot;maladies&quot; 1 &quot;malaria&quot; 5 &quot;male&quot; 18 &quot;maleproducing&quot; 1 &quot;males&quot; 5 &quot;mammal&quot; 10 &quot;mammalInstinctive&quot; 1 &quot;mammalian&quot; 4 &quot;mammallike&quot; 1 &quot;mammals&quot; 87 &quot;mammoth&quot; 5 &quot;mammoths&quot; 1 &quot;man&quot; 152 I&#39;ve been positively impressed that it is so easy to implement and run a MapReduce job with MrJob without need of managing directly EC2 instances or the Hadoop installation. This same setup could be used on GB of data with hundreds of instances." />
+<meta property="og:description" content="First we need to install mrjob with: pip install mrjob I am starting with a simple example of word counting. Previously I implemented this directly using the hadoop streaming interface, therefore mapper and reducer were scripts that read from standard input and print to standard output, see mapper.py and reducer.py in: https://github.com/zonca/python-wordcount-hadoop With MrJob instead the interface is a little different, we implement the mapper  method of our subclass of MrJob that already gets a “line” argument and yields the output as a tuple like (“word”, 1). MrJob makes the implementation of the reducer particularly simple. Using hadoop-streaming directly, we needed also to first parse back the output of the mapper into python objects, while MrJob does it for you and gives directly the key and the list of count, that we just need to sum. The code is pretty simple: First we can test locally with 2 different methods, either: python word_count_mrjob.py gutemberg/20417.txt.utf-8 or: python word_count_mrjob.py --runner=local gutemberg/20417.txt.utf-8 The first is a simple local test, the seconds sets some hadoop variables and uses multiprocessing to run the mapper in parallel. Run on Amazon Elastic Map Reduce Next step is submitting the job to EMR. First get an account on Amazon Web Services from aws.amazon.com . Setup MrJob with Amazon: http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup Then we just need to choose the &quot;emr&quot; runner for MrJob to take care of: Copy the python module to Amazon S3, with requirements Copy the input data to S3 Create a small EC2 instance (of course we could set it up to run 1000 instead) Run Hadoop to process the jobs Create a local web service that allows easy monitoring of the cluster When completed, copy the results back (this can be disabled to just leave the results on S3. e.g.: python word_count_mrjob.py --runner=emr --aws-region=us-west-2 gutemberg/20417.txt.utf-8 It is important to make sure that the aws-region used by MrJob is the same we used for creating the SSH key on the EC2 console in the MrJob configuration step, i.e. SSH keys are region-specific. Logs and output of the run MrJob copies the needed files to S3: . runemr.sh using configs in /home/zonca/.mrjob.conf using existing scratch bucket mrjob-ecd1d07aeee083dd using s3://mrjob-ecd1d07aeee083dd/tmp/ as our scratch dir on S3 creating tmp directory /tmp/mrjobjob.zonca.20130901.192250.785550 Copying non-input files into s3://mrjob-ecd1d07aeee083dd/tmp/mrjobjob.zonca.20130901.192250.785550/files/ Waiting 5.0s for S3 eventual consistency Creating Elastic MapReduce job flow Job flow created with ID: j-2E83MO9QZQILB Created new job flow j-2E83MO9QZQILB Creates the instances: Job launched 30.9s ago, status STARTING: Starting instances Job launched 123.9s ago, status BOOTSTRAPPING: Running bootstrap actions Job launched 250.5s ago, status RUNNING: Running step (mrjobjob.zonca.20130901.192250.785550: Step 1 of 1) Creates an SSH tunnel to the tracker: Opening ssh tunnel to Hadoop job tracker Connect to job tracker at: http://localhost:40630/jobtracker.jsp Therefore we can connect to that address to check realtime information about the cluster running on EC2, for example: Once the job completes, MrJob copies the output back to the local machine, here are few lines from the file: &quot;maladies&quot; 1 &quot;malaria&quot; 5 &quot;male&quot; 18 &quot;maleproducing&quot; 1 &quot;males&quot; 5 &quot;mammal&quot; 10 &quot;mammalInstinctive&quot; 1 &quot;mammalian&quot; 4 &quot;mammallike&quot; 1 &quot;mammals&quot; 87 &quot;mammoth&quot; 5 &quot;mammoths&quot; 1 &quot;man&quot; 152 I&#39;ve been positively impressed that it is so easy to implement and run a MapReduce job with MrJob without need of managing directly EC2 instances or the Hadoop installation. This same setup could be used on GB of data with hundreds of instances." />
+<link rel="canonical" href="https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html" />
+<meta property="og:url" content="https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-09-02T02:36:00-05:00" />
+<script type="application/ld+json">
+{"description":"First we need to install mrjob with: pip install mrjob I am starting with a simple example of word counting. Previously I implemented this directly using the hadoop streaming interface, therefore mapper and reducer were scripts that read from standard input and print to standard output, see mapper.py and reducer.py in: https://github.com/zonca/python-wordcount-hadoop With MrJob instead the interface is a little different, we implement the mapper  method of our subclass of MrJob that already gets a “line” argument and yields the output as a tuple like (“word”, 1). MrJob makes the implementation of the reducer particularly simple. Using hadoop-streaming directly, we needed also to first parse back the output of the mapper into python objects, while MrJob does it for you and gives directly the key and the list of count, that we just need to sum. The code is pretty simple: First we can test locally with 2 different methods, either: python word_count_mrjob.py gutemberg/20417.txt.utf-8 or: python word_count_mrjob.py --runner=local gutemberg/20417.txt.utf-8 The first is a simple local test, the seconds sets some hadoop variables and uses multiprocessing to run the mapper in parallel. Run on Amazon Elastic Map Reduce Next step is submitting the job to EMR. First get an account on Amazon Web Services from aws.amazon.com . Setup MrJob with Amazon: http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup Then we just need to choose the &quot;emr&quot; runner for MrJob to take care of: Copy the python module to Amazon S3, with requirements Copy the input data to S3 Create a small EC2 instance (of course we could set it up to run 1000 instead) Run Hadoop to process the jobs Create a local web service that allows easy monitoring of the cluster When completed, copy the results back (this can be disabled to just leave the results on S3. e.g.: python word_count_mrjob.py --runner=emr --aws-region=us-west-2 gutemberg/20417.txt.utf-8 It is important to make sure that the aws-region used by MrJob is the same we used for creating the SSH key on the EC2 console in the MrJob configuration step, i.e. SSH keys are region-specific. Logs and output of the run MrJob copies the needed files to S3: . runemr.sh using configs in /home/zonca/.mrjob.conf using existing scratch bucket mrjob-ecd1d07aeee083dd using s3://mrjob-ecd1d07aeee083dd/tmp/ as our scratch dir on S3 creating tmp directory /tmp/mrjobjob.zonca.20130901.192250.785550 Copying non-input files into s3://mrjob-ecd1d07aeee083dd/tmp/mrjobjob.zonca.20130901.192250.785550/files/ Waiting 5.0s for S3 eventual consistency Creating Elastic MapReduce job flow Job flow created with ID: j-2E83MO9QZQILB Created new job flow j-2E83MO9QZQILB Creates the instances: Job launched 30.9s ago, status STARTING: Starting instances Job launched 123.9s ago, status BOOTSTRAPPING: Running bootstrap actions Job launched 250.5s ago, status RUNNING: Running step (mrjobjob.zonca.20130901.192250.785550: Step 1 of 1) Creates an SSH tunnel to the tracker: Opening ssh tunnel to Hadoop job tracker Connect to job tracker at: http://localhost:40630/jobtracker.jsp Therefore we can connect to that address to check realtime information about the cluster running on EC2, for example: Once the job completes, MrJob copies the output back to the local machine, here are few lines from the file: &quot;maladies&quot; 1 &quot;malaria&quot; 5 &quot;male&quot; 18 &quot;maleproducing&quot; 1 &quot;males&quot; 5 &quot;mammal&quot; 10 &quot;mammalInstinctive&quot; 1 &quot;mammalian&quot; 4 &quot;mammallike&quot; 1 &quot;mammals&quot; 87 &quot;mammoth&quot; 5 &quot;mammoths&quot; 1 &quot;man&quot; 152 I&#39;ve been positively impressed that it is so easy to implement and run a MapReduce job with MrJob without need of managing directly EC2 instances or the Hadoop installation. This same setup could be used on GB of data with hundreds of instances.","headline":"Run Hadoop Python jobs on Amazon with MrJob","dateModified":"2013-09-02T02:36:00-05:00","datePublished":"2013-09-02T02:36:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html"},"url":"https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Run Hadoop Python jobs on Amazon with MrJob | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Run Hadoop Python jobs on Amazon with MrJob" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="First we need to install mrjob with: pip install mrjob I am starting with a simple example of word counting. Previously I implemented this directly using the hadoop streaming interface, therefore mapper and reducer were scripts that read from standard input and print to standard output, see mapper.py and reducer.py in: https://github.com/zonca/python-wordcount-hadoop With MrJob instead the interface is a little different, we implement the mapper  method of our subclass of MrJob that already gets a “line” argument and yields the output as a tuple like (“word”, 1). MrJob makes the implementation of the reducer particularly simple. Using hadoop-streaming directly, we needed also to first parse back the output of the mapper into python objects, while MrJob does it for you and gives directly the key and the list of count, that we just need to sum. The code is pretty simple: First we can test locally with 2 different methods, either: python word_count_mrjob.py gutemberg/20417.txt.utf-8 or: python word_count_mrjob.py --runner=local gutemberg/20417.txt.utf-8 The first is a simple local test, the seconds sets some hadoop variables and uses multiprocessing to run the mapper in parallel. Run on Amazon Elastic Map Reduce Next step is submitting the job to EMR. First get an account on Amazon Web Services from aws.amazon.com . Setup MrJob with Amazon: http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup Then we just need to choose the &quot;emr&quot; runner for MrJob to take care of: Copy the python module to Amazon S3, with requirements Copy the input data to S3 Create a small EC2 instance (of course we could set it up to run 1000 instead) Run Hadoop to process the jobs Create a local web service that allows easy monitoring of the cluster When completed, copy the results back (this can be disabled to just leave the results on S3. e.g.: python word_count_mrjob.py --runner=emr --aws-region=us-west-2 gutemberg/20417.txt.utf-8 It is important to make sure that the aws-region used by MrJob is the same we used for creating the SSH key on the EC2 console in the MrJob configuration step, i.e. SSH keys are region-specific. Logs and output of the run MrJob copies the needed files to S3: . runemr.sh using configs in /home/zonca/.mrjob.conf using existing scratch bucket mrjob-ecd1d07aeee083dd using s3://mrjob-ecd1d07aeee083dd/tmp/ as our scratch dir on S3 creating tmp directory /tmp/mrjobjob.zonca.20130901.192250.785550 Copying non-input files into s3://mrjob-ecd1d07aeee083dd/tmp/mrjobjob.zonca.20130901.192250.785550/files/ Waiting 5.0s for S3 eventual consistency Creating Elastic MapReduce job flow Job flow created with ID: j-2E83MO9QZQILB Created new job flow j-2E83MO9QZQILB Creates the instances: Job launched 30.9s ago, status STARTING: Starting instances Job launched 123.9s ago, status BOOTSTRAPPING: Running bootstrap actions Job launched 250.5s ago, status RUNNING: Running step (mrjobjob.zonca.20130901.192250.785550: Step 1 of 1) Creates an SSH tunnel to the tracker: Opening ssh tunnel to Hadoop job tracker Connect to job tracker at: http://localhost:40630/jobtracker.jsp Therefore we can connect to that address to check realtime information about the cluster running on EC2, for example: Once the job completes, MrJob copies the output back to the local machine, here are few lines from the file: &quot;maladies&quot; 1 &quot;malaria&quot; 5 &quot;male&quot; 18 &quot;maleproducing&quot; 1 &quot;males&quot; 5 &quot;mammal&quot; 10 &quot;mammalInstinctive&quot; 1 &quot;mammalian&quot; 4 &quot;mammallike&quot; 1 &quot;mammals&quot; 87 &quot;mammoth&quot; 5 &quot;mammoths&quot; 1 &quot;man&quot; 152 I&#39;ve been positively impressed that it is so easy to implement and run a MapReduce job with MrJob without need of managing directly EC2 instances or the Hadoop installation. This same setup could be used on GB of data with hundreds of instances." />
+<meta property="og:description" content="First we need to install mrjob with: pip install mrjob I am starting with a simple example of word counting. Previously I implemented this directly using the hadoop streaming interface, therefore mapper and reducer were scripts that read from standard input and print to standard output, see mapper.py and reducer.py in: https://github.com/zonca/python-wordcount-hadoop With MrJob instead the interface is a little different, we implement the mapper  method of our subclass of MrJob that already gets a “line” argument and yields the output as a tuple like (“word”, 1). MrJob makes the implementation of the reducer particularly simple. Using hadoop-streaming directly, we needed also to first parse back the output of the mapper into python objects, while MrJob does it for you and gives directly the key and the list of count, that we just need to sum. The code is pretty simple: First we can test locally with 2 different methods, either: python word_count_mrjob.py gutemberg/20417.txt.utf-8 or: python word_count_mrjob.py --runner=local gutemberg/20417.txt.utf-8 The first is a simple local test, the seconds sets some hadoop variables and uses multiprocessing to run the mapper in parallel. Run on Amazon Elastic Map Reduce Next step is submitting the job to EMR. First get an account on Amazon Web Services from aws.amazon.com . Setup MrJob with Amazon: http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup Then we just need to choose the &quot;emr&quot; runner for MrJob to take care of: Copy the python module to Amazon S3, with requirements Copy the input data to S3 Create a small EC2 instance (of course we could set it up to run 1000 instead) Run Hadoop to process the jobs Create a local web service that allows easy monitoring of the cluster When completed, copy the results back (this can be disabled to just leave the results on S3. e.g.: python word_count_mrjob.py --runner=emr --aws-region=us-west-2 gutemberg/20417.txt.utf-8 It is important to make sure that the aws-region used by MrJob is the same we used for creating the SSH key on the EC2 console in the MrJob configuration step, i.e. SSH keys are region-specific. Logs and output of the run MrJob copies the needed files to S3: . runemr.sh using configs in /home/zonca/.mrjob.conf using existing scratch bucket mrjob-ecd1d07aeee083dd using s3://mrjob-ecd1d07aeee083dd/tmp/ as our scratch dir on S3 creating tmp directory /tmp/mrjobjob.zonca.20130901.192250.785550 Copying non-input files into s3://mrjob-ecd1d07aeee083dd/tmp/mrjobjob.zonca.20130901.192250.785550/files/ Waiting 5.0s for S3 eventual consistency Creating Elastic MapReduce job flow Job flow created with ID: j-2E83MO9QZQILB Created new job flow j-2E83MO9QZQILB Creates the instances: Job launched 30.9s ago, status STARTING: Starting instances Job launched 123.9s ago, status BOOTSTRAPPING: Running bootstrap actions Job launched 250.5s ago, status RUNNING: Running step (mrjobjob.zonca.20130901.192250.785550: Step 1 of 1) Creates an SSH tunnel to the tracker: Opening ssh tunnel to Hadoop job tracker Connect to job tracker at: http://localhost:40630/jobtracker.jsp Therefore we can connect to that address to check realtime information about the cluster running on EC2, for example: Once the job completes, MrJob copies the output back to the local machine, here are few lines from the file: &quot;maladies&quot; 1 &quot;malaria&quot; 5 &quot;male&quot; 18 &quot;maleproducing&quot; 1 &quot;males&quot; 5 &quot;mammal&quot; 10 &quot;mammalInstinctive&quot; 1 &quot;mammalian&quot; 4 &quot;mammallike&quot; 1 &quot;mammals&quot; 87 &quot;mammoth&quot; 5 &quot;mammoths&quot; 1 &quot;man&quot; 152 I&#39;ve been positively impressed that it is so easy to implement and run a MapReduce job with MrJob without need of managing directly EC2 instances or the Hadoop installation. This same setup could be used on GB of data with hundreds of instances." />
+<link rel="canonical" href="https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html" />
+<meta property="og:url" content="https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-09-02T02:36:00-05:00" />
+<script type="application/ld+json">
+{"description":"First we need to install mrjob with: pip install mrjob I am starting with a simple example of word counting. Previously I implemented this directly using the hadoop streaming interface, therefore mapper and reducer were scripts that read from standard input and print to standard output, see mapper.py and reducer.py in: https://github.com/zonca/python-wordcount-hadoop With MrJob instead the interface is a little different, we implement the mapper  method of our subclass of MrJob that already gets a “line” argument and yields the output as a tuple like (“word”, 1). MrJob makes the implementation of the reducer particularly simple. Using hadoop-streaming directly, we needed also to first parse back the output of the mapper into python objects, while MrJob does it for you and gives directly the key and the list of count, that we just need to sum. The code is pretty simple: First we can test locally with 2 different methods, either: python word_count_mrjob.py gutemberg/20417.txt.utf-8 or: python word_count_mrjob.py --runner=local gutemberg/20417.txt.utf-8 The first is a simple local test, the seconds sets some hadoop variables and uses multiprocessing to run the mapper in parallel. Run on Amazon Elastic Map Reduce Next step is submitting the job to EMR. First get an account on Amazon Web Services from aws.amazon.com . Setup MrJob with Amazon: http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup Then we just need to choose the &quot;emr&quot; runner for MrJob to take care of: Copy the python module to Amazon S3, with requirements Copy the input data to S3 Create a small EC2 instance (of course we could set it up to run 1000 instead) Run Hadoop to process the jobs Create a local web service that allows easy monitoring of the cluster When completed, copy the results back (this can be disabled to just leave the results on S3. e.g.: python word_count_mrjob.py --runner=emr --aws-region=us-west-2 gutemberg/20417.txt.utf-8 It is important to make sure that the aws-region used by MrJob is the same we used for creating the SSH key on the EC2 console in the MrJob configuration step, i.e. SSH keys are region-specific. Logs and output of the run MrJob copies the needed files to S3: . runemr.sh using configs in /home/zonca/.mrjob.conf using existing scratch bucket mrjob-ecd1d07aeee083dd using s3://mrjob-ecd1d07aeee083dd/tmp/ as our scratch dir on S3 creating tmp directory /tmp/mrjobjob.zonca.20130901.192250.785550 Copying non-input files into s3://mrjob-ecd1d07aeee083dd/tmp/mrjobjob.zonca.20130901.192250.785550/files/ Waiting 5.0s for S3 eventual consistency Creating Elastic MapReduce job flow Job flow created with ID: j-2E83MO9QZQILB Created new job flow j-2E83MO9QZQILB Creates the instances: Job launched 30.9s ago, status STARTING: Starting instances Job launched 123.9s ago, status BOOTSTRAPPING: Running bootstrap actions Job launched 250.5s ago, status RUNNING: Running step (mrjobjob.zonca.20130901.192250.785550: Step 1 of 1) Creates an SSH tunnel to the tracker: Opening ssh tunnel to Hadoop job tracker Connect to job tracker at: http://localhost:40630/jobtracker.jsp Therefore we can connect to that address to check realtime information about the cluster running on EC2, for example: Once the job completes, MrJob copies the output back to the local machine, here are few lines from the file: &quot;maladies&quot; 1 &quot;malaria&quot; 5 &quot;male&quot; 18 &quot;maleproducing&quot; 1 &quot;males&quot; 5 &quot;mammal&quot; 10 &quot;mammalInstinctive&quot; 1 &quot;mammalian&quot; 4 &quot;mammallike&quot; 1 &quot;mammals&quot; 87 &quot;mammoth&quot; 5 &quot;mammoths&quot; 1 &quot;man&quot; 152 I&#39;ve been positively impressed that it is so easy to implement and run a MapReduce job with MrJob without need of managing directly EC2 instances or the Hadoop installation. This same setup could be used on GB of data with hundreds of instances.","headline":"Run Hadoop Python jobs on Amazon with MrJob","dateModified":"2013-09-02T02:36:00-05:00","datePublished":"2013-09-02T02:36:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html"},"url":"https://zonca.dev/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Run Hadoop Python jobs on Amazon with MrJob</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2013-09-02T02:36:00-05:00" itemprop="datePublished">
+        Sep 2, 2013
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><br />
+First we need to install mrjob with:
+<br /></p>
+<blockquote class="tr_bq">
+ pip install mrjob
+</blockquote>
+<p>I am starting with a simple example of word counting. Previously I implemented this directly using the hadoop streaming interface, therefore mapper and reducer were scripts that read from standard input and print to standard output, see mapper.py and reducer.py in:
+<br />
+<br />
+<a href="https://github.com/zonca/python-wordcount-hadoop">
+ https://github.com/zonca/python-wordcount-hadoop
+</a>
+<br />
+<br />
+With MrJob instead the interface is a little different, we implement the mapper  method of our subclass of MrJob that already gets a “line” argument and yields the output as a tuple like (“word”, 1).
+<br /></p>
+<div>
+ MrJob makes the implementation of the reducer particularly simple. Using hadoop-streaming directly, we needed also to first parse back the output of the mapper into python objects, while MrJob does it for you and gives directly the key and the list of count, that we just need to sum.
+</div>
+<div>
+ <br />
+ <a name="more">
+ </a>
+</div>
+<div>
+ The code is pretty simple:
+ <br />
+ <br />
+ <script src="http://gist-it.appspot.com/github/zonca/python-wordcount-hadoop/blob/master/mrjob/word_count_mrjob.py">
+ </script>
+ <div>
+  <br />
+ </div>
+ First we can test locally with 2 different methods, either:
+ <br />
+ <br />
+ <blockquote class="tr_bq">
+  python word_count_mrjob.py gutemberg/20417.txt.utf-8
+ </blockquote>
+ <br />
+ or:
+ <br />
+ <br />
+ <blockquote class="tr_bq">
+  python word_count_mrjob.py --runner=local gutemberg/20417.txt.utf-8
+ </blockquote>
+ <br />
+ The first is a simple local test, the seconds sets some hadoop variables and uses multiprocessing to run the mapper in parallel.
+ <br />
+ <div>
+  <br />
+ </div>
+ <span style="font-size: large;">
+  Run on Amazon Elastic Map Reduce
+ </span>
+ <br />
+ <br />
+</div>
+<div>
+ Next step is submitting the job to EMR.
+ <br />
+ First get an account on Amazon Web Services from
+ <a href="http://aws.amazon.com/">
+  aws.amazon.com
+ </a>
+ .
+ <br />
+ <br />
+ Setup MrJob with Amazon:
+ <br />
+ <br />
+ <a href="http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup">
+  http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup
+ </a>
+ <br />
+ <br />
+ <div>
+  Then we just need to choose the "emr" runner for MrJob to take care of:
+ </div>
+ <div>
+  <ul>
+   <li>
+    Copy the python module to Amazon S3, with requirements
+   </li>
+   <li>
+    Copy the input data to S3
+   </li>
+   <li>
+    Create a small EC2 instance (of course we could set it up to run 1000 instead)
+   </li>
+   <li>
+    Run Hadoop to process the jobs
+   </li>
+   <li>
+    Create a local web service that allows easy monitoring of the cluster
+   </li>
+   <li>
+    When completed, copy the results back (this can be disabled to just leave the results on S3.
+   </li>
+  </ul>
+ </div>
+ <div>
+  e.g.:
+ </div>
+ <blockquote class="tr_bq">
+  python word_count_mrjob.py --runner=emr --aws-region=us-west-2 gutemberg/20417.txt.utf-8
+ </blockquote>
+ <div>
+  It is important to make sure that the aws-region used by MrJob is the same we used for creating the SSH key on the EC2 console in the MrJob configuration step, i.e. SSH keys are region-specific.
+  <br />
+  <br />
+  <span style="font-size: large;">
+   Logs and output of the run
+  </span>
+  <br />
+  <br />
+  MrJob copies the needed files to S3:
+  <br />
+  <blockquote class="tr_bq">
+   . runemr.sh
+   <br />
+   using configs in /home/zonca/.mrjob.conf
+   <br />
+   using existing scratch bucket mrjob-ecd1d07aeee083dd
+   <br />
+   using s3://mrjob-ecd1d07aeee083dd/tmp/ as our scratch dir on S3
+   <br />
+   creating tmp directory /tmp/mrjobjob.zonca.20130901.192250.785550
+   <br />
+   Copying non-input files into s3://mrjob-ecd1d07aeee083dd/tmp/mrjobjob.zonca.20130901.192250.785550/files/
+   <br />
+   Waiting 5.0s for S3 eventual consistency
+   <br />
+   Creating Elastic MapReduce job flow
+   <br />
+   Job flow created with ID: j-2E83MO9QZQILB
+   <br />
+   Created new job flow j-2E83MO9QZQILB
+  </blockquote>
+  Creates the instances:
+  <br />
+  <blockquote class="tr_bq">
+   Job launched 30.9s ago, status STARTING: Starting instances
+   <br />
+   Job launched 123.9s ago, status BOOTSTRAPPING: Running bootstrap actions
+   <br />
+   Job launched 250.5s ago, status RUNNING: Running step (mrjobjob.zonca.20130901.192250.785550: Step 1 of 1)
+  </blockquote>
+  Creates an SSH tunnel to the tracker:
+  <br />
+  <blockquote class="tr_bq">
+   Opening ssh tunnel to Hadoop job tracker
+   <br />
+   Connect to job tracker at: http://localhost:40630/jobtracker.jsp
+  </blockquote>
+ </div>
+ Therefore we can connect to that address to check realtime information about the cluster running on EC2, for example:
+ <br />
+ <br />
+ <div class="separator" style="clear: both; text-align: center;">
+  <a href="|filename|/images/run-hadoop-python-jobs-on-amazon-with-mrjob_s1600_awsjobdetails.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
+   <img border="0" height="588" src="|filename|/images/run-hadoop-python-jobs-on-amazon-with-mrjob_s640_awsjobdetails.png" width="640" />
+  </a>
+ </div>
+ <br />
+ Once the job completes, MrJob copies the output back to the local machine, here are few lines from the file:
+ <br />
+ <blockquote class="tr_bq">
+  "maladies"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  1
+  <br />
+  "malaria"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  5
+  <br />
+  "male"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  18
+  <br />
+  "maleproducing"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  1
+  <br />
+  "males"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  5
+  <br />
+  "mammal"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  10
+  <br />
+  "mammalInstinctive"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  1
+  <br />
+  "mammalian"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  4
+  <br />
+  "mammallike"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  1
+  <br />
+  "mammals"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  87
+  <br />
+  "mammoth"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  5
+  <br />
+  "mammoths"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  1
+  <br />
+  "man"
+  <span class="Apple-tab-span" style="white-space: pre;">
+  </span>
+  152
+ </blockquote>
+ I've been positively impressed that it is so easy to implement and run a MapReduce job with MrJob without need of managing directly EC2 instances or the Hadoop installation.
+ <br />
+ This same setup could be used on GB of data with hundreds of instances.
+</div>
+
+  </div><a class="u-url" href="/2013/09/run-hadoop-python-jobs-on-amazon-with-mrjob.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

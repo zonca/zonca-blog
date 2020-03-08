@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Pangeo on Kubernetes deployment on Jetstream created with Kubespray | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy Pangeo on Kubernetes deployment on Jetstream created with Kubespray" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Pangeo collaboration for Big Data Geoscience maintains a helm chart with a prefigured JupyterHub deployment on Kubernetes which also supports launching private dask workers. This is very useful because the Jupyter Notebook users can launch a cluster of worker containers inside Kubernetes and process larger amounts of data than they could using only their notebook container." />
+<meta property="og:description" content="The Pangeo collaboration for Big Data Geoscience maintains a helm chart with a prefigured JupyterHub deployment on Kubernetes which also supports launching private dask workers. This is very useful because the Jupyter Notebook users can launch a cluster of worker containers inside Kubernetes and process larger amounts of data than they could using only their notebook container." />
+<link rel="canonical" href="https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html" />
+<meta property="og:url" content="https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-20T01:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"The Pangeo collaboration for Big Data Geoscience maintains a helm chart with a prefigured JupyterHub deployment on Kubernetes which also supports launching private dask workers. This is very useful because the Jupyter Notebook users can launch a cluster of worker containers inside Kubernetes and process larger amounts of data than they could using only their notebook container.","headline":"Deploy Pangeo on Kubernetes deployment on Jetstream created with Kubespray","dateModified":"2018-12-20T01:00:00-06:00","datePublished":"2018-12-20T01:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html"},"url":"https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Pangeo on Kubernetes deployment on Jetstream created with Kubespray | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy Pangeo on Kubernetes deployment on Jetstream created with Kubespray" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="The Pangeo collaboration for Big Data Geoscience maintains a helm chart with a prefigured JupyterHub deployment on Kubernetes which also supports launching private dask workers. This is very useful because the Jupyter Notebook users can launch a cluster of worker containers inside Kubernetes and process larger amounts of data than they could using only their notebook container." />
+<meta property="og:description" content="The Pangeo collaboration for Big Data Geoscience maintains a helm chart with a prefigured JupyterHub deployment on Kubernetes which also supports launching private dask workers. This is very useful because the Jupyter Notebook users can launch a cluster of worker containers inside Kubernetes and process larger amounts of data than they could using only their notebook container." />
+<link rel="canonical" href="https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html" />
+<meta property="og:url" content="https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-20T01:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"The Pangeo collaboration for Big Data Geoscience maintains a helm chart with a prefigured JupyterHub deployment on Kubernetes which also supports launching private dask workers. This is very useful because the Jupyter Notebook users can launch a cluster of worker containers inside Kubernetes and process larger amounts of data than they could using only their notebook container.","headline":"Deploy Pangeo on Kubernetes deployment on Jetstream created with Kubespray","dateModified":"2018-12-20T01:00:00-06:00","datePublished":"2018-12-20T01:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html"},"url":"https://zonca.dev/2018/12/kubernetes-jetstream-kubespray-pangeo.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Deploy Pangeo on Kubernetes deployment on Jetstream created with Kubespray</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-12-20T01:00:00-06:00" itemprop="datePublished">
+        Dec 20, 2018
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>The <a href="http://pangeo.io/">Pangeo collaboration for Big Data Geoscience</a> maintains a helm
+chart with a prefigured JupyterHub deployment on Kubernetes which also supports launching
+private dask workers.
+This is very useful because the Jupyter Notebook users can launch a cluster of worker
+containers inside Kubernetes and process larger amounts of data than they could using only
+their notebook container.</p>
+
+<h2 id="setup-kubernetes-on-jetstream-with-kubespray">Setup Kubernetes on Jetstream with Kubespray</h2>
+
+<p>First check out my <a href="https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html">tutorial on deploying Kubernetes on Jetstream with Kubespray</a>.
+You just need to complete the first part, <strong>do not install</strong> JupyterHub, it is installed
+as part of the Pangeo deployment.</p>
+
+<p>I also recommend to setup <code class="highlighter-rouge">kubectl</code> and <code class="highlighter-rouge">helm</code> to run locally so that the following steps can be executed on the local machine, see the instructions at the bottom of the tutorial mentioned above.
+otherwise you need to <code class="highlighter-rouge">ssh</code> into the master node and type <code class="highlighter-rouge">helm</code> commands there.</p>
+
+<h2 id="install-pangeo-with-helm">Install Pangeo with Helm</h2>
+
+<p>Pangeo publishes a <a href="https://github.com/pangeo-data/helm-chart">Helm chart</a> (a software package for Kubernetes) and we can leverage that
+to setup the deployment.</p>
+
+<p>First add the repository:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm repo add pangeo https://pangeo-data.github.io/helm-chart/
+helm repo update
+</code></pre></div></div>
+
+<p>Then download my repository with all the configuration files and helper scripts:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+</code></pre></div></div>
+
+<p>Create a <code class="highlighter-rouge">secrets.yaml</code> file running:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_secrets.sh
+</code></pre></div></div>
+
+<p>Then head to the <code class="highlighter-rouge">pangeo_helm</code> folder and customize <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/pangeo_helm/config_jupyterhub_pangeo_helm.yaml"><code class="highlighter-rouge">config_jupyterhub_pangeo_helm.yaml</code></a>,</p>
+
+<ul>
+  <li>I have prepopulated very small limits for testing, increase those for production</li>
+  <li>I am using the docker image <code class="highlighter-rouge">zonca/pangeo_notebook_rsignell</code>, you can remove <code class="highlighter-rouge">image:</code> and the 2 lines below to use the standard Pangeo notebook image (defined in their <a href="https://github.com/pangeo-data/helm-chart/blob/master/pangeo/values.yaml"><code class="highlighter-rouge">values.yaml</code></a>)</li>
+  <li>Copy <code class="highlighter-rouge">cookieSecret</code> and <code class="highlighter-rouge">secretToken</code> from <code class="highlighter-rouge">secrets.yaml</code> you created above</li>
+  <li>Customize <code class="highlighter-rouge">ingress</code> - <code class="highlighter-rouge">hosts</code> with the hostname of your master instance</li>
+</ul>
+
+<p>Finally you can deploy it running:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_pangeo.sh
+</code></pre></div></div>
+
+<p>Login by pointing your browser at <a href="http://js-XXX-YYY.jetstream-cloud.org">http://js-XXX-YYY.jetstream-cloud.org</a>, the default dummy authenticator only needs a username and empty password.</p>
+
+<h2 id="customize-and-launch-dask-workers">Customize and launch dask workers</h2>
+
+<p>Once you login to the Jupyter Notebook, you can customize the <code class="highlighter-rouge">worker-template.yaml</code> file available in your home folder,
+I have <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/pangeo_helm/worker_template.yaml">an example of it with very small limits</a> in the <code class="highlighter-rouge">pangeo_helm</code> folder.</p>
+
+<p>This file is used by <code class="highlighter-rouge">dask_kubernetes</code> to launch workers on your behalf, see for example the <code class="highlighter-rouge">dask-array.ipynb</code> notebook available in your home folder:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dask_kubernetes import KubeCluster
+cluster = KubeCluster(n_workers=3)
+cluster
+</code></pre></div></div>
+
+<p>This will launch 3 workers on the cluster which are then available to launch jobs on with <a href="https://dask.pydata.org"><code class="highlighter-rouge">dask</code></a>.</p>
+
+<p>You can check with <code class="highlighter-rouge">kubectl</code> that the workers are executing:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ kubectl get pods -n pangeo
+NAME                         READY   STATUS    RESTARTS   AGE
+dask-zonca-d191b7a4-d8jhft   1/1     Running   0          28m
+dask-zonca-d191b7a4-dx9dhs   1/1     Running   0          28m
+dask-zonca-d191b7a4-dzmgvv   1/1     Running   0          28m
+hub-55f5bf597-f5bnt          1/1     Running   0          55m
+jupyter-zonca                1/1     Running   0          38m
+proxy-66576956d7-r926j       1/1     Running   0          55m
+</code></pre></div></div>
+
+<p>And also access the Dask GUI, using the menu on the left or the link provided by <code class="highlighter-rouge">dask_kubernetes</code> inside the Notebook.</p>
+
+<p><img src="/images/dask_ui_workers.png" alt="Screenshot of the Dask UI" /></p>
+
+  </div><a class="u-url" href="/2018/12/kubernetes-jetstream-kubespray-pangeo.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

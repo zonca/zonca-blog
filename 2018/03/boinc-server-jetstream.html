@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Install a BOINC server on Jetstream | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Install a BOINC server on Jetstream" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="BOINC is the leading platform for volunteer computing." />
+<meta property="og:description" content="BOINC is the leading platform for volunteer computing." />
+<link rel="canonical" href="https://zonca.dev/2018/03/boinc-server-jetstream.html" />
+<meta property="og:url" content="https://zonca.dev/2018/03/boinc-server-jetstream.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-29T18:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"BOINC is the leading platform for volunteer computing.","headline":"Install a BOINC server on Jetstream","dateModified":"2018-03-29T18:00:00-05:00","datePublished":"2018-03-29T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/03/boinc-server-jetstream.html"},"url":"https://zonca.dev/2018/03/boinc-server-jetstream.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Install a BOINC server on Jetstream | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Install a BOINC server on Jetstream" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="BOINC is the leading platform for volunteer computing." />
+<meta property="og:description" content="BOINC is the leading platform for volunteer computing." />
+<link rel="canonical" href="https://zonca.dev/2018/03/boinc-server-jetstream.html" />
+<meta property="og:url" content="https://zonca.dev/2018/03/boinc-server-jetstream.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-29T18:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"BOINC is the leading platform for volunteer computing.","headline":"Install a BOINC server on Jetstream","dateModified":"2018-03-29T18:00:00-05:00","datePublished":"2018-03-29T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/03/boinc-server-jetstream.html"},"url":"https://zonca.dev/2018/03/boinc-server-jetstream.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Install a BOINC server on Jetstream</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-03-29T18:00:00-05:00" itemprop="datePublished">
+        Mar 29, 2018
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://boinc.berkeley.edu/">BOINC</a> is the leading platform for volunteer computing.</p>
+
+<p>Scientists can create a project on the platform and submit computational jobs that will
+be executed on computers of volunteers all over the world.</p>
+
+<p>In this post we’ll deploy a BOINC server on Jetstream. All US scientists can get a free
+<a href="https://jetstream-cloud.org/allocations.php">allocation on Jetstream via XSEDE</a>.</p>
+
+<p>The deployment will be based on the <a href="https://github.com/marius311/boinc-server-docker">Docker setup developed by the Cosmology@Home project</a>.</p>
+
+<h2 id="prepare-a-jetstream-virtual-machine">Prepare a Jetstream Virtual Machine</h2>
+
+<p>First we login on the Atmosphere Jetstream control panel and create a new instance
+of Ubuntu 16.04 with Docker preinstalled, a “small” size is enough for testing.</p>
+
+<h3 id="optional-mount-a-jetstream-volume-for-docker-images">(Optional) Mount a Jetstream Volume for docker images</h3>
+
+<p>It is ideal to have a dedicated Jetstream Volume and mount it in the location where
+Docker stores its data. So we have more space, less usage of the root filesystem
+and no issues on the OS if we get out of disk space.</p>
+
+<p>We can create a volume of 10/20 GB in the Jetstream control panel and attach it to
+the running Virtual Machine. This will be automatically mounted to <code class="highlighter-rouge">/vol_b</code>, we
+want to mount instead to <code class="highlighter-rouge">/var/lib/docker</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo systemctl stop docker
+sudo mv /var/lib/docker/* /vol_b/
+sudo umount /vol_b
+</code></pre></div></div>
+
+<p>Replace <code class="highlighter-rouge">/vol_b</code> with <code class="highlighter-rouge">/var/lib/docker</code> in <code class="highlighter-rouge">/etc/fstab</code>, e.g.:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-xxx-xxx:~$ cat /etc/fstab
+LABEL=cloudimg-rootfs   /        ext4   defaults        0 0
+/dev/sdb /var/lib/docker ext4 defaults,nofail 0 2
+</code></pre></div></div>
+
+<p>Finally:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mount /var/lib/docker
+sudo systemctl start docker
+</code></pre></div></div>
+
+<h3 id="update-docker">Update Docker</h3>
+
+<p>Docker in 16.04 is a bit old, we want to update it to a more recent version.</p>
+
+<p>We also want to make sure to remove the old <code class="highlighter-rouge">docker</code> and <code class="highlighter-rouge">docker-compose</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt remove docker-compose docker
+</code></pre></div></div>
+
+<p>Then install a recent version,
+we can follow the instructions from the docker website or use this script:</p>
+
+<p><a href="https://gist.github.com/zonca/f5faba190f5285c68dad48e897622e90">https://gist.github.com/zonca/f5faba190f5285c68dad48e897622e90</a></p>
+
+<p>I adapted it from <a href="https://github.com/data-8/kubeadm-bootstrap/blob/master/install-kubeadm.bash">kubeadm-bootstrap</a>.</p>
+
+<p>Finally install the latest <code class="highlighter-rouge">docker-compose</code>, see the <a href="https://docs.docker.com/compose/install/#install-compose">documentation</a></p>
+
+<p>Last step, add your user to the <code class="highlighter-rouge">docker</code> group:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo adduser $USER docker
+</code></pre></div></div>
+
+<p>logout and back in and make sure you can run <code class="highlighter-rouge">docker</code> commands without sudo:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+</code></pre></div></div>
+
+<h3 id="install-boinc-server-via-docker">Install BOINC server via Docker</h3>
+
+<p>Follow the <a href="https://github.com/marius311/boinc-server-docker">instructions from <code class="highlighter-rouge">boinc-server-docker</code></a>
+to launch a test deployment, in the last step, specify a <code class="highlighter-rouge">URL_BASE</code> so that
+the deployment will be accessible from outside connections:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL_BASE=http://$(hostname) docker-compose up -d
+</code></pre></div></div>
+
+<p>You can check that the 3 containers are running with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker ps
+</code></pre></div></div>
+
+<p>and inspect their logs with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker logs &lt;container_id&gt;
+</code></pre></div></div>
+
+<p>After a few minutes you should be able to check that the server is running at the
+public address of your instance:</p>
+
+<p><a href="http://js-xxx-xxx.jetstream-cloud.org/boincserver/">http://js-xxx-xxx.jetstream-cloud.org/boincserver/</a></p>
+
+<h2 id="optional-mount-jetstream-volumes-on-the-containers">(Optional) Mount Jetstream volumes on the containers</h2>
+
+<p>The Docker compose recipe defines 3 Docker volumes:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">mysql</code>: Data of the MySQL database</li>
+  <li><code class="highlighter-rouge">project</code>: Files about the project</li>
+  <li><code class="highlighter-rouge">results</code>: Result of the BOINC jobs</li>
+</ul>
+
+<p>those volumes are managed internally
+by Docker and stored somewhere inside <code class="highlighter-rouge">/var/lib/docker</code> on the host node.</p>
+
+<p>Docker also allows to mount specific folders from the host into a container,
+if we back these folders by a Jetstream volume, we can have dedicated detachable Jetstream volumes
+that live independently from any virtual machine.</p>
+
+<p>Let’s start by <code class="highlighter-rouge">mysql</code>, the same process can then be replicated for the other resources.</p>
+
+<p>We create another Jetstream volume from the Atmosphere, name it <code class="highlighter-rouge">mysql</code> and attach it to the virtual machine,
+this will be automatically mounted to <code class="highlighter-rouge">/vol_c</code>, we can rename it by:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo umount /vol_c
+</code></pre></div></div>
+
+<p>Replace <code class="highlighter-rouge">vol_c</code> with <code class="highlighter-rouge">mysql</code> in <code class="highlighter-rouge">/etc/fstab</code>, finally:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mount /mysql
+</code></pre></div></div>
+
+<p>Finally you can modify the <code class="highlighter-rouge">docker-compose.yml</code> to use this folder instead of a Docker Volume:</p>
+
+<p>In the <code class="highlighter-rouge">volumes:</code> section, remove <code class="highlighter-rouge">mysql:</code>, in the definition of the MySQL service,
+replace:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volumes:
+ - "mysql:/var/lib/mysql"
+</code></pre></div></div>
+
+<p>with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>volumes:
+ - "/mysql:/var/lib/mysql"
+</code></pre></div></div>
+
+<p>So that instead of using a Docker Volume named <code class="highlighter-rouge">mysql</code> is creating a bind-mount to <code class="highlighter-rouge">/mysql</code> on the host.</p>
+
+<h2 id="test-jobs">Test jobs</h2>
+
+<p>Open a terminal in the BOINC server container:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker exec -it &lt;boincserver&gt; /bin/bash
+
+
+bin/boinc2docker_create_work.py \
+    python:alpine python -c "open('/root/shared/results/hello.txt','w').write('Hello BOINC')"
+</code></pre></div></div>
+
+<p>Then we can test a client connection and execution either with a standard BOINC desktop client or on another Jetstream instance.</p>
+
+<h3 id="test-with-a-boinc-desktop-client">Test with a BOINC Desktop client</h3>
+
+<p>Follow the instructions on the <a href="https://boinc.berkeley.edu/">BOINC website</a> to install a client for your OS, install also VirtualBox, then set as the URL of the BOINC server the URL of the server we just created.</p>
+
+<h3 id="test-with-a-boinc-client-in-another-jetstream-instance">Test with a BOINC client in another Jetstream instance</h3>
+
+<p>Create another Ubuntu with Docker tiny instane on Jetstream, login,</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo adduser $USER docker
+</code></pre></div></div>
+
+<p>We need Virtualbox:
+sudo apt install virtualbox-dkms</p>
+
+<p>and reboot to make sure VirtualBox is active.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL=http://js-xxx-xxx.jetstream-cloud.org/boincserver/
+docker exec boinc boinccmd --create_account $URL email password name
+
+status: Success
+poll status: operation in progress
+poll status: operation in progress
+poll status: operation in progress
+account key: de9c4cc66b8c923d04f834a0609ae742
+</code></pre></div></div>
+
+<p>We can save the account key in a environment variable:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>URL=http://js-xxx-xxx.jetstream-cloud.org/boincserver/
+URL=http://js-xxx-xxx.jetstream-cloud.org/boincserver/
+account_key=de9c4cc66b8c923d04f834a0609ae742
+docker exec boinc boinccmd --project_attach $URL $account_key
+</code></pre></div></div>
+
+<p>Then we can check the logs for the job being received and executed:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker logs boinc
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30-Mar-2018 13:02:04 [boincserver] Started download of layer_e9e858f6a2ba5a3e5a04b5799ef2de1c21a58602ffd400838ed10599f1b4a42c.tar.manual.gz
+30-Mar-2018 13:02:06 [boincserver] Finished download of layer_10ffed26db733866a346caf7c79558e4addb23ae085a991b5e7237edaa69f8e2.tar.manual.gz
+30-Mar-2018 13:02:06 [boincserver] Finished download of layer_e9e858f6a2ba5a3e5a04b5799ef2de1c21a58602ffd400838ed10599f1b4a42c.tar.manual.gz
+30-Mar-2018 13:02:06 [boincserver] Started download of layer_0e650ab7661f993eff514b84c6e7b775f5be8c6dde8b63eb584f0f22ea24005f.tar.manual.gz
+30-Mar-2018 13:02:06 [boincserver] Started download of image_4fcaf5fb5f2b8230c53b5fd4c4325df00021d45272dc4bfbb2148e5ca91ac166.tar.manual.gz
+30-Mar-2018 13:02:07 [boincserver] Finished download of layer_0e650ab7661f993eff514b84c6e7b775f5be8c6dde8b63eb584f0f22ea24005f.tar.manual.gz
+30-Mar-2018 13:02:07 [boincserver] Finished download of image_4fcaf5fb5f2b8230c53b5fd4c4325df00021d45272dc4bfbb2148e5ca91ac166.tar.manual.gz
+30-Mar-2018 13:02:07 [boincserver] Starting task boinc2docker_3766_1522410497.503524_0
+30-Mar-2018 13:02:07 [boincserver] Sending scheduler request: To fetch work.
+30-Mar-2018 13:02:07 [boincserver] Requesting new tasks for CPU
+30-Mar-2018 13:02:08 [boincserver] Scheduler request completed: got 1 new tasks
+30-Mar-2018 13:02:12 [---] Vbox app stderr indicates CPU VM extensions disabled
+30-Mar-2018 13:02:13 [boincserver] Computation for task boinc2docker_3766_1522410497.503524_0 finished
+30-Mar-2018 13:02:13 [boincserver] Output file boinc2docker_3766_1522410497.503524_0_r207563194_0.tgz for task boinc2docker_3766_1522410497.503524_0 absent
+30-Mar-2018 13:02:13 [boincserver] Starting task boinc2docker_3766_1522410497.503524_1
+30-Mar-2018 13:02:18 [---] Vbox app stderr indicates CPU VM extensions disabled
+30-Mar-2018 13:02:18 [boincserver] Computation for task boinc2docker_3766_1522410497.503524_1 finished
+30-Mar-2018 13:02:18 [boincserver] Output file boinc2docker_3766_1522410497.503524_1_r1095010587_0.tgz for task boinc2docker_3766_1522410497.503524_1 absent
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2018/03/boinc-server-jetstream.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

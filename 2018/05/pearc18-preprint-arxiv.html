@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How to post a PEARC18 paper pre-print to Arxiv | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="How to post a PEARC18 paper pre-print to Arxiv" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Quick version" />
+<meta property="og:description" content="Quick version" />
+<link rel="canonical" href="https://zonca.dev/2018/05/pearc18-preprint-arxiv.html" />
+<meta property="og:url" content="https://zonca.dev/2018/05/pearc18-preprint-arxiv.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-12T18:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Quick version","headline":"How to post a PEARC18 paper pre-print to Arxiv","dateModified":"2018-05-12T18:00:00-05:00","datePublished":"2018-05-12T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/05/pearc18-preprint-arxiv.html"},"url":"https://zonca.dev/2018/05/pearc18-preprint-arxiv.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How to post a PEARC18 paper pre-print to Arxiv | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="How to post a PEARC18 paper pre-print to Arxiv" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Quick version" />
+<meta property="og:description" content="Quick version" />
+<link rel="canonical" href="https://zonca.dev/2018/05/pearc18-preprint-arxiv.html" />
+<meta property="og:url" content="https://zonca.dev/2018/05/pearc18-preprint-arxiv.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-05-12T18:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"Quick version","headline":"How to post a PEARC18 paper pre-print to Arxiv","dateModified":"2018-05-12T18:00:00-05:00","datePublished":"2018-05-12T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/05/pearc18-preprint-arxiv.html"},"url":"https://zonca.dev/2018/05/pearc18-preprint-arxiv.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How to post a PEARC18 paper pre-print to Arxiv</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-05-12T18:00:00-05:00" itemprop="datePublished">
+        May 12, 2018
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="quick-version">Quick version</h2>
+
+<ul>
+  <li>Make sure you have the DOI from ACM</li>
+  <li>If you have Latex: create a zip with sources, figures and <code class="highlighter-rouge">.bbl</code> (not <code class="highlighter-rouge">.bib</code>), no output PDF</li>
+  <li>If you have Word: export to PDF</li>
+  <li>Go to <a href="https://arxiv.org/submit">https://arxiv.org/submit</a></li>
+  <li>Choose the first option for license and “Computer Science” and “Distributed, Parallel, and Cluster Computing” for category</li>
+  <li>In Metadata set Comments as: “7 pages, 3 figures, PEARC ‘18: Practice and Experience in Advanced Research Computing, July 22–26, 2018, Pittsburgh, PA, USA”</li>
+  <li><strong>Make sure you set the DOI</strong> or you violate ACM rules</li>
+  <li>Follow instructions until you publish</li>
+</ul>
+
+<p>Follows the step-by-step version:</p>
+
+<h2 id="why-upload-a-pre-print-to-arxiv">Why upload a pre-print to arXiv</h2>
+
+<p>Journals provide a Open Access option, but it is very expensive, however, they generally allow authors to upload manuscripts before copy-editing to non-profit pre-print servers like the <code class="highlighter-rouge">arXiv</code>.
+This makes your paper accessible to anybody without the need of any Journal subscription, you can also upload your work months before the conference proceedings are available.</p>
+
+<p>See for example the page of my PEARC18 paper on the <code class="highlighter-rouge">arXiv</code>: <a href="https://arxiv.org/abs/1805.04781">https://arxiv.org/abs/1805.04781</a></p>
+
+<h2 id="license">License</h2>
+
+<p>Before publishing any pre-print, you need to check on the Journal or Conference website
+if it is allowed and at what conditions.</p>
+
+<p>PEARC18 in particular publishes with ACM, therefore we can look at the <a href="http://authors.acm.org/main.html">author rights page on the ACM website</a>.</p>
+
+<p>Currently the requirements for posting a pre-print are:</p>
+
+<ul>
+  <li>the paper needs to be accepted and peer-reviewed</li>
+  <li>this is the version by the author, before copy-editing, if any, by the journal</li>
+  <li>it needs a DOI pointing to the ACM version of the paper</li>
+</ul>
+
+<h2 id="get-a-doi">Get a DOI</h2>
+
+<p>A DOI is generated once the author chooses a license.
+PEARC18 first authors should have received an email around May 10th with a link to the ACM
+website to choose a license.
+There are 3 choices, Open Access is quite expensive, but we do not need that, we are still allowed
+to post the pre-print even with any of the other 2 licenses, I personally recommend the
+“license” option, that does not transfer copyright to ACM.
+After completing this you should receive a DOI, which is a set of numbers of the form <code class="highlighter-rouge">10.1145/xxxxx.xxxxxx</code>.
+Also remember to add the license text you will receive via email to the paper before going on with the upload.</p>
+
+<h2 id="prepare-your-latex-submission">Prepare your Latex submission</h2>
+
+<p>The arXiv requires the source for any Latex paper.
+If you are using the online platform <a href="https://overleaf.com">Overleaf</a>, click on “Project” and then “Download as zip” at the bottom.
+If you are using anything else, create a zip file with all the paper sources and figures, <em>not the output PDF</em>, also make sure that you include the <code class="highlighter-rouge">.bbl</code> file, not the <code class="highlighter-rouge">.bib</code>, so you need to compile your paper locally and add just the <code class="highlighter-rouge">.bbl</code> to the archive.
+Also, the arXiv dislikes large figures, so if you already know you have them, better resize or lower their quality before submission. Anyway you can just submit it as it is and check if they are accepted.</p>
+
+<h2 id="prepare-your-word-submission">Prepare your Word submission</h2>
+
+<p>Export the paper as PDF.</p>
+
+<h2 id="upload-to-arxiv">Upload to arXiv</h2>
+
+<ul>
+  <li>Go to <a href="https://arxiv.org/submit">https://arxiv.org/submit</a>, either login or create a new account.</li>
+  <li>At the submission page, fill the form, for license, the safest is to use the first option: “arXiv.org perpetual, non-exclusive license to distribute this article (Minimal rights required by arXiv.org)”</li>
+  <li>For “Archive and Subject Class”, choose “Computer Science” and “Distributed, Parallel, and Cluster Computing” unless in the list there is a more suitable field</li>
+  <li>Then upload the Latex sources zip file or the conversion of the Word file to PDF.</li>
+  <li>Once you have uploaded the zip file, it shows you a list of the archive content, you can delete extra files are not needed to build the paper, if you used the Overleaf ACM template, remove <code class="highlighter-rouge">sample-sigconf-authordraft.tex</code></li>
+  <li>If the paper doesn’t build, the arXiv displays the log, check for missing files or unsupported packages in particular, you can click “Add files” to upload different files</li>
+  <li>If the paper successfully builds, click on the “View” button to check that the PDF is fine</li>
+  <li>In the Metadata, complete the form, in the Comments, add also the conference information, for example “7 pages, 3 figures, PEARC ‘18: Practice and Experience in Advanced Research Computing, July 22–26, 2018, Pittsburgh, PA, USA”</li>
+  <li>Still in Metadata, <strong>make sure you add the DOI</strong> otherwise it is a violation of the conditions by ACM, the DOI is in the form  <code class="highlighter-rouge">10.1145/xxxxxx.xxxx</code></li>
+  <li>Finally check the preview and finalize your submission</li>
+  <li>The submission is not available immediately, it will first be in “Processing” stage and it will be published in the next few days, you’ll get an email with the publishing date and time.</li>
+</ul>
+
+<h2 id="update-your-submission">Update your submission</h2>
+
+<ul>
+  <li>Anytime before publication you can update (overwrite) your submission</li>
+  <li>After your pre-print is published you can update it at will but all previous versions will always be available on the arXiv servers.</li>
+</ul>
+
+<p>In order to update the publication, login to the Arxiv and click on the “Replace” icon to update your paper with a new version.</p>
+
+  </div><a class="u-url" href="/2018/05/pearc18-preprint-arxiv.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

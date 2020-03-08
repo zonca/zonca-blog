@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Setup two factor authentication for UCSD, and Lastpass | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Setup two factor authentication for UCSD, and Lastpass" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Starting at the end of January 2019 UCSD requires every employee to have activated two factor authentication." />
+<meta property="og:description" content="Starting at the end of January 2019 UCSD requires every employee to have activated two factor authentication." />
+<link rel="canonical" href="https://zonca.dev/2018/12/twofactor-auth-ucsd.html" />
+<meta property="og:url" content="https://zonca.dev/2018/12/twofactor-auth-ucsd.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-12T18:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Starting at the end of January 2019 UCSD requires every employee to have activated two factor authentication.","headline":"Setup two factor authentication for UCSD, and Lastpass","dateModified":"2018-12-12T18:00:00-06:00","datePublished":"2018-12-12T18:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/12/twofactor-auth-ucsd.html"},"url":"https://zonca.dev/2018/12/twofactor-auth-ucsd.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Setup two factor authentication for UCSD, and Lastpass | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Setup two factor authentication for UCSD, and Lastpass" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Starting at the end of January 2019 UCSD requires every employee to have activated two factor authentication." />
+<meta property="og:description" content="Starting at the end of January 2019 UCSD requires every employee to have activated two factor authentication." />
+<link rel="canonical" href="https://zonca.dev/2018/12/twofactor-auth-ucsd.html" />
+<meta property="og:url" content="https://zonca.dev/2018/12/twofactor-auth-ucsd.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-12T18:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Starting at the end of January 2019 UCSD requires every employee to have activated two factor authentication.","headline":"Setup two factor authentication for UCSD, and Lastpass","dateModified":"2018-12-12T18:00:00-06:00","datePublished":"2018-12-12T18:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/12/twofactor-auth-ucsd.html"},"url":"https://zonca.dev/2018/12/twofactor-auth-ucsd.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Setup two factor authentication for UCSD, and Lastpass</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-12-12T18:00:00-06:00" itemprop="datePublished">
+        Dec 12, 2018
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Starting at the end of January 2019 UCSD requires every employee to have activated
+two factor authentication.</p>
+
+<p>Go over to <a href="https://duo-registration.ucsd.edu">https://duo-registration.ucsd.edu</a> to register your devices and
+<a href="https://twostep.ucsd.edu">https://twostep.ucsd.edu</a> to read more details.</p>
+
+<p>Here some suggestions after I have used this for a few months.</p>
+
+<p>The most convenient option is definitely to have the Duo application installed on
+your phone, so that once you try to login it sends a notification to your phone,
+you click accept and you’re done.</p>
+
+<p>Second best is to use the Duo or the Google Authenticator app to generate codes,
+then you can copy those codes into the login form, and this is anyway useful for
+VPN access, you choose the “2 Steps secured - allthroughucsd” option, type your
+password followed by a comma and the code, otherwise just the password and get a
+push notification on your primary device.</p>
+
+<p>Then you can just add a mobile number and receive a text or add a landline and
+receive a call.</p>
+
+<p>I also recommend to buy a security key and add it as a authentication option
+at <a href="https://duo-registration.ucsd.edu">https://duo-registration.ucsd.edu</a>, either <a href="https://store.google.com/product/titan_security_key_kit">Google Titan</a> or a <a href="https://www.yubico.com/products/yubikey-hardware/">Yubico key</a> (I have a Titan), you can
+keep it always with you so that if you don’t have your phone or the phone battery
+is dead, you can plug the security key in your USB port on the laptop and click on
+its button to authenticate.</p>
+
+<p>Anther option is to request a fob token, a device that generates and displays timed codes and that
+is independent of a phone, see <a href="https://blink.ucsd.edu/technology/security/services/two-step-login/guide.html#token">instructions on the UCSD website</a>. They say there are only a limited number available and you need
+to be prepared to justify why you are requesting one.</p>
+
+<h2 id="other-services">Other services</h2>
+
+<p>Now that you already have Duo installed on your phone, I recommend to also activate
+two factor auth on all other services:</p>
+
+<ul>
+  <li>XSEDE</li>
+  <li>NERSC</li>
+  <li>Google</li>
+  <li>Github</li>
+  <li>Amazon</li>
+  <li>Microsoft</li>
+  <li>Dropbox</li>
+</ul>
+
+<p>Consider that most of them just request the second step verification if you are on
+a new device, so you need to do the verification just once in a while and it provides
+a lot of security. Many of those also support the security key.</p>
+
+<h2 id="password-handling-with-lastpass">Password handling with Lastpass</h2>
+
+<p><strong>Update October 2019</strong>: Fed up of using Lastpass, their interface is clunky and slow, both in Chrome and Android, I switched to <a href="https://bitwarden.com">Bitwarden</a>. Way better, it also allows sharing with another user, only downside is that the do not offer Duo push 2FA for free, you need premium, but still supports using Duo as a token generator.</p>
+
+<p>As you are into security, just go all the way and also install a password manager.
+UCSD provides free enterprise accounts for all employees, see <a href="https://blink.ucsd.edu/technology/security/services/lastpass/index.html">the details</a>.</p>
+
+<p>With Lastpass, you just remember 1 strong password to descrypt all of your other passwords.
+If you ever used the Google Chrome builtin password manager, this is way way better.</p>
+
+<p>You install the Lastpass extension on your browsers and the Lastpass app on your phone.</p>
+
+<p>The only issue with Lastpass is that by default the Lastpass app on the smartphone automatically
+logsout every 30 minutes or so, so you have to re-authenticate very often. This is due to UCSD
+having configured it too strictly. I recommend to have a personal account and save all of the passwords
+in the personal account and then link it from the Enterprise account.
+Now from the desktop/laptop browsers you can use your Enterprise account, from the smartphone app instead
+use the personal account.</p>
+
+<p>You can also automatically import your Google Chrome passwords into Lastpass.</p>
+
+<p>Now you have no excuse to re-use the same password, automatically generate a 20 char random password and save it in Lastpass.</p>
+
+<h3 id="save-one-time-codes">Save one-time codes</h3>
+
+<p>When you activate two factor auth on Google/Github and many other services, they also give you some one-time codes that you can use to login to the service if you do not have access to your phone, you can save them as “Notes” into the related account inside Lastpass.</p>
+
+<h3 id="activate-2-factor-auth-for-lastpass">Activate 2 factor auth for Lastpass</h3>
+
+<p>You should also activate 2 factor auth in Lastpass, it also supports Duo so the configuration is similar to the configuration for UCSD. Only issue is that they do not support a security key here, so you can only add your smartphone.</p>
+
+  </div><a class="u-url" href="/2018/12/twofactor-auth-ucsd.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

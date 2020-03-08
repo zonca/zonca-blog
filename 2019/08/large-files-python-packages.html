@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Ship large files with Python packages | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Ship large files with Python packages" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="It is often useful to ship large data files together with a Python package, a couple of scenarios are:" />
+<meta property="og:description" content="It is often useful to ship large data files together with a Python package, a couple of scenarios are:" />
+<link rel="canonical" href="https://zonca.dev/2019/08/large-files-python-packages.html" />
+<meta property="og:url" content="https://zonca.dev/2019/08/large-files-python-packages.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-21T18:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"It is often useful to ship large data files together with a Python package, a couple of scenarios are:","headline":"Ship large files with Python packages","dateModified":"2019-08-21T18:00:00-05:00","datePublished":"2019-08-21T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/08/large-files-python-packages.html"},"url":"https://zonca.dev/2019/08/large-files-python-packages.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Ship large files with Python packages | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Ship large files with Python packages" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="It is often useful to ship large data files together with a Python package, a couple of scenarios are:" />
+<meta property="og:description" content="It is often useful to ship large data files together with a Python package, a couple of scenarios are:" />
+<link rel="canonical" href="https://zonca.dev/2019/08/large-files-python-packages.html" />
+<meta property="og:url" content="https://zonca.dev/2019/08/large-files-python-packages.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2019-08-21T18:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"It is often useful to ship large data files together with a Python package, a couple of scenarios are:","headline":"Ship large files with Python packages","dateModified":"2019-08-21T18:00:00-05:00","datePublished":"2019-08-21T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/08/large-files-python-packages.html"},"url":"https://zonca.dev/2019/08/large-files-python-packages.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Ship large files with Python packages</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2019-08-21T18:00:00-05:00" itemprop="datePublished">
+        Aug 21, 2019
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>It is often useful to ship large data files together with a Python package,
+a couple of scenarios are:</p>
+
+<ul>
+  <li>data necessary to the functionality provided by the package, for example images, any binary or large text dataset, they could be either required just for a subset of the functionality of the package or for all of it</li>
+  <li>data necessary for unit or integration testing, both example inputs and expected outputs</li>
+</ul>
+
+<p>If data are collectively less than 2 GB compressed and do not change very often, a simple and a bit hacky solution is to use GitHub release assets. For each packaged release on GitHub it is possible to attach one or more assets smaller than 2 GB. You can then attach data to each release, the downside is that users need to make sure to use the correct dataset for the release they are using and the first time they use the software the need to install the Python package and also download the dataset and install it in the right folder. See <a href="https://gist.github.com/zonca/52857f2425942725fb74595c4f8600e9">an example script to upload from the command line</a>.</p>
+
+<p>If data files are individually less than 10 MB and collectively less than 100 MB you can directly add them into the Python package. This is the easiest and most convenient option, for example the <a href="https://github.com/astropy/package-template"><code class="highlighter-rouge">astropy package template</code></a> automatically adds to the package any file inside the <code class="highlighter-rouge">packagename/data</code> folder.</p>
+
+<p>For larger datasets I recommend to host the files externally and use the <a href="http://docs.astropy.org/en/stable/utils/#module-astropy.utils.data"><code class="highlighter-rouge">astropy.utils.data</code> module</a>.
+This module automates the process of retrieving a file from a remote server and caching it locally (in the users home folder), next time the user needs it, it is automatically retrieved from the cache:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">dataurl</span> <span class="o">=</span> <span class="s">"https://my-web-server.ucsd.edu/test-data/"</span>
+    <span class="k">with</span> <span class="n">data</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">set_temp</span><span class="p">(</span><span class="s">"dataurl"</span><span class="p">,</span> <span class="n">dataurl</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">set_temp</span><span class="p">(</span>
+        <span class="s">"remote_timeout"</span><span class="p">,</span> <span class="mi">30</span>
+    <span class="p">):</span>
+        <span class="n">local_file_path</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_pkg_data_filename</span><span class="p">(</span><span class="s">"myfile.jpg)</span><span class="err">
+</span></code></pre></div></div>
+
+<p>Now we need to host there files publicly, I have a few options.</p>
+
+<h3 id="host-on-a-dedicated-github-repository">Host on a dedicated GitHub repository</h3>
+
+<p>If files are individually less than 100MB and collectively a few GB, you can create a dedicated repository on GitHub and push there your files.
+Then <a href="https://help.github.com/en/articles/what-is-github-pages">activate GitHub Pages</a> so that those files are published at <code class="highlighter-rouge">https://your-organization.github.io/your-repository/</code>.
+Then use this URL as <code class="highlighter-rouge">dataurl</code> in the above script.</p>
+
+<h3 id="host-on-a-supercomputer-or-own-server">Host on a Supercomputer or own server</h3>
+
+<p>Some Supercomputers offer the feature of providing public web access from specific folders, for example NERSC allows user to publish web-pages publicly, see <a href="https://www.nersc.gov/users/computational-systems/pdsf/software-and-tools/hosting-webpages/">their documentation</a>.</p>
+
+<p>This is very useful for huge datasets because you can automatically detect if the package is being run at NERSC and then automatically access the files with their path instead of downloading them.</p>
+
+<p>For example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">def</span> <span class="nf">get_data_from_url</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="s">"""Retrieves input templates from remote server,
+    in case data is available in one of the PREDEFINED_DATA_FOLDERS defined above,
+    e.g. at NERSC, those are directly returned."""</span>
+
+    <span class="k">for</span> <span class="n">folder</span> <span class="ow">in</span> <span class="n">PREDEFINED_DATA_FOLDERS</span><span class="p">:</span>
+        <span class="n">full_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">full_path</span><span class="p">):</span>
+            <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s">"Access data from {full_path}"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">full_path</span>
+    <span class="k">with</span> <span class="n">data</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">set_temp</span><span class="p">(</span><span class="s">"dataurl"</span><span class="p">,</span> <span class="n">DATAURL</span><span class="p">),</span> <span class="n">data</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">set_temp</span><span class="p">(</span>
+        <span class="s">"remote_timeout"</span><span class="p">,</span> <span class="mi">30</span>
+    <span class="p">):</span>
+        <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">f</span><span class="s">"Retrieve data for {filename} (if not cached already)"</span><span class="p">)</span>
+        <span class="n">map_out</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_pkg_data_filename</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">show_progress</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">map_out</span>
+</code></pre></div></div>
+
+<p>Similar setup can be achieved on a GNU/Linux server, for example a powerful machine used by all members of a scientific team, where a folder is dedicated to host these data and is also published online with Apache or NGINX.</p>
+
+<p>The main downside of this approach is that there is no built-in version control. One possibility is to enforce a policy where no files are ever overwritten and version control is automatically achieved with filenames. Otherwise, use <a href="https://git-lfs.github.com/"><code class="highlighter-rouge">git lfs</code></a> in that folder to track any change in a dedicated local <code class="highlighter-rouge">git</code> repository, e.g.:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+git init
+git lfs track <span class="s2">"*.fits"</span>
+git add <span class="s2">"*.fits"</span>
+git commit <span class="nt">-m</span> <span class="s2">"initial version of all FITS files"</span>
+
+</code></pre></div></div>
+
+<p>This method tracks the checksum of all the binary files and helps managing the history, even if only locally (make sure the folder is also regularly backed up). You could push it to GitHub, that would cost $5/month for each 50GB of storage.</p>
+
+<h3 id="host-on-figshare">Host on Figshare</h3>
+
+<p>You can upload files to Figshare using the browser and create a dataset which also comes with a DOI and a page where you can save metadata about this object.</p>
+
+<p>Once you have set the dataset public, you can find out the URL of the actual file, which is of the form <code class="highlighter-rouge">https://ndownloader.figshare.com/files/2432432432</code>, therefore we can set <code class="highlighter-rouge">https://ndownloader.figshare.com/files/</code> as the repository and use the integer defined in Figshare as filename. Using integers as filenames makes it a bit cryptic, but it has the great advantage that other people can do the uploading to Figshare and you can point to their files as easily as if the are yours. This is more convenient than alternatives where instead you need to give other people access to your file repository.</p>
+
+<h3 id="host-on-amazon-s3-or-other-object-store">Host on Amazon S3 or other object store</h3>
+
+<p>A public bucket on Amazon S3 or other object store provides cheap storage and built-in version control.
+The cost currently is about $0.026/GB/month.</p>
+
+<p>First login to the AWS console and create a new bucket, set it public by turning of “Block all public access” and under “Access Control List” set “List objects” to Yes for “Public access”.</p>
+
+<p>You could upload files with the browser, but for larger files command line is better.</p>
+
+<p>The files will be available at <a href="https://bucket-name.s3-us-west-1.amazonaws.com/">https://bucket-name.s3-us-west-1.amazonaws.com/</a>, this changes based on the chosen region.</p>
+
+<h4 id="advanced-upload-files-from-the-command-line">(Advanced) Upload files from the command line</h4>
+
+<p>This is optional and requires some more familiarity with AWS.
+Go back to the AWS console to the Identity and Access Management (IAM) section, then users, create, create a policy to give access only to 1 bucket (replace <code class="highlighter-rouge">bucket-name</code>):</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ListObjectsInBucket"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"s3:ListBucket"</span><span class="p">],</span><span class="w">
+            </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"arn:aws:s3:::bucket-name"</span><span class="p">]</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"Sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AllObjectActions"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"s3:*Object"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"s3:PutObjectAcl"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"arn:aws:s3:::bucket-name/*"</span><span class="p">]</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>See the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_s3_rw-bucket.html">AWS documentation</a></p>
+
+<p>Install <code class="highlighter-rouge">s3cmd</code>, then run <code class="highlighter-rouge">s3cmd --configure</code> to set it up and paste the Access and Secret keys, it will fail to test the configuration because it cannot list all the buckets, anyway choose to save the configuration.</p>
+
+<p>Test it:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    s3cmd <span class="nb">ls </span>s3://bucket-name
+</code></pre></div></div>
+
+<p>Then upload your files (reduced redundancy is cheaper):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    s3cmd put <span class="nt">--reduced-redundancy</span> <span class="nt">--acl-public</span> <span class="k">*</span>.fits s3://bucket-name
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2019/08/large-files-python-packages.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

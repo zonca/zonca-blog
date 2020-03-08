@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Jupyterhub on a Virtual Machine for a Workshop | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy Jupyterhub on a Virtual Machine for a Workshop" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This tutorial describes the steps to install a Jupyterhub instance on a single machine suitable for hosting a workshop, suitable for having people login with training accounts on Jupyter Notebooks running Python 2/3, R, Julia with also Terminal access on Docker containers. Details about the setup:" />
+<meta property="og:description" content="This tutorial describes the steps to install a Jupyterhub instance on a single machine suitable for hosting a workshop, suitable for having people login with training accounts on Jupyter Notebooks running Python 2/3, R, Julia with also Terminal access on Docker containers. Details about the setup:" />
+<link rel="canonical" href="https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html" />
+<meta property="og:url" content="https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-16T12:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"This tutorial describes the steps to install a Jupyterhub instance on a single machine suitable for hosting a workshop, suitable for having people login with training accounts on Jupyter Notebooks running Python 2/3, R, Julia with also Terminal access on Docker containers. Details about the setup:","headline":"Deploy Jupyterhub on a Virtual Machine for a Workshop","dateModified":"2016-04-16T12:00:00-05:00","datePublished":"2016-04-16T12:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html"},"url":"https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Jupyterhub on a Virtual Machine for a Workshop | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy Jupyterhub on a Virtual Machine for a Workshop" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This tutorial describes the steps to install a Jupyterhub instance on a single machine suitable for hosting a workshop, suitable for having people login with training accounts on Jupyter Notebooks running Python 2/3, R, Julia with also Terminal access on Docker containers. Details about the setup:" />
+<meta property="og:description" content="This tutorial describes the steps to install a Jupyterhub instance on a single machine suitable for hosting a workshop, suitable for having people login with training accounts on Jupyter Notebooks running Python 2/3, R, Julia with also Terminal access on Docker containers. Details about the setup:" />
+<link rel="canonical" href="https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html" />
+<meta property="og:url" content="https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2016-04-16T12:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"This tutorial describes the steps to install a Jupyterhub instance on a single machine suitable for hosting a workshop, suitable for having people login with training accounts on Jupyter Notebooks running Python 2/3, R, Julia with also Terminal access on Docker containers. Details about the setup:","headline":"Deploy Jupyterhub on a Virtual Machine for a Workshop","dateModified":"2016-04-16T12:00:00-05:00","datePublished":"2016-04-16T12:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html"},"url":"https://zonca.dev/2016/04/jupyterhub-sdsc-cloud.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Deploy Jupyterhub on a Virtual Machine for a Workshop</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2016-04-16T12:00:00-05:00" itemprop="datePublished">
+        Apr 16, 2016
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      6 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This tutorial describes the steps to install a Jupyterhub instance on a single machine suitable for hosting a workshop, suitable for having people login with training accounts on Jupyter Notebooks running Python 2/3, R, Julia with also Terminal access on Docker containers.
+Details about the setup:</p>
+
+<ul>
+  <li>Jupyterhub installed with Anaconda directly on the host, proxied by NGINX under HTTPS with self-signed certificate</li>
+  <li>Login with Linux account credentials created previously by the administrator, data in /home are persistent across sessions</li>
+  <li>Each user runs in a separated Docker container with access to Python 2, Python 3, R and Julia kernels, they can also open the Notebook editor and the terminal</li>
+  <li>Using a single machine you have to consider that the biggest constraint is going to be memory usage, as a rule of thumb consider 100-200 MB/user plus 5x-10x the amount of data you are loading from disk, depending on the kind of analysis. For a multi-node setup you need to look into Docker Swarm.</li>
+</ul>
+
+<p>I am using the OpenStack deployment at the San Diego Supercomputer Center, <a href="http://www.sdsc.edu/services/it/cloud.html">SDSC Cloud</a>, AWS deployments should just replace the first section on Creating a VM and setting up Networking, see <a href="https://github.com/jupyterhub/jupyterhub/wiki/Deploying-JupyterHub-on-AWS">the Jupyterhub wiki</a>.</p>
+
+<p>If you intend to run on SDSC Cloud, I have a pre-built image of this deployment you can setup and run quickly, see <a href="http://zonca.github.io/2016/04/jupyterhub-image-sdsc-cloud.html">see my followup tutorial</a>.</p>
+
+<h1 id="create-a-virtual-machine-in-openstack">Create a Virtual Machine in OpenStack</h1>
+
+<p>First of all we need to launch a new Virtual Machine and configure the network.</p>
+
+<ul>
+  <li>Login to the SDSC Cloud OpenStack dashboard</li>
+</ul>
+
+<h2 id="network-setup">Network setup</h2>
+
+<p>Jupyterhub will be proxied to the standard HTTPS port by NGINX and we also want to redirect HTTP to HTTPS, so we open those ports, then SSH for the administrators to login and a custom TCP rule in order for the Docker containers to be able to connect to the Jupyterhub hub running on port 8081, so we are opening that port just to the subnet that is running the Docker containers.</p>
+
+<ul>
+  <li>Compute -&gt; Access &amp; Security -&gt; Security Groups -&gt; Create Security Group and name it <code class="highlighter-rouge">jupyterhubsecgroup</code></li>
+  <li>Click on Manage Rules</li>
+  <li>Click on add rule, choose the HTTP rule and click add</li>
+  <li>Repeat the last step with HTTPS and SSH</li>
+  <li>Click on add rule again, choose Custom TCP Rule, set port 8081 and set CIDR 172.17.0.0/24 (this is needed so that the containers can connect to the hub)</li>
+</ul>
+
+<h2 id="create-a-new-virtual-machine">Create a new Virtual Machine</h2>
+
+<p>We choose Ubuntu here, also other distributions should work fine.</p>
+
+<ul>
+  <li>Compute -&gt; Access &amp; Security -&gt; Key Pairs -&gt; Create key pair, name it <code class="highlighter-rouge">jupyterhub</code> and download it to your local machine</li>
+  <li>Instances -&gt; Launch Instance, Choose a name, Choose “Boot from image” in Boot Source and Ubuntu as Image name, Choose any size, depending on the number of users (TODO add link to Jupyterhub docs)</li>
+  <li>Under “Access &amp; Security” choose Key Pair <code class="highlighter-rouge">jupyterhub</code> and Security Groups <code class="highlighter-rouge">jupyterhubsecgroup</code></li>
+  <li>Click <code class="highlighter-rouge">Launch</code> to create the instance</li>
+</ul>
+
+<h2 id="give-public-ip-to-the-instance">Give public IP to the instance</h2>
+
+<p>By default in SDSC Cloud machines do not have a public IP.</p>
+
+<ul>
+  <li>Compute -&gt; Access &amp; Sewcurity -&gt; Floating IPs -&gt; Allocate IP To Project, “Allocate IP” to request a public IP</li>
+  <li>Click on the “Associate” button of the IP just requested and under “Port to be associated”  choose the instance just created</li>
+</ul>
+
+<h1 id="setup-jupyterhub-in-the-virtual-machine">Setup Jupyterhub in the Virtual Machine</h1>
+
+<p>In this section we will install and configure Jupyterhub and NGINX to run on the Virtual Machine.</p>
+
+<ul>
+  <li>login into the Virtual Machine with <code class="highlighter-rouge">ssh -i jupyterhub.pem ubuntu@xxx.xxx.xxx.xxx</code> using the key file and the public IP setup in the previous steps</li>
+  <li>add the hostname of the machine (check by running <code class="highlighter-rouge">hostname</code>) to <code class="highlighter-rouge">/etc/hosts</code>, i.e. the first line should become something like <code class="highlighter-rouge">127.0.0.1 localhost jupyterhub</code> if <code class="highlighter-rouge">jupyterhub</code> is the hostname</li>
+</ul>
+
+<h2 id="setup-jupyterhub">Setup Jupyterhub</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> wget --no-check-certificate https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+ bash Miniconda3-latest-Linux-x86_64.sh
+</code></pre></div></div>
+
+<p>use all defaults, answer “yes” to modify PATH</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install npm nodejs-legacy
+sudo npm install -g configurable-http-proxy
+conda install traitlets tornado jinja2 sqlalchemy 
+pip install jupyterhub
+</code></pre></div></div>
+
+<p>For authentication to work, the <code class="highlighter-rouge">ubuntu</code> user needs to be able to read the <code class="highlighter-rouge">/etc/shadow</code> file:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo adduser ubuntu shadow
+</code></pre></div></div>
+
+<h2 id="setup-the-web-server">Setup the web server</h2>
+
+<p>We will use the NGINX web server to proxy Jupyterhub and handle HTTPS for us, this is recommended for deployments on the public internet.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install nginx
+</code></pre></div></div>
+
+<p><strong>SSL Certificate</strong>: Optionally later, once we have assigned a domain to the Virtual Machine, we can install <code class="highlighter-rouge">letsencrypt</code> and get a real certificate, <a href="http://zonca.github.io/2016/04/jupyterhub-image-sdsc-cloud.html">see my followup tutorial</a>, for simplicity here we are just using self-signed certificates that will give warnings on the first time users connect to the server, but still will keep the traffic encrypted.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo mkdir /etc/nginx/ssl
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt
+
+</code></pre></div></div>
+
+<p>Get <code class="highlighter-rouge">/etc/nginx/nginx.conf</code> from https://gist.github.com/zonca/08c413a37401bdc9d2a7f65a7af44462</p>
+
+<h1 id="setup-docker-spawner">Setup Docker Spawner</h1>
+
+<p>By default Jupyterhub runs notebooks as processes owned by each system user, for more security and isolation, we want Notebook to run in Docker containers, which are something like lightweight Virtual Machines running inside our server.</p>
+
+<h2 id="install-docker">Install Docker</h2>
+
+<ul>
+  <li>Source: https://docs.docker.com/engine/installation/linux/ubuntulinux/#prerequisites</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install apt-transport-https ca-certificates
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" | sudo tee /etc/apt/sources.list.d/docker.list 
+sudo apt update
+sudo apt install docker-engine
+sudo usermod -aG docker ubuntu
+</code></pre></div></div>
+
+<p>Logout and login again for the group to take effect</p>
+
+<h2 id="install-and-configure-dockerspawner">Install and configure DockerSpawner</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install dockerspawner
+docker pull jupyter/systemuser
+conda install ipython jupyter
+</code></pre></div></div>
+
+<p>Create <code class="highlighter-rouge">jupyterhub_config.py</code> in the home folder of the ubuntu user with this content:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.JupyterHub.confirm_no_ssl = True
+c.JupyterHub.spawner_class = 'dockerspawner.SystemUserSpawner'
+
+# The docker instances need access to the Hub, so the default loopback port doesn't work:
+from IPython.utils.localinterfaces import public_ips
+c.JupyterHub.hub_ip = public_ips()[0]
+</code></pre></div></div>
+
+<h1 id="connect-to-jupyterhub">Connect to Jupyterhub</h1>
+
+<p>From the home folder of the <code class="highlighter-rouge">ubuntu</code> user, type <code class="highlighter-rouge">jupyterhub</code> to launch the Jupyterhub process, see below how to start it automatically at boot. Use CTRL-C to stop it.</p>
+
+<p>Open a browser and connect to the floating IP you set for your instance, this should redirect to the https, click “Advanced” in the warning about safety due to the self signed SSL certificate and login with the training credentials.</p>
+
+<p>Instead of using the IP, you can use any domain that points to that same IP with a DNS record of type A or get a dymanic DNS for free on a website like http://noip.com.
+Once you have a custom domain, you can configure letsencrypt to have a proper HTTPS certificate so that users do not get any warning when connecting to the instance. I will add this to the optional steps below.</p>
+
+<h1 id="optional-automatically-start-jupyterhub-at-boot">Optional: Automatically start jupyterhub at boot</h1>
+
+<p>Save https://gist.github.com/zonca/aaeaf3c4e7339127b482d759866e5f39 as <code class="highlighter-rouge">/etc/init.d/jupyterhub</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo chmod +x /etc/init.d/jupyterhub
+sudo service jupyterhub start
+sudo update-rc.d jupyterhub defaults
+</code></pre></div></div>
+
+<h1 id="optional-create-training-user-accounts">Optional: Create training user accounts</h1>
+
+<p>Add user accounts on Jupyterhub creating standard Linux users with <code class="highlighter-rouge">adduser</code> interactively or with a batch script.</p>
+
+<p>For example the following batch script creates 10 users all with the same password:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nv">PASSWORD</span><span class="o">=</span>samepasswordforallusers
+<span class="nv">NUMBER_OF_USERS</span><span class="o">=</span>10
+<span class="k">for </span>n <span class="k">in</span> <span class="sb">`</span><span class="nb">seq</span> <span class="nt">-f</span> <span class="s2">"%02g"</span> 1 <span class="nv">$NUMBER_OF_USERS</span><span class="sb">`</span>
+<span class="k">do
+    </span><span class="nb">echo </span>creating user training<span class="nv">$n</span>
+    <span class="nb">echo </span>training<span class="nv">$n</span>:<span class="nv">$PASSWORD</span>::::/home/training<span class="nv">$n</span>:/bin/bash | <span class="nb">sudo </span>newusers
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>Also add <code class="highlighter-rouge">AllowUsers ubuntu</code> to <code class="highlighter-rouge">/etc/ssh/sshd_config</code> so that training users cannot SSH into the host machine.</p>
+
+<h1 id="optional-add-the-r-and-julia-kernels">Optional: Add the R and Julia kernels</h1>
+
+<ul>
+  <li>SSH into the instance</li>
+  <li><code class="highlighter-rouge">git clone https://github.com/jupyter/dockerspawner</code></li>
+  <li><code class="highlighter-rouge">cd dockerspawner</code></li>
+</ul>
+
+<p>Modify the file <code class="highlighter-rouge">singleuser/Dockerfile</code>, replace <code class="highlighter-rouge">FROM jupyter/scipy-notebook</code> with <code class="highlighter-rouge">FROM jupyter/datascience-notebook</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build -t datascience-singleuser singleuser
+</code></pre></div></div>
+
+<p>Modify the file <code class="highlighter-rouge">systemuser/Dockerfile</code>, replace <code class="highlighter-rouge">FROM jupyter/singleuser</code> with <code class="highlighter-rouge">FROM datascience-singleuser</code></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build -t datascience-systemuser systemuser
+</code></pre></div></div>
+
+<p>Finally in <code class="highlighter-rouge">jupyterhub_config.py</code>, select the new docker image:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.DockerSpawner.container_image = "datascience-systemuser"
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2016/04/jupyterhub-sdsc-cloud.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

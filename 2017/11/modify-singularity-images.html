@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How to modify Singularity images on a Supercomputer | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="How to modify Singularity images on a Supercomputer" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="https://zonca.dev/2017/11/modify-singularity-images.html" />
+<meta property="og:url" content="https://zonca.dev/2017/11/modify-singularity-images.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-11-06T18:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Introduction","headline":"How to modify Singularity images on a Supercomputer","dateModified":"2017-11-06T18:00:00-06:00","datePublished":"2017-11-06T18:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/11/modify-singularity-images.html"},"url":"https://zonca.dev/2017/11/modify-singularity-images.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How to modify Singularity images on a Supercomputer | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="How to modify Singularity images on a Supercomputer" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="https://zonca.dev/2017/11/modify-singularity-images.html" />
+<meta property="og:url" content="https://zonca.dev/2017/11/modify-singularity-images.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-11-06T18:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Introduction","headline":"How to modify Singularity images on a Supercomputer","dateModified":"2017-11-06T18:00:00-06:00","datePublished":"2017-11-06T18:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/11/modify-singularity-images.html"},"url":"https://zonca.dev/2017/11/modify-singularity-images.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How to modify Singularity images on a Supercomputer</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2017-11-06T18:00:00-06:00" itemprop="datePublished">
+        Nov 6, 2017
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="introduction">Introduction</h2>
+
+<p><a href="http://singularity.lbl.gov/">Singularity</a> allows to run your own OS within most Supercomputers, see my previous post about <a href="https://zonca.github.io/2017/01/singularity-hpc-comet.html">Running Ubuntu on Comet via Singularity</a></p>
+
+<p>Singularity’s adoption by High Performance Computing centers has been driven by its strict security model. It never allows a user in a container to have <code class="highlighter-rouge">root</code> privileges unless the user is <code class="highlighter-rouge">root</code> on the Host system.</p>
+
+<p>This means that you can only modify containers on a machine where you have <code class="highlighter-rouge">root</code>. Therefore you generally build a container on your local machine and then copy it to a Supercomputer.
+The process is tedious if you are still tweaking your container and modifying it often, and each time your have to copy back a 4 or maybe 8 GB container image.</p>
+
+<p>In the next section I’ll investigate possible solutions/workarounds.</p>
+
+<h2 id="use-dockerhub">Use DockerHub</h2>
+
+<p>Singularity can pull a container from DockerHub, so it is convenient if you are already using Docker, maybe to provide a simple way to install your software.</p>
+
+<p>I found out that if you are using the Automatic build of your container by DockerHub itself, this is very slow, sometimes it takes 30 minutes to have your new container build.</p>
+
+<p>Therefore the best is to manually build your container locally and then push it to DockerHub. A Docker container is organized in layers of the filesystem, so for small tweaks to your image you transfer tens of MB to DockerHub instead of GB.</p>
+
+<p>Then from the Supercomputer you can run <code class="highlighter-rouge">singularity pull docker://ubuntu:latest</code> with no need of <code class="highlighter-rouge">root</code> privileges. Singularity keeps a cache of the docker layers, so you would download just the layers modified in the previous step.</p>
+
+<h2 id="build-your-application-locally">Build your application locally</h2>
+
+<p>If you are modifying an application often you could build a Singularity container with all the requirements, copy it to the Supercomputer and then build your application there. This is also useful if the architecture of your CPU is different between your local machine and the Supercomputer and you are worried the compiler would not apply all the possible optimizations.</p>
+
+<p>In this case you can use <code class="highlighter-rouge">singularity shell</code> to get a terminal inside the container, then build your software with the compiler toolchain available <strong>inside the container</strong> and then install it to your <code class="highlighter-rouge">$HOME</code> folder, then modify your <code class="highlighter-rouge">$PATH</code> and <code class="highlighter-rouge">$LD_LIBRARY_PATH</code> to execute and load libraries from this local folder.</p>
+
+<p>This is also useful in case the container has already an application installed but you want to develop on it. You can follow this process and then mask the installed application with your new version.</p>
+
+<p>Of course this makes your analysis <strong>not portable</strong>, the software is not available inside the container.</p>
+
+<h3 id="freeze-your-application-inside-the-container">Freeze your application inside the container</h3>
+
+<p>Once you have completed tweaking the application on the Supercomputer, you can now switch back to your local machine, get the last version of your application and install it system-wide inside the container so that it will be portable.</p>
+
+<p>On the other hand, you might be concerned about performance and prefer to have the application built on the Supercomputer. You can run the build process (e.g. <code class="highlighter-rouge">make</code> or <code class="highlighter-rouge">python setup.py build) on the Supercomputer in your home, then sync the build artifacts back to your local machine and run the install process there (e.g </code>sudo make install<code class="highlighter-rouge"> or </code>sudo python setup.py install<code class="highlighter-rouge">). Optionally use </code>sshfs` to mount the build folder on both machines and make the process transparent.</p>
+
+<h2 id="use-a-local-singularity-registry">Use a local Singularity registry</h2>
+
+<p>Singularity released <a href="https://singularityhub.github.io/singularity-registry/inst/"><code class="highlighter-rouge">singularity-registry</code></a>, an application to build a local image registry, like DockerHub, that can take care of building containers.</p>
+
+<p>This can be hosted locally at a Supercomputing Center to provide a local building service. For example Texas Advanced Computing Center <a href="https://www.slideshare.net/JohnFonner1/biocontainers-for-supercomputers-2000-accessible-discoverable-singularity-apps">builds locally Singularity images from BioContainers</a>, software packages for the Life Sciences.</p>
+
+<p>Otherwise, for example,  a user at SDSC could install Singularity Registry on SDSC Cloud and configure it to mount one of Comet’s filesystems and build the container images there. Even installing Singularity Registry on Jetstream could be an option thanks to its fast connection to other XSEDE resources.</p>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>If you have any feedback, please reach me at <a href="https://twitter.com/andreazonca">@andreazonca</a> or find my email from there.</p>
+
+  </div><a class="u-url" href="/2017/11/modify-singularity-images.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

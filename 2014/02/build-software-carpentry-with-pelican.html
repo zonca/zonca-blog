@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Build Software Carpentry lessons with Pelican | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Build Software Carpentry lessons with Pelican" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Software Carpentry offers bootcamps for scientist to teach basic programming skills. All the material, mainly about bash, git, Python and R is available on Github under Creative Commons." />
+<meta property="og:description" content="Software Carpentry offers bootcamps for scientist to teach basic programming skills. All the material, mainly about bash, git, Python and R is available on Github under Creative Commons." />
+<link rel="canonical" href="https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html" />
+<meta property="og:url" content="https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-02-26T23:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Software Carpentry offers bootcamps for scientist to teach basic programming skills. All the material, mainly about bash, git, Python and R is available on Github under Creative Commons.","headline":"Build Software Carpentry lessons with Pelican","dateModified":"2014-02-26T23:00:00-06:00","datePublished":"2014-02-26T23:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html"},"url":"https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Build Software Carpentry lessons with Pelican | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Build Software Carpentry lessons with Pelican" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Software Carpentry offers bootcamps for scientist to teach basic programming skills. All the material, mainly about bash, git, Python and R is available on Github under Creative Commons." />
+<meta property="og:description" content="Software Carpentry offers bootcamps for scientist to teach basic programming skills. All the material, mainly about bash, git, Python and R is available on Github under Creative Commons." />
+<link rel="canonical" href="https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html" />
+<meta property="og:url" content="https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2014-02-26T23:00:00-06:00" />
+<script type="application/ld+json">
+{"description":"Software Carpentry offers bootcamps for scientist to teach basic programming skills. All the material, mainly about bash, git, Python and R is available on Github under Creative Commons.","headline":"Build Software Carpentry lessons with Pelican","dateModified":"2014-02-26T23:00:00-06:00","datePublished":"2014-02-26T23:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html"},"url":"https://zonca.dev/2014/02/build-software-carpentry-with-pelican.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Build Software Carpentry lessons with Pelican</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2014-02-26T23:00:00-06:00" itemprop="datePublished">
+        Feb 26, 2014
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="http://www.software-carpentry.org">Software Carpentry</a> offers bootcamps for scientist to teach basic programming skills.
+All the material, mainly about bash, git, Python and R is <a href="http://github.com/swcarpentry/bc">available on Github</a> under Creative Commons.</p>
+
+<p>The content is either in Markdown or in IPython notebook format, and is currently built using Jekyll, nbconvert and Pandoc.
+Basicly the requirement is to make it easy for bootcamp instructors to setup their own website, modify the content, and have the website updated.</p>
+
+<p>I created a fork of the Software Carpentry repository and configured Pelican for creating the website:</p>
+
+<ul>
+  <li><a href="https://github.com/swcarpentry-pelican/bootcamp-pelican">bootcamp-pelican repository</a>: contains Markdown lessons in <code class="highlighter-rouge">lessons</code> (version v5), <code class="highlighter-rouge">.ipynb</code> in <code class="highlighter-rouge">notebooks</code> and news items in <code class="highlighter-rouge">news</code>.</li>
+  <li><a href="https://github.com/swcarpentry-pelican/swcarpentry-pelican.github.io">bootcamp-pelican Github pages</a>: This repository contains the output HTML</li>
+  <li><a href="http://swcarpentry-pelican.github.io/">bootcamp-pelican website</a>: this is the URL where Github publishes automatically the content of the previous repository</li>
+</ul>
+
+<p>Pelican handles fenced code blocks, see <a href="http://swcarpentry-pelican.github.io/">http://swcarpentry-pelican.github.io/</a> and conversion of IPython notebooks, see <a href="http://swcarpentry-pelican.github.io/lessons/numpy-notebook.html">http://swcarpentry-pelican.github.io/lessons/numpy-notebook.html</a></p>
+
+<h2 id="how-to-setup-the-repositories-for-a-new-bootcamp">How to setup the repositories for a new bootcamp</h2>
+
+<ol>
+  <li><a href="https://github.com/organizations/new">create a new Organization on Github</a> and add all the other instructors, name it: <code class="highlighter-rouge">swcarpentry-YYYY-MM-DD-INST</code> where <code class="highlighter-rouge">INST</code> is the institution name, e.g. <code class="highlighter-rouge">NYU</code></li>
+  <li><a href="https://github.com/swcarpentry-pelican/bootcamp-pelican/fork">Fork the <code class="highlighter-rouge">bootcamp-pelican</code> repository</a> under the organization account</li>
+  <li>Create a new repository in your organization named <code class="highlighter-rouge">swcarpentry-YYYY-MM-DD-INST.github.io</code> that will host the HTML of the website, also tick <strong>initialize with README</strong>, it will help later.</li>
+</ol>
+
+<p>Now you can either prepare the build environment on your laptop or have the web service <code class="highlighter-rouge">travis-ci</code> automatically update the website whenever you update the repository (even from the Github web interface!).</p>
+
+<h2 id="buildupdate-the-website-from-your-laptop">Build/Update the website from your laptop</h2>
+
+<ol>
+  <li>Clone the <code class="highlighter-rouge">bootcamp-pelican</code> repository of your organization locally</li>
+  <li>
+    <p>Create a <code class="highlighter-rouge">Python</code> virtual environment and install requirements with:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cd bootcamp-pelican
+ virtualenv swcpy
+ . swcpy/bin/activate
+ pip install -r requirements.txt
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Clone the <code class="highlighter-rouge">swcarpentry-YYYY-MM-DD-INST.github.io</code> in the output folder as:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> git clone git@github.com:swcarpentry-YYYY-MM-DD-INST.github.io.git output
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Build or Update the website with Pelican running</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> fab build
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>You can display the website in your browser locally with:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> fab serve
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Finally you can publish it to Github with:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> cd output
+ git add .
+ git push origin master
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="configure-travis-ci-to-automatically-build-and-publish-the-website">Configure Travis-ci to automatically build and publish the website</h2>
+
+<ol>
+  <li>Go to <a href="http://travis-ci.org">http://travis-ci.org</a> and login with Github credentials</li>
+  <li>Under <a href="https://travis-ci.org/profile">https://travis-ci.org/profile</a> click on the organization name on the left and activate the webhook setting <code class="highlighter-rouge">ON</code> on your <code class="highlighter-rouge">bootcamp-pelican</code> repository</li>
+  <li>Now it is necessary to setup the credentials for <code class="highlighter-rouge">travis-ci</code> to write to the repository</li>
+  <li>Go to https://github.com/settings/tokens/new, create a new token with default permissions</li>
+  <li>
+    <p>Install the <code class="highlighter-rouge">travis</code> tool (in debian/ubuntu <code class="highlighter-rouge">sudo gem install travis</code>) and run from any machine (not necessary to have a clone of the repository):</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> travis encrypt -r swcarpentry-YYYY-MM-DD-INST/bootcamp-pelican GH_TOKEN=TOKENGOTATTHEPREVIOUSSTEP
+</code></pre></div>    </div>
+
+    <p>otherwise I’ve setup a web application that does the encryption in your browser, see: <a href="http://travis-encrypt.github.io">http://travis-encrypt.github.io</a></p>
+  </li>
+  <li>Open <code class="highlighter-rouge">.travis.yml</code> on the website and replace the string under <code class="highlighter-rouge">env: global: secure:</code> with the string from <code class="highlighter-rouge">travis encrypt</code></li>
+  <li>Push the modified <code class="highlighter-rouge">.travis.yml</code> to trigger the first build by Travis, and then check the log on <a href="http://travis-ci.org">http://travis-ci.org</a></li>
+</ol>
+
+<p>Now any change on the source repository will be picked up automatically by Travis and used to update the website.</p>
+
+  </div><a class="u-url" href="/2014/02/build-software-carpentry-with-pelican.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

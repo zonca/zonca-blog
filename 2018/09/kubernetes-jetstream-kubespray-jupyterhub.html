@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy JupyterHub on Kubernetes deployment on Jetstream created with Kubespray 3/3 | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy JupyterHub on Kubernetes deployment on Jetstream created with Kubespray 3/3" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="All of the following assumes you are logged in to the master node of the Kubernetes cluster deployed with kubespray and checked out the repository:" />
+<meta property="og:description" content="All of the following assumes you are logged in to the master node of the Kubernetes cluster deployed with kubespray and checked out the repository:" />
+<link rel="canonical" href="https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html" />
+<meta property="og:url" content="https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-09-24T01:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"All of the following assumes you are logged in to the master node of the Kubernetes cluster deployed with kubespray and checked out the repository:","headline":"Deploy JupyterHub on Kubernetes deployment on Jetstream created with Kubespray 3/3","dateModified":"2018-09-24T01:00:00-05:00","datePublished":"2018-09-24T01:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html"},"url":"https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy JupyterHub on Kubernetes deployment on Jetstream created with Kubespray 3/3 | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy JupyterHub on Kubernetes deployment on Jetstream created with Kubespray 3/3" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="All of the following assumes you are logged in to the master node of the Kubernetes cluster deployed with kubespray and checked out the repository:" />
+<meta property="og:description" content="All of the following assumes you are logged in to the master node of the Kubernetes cluster deployed with kubespray and checked out the repository:" />
+<link rel="canonical" href="https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html" />
+<meta property="og:url" content="https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-09-24T01:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"All of the following assumes you are logged in to the master node of the Kubernetes cluster deployed with kubespray and checked out the repository:","headline":"Deploy JupyterHub on Kubernetes deployment on Jetstream created with Kubespray 3/3","dateModified":"2018-09-24T01:00:00-05:00","datePublished":"2018-09-24T01:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html"},"url":"https://zonca.dev/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Deploy JupyterHub on Kubernetes deployment on Jetstream created with Kubespray 3/3</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2018-09-24T01:00:00-05:00" itemprop="datePublished">
+        Sep 24, 2018
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>All of the following assumes you are logged in to the master node of the <a href="https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray.html">Kubernetes cluster deployed with kubespray</a> and checked out the repository:</p>
+
+<p><a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream">https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream</a></p>
+
+<h2 id="install-jupyterhub">Install Jupyterhub</h2>
+
+<p>First run</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_secrets.sh
+</code></pre></div></div>
+
+<p>to create the secret strings needed by JupyterHub then edit its output
+<code class="highlighter-rouge">secrets.yaml</code> to make sure it is consistent, edit the <code class="highlighter-rouge">hosts</code> lines if needed. For example, supply the Jetstream DNS name of the master node <code class="highlighter-rouge">js-XXX-YYY.jetstream-cloud.org</code> (XXX and YYY are the last 2 groups of the floating IP of the instance AAA.BBB.XXX.YYY). See <a href="https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-explore.html">part 2</a>, “Publish service externally with ingress”.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash configure_helm_jupyterhub.sh
+bash install_jhub.sh
+</code></pre></div></div>
+
+<p>Check some preliminary pods running with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pods -n jhub
+</code></pre></div></div>
+
+<p>Once the <code class="highlighter-rouge">proxy</code> is running, even if <code class="highlighter-rouge">hub</code> is still in preparation, you can check
+in browser, you should get “Service Unavailable” which is a good sign that
+the proxy is working.</p>
+
+<h2 id="customize-jupyterhub">Customize JupyterHub</h2>
+
+<p>After JupyterHub is deployed and integrated with Cinder for persistent volumes,
+for any other customizations, first authentication, you are in good hands as the
+<a href="https://zero-to-jupyterhub.readthedocs.io/en/stable/extending-jupyterhub.html">Zero-to-Jupyterhub documentation</a> is great.</p>
+
+<p>The only setup that could be peculiar to the deployment on top of <code class="highlighter-rouge">kubespray</code> is setup with HTTPS, see the next section.</p>
+
+<h2 id="setup-https-with-letsencrypt">Setup HTTPS with letsencrypt</h2>
+
+<p>Kubespray instead of installing <code class="highlighter-rouge">kube-lego</code>, installs <a href="https://cert-manager.readthedocs.io/en/latest/index.html"><code class="highlighter-rouge">certmanager</code></a> to handle HTTPS certificates.</p>
+
+<p>First we need to create a Issuer, set your email inside <code class="highlighter-rouge">setup_https_kubespray/https_issuer.yml</code> and create it with the usual:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f setup_https_kubespray/https_issuer.yml
+</code></pre></div></div>
+
+<p>Then we can manually create a HTTPS certificate, <code class="highlighter-rouge">certmanager</code> can be configured to handle this automatically, but as we only need a domain this is pretty quick, edit <code class="highlighter-rouge">setup_https_kubespray/https_certificate.yml</code> and set the domain name of your master node, then create the certificate resource with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f setup_https_kubespray/https_certificate.yml
+</code></pre></div></div>
+
+<p>Finally we can configure JupyterHub to use this certificate, first edit your <code class="highlighter-rouge">secrets.yaml</code> following as an example the file <code class="highlighter-rouge">setup_https_kubespray/example_letsencrypt_secrets.yaml</code>, then update your JupyterHub configuration running again:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_jhub.sh
+</code></pre></div></div>
+
+<h2 id="setup-https-with-custom-certificates">Setup HTTPS with custom certificates</h2>
+
+<p>In case you have custom certificates for your domain, first create a secret in the jupyterhub namespace with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub
+</code></pre></div></div>
+
+<p>Then setup ingress to use this in <code class="highlighter-rouge">secrets.yaml</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ingress:
+  enabled: true
+  hosts:
+    - js-XX-YYY.jetstream-cloud.org
+  tls:
+  - hosts:
+    - js-XX-YYY.jetstream-cloud.org
+    secretName: cert-secret
+</code></pre></div></div>
+
+<p>Eventually, you may need to update the certificate. This can be achieved with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create secret tls cert-secret --key ssl.key --cert ssl.crt -n jhub \
+    --dry-run -o yaml | kubectl apply -f -
+</code></pre></div></div>
+
+<h2 id="setup-custom-http-headers">Setup custom HTTP headers</h2>
+
+<p>After you have deployed JupyterHub, edit ingress:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl edit ingress -n jhub
+</code></pre></div></div>
+
+<p>Add a <code class="highlighter-rouge">configuration-snippet</code> line inside annotations:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>metadata:
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      more_set_headers "X-Frame-Options: DENY";
+      more_set_headers "X-Xss-Protection: 1";
+</code></pre></div></div>
+
+<p>This doesn’t require to restart or modify any other resource.</p>
+
+<h2 id="modify-the-kubernetes-cluster-size">Modify the Kubernetes cluster size</h2>
+
+<p>See a followup short tutorial on <a href="https://zonca.github.io/2019/02/scale-kubernetes-jupyterhub-manually.html">scaling Kubernetes manually</a>.</p>
+
+<h2 id="persistence-of-user-data">Persistence of user data</h2>
+
+<p>When a JupyterHub user logs in for the first time, a Kubernetes <code class="highlighter-rouge">PersistentVolumeClaim</code> of the size defined in the configuration file is created. This is a Kubernetes resource that defines a request for storage.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pvc -n jhub
+NAME          STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+claim-zonca   Bound    pvc-c469967a-3968-11e9-aaad-fa163e9c7d08   1Gi        RWO            standard       2m34s
+hub-db-dir    Bound    pvc-353114a7-3968-11e9-aaad-fa163e9c7d08   1Gi        RWO            standard       6m34s
+</code></pre></div></div>
+
+<p>Inspecting the claims we find out that we have a claim for the user and a claim to store the database of JupyterHub. Currently they are already Bound because they are already satistied.</p>
+
+<p>Those claims are then satisfied by our Openstack Cinder provisioner to create a Openstack volume and wrap it into a Kubernetes <code class="highlighter-rouge">PersistentVolume</code> resource:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pv -n jhub
+NAME                                       CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM              STORAGECLASS   REASON   AGE
+pvc-353114a7-3968-11e9-aaad-fa163e9c7d08   1Gi        RWO            Delete           Bound    jhub/hub-db-dir    standard                8m52s
+pvc-c469967a-3968-11e9-aaad-fa163e9c7d08   1Gi        RWO            Delete           Bound    jhub/claim-zonca   standard                5m4s
+</code></pre></div></div>
+
+<p>This corresponds to Openstack volumes automatically mounted onto the node that is executing the user pod:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+--------------------------------------+-------------------------------------------------------------+-----------+------+----------------------------------------------+
+| ID                                   | Name                                                        | Status    | Size | Attached to                                  |
++--------------------------------------+-------------------------------------------------------------+-----------+------+----------------------------------------------+
+| e6eddaaa-d40d-4832-addd-a05343ec3a80 | kubernetes-dynamic-pvc-c469967a-3968-11e9-aaad-fa163e9c7d08 | in-use    |    1 | Attached to zonca-k8s-node-nf-1 on /dev/sdc  |
+| 00f1e822-8098-4633-804e-46ba44d7de7e | kubernetes-dynamic-pvc-353114a7-3968-11e9-aaad-fa163e9c7d08 | in-use    |    1 | Attached to zonca-k8s-node-nf-1 on /dev/sdb  |
+</code></pre></div></div>
+
+<p>If the user disconnects, the Openstack volume is un-attached from the instance but it is not delete and it is mounted back, optionally on another instance, if the user logs back in.</p>
+
+<h3 id="delete-and-reinstall-jupyterhub">Delete and reinstall JupyterHub</h3>
+
+<p>Helm release deleted:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm delete --purge jhub
+</code></pre></div></div>
+
+<p>As long as you do not delete the whole namespace, the volumes are not deleted, therefore you can re-deploy the same version or a newer version using <code class="highlighter-rouge">helm</code> and the same volume is mounted back for the user</p>
+
+<h3 id="delete-and-recreate-openstack-instances">Delete and recreate Openstack instances</h3>
+
+<p>When we run terraform to delete all Openstack resources:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash terraform_destroy.sh
+</code></pre></div></div>
+
+<p>this does not include the Openstack volumes that are created by the Kubernetes persistent volume provisioner.</p>
+
+<p>In case we are interested in keeping the same ip address, run instead:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash terraform_destroy_keep_floatingip.sh
+</code></pre></div></div>
+
+<p>The problem is that if we recreate Kubernetes again, it doesn’t know how to link the Openstack volume to the Persistent Volume of a user.
+Therefore we need to backup the Persistent Volumes and the Persistent Volume Claims resources before tearing Kubernetes down:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pvc -n jhub -o yaml &gt; pvc.yaml
+kubectl get pv -n jhub -o yaml &gt; pv.yaml
+</code></pre></div></div>
+
+<p>I recommend always to run <code class="highlighter-rouge">kubectl</code> on the local machine instead of the master node, because if you delete the master instance you loose any temporary modification to your scripts. In this case, even more importantly, if you are running on the master node please backup <code class="highlighter-rouge">pvc.yaml</code> and <code class="highlighter-rouge">pv.yaml</code> locally before running <code class="highlighter-rouge">terraform_destroy.sh</code> or they will be wiped out.</p>
+
+<p>Then open the files with a text editor and delete the Persistent Volume and the Persistent Volume Claim related to <code class="highlighter-rouge">hub-db-dir</code>.</p>
+
+<p>Edit <code class="highlighter-rouge">pv.yaml</code> and set:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  persistentVolumeReclaimPolicy:Retain
+</code></pre></div></div>
+
+<p>Otherwise if you create the PV first, it is deleted because there is no PVC.</p>
+
+<p>Also remove the <code class="highlighter-rouge">claimRef</code> section of all the volumes in <code class="highlighter-rouge">pv.yaml</code>, otherwise you get the error “two claims are bound to the same volume, this one is bound incorrectly” on the PVC.</p>
+
+<p>Now we can proceed to create the cluster again and then restore the volumes with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply -f pv.yaml
+kubectl apply -f pvc.yaml
+</code></pre></div></div>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>Feedback on this is very welcome, please open an issue on the <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream">Github repository</a> or email me at <code class="highlighter-rouge">zonca</code> on the domain of the San Diego Supercomputer Center (sdsc.edu).</p>
+
+  </div><a class="u-url" href="/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
