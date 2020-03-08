@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy CVMFS on Kubernetes | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy CVMFS on Kubernetes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations." />
+<meta property="og:description" content="CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations." />
+<link rel="canonical" href="https://zonca.dev/2020/02/cvmfs-kubernetes.html" />
+<meta property="og:url" content="https://zonca.dev/2020/02/cvmfs-kubernetes.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-26T13:00:00-06:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-02-26T13:00:00-06:00","headline":"Deploy CVMFS on Kubernetes","description":"CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/02/cvmfs-kubernetes.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/02/cvmfs-kubernetes.html","dateModified":"2020-02-26T13:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy CVMFS on Kubernetes | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Deploy CVMFS on Kubernetes" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations." />
+<meta property="og:description" content="CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations." />
+<link rel="canonical" href="https://zonca.dev/2020/02/cvmfs-kubernetes.html" />
+<meta property="og:url" content="https://zonca.dev/2020/02/cvmfs-kubernetes.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-02-26T13:00:00-06:00" />
+<script type="application/ld+json">
+{"datePublished":"2020-02-26T13:00:00-06:00","headline":"Deploy CVMFS on Kubernetes","description":"CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/02/cvmfs-kubernetes.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/02/cvmfs-kubernetes.html","dateModified":"2020-02-26T13:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Deploy CVMFS on Kubernetes</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-02-26T13:00:00-06:00" itemprop="datePublished">
+        Feb 26, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://cvmfs.readthedocs.io/">CVMFS</a> is a software distribution service, it is used by High Energy Physics experiments at CERN
+to synchronize software environments across the whole collaborations.</p>
+
+<p>In the context of a Kubernetes + JupyterHub deployment on Jetstream, for example <a href="http://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">deployed using Magnum following my tutorial</a>, it is useful to use CVMFS to make the software tools of a collaboration to all the users connected to JupyterHub, so that we can keep the base Docker image simpler and smaller.</p>
+
+<h2 id="alternatives">Alternatives</h2>
+
+<p>A already existing solution is <a href="https://github.com/cernops/cvmfs-csi">the CVMFS CSI driver</a>, however it doesn’t have much documentation, so I haven’t tested it. It would be useful for larger deployments, but we are designing for a 5 (possibly up to 10) nodes Kubernetes cluster.</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p>We have a pod running in Kubernetes (running as a privileged Docker container) which runs the CVMFS client and caches locally
+(on a dedicated Openstack volume) some pre-defined CVMFS repositories (at the moment we do not support automounting).</p>
+
+<p>Currently we are using the <code class="highlighter-rouge">DIRECT</code> connection for the CVMFS client, due to having just a single client which accesses
+a small amount of data. Using a proxy is required instead for heavier usage, and it could also be deployed inside Kubernetes.</p>
+
+<p>The same pod also runs a NFS server and exposes it internally into the Kubernetes cluster, over the local Jetstream network,
+to any other pod which can use a NFS volume and mount it to the <code class="highlighter-rouge">/cvmfs</code> folder inside the container.
+We also activate the CVMFS configuration options for NFS support, following the <a href="https://cvmfs.readthedocs.io/en/stable/cpt-configure.html#nfs-server-mode">documentation</a>.</p>
+
+<h2 id="deployment">Deployment</h2>
+
+<p>The repositories used in this deployment are:</p>
+
+<ul>
+  <li><a href="https://github.com/zonca/docker-cvmfs-client">Github repository for the Docker image of the CVMFS client</a></li>
+  <li>Docker Hub repositories where the 2 containers are built: <a href="https://hub.docker.com/r/zonca/cvmfs-client"><code class="highlighter-rouge">cvmfs-client</code></a> and <a href="https://hub.docker.com/r/zonca/cvmfs-client-nfs"><code class="highlighter-rouge">cvmfs-client-nfs</code></a></li>
+  <li>The <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/tree/master/cvmfs"><code class="highlighter-rouge">jupyterhub-deploy-kubernetes-jetstream</code></a> Github repositories with the Kubernetes configuration files</li>
+</ul>
+
+<p>First we need to checkout the <code class="highlighter-rouge">jupyterhub-deploy-kubernetes-jetstream</code> repository:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream.git
+cd jupyterhub-deploy-kubernetes-jetstream/cvmfs
+</code></pre></div></div>
+
+<p>Then configure the CVMFS pod with the required repositories, see the <code class="highlighter-rouge">CVMFS_REPOSITORIES</code> variable in <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/cvmfs/pod_cvmfs_nfs.yaml"><code class="highlighter-rouge">pod_cvmfs_nfs.yaml</code></a>.</p>
+
+<p>Then deploy the pod with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f pod_cvmfs_nfs.yaml
+</code></pre></div></div>
+
+<p>This creates 2 Openstack volumes, a 20 GB volume for the CVMFS cache, and a 1 GB volume which is just necessary as the <code class="highlighter-rouge">/cvmfs</code> root folder of the NFS server.
+It also creates the <code class="highlighter-rouge">nfs-service</code> Service, with a fixed IP, so that we can use it in the pod using this.</p>
+
+<p>Finally we can create a pod using mounting the folder via NFS:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f test_nfs_mount.yaml
+</code></pre></div></div>
+
+<p>Then get a terminal in the pod with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash ../terminal_pod.sh test-nfs-mount
+</code></pre></div></div>
+
+<p>This creates a volume which mounts the <code class="highlighter-rouge">/cvmfs</code> folder shared with NFS, this automatically also shares also all the subfolders.</p>
+
+<p>Finally we can check the content of the <code class="highlighter-rouge">/cvmfs</code> folder.</p>
+
+  </div><a class="u-url" href="/2020/02/cvmfs-kubernetes.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>An easy to use blogging platform with support for Jupyter Notebooks.</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
