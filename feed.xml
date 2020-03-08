@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-08T01:15:28-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html" rel="alternate" type="text/html" title="" /><published>2020-03-08T01:15:28-06:00</published><updated>2020-03-08T01:15:28-06:00</updated><id>https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra</id><content type="html" xml:base="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-08T01:31:21-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>An easy to use blogging platform with support for Jupyter Notebooks.</subtitle><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html" rel="alternate" type="text/html" title="" /><published>2020-03-08T01:31:21-06:00</published><updated>2020-03-08T01:31:21-06:00</updated><id>https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra</id><content type="html" xml:base="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html">&lt;p&gt;
  For a long time I've been curious about trying out
  &lt;span style=&quot;font-family: Courier New, Courier, monospace;&quot;&gt;
   d3.js
@@ -83,7 +83,7 @@
 &lt;/div&gt;
 &lt;div&gt;
  &lt;br /&gt;
-&lt;/div&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2014-02-13-2014-02-13-openproceedings.html" rel="alternate" type="text/html" title="" /><published>2020-03-08T01:15:28-06:00</published><updated>2020-03-08T01:15:28-06:00</updated><id>https://zonca.dev/2020/03/2014-02-13-2014-02-13-openproceedings</id><content type="html" xml:base="https://zonca.dev/2020/03/2014-02-13-2014-02-13-openproceedings.html">&lt;p&gt;Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both.
+&lt;/div&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2014-02-13-openproceedings.html" rel="alternate" type="text/html" title="" /><published>2020-03-08T01:31:21-06:00</published><updated>2020-03-08T01:31:21-06:00</updated><id>https://zonca.dev/2020/03/2014-02-13-openproceedings</id><content type="html" xml:base="https://zonca.dev/2020/03/2014-02-13-openproceedings.html">&lt;p&gt;Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both.
 The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: &lt;a href=&quot;https://github.com/scipy-conference/scipy_proceedings/pull/61&quot;&gt;https://github.com/scipy-conference/scipy_proceedings/pull/61&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I wanted to develop a system to make it easier to continously publish updated versions of the papers and also leverage FigShare to provide a long term repository, a sharing interface and a &lt;a href=&quot;http://en.wikipedia.org/wiki/Digital_object_identifier&quot;&gt;DOI&lt;/a&gt;.&lt;/p&gt;
@@ -91,7 +91,7 @@ The Scipy conference is at the forefront on this and did great work in peer revi
 &lt;p&gt;I based it on the blog engine &lt;a href=&quot;http://getpelican.com&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Pelican&lt;/code&gt;&lt;/a&gt;, developed a plugin &lt;a href=&quot;http://github.com/openproceedings/pelican_figshare_pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;figshare_pdf&lt;/code&gt;&lt;/a&gt; to upload a PDF of an article via API and configured &lt;a href=&quot;http://travis-ci.org&quot;&gt;Travis-ci&lt;/a&gt; as building platform.&lt;/p&gt;
 
 &lt;p&gt;See more details on the project page on Github:
-&lt;a href=&quot;https://github.com/openproceedings/openproceedings-buildbot&quot;&gt;https://github.com/openproceedings/openproceedings-buildbot&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html" rel="alternate" type="text/html" title="" /><published>2020-03-08T01:15:28-06:00</published><updated>2020-03-08T01:15:28-06:00</updated><id>https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through</id><content type="html" xml:base="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html">&lt;p&gt;
+&lt;a href=&quot;https://github.com/openproceedings/openproceedings-buildbot&quot;&gt;https://github.com/openproceedings/openproceedings-buildbot&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html" rel="alternate" type="text/html" title="" /><published>2020-03-08T01:31:21-06:00</published><updated>2020-03-08T01:31:21-06:00</updated><id>https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through</id><content type="html" xml:base="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html">&lt;p&gt;
  just start nc in server mode on localhost:
  &lt;br /&gt;
  &lt;br /&gt;
@@ -171,721 +171,7 @@ It also creates the &lt;code class=&quot;highlighter-rouge&quot;&gt;nfs-service&
 
 &lt;p&gt;This creates a volume which mounts the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder shared with NFS, this automatically also shares also all the subfolders.&lt;/p&gt;
 
-&lt;p&gt;Finally we can check the content of the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="jetstream" /><category term="jupyterhub" /><summary type="html">CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations.</summary></entry><entry><title type="html">Fastpages Notebook Blog Post</title><link href="https://zonca.dev/2020/02/test.html" rel="alternate" type="text/html" title="Fastpages Notebook Blog Post" /><published>2020-02-20T00:00:00-06:00</published><updated>2020-02-20T00:00:00-06:00</updated><id>https://zonca.dev/2020/02/test</id><content type="html" xml:base="https://zonca.dev/2020/02/test.html">&lt;!--
-#################################################
-### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
-#################################################
-# file to edit: _notebooks/2020-02-20-test.ipynb
---&gt;
-
-&lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
-        
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h1 id=&quot;About&quot;&gt;About&lt;a class=&quot;anchor-link&quot; href=&quot;#About&quot;&gt; &lt;/a&gt;&lt;/h1&gt;&lt;p&gt;This notebook is a demonstration of some of capabilities of &lt;a href=&quot;https://github.com/fastai/fastpages&quot;&gt;fastpages&lt;/a&gt; with notebooks.&lt;/p&gt;
-&lt;p&gt;With &lt;code&gt;fastpages&lt;/code&gt; you can save your jupyter notebooks into the &lt;code&gt;_notebooks&lt;/code&gt; folder at the root of your repository, and they will be automatically be converted to Jekyll compliant blog posts!&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Front-Matter&quot;&gt;Front Matter&lt;a class=&quot;anchor-link&quot; href=&quot;#Front-Matter&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Front Matter is a markdown cell at the beginning of your notebook that allows you to inject metadata into your notebook. For example:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Setting &lt;code&gt;toc: true&lt;/code&gt; will automatically generate a table of contents&lt;/li&gt;
-&lt;li&gt;Setting &lt;code&gt;badges: true&lt;/code&gt; will automatically include GitHub and Google Colab links to your notebook.&lt;/li&gt;
-&lt;li&gt;Setting &lt;code&gt;comments: true&lt;/code&gt; will enable commenting on your blog post, powered by &lt;a href=&quot;https://github.com/utterance/utterances&quot;&gt;utterances&lt;/a&gt;.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;More details and options for front matter can be viewed on the &lt;a href=&quot;https://github.com/fastai/fastpages#front-matter-related-options&quot;&gt;front matter section&lt;/a&gt; of the README.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Markdown-Shortcuts&quot;&gt;Markdown Shortcuts&lt;a class=&quot;anchor-link&quot; href=&quot;#Markdown-Shortcuts&quot;&gt; &lt;/a&gt;&lt;/h2&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;A &lt;code&gt;#hide&lt;/code&gt; comment at the top of any code cell will hide &lt;strong&gt;both the input and output&lt;/strong&gt; of that cell in your blog post.&lt;/p&gt;
-&lt;p&gt;A &lt;code&gt;#hide_input&lt;/code&gt; comment at the top of any code cell will &lt;strong&gt;only hide the input&lt;/strong&gt; of that cell.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-&lt;div class=&quot;output_subarea output_stream output_stdout output_text&quot;&gt;
-&lt;pre&gt;The comment #hide_input was used to hide the code that produced this.
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;put a &lt;code&gt;#collapse-hide&lt;/code&gt; flag at the top of any cell if you want to &lt;strong&gt;hide&lt;/strong&gt; that cell by default, but give the reader the option to show it:&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;details class=&quot;description&quot;&gt;
-      &lt;summary class=&quot;btn btn-sm&quot; data-open=&quot;Hide Code&quot; data-close=&quot;Show Code&quot;&gt;&lt;/summary&gt;
-        &lt;p&gt;&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#collapse-hide&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;altair&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;alt&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/p&gt;
-    &lt;/details&gt;
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;put a &lt;code&gt;#collapse-show&lt;/code&gt; flag at the top of any cell if you want to &lt;strong&gt;show&lt;/strong&gt; that cell by default, but give the reader the option to hide it:&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;details class=&quot;description&quot; open=&quot;&quot;&gt;
-      &lt;summary class=&quot;btn btn-sm&quot; data-open=&quot;Hide Code&quot; data-close=&quot;Show Code&quot;&gt;&lt;/summary&gt;
-        &lt;p&gt;&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;#collapse-show&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cars&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://vega.github.io/vega-datasets/data/cars.json&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;movies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://vega.github.io/vega-datasets/data/movies.json&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;sp500&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://vega.github.io/vega-datasets/data/sp500.csv&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;stocks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://vega.github.io/vega-datasets/data/stocks.csv&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;flights&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://vega.github.io/vega-datasets/data/flights-5k.json&amp;#39;&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/p&gt;
-    &lt;/details&gt;
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Interactive-Charts-With-Altair&quot;&gt;Interactive Charts With Altair&lt;a class=&quot;anchor-link&quot; href=&quot;#Interactive-Charts-With-Altair&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Charts made with Altair remain interactive.  Example charts taken from &lt;a href=&quot;https://github.com/uwdata/visualization-curriculum&quot;&gt;this repo&lt;/a&gt;, specifically &lt;a href=&quot;https://github.com/uwdata/visualization-curriculum/blob/master/altair_interaction.ipynb&quot;&gt;this notebook&lt;/a&gt;.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h3 id=&quot;Example-1:-DropDown&quot;&gt;Example 1: DropDown&lt;a class=&quot;anchor-link&quot; href=&quot;#Example-1:-DropDown&quot;&gt; &lt;/a&gt;&lt;/h3&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# single-value selection over [Major_Genre, MPAA_Rating] pairs&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# use specific hard-wired values as the initial selected values&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;selection&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selection_single&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Select&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;fields&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Major_Genre&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;MPAA_Rating&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;init&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Major_Genre&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Drama&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;MPAA_Rating&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;R&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Major_Genre&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;binding_select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;genres&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;MPAA_Rating&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;binding_radio&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mpaa&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  
-&lt;span class=&quot;c1&quot;&gt;# scatter plot, modify opacity based on selection&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Chart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;movies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mark_circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;selection&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Rotten_Tomatoes_Rating:Q&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;IMDB_Rating:Q&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;tooltip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Title:N&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.05&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-&lt;div class=&quot;output_html rendered_html output_subarea output_execute_result&quot;&gt;
-
-&lt;div id=&quot;altair-viz-1a49e83878ce4d678d7b162f3d6b510f&quot;&gt;&lt;/div&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-  (function(spec, embedOpt){
-    const outputDiv = document.getElementById(&quot;altair-viz-1a49e83878ce4d678d7b162f3d6b510f&quot;);
-    const paths = {
-      &quot;vega&quot;: &quot;https://cdn.jsdelivr.net/npm//vega@5?noext&quot;,
-      &quot;vega-lib&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-lib?noext&quot;,
-      &quot;vega-lite&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext&quot;,
-      &quot;vega-embed&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-embed@6?noext&quot;,
-    };
-
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () =&gt; resolve(paths[lib]);
-        s.onerror = () =&gt; reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName(&quot;head&quot;)[0].appendChild(s);
-      });
-    }
-
-    function showError(err) {
-      outputDiv.innerHTML = `&lt;div class=&quot;error&quot; style=&quot;color:red;&quot;&gt;${err}&lt;/div&gt;`;
-      throw err;
-    }
-
-    function displayChart(vegaEmbed) {
-      vegaEmbed(outputDiv, spec, embedOpt)
-        .catch(err =&gt; showError(`Javascript Error: ${err.message}&lt;br&gt;This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
-    }
-
-    if(typeof define === &quot;function&quot; &amp;&amp; define.amd) {
-      requirejs.config({paths});
-      require([&quot;vega-embed&quot;], displayChart, err =&gt; showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === &quot;function&quot;) {
-      displayChart(vegaEmbed);
-    } else {
-      loadScript(&quot;vega&quot;)
-        .then(() =&gt; loadScript(&quot;vega-lite&quot;))
-        .then(() =&gt; loadScript(&quot;vega-embed&quot;))
-        .catch(showError)
-        .then(() =&gt; displayChart(vegaEmbed));
-    }
-  })({&quot;config&quot;: {&quot;view&quot;: {&quot;continuousWidth&quot;: 400, &quot;continuousHeight&quot;: 300}}, &quot;data&quot;: {&quot;url&quot;: &quot;https://vega.github.io/vega-datasets/data/movies.json&quot;}, &quot;mark&quot;: &quot;circle&quot;, &quot;encoding&quot;: {&quot;opacity&quot;: {&quot;condition&quot;: {&quot;value&quot;: 0.75, &quot;selection&quot;: &quot;Select&quot;}, &quot;value&quot;: 0.05}, &quot;tooltip&quot;: {&quot;type&quot;: &quot;nominal&quot;, &quot;field&quot;: &quot;Title&quot;}, &quot;x&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;Rotten_Tomatoes_Rating&quot;}, &quot;y&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;IMDB_Rating&quot;}}, &quot;selection&quot;: {&quot;Select&quot;: {&quot;type&quot;: &quot;single&quot;, &quot;fields&quot;: [&quot;Major_Genre&quot;, &quot;MPAA_Rating&quot;], &quot;init&quot;: {&quot;Major_Genre&quot;: &quot;Drama&quot;, &quot;MPAA_Rating&quot;: &quot;R&quot;}, &quot;bind&quot;: {&quot;Major_Genre&quot;: {&quot;input&quot;: &quot;select&quot;, &quot;options&quot;: [&quot;Action&quot;, &quot;Adventure&quot;, &quot;Black Comedy&quot;, &quot;Comedy&quot;, &quot;Concert/Performance&quot;, &quot;Documentary&quot;, &quot;Drama&quot;, &quot;Horror&quot;, &quot;Musical&quot;, &quot;Romantic Comedy&quot;, &quot;Thriller/Suspense&quot;, &quot;Western&quot;]}, &quot;MPAA_Rating&quot;: {&quot;input&quot;: &quot;radio&quot;, &quot;options&quot;: [&quot;G&quot;, &quot;PG&quot;, &quot;PG-13&quot;, &quot;R&quot;, &quot;NC-17&quot;, &quot;Not Rated&quot;]}}}}, &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v4.0.2.json&quot;}, {&quot;mode&quot;: &quot;vega-lite&quot;});
-&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h3 id=&quot;Example-2:-Tooltips&quot;&gt;Example 2: Tooltips&lt;a class=&quot;anchor-link&quot; href=&quot;#Example-2:-Tooltips&quot;&gt; &lt;/a&gt;&lt;/h3&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Chart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;movies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mark_circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selection_interval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;scales&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;encodings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Rotten_Tomatoes_Rating:Q&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;IMDB_Rating:Q&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;axis&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Axis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;minExtent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# use min extent to stabilize axis title placement&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;tooltip&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Title:N&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Release_Date:N&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;IMDB_Rating:Q&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Rotten_Tomatoes_Rating:Q&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-&lt;div class=&quot;output_html rendered_html output_subarea output_execute_result&quot;&gt;
-
-&lt;div id=&quot;altair-viz-c022b476f4fb482ca6f609bf6ed082d2&quot;&gt;&lt;/div&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-  (function(spec, embedOpt){
-    const outputDiv = document.getElementById(&quot;altair-viz-c022b476f4fb482ca6f609bf6ed082d2&quot;);
-    const paths = {
-      &quot;vega&quot;: &quot;https://cdn.jsdelivr.net/npm//vega@5?noext&quot;,
-      &quot;vega-lib&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-lib?noext&quot;,
-      &quot;vega-lite&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext&quot;,
-      &quot;vega-embed&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-embed@6?noext&quot;,
-    };
-
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () =&gt; resolve(paths[lib]);
-        s.onerror = () =&gt; reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName(&quot;head&quot;)[0].appendChild(s);
-      });
-    }
-
-    function showError(err) {
-      outputDiv.innerHTML = `&lt;div class=&quot;error&quot; style=&quot;color:red;&quot;&gt;${err}&lt;/div&gt;`;
-      throw err;
-    }
-
-    function displayChart(vegaEmbed) {
-      vegaEmbed(outputDiv, spec, embedOpt)
-        .catch(err =&gt; showError(`Javascript Error: ${err.message}&lt;br&gt;This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
-    }
-
-    if(typeof define === &quot;function&quot; &amp;&amp; define.amd) {
-      requirejs.config({paths});
-      require([&quot;vega-embed&quot;], displayChart, err =&gt; showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === &quot;function&quot;) {
-      displayChart(vegaEmbed);
-    } else {
-      loadScript(&quot;vega&quot;)
-        .then(() =&gt; loadScript(&quot;vega-lite&quot;))
-        .then(() =&gt; loadScript(&quot;vega-embed&quot;))
-        .catch(showError)
-        .then(() =&gt; displayChart(vegaEmbed));
-    }
-  })({&quot;config&quot;: {&quot;view&quot;: {&quot;continuousWidth&quot;: 400, &quot;continuousHeight&quot;: 300}}, &quot;data&quot;: {&quot;url&quot;: &quot;https://vega.github.io/vega-datasets/data/movies.json&quot;}, &quot;mark&quot;: &quot;circle&quot;, &quot;encoding&quot;: {&quot;tooltip&quot;: [{&quot;type&quot;: &quot;nominal&quot;, &quot;field&quot;: &quot;Title&quot;}, {&quot;type&quot;: &quot;nominal&quot;, &quot;field&quot;: &quot;Release_Date&quot;}, {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;IMDB_Rating&quot;}, {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;Rotten_Tomatoes_Rating&quot;}], &quot;x&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;Rotten_Tomatoes_Rating&quot;}, &quot;y&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;axis&quot;: {&quot;minExtent&quot;: 30}, &quot;field&quot;: &quot;IMDB_Rating&quot;}}, &quot;height&quot;: 400, &quot;selection&quot;: {&quot;selector001&quot;: {&quot;type&quot;: &quot;interval&quot;, &quot;bind&quot;: &quot;scales&quot;, &quot;encodings&quot;: [&quot;x&quot;]}}, &quot;width&quot;: 600, &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v4.0.2.json&quot;}, {&quot;mode&quot;: &quot;vega-lite&quot;});
-&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h3 id=&quot;Example-3:-More-Tooltips&quot;&gt;Example 3: More Tooltips&lt;a class=&quot;anchor-link&quot; href=&quot;#Example-3:-More-Tooltips&quot;&gt; &lt;/a&gt;&lt;/h3&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# select a point for which to provide details-on-demand&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;selection_single&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;encodings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;x&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# limit selection to x-axis value&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;on&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;mouseover&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# select on mouseover events&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;nearest&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;# select data point nearest the cursor&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;none&amp;#39;&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;# empty selection includes no data points&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# define our base line chart of stock prices&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;base&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Chart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mark_line&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;date:T&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Y&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;price:Q&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;log&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;symbol:N&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;layer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# base line chart&lt;/span&gt;
-    
-    &lt;span class=&quot;c1&quot;&gt;# add a rule mark to serve as a guide line&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Chart&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mark_rule&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;#aaa&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;date:T&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform_filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    
-    &lt;span class=&quot;c1&quot;&gt;# add circle marks for selected time points, hide unselected points&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mark_circle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;opacity&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;condition&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alt&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_selection&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# add white stroked text to provide a legible background for labels&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mark_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;align&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;left&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stroke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;strokeWidth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;price:Q&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform_filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-
-    &lt;span class=&quot;c1&quot;&gt;# add text labels for stock prices&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;base&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mark_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;align&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;left&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dy&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;encode&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;price:Q&amp;#39;&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;transform_filter&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;label&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-    
-    &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;stocks&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;properties&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;width&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;700&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;height&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-&lt;div class=&quot;output_html rendered_html output_subarea output_execute_result&quot;&gt;
-
-&lt;div id=&quot;altair-viz-9283d3681fd24aafa3d1e2f9ad193ecf&quot;&gt;&lt;/div&gt;
-&lt;script type=&quot;text/javascript&quot;&gt;
-  (function(spec, embedOpt){
-    const outputDiv = document.getElementById(&quot;altair-viz-9283d3681fd24aafa3d1e2f9ad193ecf&quot;);
-    const paths = {
-      &quot;vega&quot;: &quot;https://cdn.jsdelivr.net/npm//vega@5?noext&quot;,
-      &quot;vega-lib&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-lib?noext&quot;,
-      &quot;vega-lite&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext&quot;,
-      &quot;vega-embed&quot;: &quot;https://cdn.jsdelivr.net/npm//vega-embed@6?noext&quot;,
-    };
-
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () =&gt; resolve(paths[lib]);
-        s.onerror = () =&gt; reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName(&quot;head&quot;)[0].appendChild(s);
-      });
-    }
-
-    function showError(err) {
-      outputDiv.innerHTML = `&lt;div class=&quot;error&quot; style=&quot;color:red;&quot;&gt;${err}&lt;/div&gt;`;
-      throw err;
-    }
-
-    function displayChart(vegaEmbed) {
-      vegaEmbed(outputDiv, spec, embedOpt)
-        .catch(err =&gt; showError(`Javascript Error: ${err.message}&lt;br&gt;This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
-    }
-
-    if(typeof define === &quot;function&quot; &amp;&amp; define.amd) {
-      requirejs.config({paths});
-      require([&quot;vega-embed&quot;], displayChart, err =&gt; showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === &quot;function&quot;) {
-      displayChart(vegaEmbed);
-    } else {
-      loadScript(&quot;vega&quot;)
-        .then(() =&gt; loadScript(&quot;vega-lite&quot;))
-        .then(() =&gt; loadScript(&quot;vega-embed&quot;))
-        .catch(showError)
-        .then(() =&gt; displayChart(vegaEmbed));
-    }
-  })({&quot;config&quot;: {&quot;view&quot;: {&quot;continuousWidth&quot;: 400, &quot;continuousHeight&quot;: 300}}, &quot;layer&quot;: [{&quot;mark&quot;: &quot;line&quot;, &quot;encoding&quot;: {&quot;color&quot;: {&quot;type&quot;: &quot;nominal&quot;, &quot;field&quot;: &quot;symbol&quot;}, &quot;x&quot;: {&quot;type&quot;: &quot;temporal&quot;, &quot;field&quot;: &quot;date&quot;}, &quot;y&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;price&quot;, &quot;scale&quot;: {&quot;type&quot;: &quot;log&quot;}}}}, {&quot;mark&quot;: {&quot;type&quot;: &quot;rule&quot;, &quot;color&quot;: &quot;#aaa&quot;}, &quot;encoding&quot;: {&quot;x&quot;: {&quot;type&quot;: &quot;temporal&quot;, &quot;field&quot;: &quot;date&quot;}}, &quot;transform&quot;: [{&quot;filter&quot;: {&quot;selection&quot;: &quot;selector002&quot;}}]}, {&quot;mark&quot;: &quot;circle&quot;, &quot;encoding&quot;: {&quot;color&quot;: {&quot;type&quot;: &quot;nominal&quot;, &quot;field&quot;: &quot;symbol&quot;}, &quot;opacity&quot;: {&quot;condition&quot;: {&quot;value&quot;: 1, &quot;selection&quot;: &quot;selector002&quot;}, &quot;value&quot;: 0}, &quot;x&quot;: {&quot;type&quot;: &quot;temporal&quot;, &quot;field&quot;: &quot;date&quot;}, &quot;y&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;price&quot;, &quot;scale&quot;: {&quot;type&quot;: &quot;log&quot;}}}, &quot;selection&quot;: {&quot;selector002&quot;: {&quot;type&quot;: &quot;single&quot;, &quot;encodings&quot;: [&quot;x&quot;], &quot;on&quot;: &quot;mouseover&quot;, &quot;nearest&quot;: true, &quot;empty&quot;: &quot;none&quot;}}}, {&quot;mark&quot;: {&quot;type&quot;: &quot;text&quot;, &quot;align&quot;: &quot;left&quot;, &quot;dx&quot;: 5, &quot;dy&quot;: -5, &quot;stroke&quot;: &quot;white&quot;, &quot;strokeWidth&quot;: 2}, &quot;encoding&quot;: {&quot;color&quot;: {&quot;type&quot;: &quot;nominal&quot;, &quot;field&quot;: &quot;symbol&quot;}, &quot;text&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;price&quot;}, &quot;x&quot;: {&quot;type&quot;: &quot;temporal&quot;, &quot;field&quot;: &quot;date&quot;}, &quot;y&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;price&quot;, &quot;scale&quot;: {&quot;type&quot;: &quot;log&quot;}}}, &quot;transform&quot;: [{&quot;filter&quot;: {&quot;selection&quot;: &quot;selector002&quot;}}]}, {&quot;mark&quot;: {&quot;type&quot;: &quot;text&quot;, &quot;align&quot;: &quot;left&quot;, &quot;dx&quot;: 5, &quot;dy&quot;: -5}, &quot;encoding&quot;: {&quot;color&quot;: {&quot;type&quot;: &quot;nominal&quot;, &quot;field&quot;: &quot;symbol&quot;}, &quot;text&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;price&quot;}, &quot;x&quot;: {&quot;type&quot;: &quot;temporal&quot;, &quot;field&quot;: &quot;date&quot;}, &quot;y&quot;: {&quot;type&quot;: &quot;quantitative&quot;, &quot;field&quot;: &quot;price&quot;, &quot;scale&quot;: {&quot;type&quot;: &quot;log&quot;}}}, &quot;transform&quot;: [{&quot;filter&quot;: {&quot;selection&quot;: &quot;selector002&quot;}}]}], &quot;data&quot;: {&quot;url&quot;: &quot;https://vega.github.io/vega-datasets/data/stocks.csv&quot;}, &quot;height&quot;: 400, &quot;width&quot;: 700, &quot;$schema&quot;: &quot;https://vega.github.io/schema/vega-lite/v4.0.2.json&quot;}, {&quot;mode&quot;: &quot;vega-lite&quot;});
-&lt;/script&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Data-Tables&quot;&gt;Data Tables&lt;a class=&quot;anchor-link&quot; href=&quot;#Data-Tables&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;You can display tables per the usual way in your blog:&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;movies&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;https://vega.github.io/vega-datasets/data/movies.json&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_json&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;movies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# display table with pandas&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;Title&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Worldwide_Gross&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-    &lt;span class=&quot;s1&quot;&gt;&amp;#39;Production_Budget&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Distributor&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;MPAA_Rating&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;IMDB_Rating&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;Rotten_Tomatoes_Rating&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-&lt;div class=&quot;output_html rendered_html output_subarea output_execute_result&quot;&gt;
-&lt;div&gt;
-&lt;style scoped=&quot;&quot;&gt;
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-&lt;/style&gt;
-&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
-  &lt;thead&gt;
-    &lt;tr style=&quot;text-align: right;&quot;&gt;
-      &lt;th&gt;&lt;/th&gt;
-      &lt;th&gt;Title&lt;/th&gt;
-      &lt;th&gt;Worldwide_Gross&lt;/th&gt;
-      &lt;th&gt;Production_Budget&lt;/th&gt;
-      &lt;th&gt;Distributor&lt;/th&gt;
-      &lt;th&gt;MPAA_Rating&lt;/th&gt;
-      &lt;th&gt;IMDB_Rating&lt;/th&gt;
-      &lt;th&gt;Rotten_Tomatoes_Rating&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;th&gt;0&lt;/th&gt;
-      &lt;td&gt;The Land Girls&lt;/td&gt;
-      &lt;td&gt;146083.0&lt;/td&gt;
-      &lt;td&gt;8000000.0&lt;/td&gt;
-      &lt;td&gt;Gramercy&lt;/td&gt;
-      &lt;td&gt;R&lt;/td&gt;
-      &lt;td&gt;6.1&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;1&lt;/th&gt;
-      &lt;td&gt;First Love, Last Rites&lt;/td&gt;
-      &lt;td&gt;10876.0&lt;/td&gt;
-      &lt;td&gt;300000.0&lt;/td&gt;
-      &lt;td&gt;Strand&lt;/td&gt;
-      &lt;td&gt;R&lt;/td&gt;
-      &lt;td&gt;6.9&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;2&lt;/th&gt;
-      &lt;td&gt;I Married a Strange Person&lt;/td&gt;
-      &lt;td&gt;203134.0&lt;/td&gt;
-      &lt;td&gt;250000.0&lt;/td&gt;
-      &lt;td&gt;Lionsgate&lt;/td&gt;
-      &lt;td&gt;None&lt;/td&gt;
-      &lt;td&gt;6.8&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;3&lt;/th&gt;
-      &lt;td&gt;Let's Talk About Sex&lt;/td&gt;
-      &lt;td&gt;373615.0&lt;/td&gt;
-      &lt;td&gt;300000.0&lt;/td&gt;
-      &lt;td&gt;Fine Line&lt;/td&gt;
-      &lt;td&gt;None&lt;/td&gt;
-      &lt;td&gt;NaN&lt;/td&gt;
-      &lt;td&gt;13.0&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;th&gt;4&lt;/th&gt;
-      &lt;td&gt;Slam&lt;/td&gt;
-      &lt;td&gt;1087521.0&lt;/td&gt;
-      &lt;td&gt;1000000.0&lt;/td&gt;
-      &lt;td&gt;Trimark&lt;/td&gt;
-      &lt;td&gt;R&lt;/td&gt;
-      &lt;td&gt;3.4&lt;/td&gt;
-      &lt;td&gt;62.0&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Images&quot;&gt;Images&lt;a class=&quot;anchor-link&quot; href=&quot;#Images&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;h3 id=&quot;Local-Images&quot;&gt;Local Images&lt;a class=&quot;anchor-link&quot; href=&quot;#Local-Images&quot;&gt; &lt;/a&gt;&lt;/h3&gt;&lt;p&gt;You can reference local images and they will be copied and rendered on your blog automatically.  You can include these with the following markdown syntax:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;![](my_icons/fastai_logo.png)&lt;/code&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;&lt;img src=&quot;/zonca-blog/images/copied_from_nb/my_icons/fastai_logo.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h3 id=&quot;Remote-Images&quot;&gt;Remote Images&lt;a class=&quot;anchor-link&quot; href=&quot;#Remote-Images&quot;&gt; &lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Remote images can be included with the following markdown syntax:&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;![](https://image.flaticon.com/icons/svg/36/36686.svg)&lt;/code&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;&lt;img src=&quot;https://image.flaticon.com/icons/svg/36/36686.svg&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h3 id=&quot;Animated-Gifs&quot;&gt;Animated Gifs&lt;a class=&quot;anchor-link&quot; href=&quot;#Animated-Gifs&quot;&gt; &lt;/a&gt;&lt;/h3&gt;&lt;p&gt;Animated Gifs work, too!&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;![](https://upload.wikimedia.org/wikipedia/commons/7/71/ChessPawnSpecialMoves.gif)&lt;/code&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;&lt;img src=&quot;https://upload.wikimedia.org/wikipedia/commons/7/71/ChessPawnSpecialMoves.gif&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h3 id=&quot;Captions&quot;&gt;Captions&lt;a class=&quot;anchor-link&quot; href=&quot;#Captions&quot;&gt; &lt;/a&gt;&lt;/h3&gt;&lt;p&gt;You can include captions with markdown images like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;![](https://www.fast.ai/images/fastai_paper/show_batch.png &quot;Credit: https://www.fast.ai/2020/02/13/fastai-A-Layered-API-for-Deep-Learning/&quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&quot;https://www.fast.ai/images/fastai_paper/show_batch.png&quot; alt=&quot;&quot; title=&quot;Credit: https://www.fast.ai/2020/02/13/fastai-A-Layered-API-for-Deep-Learning/&quot; /&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h1 id=&quot;Other-Elements&quot;&gt;Other Elements&lt;a class=&quot;anchor-link&quot; href=&quot;#Other-Elements&quot;&gt; &lt;/a&gt;&lt;/h1&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Tweetcards&quot;&gt;Tweetcards&lt;a class=&quot;anchor-link&quot; href=&quot;#Tweetcards&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Typing &lt;code&gt;&amp;gt; twitter: https://twitter.com/jakevdp/status/1204765621767901185?s=20&lt;/code&gt; will render this:
-
-&lt;center&gt;
-    &lt;div class=&quot;jekyll-twitter-plugin&quot;&gt;&lt;blockquote class=&quot;twitter-tweet&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Altair 4.0 is released! &lt;a href=&quot;https://t.co/PCyrIOTcvv&quot;&gt;https://t.co/PCyrIOTcvv&lt;/a&gt;&lt;br /&gt;Try it with:&lt;br /&gt;&lt;br /&gt;  pip install -U altair&lt;br /&gt;&lt;br /&gt;The full list of changes is at &lt;a href=&quot;https://t.co/roXmzcsT58&quot;&gt;https://t.co/roXmzcsT58&lt;/a&gt; ...read on for some highlights. &lt;a href=&quot;https://t.co/vWJ0ZveKbZ&quot;&gt;pic.twitter.com/vWJ0ZveKbZ&lt;/a&gt;&lt;/p&gt;&amp;mdash; Jake VanderPlas (@jakevdp) &lt;a href=&quot;https://twitter.com/jakevdp/status/1204765621767901185?ref_src=twsrc%5Etfw&quot;&gt;December 11, 2019&lt;/a&gt;&lt;/blockquote&gt;
-&lt;script async=&quot;&quot; src=&quot;https://platform.twitter.com/widgets.js&quot; charset=&quot;utf-8&quot;&gt;&lt;/script&gt;
-&lt;/div&gt;
-&lt;/center&gt;
-&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Youtube-Videos&quot;&gt;Youtube Videos&lt;a class=&quot;anchor-link&quot; href=&quot;#Youtube-Videos&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Typing &lt;code&gt;&amp;gt; youtube: https://youtu.be/XfoYk_Z5AkI&lt;/code&gt; will render this:
-
-&lt;center&gt;
-    &lt;iframe width=&quot;560&quot; height=&quot;315&quot; src=&quot;https://www.youtube.com/embed/XfoYk_Z5AkI&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
-&lt;/center&gt;
-&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Boxes-/-Callouts&quot;&gt;Boxes / Callouts&lt;a class=&quot;anchor-link&quot; href=&quot;#Boxes-/-Callouts&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Typing &lt;code&gt;&amp;gt; Warning: There will be no second warning!&lt;/code&gt; will render this:
-&lt;div class=&quot;flash flash-error&quot;&gt;
-    &lt;svg class=&quot;octicon octicon-alert&quot; viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 000 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 00.01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-    &lt;strong&gt;Warning: &lt;/strong&gt;There will be no second warning!
-&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;Typing &lt;code&gt;&amp;gt; Important: Pay attention! It's important.&lt;/code&gt; will render this:
-&lt;div class=&quot;flash flash-warn&quot;&gt;
-    &lt;svg class=&quot;octicon octicon-zap&quot; viewBox=&quot;0 0 10 16&quot; version=&quot;1.1&quot; width=&quot;10&quot; height=&quot;16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M10 7H6l3-7-9 9h4l-3 7 9-9z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-    &lt;strong&gt;Important: &lt;/strong&gt;Pay attention! It&amp;#8217;s important.
-&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;Typing &lt;code&gt;&amp;gt; Tip: This is my tip.&lt;/code&gt; will render this:
-&lt;div class=&quot;flash flash-success&quot;&gt;
-    &lt;svg class=&quot;octicon octicon-checklist&quot; viewBox=&quot;0 0 16 16&quot; version=&quot;1.1&quot; width=&quot;16&quot; height=&quot;16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M16 8.5l-6 6-3-3L8.5 10l1.5 1.5L14.5 7 16 8.5zM5.7 12.2l.8.8H2c-.55 0-1-.45-1-1V3c0-.55.45-1 1-1h7c.55 0 1 .45 1 1v6.5l-.8-.8c-.39-.39-1.03-.39-1.42 0L5.7 10.8a.996.996 0 000 1.41v-.01zM4 4h5V3H4v1zm0 2h5V5H4v1zm0 2h3V7H4v1zM3 9H2v1h1V9zm0-2H2v1h1V7zm0-2H2v1h1V5zm0-2H2v1h1V3z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-    &lt;strong&gt;Tip: &lt;/strong&gt;This is my tip.
-&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;Typing &lt;code&gt;&amp;gt; Note: Take note of this.&lt;/code&gt; will render this:
-&lt;div class=&quot;flash&quot;&gt;
-    &lt;svg class=&quot;octicon octicon-info&quot; viewBox=&quot;0 0 14 16&quot; version=&quot;1.1&quot; width=&quot;14&quot; height=&quot;16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-    &lt;strong&gt;Note: &lt;/strong&gt;Take note of this.
-&lt;/div&gt;&lt;/p&gt;
-&lt;p&gt;Typing &lt;code&gt;&amp;gt; Note: A doc link to [an example website: fast.ai](https://www.fast.ai/) should also work fine.&lt;/code&gt; will render in the docs:
-&lt;div class=&quot;flash&quot;&gt;
-    &lt;svg class=&quot;octicon octicon-info octicon octicon-info&quot; viewBox=&quot;0 0 14 16&quot; version=&quot;1.1&quot; width=&quot;14&quot; height=&quot;16&quot; aria-hidden=&quot;true&quot;&gt;&lt;path fill-rule=&quot;evenodd&quot; d=&quot;M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z&quot;&gt;&lt;/path&gt;&lt;/svg&gt;
-    &lt;strong&gt;Note: &lt;/strong&gt;A doc link to &lt;a href=&quot;https://www.fast.ai/&quot;&gt;an example website: fast.ai&lt;/a&gt; should also work fine.
-&lt;/div&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Footnotes&quot;&gt;Footnotes&lt;a class=&quot;anchor-link&quot; href=&quot;#Footnotes&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;You can have footnotes in notebooks just like you can with markdown.&lt;/p&gt;
-&lt;p&gt;For example, here is a footnote &lt;sup class=&quot;footnote-ref&quot; id=&quot;fnref-1&quot;&gt;&lt;a href=&quot;#fn-1&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
-&lt;div class=&quot;footnotes&quot;&gt;
-&lt;hr /&gt;
-&lt;ol&gt;&lt;li id=&quot;fn-1&quot;&gt;&lt;p&gt;This is the footnote.&lt;a href=&quot;#fnref-1&quot; class=&quot;footnote&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://zonca.dev/images/chart-preview.png" /><media:content medium="image" url="https://zonca.dev/images/chart-preview.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Organize calendars for a large scientific collaboration</title><link href="https://zonca.dev/2019/12/organize-calendar-collaboration.html" rel="alternate" type="text/html" title="Organize calendars for a large scientific collaboration" /><published>2019-12-02T12:00:00-06:00</published><updated>2019-12-02T12:00:00-06:00</updated><id>https://zonca.dev/2019/12/organize-calendar-collaboration</id><content type="html" xml:base="https://zonca.dev/2019/12/organize-calendar-collaboration.html">&lt;p&gt;Many scientific collaborations have a central calendar, often hosted on Google Calendar,
+&lt;p&gt;Finally we can check the content of the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder.&lt;/p&gt;</content><author><name></name></author><summary type="html">CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations.</summary></entry><entry><title type="html">Organize calendars for a large scientific collaboration</title><link href="https://zonca.dev/2019/12/organize-calendar-collaboration.html" rel="alternate" type="text/html" title="Organize calendars for a large scientific collaboration" /><published>2019-12-02T12:00:00-06:00</published><updated>2019-12-02T12:00:00-06:00</updated><id>https://zonca.dev/2019/12/organize-calendar-collaboration</id><content type="html" xml:base="https://zonca.dev/2019/12/organize-calendar-collaboration.html">&lt;p&gt;Many scientific collaborations have a central calendar, often hosted on Google Calendar,
 to coordinate Teleconferences, meetings and events across timezones.&lt;/p&gt;
 
 &lt;h3 id=&quot;the-issue&quot;&gt;The issue&lt;/h3&gt;
@@ -912,7 +198,7 @@ And possibly a “General” category with events that should interest the whole
 See the screenshot below, &lt;img src=&quot;/images/add_google_calendar.png&quot; alt=&quot;screenshot of add to Google Calendar&quot; /&gt;.&lt;/p&gt;
 
 &lt;p&gt;As an additional benefit, we can compartimentalize permissions more easily, e.g. leads of a working group
-get writing access only to their relevant calendar/calendars.&lt;/p&gt;</content><author><name></name></author><category term="google-calendar" /><summary type="html">Many scientific collaborations have a central calendar, often hosted on Google Calendar, to coordinate Teleconferences, meetings and events across timezones.</summary></entry><entry><title type="html">Simulate users on JupyterHub</title><link href="https://zonca.dev/2019/10/loadtest-jupyterhub.html" rel="alternate" type="text/html" title="Simulate users on JupyterHub" /><published>2019-10-30T12:00:00-05:00</published><updated>2019-10-30T12:00:00-05:00</updated><id>https://zonca.dev/2019/10/loadtest-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2019/10/loadtest-jupyterhub.html">&lt;p&gt;I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:&lt;/p&gt;
+get writing access only to their relevant calendar/calendars.&lt;/p&gt;</content><author><name></name></author><summary type="html">Many scientific collaborations have a central calendar, often hosted on Google Calendar, to coordinate Teleconferences, meetings and events across timezones.</summary></entry><entry><title type="html">Simulate users on JupyterHub</title><link href="https://zonca.dev/2019/10/loadtest-jupyterhub.html" rel="alternate" type="text/html" title="Simulate users on JupyterHub" /><published>2019-10-30T12:00:00-05:00</published><updated>2019-10-30T12:00:00-05:00</updated><id>https://zonca.dev/2019/10/loadtest-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2019/10/loadtest-jupyterhub.html">&lt;p&gt;I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Using &lt;a href=&quot;https://zonca.github.io/2019/02/kubernetes-jupyterhub-jetstream-kubespray.html&quot;&gt;Kubespray&lt;/a&gt;&lt;/li&gt;
@@ -1008,7 +294,7 @@ I1101 06:33:21.588022       1 magnum_nodegroup.go:67] Waited &lt;span class=&quo
 
 &lt;h2 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h2&gt;
 
-&lt;p&gt;Thanks Yuvi Panda for providing &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt;, thanks Julien Chastang for testing my deployments.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><summary type="html">I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:</summary></entry><entry><title type="html">Execute Jupyter Notebooks not interactively</title><link href="https://zonca.dev/2019/09/batch-notebook-execution.html" rel="alternate" type="text/html" title="Execute Jupyter Notebooks not interactively" /><published>2019-09-23T12:00:00-05:00</published><updated>2019-09-23T12:00:00-05:00</updated><id>https://zonca.dev/2019/09/batch-notebook-execution</id><content type="html" xml:base="https://zonca.dev/2019/09/batch-notebook-execution.html">&lt;p&gt;Over the years, I have explored how to scale up easily computation through
+&lt;p&gt;Thanks Yuvi Panda for providing &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt;, thanks Julien Chastang for testing my deployments.&lt;/p&gt;</content><author><name></name></author><summary type="html">I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:</summary></entry><entry><title type="html">Execute Jupyter Notebooks not interactively</title><link href="https://zonca.dev/2019/09/batch-notebook-execution.html" rel="alternate" type="text/html" title="Execute Jupyter Notebooks not interactively" /><published>2019-09-23T12:00:00-05:00</published><updated>2019-09-23T12:00:00-05:00</updated><id>https://zonca.dev/2019/09/batch-notebook-execution</id><content type="html" xml:base="https://zonca.dev/2019/09/batch-notebook-execution.html">&lt;p&gt;Over the years, I have explored how to scale up easily computation through
 Jupyter Notebooks by executing them not-interactively, possibily parametrized
 and remotely. This is mostly for reference.&lt;/p&gt;
 
@@ -1016,7 +302,7 @@ and remotely. This is mostly for reference.&lt;/p&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/nbsubmit&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nbsubmit&lt;/code&gt;&lt;/a&gt; is a Python package which has Python API to send a local notebook for execution on a remote SLURM cluster, for example Comet, see &lt;a href=&quot;https://github.com/zonca/nbsubmit/blob/master/example/multiple_jobs/submit_multiple_jobs.ipynb&quot;&gt;an example&lt;/a&gt;. This project is not maintained right now.&lt;/li&gt;
   &lt;li&gt;Back in 2017 I tested submitting notebooks to Open Science Grid, see &lt;a href=&quot;https://github.com/zonca/batch-notebooks-condor&quot;&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;batch-notebooks-condor&lt;/code&gt; repository&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;Back in 2016 I created scripts to template a Jupyter Notebook and launch SLURM jobs, see &lt;a href=&quot;https://github.com/sdsc/sdsc-summer-institute-2016/blob/master/hpc3_python_hpc/slurm.shared.template&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slurm.shared.template&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://github.com/sdsc/sdsc-summer-institute-2016/blob/master/hpc3_python_hpc/runipyloop.sh&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;runipyloop.sh&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="jupyter" /><category term="notebook" /><category term="condor" /><summary type="html">Over the years, I have explored how to scale up easily computation through Jupyter Notebooks by executing them not-interactively, possibily parametrized and remotely. This is mostly for reference.</summary></entry><entry><title type="html">Deploy Cluster Autoscaler for Kubernetes on Jetstream</title><link href="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html" rel="alternate" type="text/html" title="Deploy Cluster Autoscaler for Kubernetes on Jetstream" /><published>2019-09-12T12:00:00-05:00</published><updated>2019-09-12T12:00:00-05:00</updated><id>https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler</id><content type="html" xml:base="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html">&lt;p&gt;The &lt;a href=&quot;https://github.com/kubernetes/autoscaler&quot;&gt;Kubernetes Cluster Autoscaler&lt;/a&gt; is a service
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Over the years, I have explored how to scale up easily computation through Jupyter Notebooks by executing them not-interactively, possibily parametrized and remotely. This is mostly for reference.</summary></entry><entry><title type="html">Deploy Cluster Autoscaler for Kubernetes on Jetstream</title><link href="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html" rel="alternate" type="text/html" title="Deploy Cluster Autoscaler for Kubernetes on Jetstream" /><published>2019-09-12T12:00:00-05:00</published><updated>2019-09-12T12:00:00-05:00</updated><id>https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler</id><content type="html" xml:base="https://zonca.dev/2019/09/kubernetes-jetstream-autoscaler.html">&lt;p&gt;The &lt;a href=&quot;https://github.com/kubernetes/autoscaler&quot;&gt;Kubernetes Cluster Autoscaler&lt;/a&gt; is a service
 that runs within a Kubernetes cluster and when there are not enough resources to accomodate
 the pods that are queued to run, it contacts the API of the cloud provider to create
 more Virtual Machines to join the Kubernetes Cluster.&lt;/p&gt;
@@ -1174,7 +460,7 @@ The image tags are the short version of the repository git commit hash.&lt;/p&gt
 &lt;p&gt;I have tested this deployment using the &lt;code class=&quot;highlighter-rouge&quot;&gt;Fedora-Atomic-27-20180419&lt;/code&gt; image on Jetstream at Indiana University.
 The Fedora Atomic 28 image had a long hang-up during boot and took more than 10 minutes to start and that caused timeout in the autoscaler and anyway it would have been too long for a user waiting to start a notebook.&lt;/p&gt;
 
-&lt;p&gt;I also tried updating the Fedora Atomic 28 image with &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo atomic host upgrade&lt;/code&gt; and while this fixed the slow startup issue, it generated a broken Kubernetes installation, i.e. the Kubernetes services didn’t detect the master node as part of the cluster, &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl get nodes&lt;/code&gt; only showed the minion.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><summary type="html">The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster.</summary></entry><entry><title type="html">Create a Github account for your research group with free private repositories</title><link href="https://zonca.dev/2019/08/github-for-research-groups.html" rel="alternate" type="text/html" title="Create a Github account for your research group with free private repositories" /><published>2019-08-24T15:00:00-05:00</published><updated>2019-08-24T15:00:00-05:00</updated><id>https://zonca.dev/2019/08/github-for-research-groups</id><content type="html" xml:base="https://zonca.dev/2019/08/github-for-research-groups.html">&lt;p&gt;&lt;a href=&quot;https://github.com/&quot;&gt;Github&lt;/a&gt; allows a research group to create their own webpage where they can host, share and develop their software using the &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; version control system and the powerful Github online issue-tracking interface.&lt;/p&gt;
+&lt;p&gt;I also tried updating the Fedora Atomic 28 image with &lt;code class=&quot;highlighter-rouge&quot;&gt;sudo atomic host upgrade&lt;/code&gt; and while this fixed the slow startup issue, it generated a broken Kubernetes installation, i.e. the Kubernetes services didn’t detect the master node as part of the cluster, &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl get nodes&lt;/code&gt; only showed the minion.&lt;/p&gt;</content><author><name></name></author><summary type="html">The Kubernetes Cluster Autoscaler is a service that runs within a Kubernetes cluster and when there are not enough resources to accomodate the pods that are queued to run, it contacts the API of the cloud provider to create more Virtual Machines to join the Kubernetes Cluster.</summary></entry><entry><title type="html">Create a Github account for your research group with free private repositories</title><link href="https://zonca.dev/2019/08/github-for-research-groups.html" rel="alternate" type="text/html" title="Create a Github account for your research group with free private repositories" /><published>2019-08-24T15:00:00-05:00</published><updated>2019-08-24T15:00:00-05:00</updated><id>https://zonca.dev/2019/08/github-for-research-groups</id><content type="html" xml:base="https://zonca.dev/2019/08/github-for-research-groups.html">&lt;p&gt;&lt;a href=&quot;https://github.com/&quot;&gt;Github&lt;/a&gt; allows a research group to create their own webpage where they can host, share and develop their software using the &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; version control system and the powerful Github online issue-tracking interface.&lt;/p&gt;
 
 &lt;p&gt;Github offers unlimited private and public repositories to research groups and classrooms.
 Private repositories are useful for early stages of development or if it is necessary to keep software secret before publication, at publication they can easily switched to public repositories and free up their slot.&lt;/p&gt;
@@ -1200,4 +486,131 @@ Private repositories are useful for early stages of development or if it is nece
 
 &lt;p&gt;See for example the organization account of the &lt;a href=&quot;https://github.com/dib-lab&quot;&gt;“The Lab for Data Intensive Biology” led by Dr. C. Titus Brown&lt;/a&gt; where they share code, documentation and papers. Open Science!!&lt;/p&gt;
 
-&lt;p&gt;Other suggestions on the setup very welcome!&lt;/p&gt;</content><author><name></name></author><category term="github" /><category term="git" /><category term="openscience" /><summary type="html">Github allows a research group to create their own webpage where they can host, share and develop their software using the git version control system and the powerful Github online issue-tracking interface.</summary></entry></feed>
+&lt;p&gt;Other suggestions on the setup very welcome!&lt;/p&gt;</content><author><name></name></author><summary type="html">Github allows a research group to create their own webpage where they can host, share and develop their software using the git version control system and the powerful Github online issue-tracking interface.</summary></entry><entry><title type="html">Ship large files with Python packages</title><link href="https://zonca.dev/2019/08/large-files-python-packages.html" rel="alternate" type="text/html" title="Ship large files with Python packages" /><published>2019-08-21T18:00:00-05:00</published><updated>2019-08-21T18:00:00-05:00</updated><id>https://zonca.dev/2019/08/large-files-python-packages</id><content type="html" xml:base="https://zonca.dev/2019/08/large-files-python-packages.html">&lt;p&gt;It is often useful to ship large data files together with a Python package,
+a couple of scenarios are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;data necessary to the functionality provided by the package, for example images, any binary or large text dataset, they could be either required just for a subset of the functionality of the package or for all of it&lt;/li&gt;
+  &lt;li&gt;data necessary for unit or integration testing, both example inputs and expected outputs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If data are collectively less than 2 GB compressed and do not change very often, a simple and a bit hacky solution is to use GitHub release assets. For each packaged release on GitHub it is possible to attach one or more assets smaller than 2 GB. You can then attach data to each release, the downside is that users need to make sure to use the correct dataset for the release they are using and the first time they use the software the need to install the Python package and also download the dataset and install it in the right folder. See &lt;a href=&quot;https://gist.github.com/zonca/52857f2425942725fb74595c4f8600e9&quot;&gt;an example script to upload from the command line&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If data files are individually less than 10 MB and collectively less than 100 MB you can directly add them into the Python package. This is the easiest and most convenient option, for example the &lt;a href=&quot;https://github.com/astropy/package-template&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;astropy package template&lt;/code&gt;&lt;/a&gt; automatically adds to the package any file inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;packagename/data&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;p&gt;For larger datasets I recommend to host the files externally and use the &lt;a href=&quot;http://docs.astropy.org/en/stable/utils/#module-astropy.utils.data&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;astropy.utils.data&lt;/code&gt; module&lt;/a&gt;.
+This module automates the process of retrieving a file from a remote server and caching it locally (in the users home folder), next time the user needs it, it is automatically retrieved from the cache:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;dataurl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://my-web-server.ucsd.edu/test-data/&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dataurl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataurl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;remote_timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;local_file_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_pkg_data_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;myfile.jpg)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to host there files publicly, I have a few options.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-a-dedicated-github-repository&quot;&gt;Host on a dedicated GitHub repository&lt;/h3&gt;
+
+&lt;p&gt;If files are individually less than 100MB and collectively a few GB, you can create a dedicated repository on GitHub and push there your files.
+Then &lt;a href=&quot;https://help.github.com/en/articles/what-is-github-pages&quot;&gt;activate GitHub Pages&lt;/a&gt; so that those files are published at &lt;code class=&quot;highlighter-rouge&quot;&gt;https://your-organization.github.io/your-repository/&lt;/code&gt;.
+Then use this URL as &lt;code class=&quot;highlighter-rouge&quot;&gt;dataurl&lt;/code&gt; in the above script.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-a-supercomputer-or-own-server&quot;&gt;Host on a Supercomputer or own server&lt;/h3&gt;
+
+&lt;p&gt;Some Supercomputers offer the feature of providing public web access from specific folders, for example NERSC allows user to publish web-pages publicly, see &lt;a href=&quot;https://www.nersc.gov/users/computational-systems/pdsf/software-and-tools/hosting-webpages/&quot;&gt;their documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is very useful for huge datasets because you can automatically detect if the package is being run at NERSC and then automatically access the files with their path instead of downloading them.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_data_from_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Retrieves input templates from remote server,
+    in case data is available in one of the PREDEFINED_DATA_FOLDERS defined above,
+    e.g. at NERSC, those are directly returned.&quot;&quot;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PREDEFINED_DATA_FOLDERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access data from {full_path}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dataurl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DATAURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;remote_timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Retrieve data for {filename} (if not cached already)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;map_out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_pkg_data_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show_progress&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_out&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Similar setup can be achieved on a GNU/Linux server, for example a powerful machine used by all members of a scientific team, where a folder is dedicated to host these data and is also published online with Apache or NGINX.&lt;/p&gt;
+
+&lt;p&gt;The main downside of this approach is that there is no built-in version control. One possibility is to enforce a policy where no files are ever overwritten and version control is automatically achieved with filenames. Otherwise, use &lt;a href=&quot;https://git-lfs.github.com/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git lfs&lt;/code&gt;&lt;/a&gt; in that folder to track any change in a dedicated local &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; repository, e.g.:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+git init
+git lfs track &lt;span class=&quot;s2&quot;&gt;&quot;*.fits&quot;&lt;/span&gt;
+git add &lt;span class=&quot;s2&quot;&gt;&quot;*.fits&quot;&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;initial version of all FITS files&quot;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This method tracks the checksum of all the binary files and helps managing the history, even if only locally (make sure the folder is also regularly backed up). You could push it to GitHub, that would cost $5/month for each 50GB of storage.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-figshare&quot;&gt;Host on Figshare&lt;/h3&gt;
+
+&lt;p&gt;You can upload files to Figshare using the browser and create a dataset which also comes with a DOI and a page where you can save metadata about this object.&lt;/p&gt;
+
+&lt;p&gt;Once you have set the dataset public, you can find out the URL of the actual file, which is of the form &lt;code class=&quot;highlighter-rouge&quot;&gt;https://ndownloader.figshare.com/files/2432432432&lt;/code&gt;, therefore we can set &lt;code class=&quot;highlighter-rouge&quot;&gt;https://ndownloader.figshare.com/files/&lt;/code&gt; as the repository and use the integer defined in Figshare as filename. Using integers as filenames makes it a bit cryptic, but it has the great advantage that other people can do the uploading to Figshare and you can point to their files as easily as if the are yours. This is more convenient than alternatives where instead you need to give other people access to your file repository.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-amazon-s3-or-other-object-store&quot;&gt;Host on Amazon S3 or other object store&lt;/h3&gt;
+
+&lt;p&gt;A public bucket on Amazon S3 or other object store provides cheap storage and built-in version control.
+The cost currently is about $0.026/GB/month.&lt;/p&gt;
+
+&lt;p&gt;First login to the AWS console and create a new bucket, set it public by turning of “Block all public access” and under “Access Control List” set “List objects” to Yes for “Public access”.&lt;/p&gt;
+
+&lt;p&gt;You could upload files with the browser, but for larger files command line is better.&lt;/p&gt;
+
+&lt;p&gt;The files will be available at &lt;a href=&quot;https://bucket-name.s3-us-west-1.amazonaws.com/&quot;&gt;https://bucket-name.s3-us-west-1.amazonaws.com/&lt;/a&gt;, this changes based on the chosen region.&lt;/p&gt;
+
+&lt;h4 id=&quot;advanced-upload-files-from-the-command-line&quot;&gt;(Advanced) Upload files from the command line&lt;/h4&gt;
+
+&lt;p&gt;This is optional and requires some more familiarity with AWS.
+Go back to the AWS console to the Identity and Access Management (IAM) section, then users, create, create a policy to give access only to 1 bucket (replace &lt;code class=&quot;highlighter-rouge&quot;&gt;bucket-name&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2012-10-17&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Statement&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Sid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ListObjectsInBucket&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Effect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:ListBucket&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Resource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;arn:aws:s3:::bucket-name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Sid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AllObjectActions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Effect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:*Object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:PutObjectAcl&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Resource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;arn:aws:s3:::bucket-name/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_s3_rw-bucket.html&quot;&gt;AWS documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Install &lt;code class=&quot;highlighter-rouge&quot;&gt;s3cmd&lt;/code&gt;, then run &lt;code class=&quot;highlighter-rouge&quot;&gt;s3cmd --configure&lt;/code&gt; to set it up and paste the Access and Secret keys, it will fail to test the configuration because it cannot list all the buckets, anyway choose to save the configuration.&lt;/p&gt;
+
+&lt;p&gt;Test it:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    s3cmd &lt;span class=&quot;nb&quot;&gt;ls &lt;/span&gt;s3://bucket-name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then upload your files (reduced redundancy is cheaper):&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    s3cmd put &lt;span class=&quot;nt&quot;&gt;--reduced-redundancy&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--acl-public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.fits s3://bucket-name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">It is often useful to ship large data files together with a Python package, a couple of scenarios are:</summary></entry></feed>
