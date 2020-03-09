@@ -2,7 +2,7 @@
 layout: post
 title: Latest Maxima and WxMaxima for Ubuntu Karmic
 date: 2009-12-15 11:20
-categories: [linux, maxima, ubuntu]
+categories: [linux, ubuntu]
 slug: latest-maxima-and-wxmaxima-for-ubuntu
 ---
 

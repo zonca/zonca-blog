@@ -2,7 +2,7 @@
 layout: post
 title: Webinar about distributed computing with Python
 date: 2019-05-30 15:00
-categories: [webinar, python, hpc, Comet]
+categories: [webinar, python, hpc, comet]
 slug: webinar-python-hpc
 ---
 

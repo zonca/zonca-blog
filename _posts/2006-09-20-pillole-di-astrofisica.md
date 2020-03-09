@@ -2,7 +2,7 @@
 layout: post
 title: pillole di astrofisica
 date: 2006-09-20 13:39
-categories: [italian, astrophysics, physics]
+categories: [astrophysics, physics]
 slug: pillole-di-astrofisica
 ---
 

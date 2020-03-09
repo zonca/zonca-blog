@@ -2,7 +2,7 @@
 layout: post
 title: doctests and unittests happiness 2
 date: 2012-08-16 14:07
-categories: [python, Quote]
+categories: [python]
 slug: doctests-and-unittests-happiness-2
 ---
 

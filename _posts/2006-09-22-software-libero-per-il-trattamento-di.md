@@ -2,7 +2,7 @@
 layout: post
 title: Software libero per il trattamento di dati scientifici
 date: 2006-09-22 13:35
-categories: [italian, linux, physics]
+categories: [linux, physics]
 slug: software-libero-per-il-trattamento-di
 ---
 
