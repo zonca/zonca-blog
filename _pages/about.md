@@ -6,7 +6,7 @@ permalink: /about/
 
 I am a computational scientist the San Diego Supercomputer Center, Calfornia, USA.
 
--![](/images/andreazonca.png)
+-![Profile picture](/images/andreazonca.jpg)
 
 I mostly work on distributed data processing in Python of Astrophysics/Cosmology datasets.
 I simulate and analyze data from Cosmic Microwave Background experiments, I got my Ph.D. at
