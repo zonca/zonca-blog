@@ -17,6 +17,9 @@ JupyterHub on top of Kubernetes.
 
 I am available for consulting, code-review, software infrastructure design.
 
+Contact me via [Twitter](https://twitter.com/andreazonca) or email (`andrea` on the domain
+andreazonca.com).
+
 This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
 
 [^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
