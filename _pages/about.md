@@ -7,7 +7,10 @@ permalink: /about/
 I am a computational scientist the San Diego Supercomputer Center, Calfornia, USA.
 
 I mostly work on distributed data processing in Python of Astrophysics/Cosmology datasets.
-Moreover, I work on cloud deployments of interactive computing platforms based on
+I simulate and analyze data from Cosmic Microwave Background experiments, I got my Ph.D. at
+the University of Milano, Italy, working on the Planck satellite (European Space Agency).
+
+Currently I also work on cloud deployments of interactive computing platforms based on
 JupyterHub on top of Kubernetes.
 
 I am available for consulting, code-review, software infrastructure design.
