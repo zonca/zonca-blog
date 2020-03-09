@@ -1,118 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-09T13:32:52-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T13:32:52-05:00</published><updated>2020-03-09T13:32:52-05:00</updated><id>https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra</id><content type="html" xml:base="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html">&lt;p&gt;
- For a long time I've been curious about trying out
- &lt;span style=&quot;font-family: Courier New, Courier, monospace;&quot;&gt;
-  d3.js
- &lt;/span&gt;
- , the javascript plotting library which is becoming the standard for interactive plotting in the browser.
- &lt;br /&gt;
-&lt;/p&gt;
-&lt;div&gt;
- &lt;br /&gt;
-&lt;/div&gt;
-&lt;div&gt;
- What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by
- &lt;a href=&quot;https://www.authorea.com/&quot;&gt;
-  Authorea
- &lt;/a&gt;
- .
-&lt;/div&gt;
-&lt;div&gt;
- &lt;a name=&quot;more&quot;&gt;
- &lt;/a&gt;
- An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature.
-&lt;/div&gt;
-&lt;div&gt;
- The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see
- &lt;a href=&quot;http://www.strudel.org.uk/blog/astro/001030.shtml&quot;&gt;
-  The Universe Simulator in the browser
- &lt;/a&gt;
- .
-&lt;/div&gt;
-&lt;div&gt;
- The
- &lt;a href=&quot;http://irsa.ipac.caltech.edu/data/Planck/release_1/ancillary-data/&quot;&gt;
-  Planck Collaboration released
- &lt;/a&gt;
- a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model.
-&lt;/div&gt;
-&lt;div&gt;
- It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data.
-&lt;/div&gt;
-&lt;div&gt;
- &lt;br /&gt;
-&lt;/div&gt;
-&lt;div&gt;
- The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve.
-&lt;/div&gt;
-&lt;div&gt;
- For this I used
- &lt;a href=&quot;http://code.shutterstock.com/rickshaw/&quot;&gt;
-  rickshaw
- &lt;/a&gt;
- , a library based on
- &lt;span style=&quot;font-family: Courier New, Courier, monospace;&quot;&gt;
-  d3.js
- &lt;/span&gt;
- &lt;span style=&quot;font-family: inherit;&quot;&gt;
-  which makes it easier to create time-series plots.
- &lt;/span&gt;
-&lt;/div&gt;
-&lt;div&gt;
- &lt;span style=&quot;font-family: inherit;&quot;&gt;
-  In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github:
- &lt;/span&gt;
- &lt;a href=&quot;https://github.com/zonca/visualize-planck-cl&quot;&gt;
-  https://github.com/zonca/visualize-planck-cl
- &lt;/a&gt;
-&lt;/div&gt;
-&lt;div&gt;
- The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw.
-&lt;/div&gt;
-&lt;div&gt;
- &lt;br /&gt;
-&lt;/div&gt;
-&lt;div&gt;
- Check out the result:
-&lt;/div&gt;
-&lt;div style=&quot;text-align: center;&quot;&gt;
- &lt;b&gt;
-  &lt;a href=&quot;http://bit.ly/planck-spectra&quot;&gt;
-   http://bit.ly/planck-spectra
-  &lt;/a&gt;
- &lt;/b&gt;
-&lt;/div&gt;
-&lt;div&gt;
- &lt;br /&gt;
-&lt;/div&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2014-02-13-openproceedings.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T13:32:52-05:00</published><updated>2020-03-09T13:32:52-05:00</updated><id>https://zonca.dev/2020/03/2014-02-13-openproceedings</id><content type="html" xml:base="https://zonca.dev/2020/03/2014-02-13-openproceedings.html">&lt;p&gt;Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both.
-The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: &lt;a href=&quot;https://github.com/scipy-conference/scipy_proceedings/pull/61&quot;&gt;https://github.com/scipy-conference/scipy_proceedings/pull/61&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I wanted to develop a system to make it easier to continously publish updated versions of the papers and also leverage FigShare to provide a long term repository, a sharing interface and a &lt;a href=&quot;http://en.wikipedia.org/wiki/Digital_object_identifier&quot;&gt;DOI&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;I based it on the blog engine &lt;a href=&quot;http://getpelican.com&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Pelican&lt;/code&gt;&lt;/a&gt;, developed a plugin &lt;a href=&quot;http://github.com/openproceedings/pelican_figshare_pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;figshare_pdf&lt;/code&gt;&lt;/a&gt; to upload a PDF of an article via API and configured &lt;a href=&quot;http://travis-ci.org&quot;&gt;Travis-ci&lt;/a&gt; as building platform.&lt;/p&gt;
-
-&lt;p&gt;See more details on the project page on Github:
-&lt;a href=&quot;https://github.com/openproceedings/openproceedings-buildbot&quot;&gt;https://github.com/openproceedings/openproceedings-buildbot&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T13:32:52-05:00</published><updated>2020-03-09T13:32:52-05:00</updated><id>https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through</id><content type="html" xml:base="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html">&lt;p&gt;
- just start nc in server mode on localhost:
- &lt;br /&gt;
- &lt;br /&gt;
- [sourcecode language='python'] nc -l -p 3333 [/sourcecode]
- &lt;br /&gt;
- &lt;br /&gt;
- send a string to localhost on port 3333:
- &lt;br /&gt;
- &lt;br /&gt;
- [sourcecode language='python'] echo &quot;hello world&quot; | nc localhost 3333 [/sourcecode]
- &lt;br /&gt;
- &lt;br /&gt;
- you'll see on server side appearing the string you sent.
- &lt;br /&gt;
- &lt;br /&gt;
- very useful for sending binaries, see
- &lt;a href=&quot;http://www.g-loaded.eu/2006/11/06/netcat-a-couple-of-useful-examples/&quot;&gt;
-  examples
- &lt;/a&gt;
- .
-&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html">Migrate from Pelican to Fastpages</title><link href="https://zonca.dev/2020/03/pelican-to-fastpages.html" rel="alternate" type="text/html" title="Migrate from Pelican to Fastpages" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/pelican-to-fastpages</id><content type="html" xml:base="https://zonca.dev/2020/03/pelican-to-fastpages.html">&lt;p&gt;I have been using the Pelican static website generator for a few years,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-09T13:39:18-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Migrate from Pelican to Fastpages</title><link href="https://zonca.dev/2020/03/pelican-to-fastpages.html" rel="alternate" type="text/html" title="Migrate from Pelican to Fastpages" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/pelican-to-fastpages</id><content type="html" xml:base="https://zonca.dev/2020/03/pelican-to-fastpages.html">&lt;p&gt;I have been using the Pelican static website generator for a few years,
 hosting the content on Github, automatically build on push via Travis-CI
 and deploy on Github pages to &lt;code class=&quot;highlighter-rouge&quot;&gt;zonca.github.io&lt;/code&gt;.&lt;/p&gt;
 
@@ -163,7 +49,11 @@ this depends on your template:&lt;/p&gt;
 
 &lt;p&gt;Yeah, for posterity, growing older I get more nostalgic.&lt;/p&gt;
 
+&lt;p&gt;The homepage:&lt;/p&gt;
+
 &lt;p&gt;&lt;img src=&quot;/images/old_blog_homepage.png&quot; alt=&quot;Old blog homepage&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;A section of an article page:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/old_blog_article_page.png&quot; alt=&quot;Old blog article page&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I have been using the Pelican static website generator for a few years, hosting the content on Github, automatically build on push via Travis-CI and deploy on Github pages to zonca.github.io.</summary></entry><entry><title type="html">Deploy CVMFS on Kubernetes</title><link href="https://zonca.dev/2020/02/cvmfs-kubernetes.html" rel="alternate" type="text/html" title="Deploy CVMFS on Kubernetes" /><published>2020-02-26T13:00:00-06:00</published><updated>2020-02-26T13:00:00-06:00</updated><id>https://zonca.dev/2020/02/cvmfs-kubernetes</id><content type="html" xml:base="https://zonca.dev/2020/02/cvmfs-kubernetes.html">&lt;p&gt;&lt;a href=&quot;https://cvmfs.readthedocs.io/&quot;&gt;CVMFS&lt;/a&gt; is a software distribution service, it is used by High Energy Physics experiments at CERN
 to synchronize software environments across the whole collaborations.&lt;/p&gt;
@@ -539,4 +429,364 @@ Private repositories are useful for early stages of development or if it is nece
 
 &lt;p&gt;See for example the organization account of the &lt;a href=&quot;https://github.com/dib-lab&quot;&gt;“The Lab for Data Intensive Biology” led by Dr. C. Titus Brown&lt;/a&gt; where they share code, documentation and papers. Open Science!!&lt;/p&gt;
 
-&lt;p&gt;Other suggestions on the setup very welcome!&lt;/p&gt;</content><author><name></name></author><summary type="html">Github allows a research group to create their own webpage where they can host, share and develop their software using the git version control system and the powerful Github online issue-tracking interface.</summary></entry></feed>
+&lt;p&gt;Other suggestions on the setup very welcome!&lt;/p&gt;</content><author><name></name></author><summary type="html">Github allows a research group to create their own webpage where they can host, share and develop their software using the git version control system and the powerful Github online issue-tracking interface.</summary></entry><entry><title type="html">Ship large files with Python packages</title><link href="https://zonca.dev/2019/08/large-files-python-packages.html" rel="alternate" type="text/html" title="Ship large files with Python packages" /><published>2019-08-21T18:00:00-05:00</published><updated>2019-08-21T18:00:00-05:00</updated><id>https://zonca.dev/2019/08/large-files-python-packages</id><content type="html" xml:base="https://zonca.dev/2019/08/large-files-python-packages.html">&lt;p&gt;It is often useful to ship large data files together with a Python package,
+a couple of scenarios are:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;data necessary to the functionality provided by the package, for example images, any binary or large text dataset, they could be either required just for a subset of the functionality of the package or for all of it&lt;/li&gt;
+  &lt;li&gt;data necessary for unit or integration testing, both example inputs and expected outputs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If data are collectively less than 2 GB compressed and do not change very often, a simple and a bit hacky solution is to use GitHub release assets. For each packaged release on GitHub it is possible to attach one or more assets smaller than 2 GB. You can then attach data to each release, the downside is that users need to make sure to use the correct dataset for the release they are using and the first time they use the software the need to install the Python package and also download the dataset and install it in the right folder. See &lt;a href=&quot;https://gist.github.com/zonca/52857f2425942725fb74595c4f8600e9&quot;&gt;an example script to upload from the command line&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;If data files are individually less than 10 MB and collectively less than 100 MB you can directly add them into the Python package. This is the easiest and most convenient option, for example the &lt;a href=&quot;https://github.com/astropy/package-template&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;astropy package template&lt;/code&gt;&lt;/a&gt; automatically adds to the package any file inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;packagename/data&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;p&gt;For larger datasets I recommend to host the files externally and use the &lt;a href=&quot;http://docs.astropy.org/en/stable/utils/#module-astropy.utils.data&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;astropy.utils.data&lt;/code&gt; module&lt;/a&gt;.
+This module automates the process of retrieving a file from a remote server and caching it locally (in the users home folder), next time the user needs it, it is automatically retrieved from the cache:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;dataurl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://my-web-server.ucsd.edu/test-data/&quot;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dataurl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataurl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;remote_timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;local_file_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_pkg_data_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;myfile.jpg)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we need to host there files publicly, I have a few options.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-a-dedicated-github-repository&quot;&gt;Host on a dedicated GitHub repository&lt;/h3&gt;
+
+&lt;p&gt;If files are individually less than 100MB and collectively a few GB, you can create a dedicated repository on GitHub and push there your files.
+Then &lt;a href=&quot;https://help.github.com/en/articles/what-is-github-pages&quot;&gt;activate GitHub Pages&lt;/a&gt; so that those files are published at &lt;code class=&quot;highlighter-rouge&quot;&gt;https://your-organization.github.io/your-repository/&lt;/code&gt;.
+Then use this URL as &lt;code class=&quot;highlighter-rouge&quot;&gt;dataurl&lt;/code&gt; in the above script.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-a-supercomputer-or-own-server&quot;&gt;Host on a Supercomputer or own server&lt;/h3&gt;
+
+&lt;p&gt;Some Supercomputers offer the feature of providing public web access from specific folders, for example NERSC allows user to publish web-pages publicly, see &lt;a href=&quot;https://www.nersc.gov/users/computational-systems/pdsf/software-and-tools/hosting-webpages/&quot;&gt;their documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is very useful for huge datasets because you can automatically detect if the package is being run at NERSC and then automatically access the files with their path instead of downloading them.&lt;/p&gt;
+
+&lt;p&gt;For example:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_data_from_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Retrieves input templates from remote server,
+    in case data is available in one of the PREDEFINED_DATA_FOLDERS defined above,
+    e.g. at NERSC, those are directly returned.&quot;&quot;&quot;&lt;/span&gt;
+
+    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PREDEFINED_DATA_FOLDERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+            &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access data from {full_path}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dataurl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DATAURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+        &lt;span class=&quot;s&quot;&gt;&quot;remote_timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Retrieve data for {filename} (if not cached already)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;map_out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_pkg_data_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show_progress&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_out&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Similar setup can be achieved on a GNU/Linux server, for example a powerful machine used by all members of a scientific team, where a folder is dedicated to host these data and is also published online with Apache or NGINX.&lt;/p&gt;
+
+&lt;p&gt;The main downside of this approach is that there is no built-in version control. One possibility is to enforce a policy where no files are ever overwritten and version control is automatically achieved with filenames. Otherwise, use &lt;a href=&quot;https://git-lfs.github.com/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git lfs&lt;/code&gt;&lt;/a&gt; in that folder to track any change in a dedicated local &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; repository, e.g.:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
+git init
+git lfs track &lt;span class=&quot;s2&quot;&gt;&quot;*.fits&quot;&lt;/span&gt;
+git add &lt;span class=&quot;s2&quot;&gt;&quot;*.fits&quot;&lt;/span&gt;
+git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;initial version of all FITS files&quot;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This method tracks the checksum of all the binary files and helps managing the history, even if only locally (make sure the folder is also regularly backed up). You could push it to GitHub, that would cost $5/month for each 50GB of storage.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-figshare&quot;&gt;Host on Figshare&lt;/h3&gt;
+
+&lt;p&gt;You can upload files to Figshare using the browser and create a dataset which also comes with a DOI and a page where you can save metadata about this object.&lt;/p&gt;
+
+&lt;p&gt;Once you have set the dataset public, you can find out the URL of the actual file, which is of the form &lt;code class=&quot;highlighter-rouge&quot;&gt;https://ndownloader.figshare.com/files/2432432432&lt;/code&gt;, therefore we can set &lt;code class=&quot;highlighter-rouge&quot;&gt;https://ndownloader.figshare.com/files/&lt;/code&gt; as the repository and use the integer defined in Figshare as filename. Using integers as filenames makes it a bit cryptic, but it has the great advantage that other people can do the uploading to Figshare and you can point to their files as easily as if the are yours. This is more convenient than alternatives where instead you need to give other people access to your file repository.&lt;/p&gt;
+
+&lt;h3 id=&quot;host-on-amazon-s3-or-other-object-store&quot;&gt;Host on Amazon S3 or other object store&lt;/h3&gt;
+
+&lt;p&gt;A public bucket on Amazon S3 or other object store provides cheap storage and built-in version control.
+The cost currently is about $0.026/GB/month.&lt;/p&gt;
+
+&lt;p&gt;First login to the AWS console and create a new bucket, set it public by turning of “Block all public access” and under “Access Control List” set “List objects” to Yes for “Public access”.&lt;/p&gt;
+
+&lt;p&gt;You could upload files with the browser, but for larger files command line is better.&lt;/p&gt;
+
+&lt;p&gt;The files will be available at &lt;a href=&quot;https://bucket-name.s3-us-west-1.amazonaws.com/&quot;&gt;https://bucket-name.s3-us-west-1.amazonaws.com/&lt;/a&gt;, this changes based on the chosen region.&lt;/p&gt;
+
+&lt;h4 id=&quot;advanced-upload-files-from-the-command-line&quot;&gt;(Advanced) Upload files from the command line&lt;/h4&gt;
+
+&lt;p&gt;This is optional and requires some more familiarity with AWS.
+Go back to the AWS console to the Identity and Access Management (IAM) section, then users, create, create a policy to give access only to 1 bucket (replace &lt;code class=&quot;highlighter-rouge&quot;&gt;bucket-name&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2012-10-17&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Statement&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Sid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ListObjectsInBucket&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Effect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:ListBucket&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Resource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;arn:aws:s3:::bucket-name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Sid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AllObjectActions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Effect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:*Object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:PutObjectAcl&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Resource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;arn:aws:s3:::bucket-name/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_s3_rw-bucket.html&quot;&gt;AWS documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Install &lt;code class=&quot;highlighter-rouge&quot;&gt;s3cmd&lt;/code&gt;, then run &lt;code class=&quot;highlighter-rouge&quot;&gt;s3cmd --configure&lt;/code&gt; to set it up and paste the Access and Secret keys, it will fail to test the configuration because it cannot list all the buckets, anyway choose to save the configuration.&lt;/p&gt;
+
+&lt;p&gt;Test it:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    s3cmd &lt;span class=&quot;nb&quot;&gt;ls &lt;/span&gt;s3://bucket-name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then upload your files (reduced redundancy is cheaper):&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    s3cmd put &lt;span class=&quot;nt&quot;&gt;--reduced-redundancy&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--acl-public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.fits s3://bucket-name
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">It is often useful to ship large data files together with a Python package, a couple of scenarios are:</summary></entry><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2019-06-14T00:00:00-05:00</published><updated>2019-06-14T00:00:00-05:00</updated><id>https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
+JupyterHub on top of that using &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/&quot;&gt;zero-to-jupyterhub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In my &lt;a href=&quot;https://zonca.github.io/2019/02/kubernetes-jupyterhub-jetstream-kubespray.html&quot;&gt;previous tutorials&lt;/a&gt; I deployed Kubernetes using Kubespray. The main driver to using Magnum is that there is support for autoscaling, i.e. create and destroy Openstack instances based on the load on JupyterHub. I haven’t tested that yet, though, that will come in a following tutorial.&lt;/p&gt;
+
+&lt;p&gt;Magnum is a technology built into Openstack to deploy Container Orchestration engines based on templates. The main difference with kubespray is that is way less configurable, the user does not have access to modify those templates but has just a number of parameters to set. Instead Kubespray is based on &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; and the user has full control of how the system is setup, it also supports having more High Availability features like multiple master nodes.
+On the other hand, the &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; recipe takes a very long time to run, ~30 min, while Magnum creates a cluster in about 10 minutes.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-access-to-the-jetstream-api&quot;&gt;Setup access to the Jetstream API&lt;/h2&gt;
+
+&lt;p&gt;First install the OpenStack client, please use these exact versions, also please run at Indiana, which currently has the Rocky release of Openstack, the TACC deployment has an older release of Openstack.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install python-openstackclient==3.16 python-magnumclient==2.10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Load your API credentials from &lt;code class=&quot;highlighter-rouge&quot;&gt;openrc.sh&lt;/code&gt;, check &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh&quot;&gt;documentation of the Jetstream wiki for details&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You need to have a keypair uploaded to Openstack, this just needs to be done once per account. See &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/35913730/OpenStack+command+line&quot;&gt;the Jetstream documentation&lt;/a&gt; under the section “Upload SSH key - do this once”.&lt;/p&gt;
+
+&lt;h2 id=&quot;create-the-cluster-with-magnum&quot;&gt;Create the cluster with Magnum&lt;/h2&gt;
+
+&lt;p&gt;As usual, checkout the repository with all the configuration files on the machine you will use the Jetstream API from, typically your laptop.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+cd jupyterhub-deploy-kubernetes-jetstream
+cd kubernetes_magnum
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we are ready to use Magnum to first create a cluster template and then the actual cluster, edit first &lt;code class=&quot;highlighter-rouge&quot;&gt;create_cluster.sh&lt;/code&gt; and set the parameters of the cluster on the top. Also make sure to set the keypair name.
+Finally run:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_network.sh
+bash create_template.sh
+bash create_cluster.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I have setup a test cluster with only 1 master node and 1 normal node but you can modify that later.&lt;/p&gt;
+
+&lt;p&gt;Check the status of your cluster, after about 10 minutes, it should be in state &lt;code class=&quot;highlighter-rouge&quot;&gt;CREATE_COMPLETE&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack coe cluster show k8s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;configure-kubectl-locally&quot;&gt;Configure kubectl locally&lt;/h3&gt;
+
+&lt;p&gt;Install the &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; client locally, first check the version of the master node:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server list # find the floating public IP of the master node (starts with 149_
+IP=149.xxx.xxx.xxx
+ssh fedora@$IP
+kubectl version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now install the same version following the &lt;a href=&quot;https://kubernetes.io/docs/tasks/tools/install-kubectl/&quot;&gt;Kubernetes documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now configure &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; on your laptop to connect to the Kubernetes cluster created with Magnum:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir kubectl_secret
+cd kubectl_secret
+openstack coe cluster config k8s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This downloads a configuration file and the required certificates.&lt;/p&gt;
+
+&lt;p&gt;and returns  &lt;code class=&quot;highlighter-rouge&quot;&gt;export KUBECONFIG=/absolute/path/to/config&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;See also the &lt;code class=&quot;highlighter-rouge&quot;&gt;update_kubectl_secret.sh&lt;/code&gt; script to automate this step, but it requires to already have setup the environment variable.&lt;/p&gt;
+
+&lt;p&gt;execute that and then:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get nodes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;configure-storage&quot;&gt;Configure storage&lt;/h2&gt;
+
+&lt;p&gt;Magnum configures a provider that knows how to create Kubernetes volumes using Openstack Cinder,
+but does not configure a &lt;code class=&quot;highlighter-rouge&quot;&gt;storageclass&lt;/code&gt;, we can do that with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f storageclass.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can test this by creating a Persistent Volume Claim:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f persistent_volume_claim.yaml
+
+kubectl describe pv
+
+kubectl describe pvc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:            pvc-e8b93455-898b-11e9-a37c-fa163efb4609
+Labels:          failure-domain.beta.kubernetes.io/zone=nova
+Annotations:     kubernetes.io/createdby: cinder-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/cinder
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Bound
+Claim:           default/pvc-test
+Reclaim Policy:  Delete
+Access Modes:    RWO
+Capacity:        5Gi
+Node Affinity:   &amp;lt;none&amp;gt;
+Message:         
+Source:
+    Type:       Cinder (a Persistent Disk resource in OpenStack)
+    VolumeID:   2795724b-ef11-4053-9922-d854107c731f
+    FSType:     
+    ReadOnly:   false
+    SecretRef:  nil
+Events:         &amp;lt;none&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also test creating an actual pod with a persistent volume and check
+that the volume is successfully mounted and the pod started:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f ../alpine-persistent-volume.yaml
+kubectl describe pod alpine
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;note-about-availability-zones&quot;&gt;Note about availability zones&lt;/h3&gt;
+
+&lt;p&gt;By default Openstack servers and Openstack volumes are created in different availability zones. This created an issue with the default Magnum templates because we need to modify the Kubernetes scheduler policy to allow this. Kubespray does this by default, so I created a &lt;a href=&quot;https://github.com/zonca/magnum/pull/1&quot;&gt;fix to be applied to the Jetstream Magnum templates&lt;/a&gt;, this needs to be re-applied after every Openstack upgrade.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-helm&quot;&gt;Install Helm&lt;/h2&gt;
+
+&lt;p&gt;The Kubernetes deployment from Magnum is not as complete as the one out of Kubespray, we need
+to setup &lt;code class=&quot;highlighter-rouge&quot;&gt;helm&lt;/code&gt; and the NGINX ingress ourselves. We would also need to setup a system to automatically
+deploy HTTPS certificates, I’ll add this later on.&lt;/p&gt;
+
+&lt;p&gt;First &lt;a href=&quot;https://helm.sh/docs/using_helm/#installing-helm&quot;&gt;install the Helm client on your laptop&lt;/a&gt;, make
+sure you have configured &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; correctly.&lt;/p&gt;
+
+&lt;p&gt;Then we need to create a service account to give enough privilege to Helm to reconfigure the cluster:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f tiller_service_account.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then we can create the &lt;code class=&quot;highlighter-rouge&quot;&gt;tiller&lt;/code&gt; pod inside Kubernetes:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;helm init --service-account tiller --wait --history-max 200
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pods --all-namespaces
+NAMESPACE     NAME                                       READY   STATUS    RESTARTS   AGE
+kube-system   coredns-78df4bf8ff-f2xvs                   1/1     Running   0          2d
+kube-system   coredns-78df4bf8ff-pnj7g                   1/1     Running   0          2d
+kube-system   heapster-74f98f6489-xsw52                  1/1     Running   0          2d
+kube-system   kube-dns-autoscaler-986c49747-2m64g        1/1     Running   0          2d
+kube-system   kubernetes-dashboard-54cb7b5997-c2vwx      1/1     Running   0          2d
+kube-system   openstack-cloud-controller-manager-tf5mc   1/1     Running   3          2d
+kube-system   tiller-deploy-6b5cd64488-4fkff             1/1     Running   0          20s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And check that all the versions agree:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;helm version
+Client: &amp;amp;version.Version{SemVer:&quot;v2.11.0&quot;, GitCommit:&quot;2e55dbe1fdb5fdb96b75ff144a339489417b146b&quot;, GitTreeState:&quot;clean&quot;}
+Server: &amp;amp;version.Version{SemVer:&quot;v2.11.0&quot;, GitCommit:&quot;2e55dbe1fdb5fdb96b75ff144a339489417b146b&quot;, GitTreeState:&quot;clean&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;setup-nginx-ingress&quot;&gt;Setup NGINX ingress&lt;/h2&gt;
+
+&lt;p&gt;We need to have the NGINX web server to act as front-end to the services running inside the Kubernetes cluster.&lt;/p&gt;
+
+&lt;h3 id=&quot;open-http-and-https-ports&quot;&gt;Open HTTP and HTTPS ports&lt;/h3&gt;
+
+&lt;p&gt;First we need to open the HTTP and HTTPS ports on the master node, you can either connect to the Horizon interface,
+create new rule named &lt;code class=&quot;highlighter-rouge&quot;&gt;http_https&lt;/code&gt;, then add 2 rules, in the Rule drop down choose HTTP and HTTPS; or from the command line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack security group create http_https
+openstack security group rule create --ingress --protocol tcp --dst-port 80 http_https 
+openstack security group rule create --ingress --protocol tcp --dst-port 443 http_https 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you can find the name of the master node in &lt;code class=&quot;highlighter-rouge&quot;&gt;openstack server list&lt;/code&gt; then add this security group to that instance:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server add security group  k8s-xxxxxxxxxxxx-master-0 http_https
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;install-nginx-ingress-with-helm&quot;&gt;Install NGINX ingress with Helm&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_nginx_ingress.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note, the documentation says we should add this annotation to ingress with &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl edit ingress -n jhub&lt;/code&gt;, but I found out it is not necessary:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If this is correctly working, you should be able to run &lt;code class=&quot;highlighter-rouge&quot;&gt;curl localhost&lt;/code&gt; from the master node and get a &lt;code class=&quot;highlighter-rouge&quot;&gt;Default backend: 404&lt;/code&gt; message.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-jupyterhub&quot;&gt;Install JupyterHub&lt;/h2&gt;
+
+&lt;p&gt;Finally, we can go back to the root of the repository and install JupyterHub, first create the secrets file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_secrets.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then edit &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; and modify the hostname under &lt;code class=&quot;highlighter-rouge&quot;&gt;hosts&lt;/code&gt; to display the hostname of your master Jetstream instance, i.e. if your instance public floating IP is &lt;code class=&quot;highlighter-rouge&quot;&gt;aaa.bbb.xxx.yyy&lt;/code&gt;, the hostname should be &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; (without &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;You should also check that connecting with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; shows &lt;code class=&quot;highlighter-rouge&quot;&gt;default backend - 404&lt;/code&gt;, this means NGINX is also reachable from the internet, i.e. the web port is open on the master node.&lt;/p&gt;
+
+&lt;p&gt;Finally:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash configure_helm_jupyterhub.sh
+bash install_jhub.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Connect with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; to check if it works.&lt;/p&gt;
+
+&lt;h2 id=&quot;issues-and-feedback&quot;&gt;Issues and feedback&lt;/h2&gt;
+
+&lt;p&gt;Please &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/&quot;&gt;open an issue on the repository&lt;/a&gt; to report any issue or give feedback. Also you find out there there what I am working on next.&lt;/p&gt;
+
+&lt;h2 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h2&gt;
+
+&lt;p&gt;Many thanks to Jeremy Fischer and Mike Lowe for solving all my tickets, this required a lot of work on their end to make it working.&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub.</summary></entry><entry><title type="html">Webinar about distributed computing with Python</title><link href="https://zonca.dev/2019/05/webinar-python-hpc.html" rel="alternate" type="text/html" title="Webinar about distributed computing with Python" /><published>2019-05-30T15:00:00-05:00</published><updated>2019-05-30T15:00:00-05:00</updated><id>https://zonca.dev/2019/05/webinar-python-hpc</id><content type="html" xml:base="https://zonca.dev/2019/05/webinar-python-hpc.html">&lt;p&gt;Recording available of the webinar I gave about “Distributed computing with Python”:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Threads vs Processes, GIL&lt;/li&gt;
+  &lt;li&gt;Just-In-Time compilation with Numba&lt;/li&gt;
+  &lt;li&gt;Processing data larger than memory with Dask&lt;/li&gt;
+  &lt;li&gt;Distributed computing with Dask&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Live demo on my favorite Supercomputer Comet at the San Diego Supercomputer Center.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.sdsc.edu/Events/training/webinars/distributed_parallel_computing_with_python_2019/recording/&quot;&gt;Webinar recording&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Notebooks: &lt;a href=&quot;https://github.com/zonca/python_hpc_tutorial&quot;&gt;https://github.com/zonca/python_hpc_tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">Recording available of the webinar I gave about “Distributed computing with Python”:</summary></entry></feed>

@@ -3,7 +3,7 @@
     
         "post0": {
             "title": "Migrate from Pelican to Fastpages",
-            "content": "I have been using the Pelican static website generator for a few years, hosting the content on Github, automatically build on push via Travis-CI and deploy on Github pages to zonca.github.io. . I am a heavy Jupyter Notebook user so once I saw the announcement of Fastpages I decided it was time to switch. I loved the idea of having Jupyter Notebooks built-in and not added via plugins, also great idea to use Github actions. . Only issue I found was that you cannot setup Fastpages on username.github.io, so went for using a custom domain name instead. . Import content . I created a script, in Python of course, to modify the front matter of the markdown posts from the Pelican formatting to Jekyll, see pelican_to_jekyll.py. It also renames the files, because Jekyll expects a date at the beginning of filenames. . Setup paginate . Currently Fastpages doesn’t support pagination for the homepage, but implemented a workaround. . Redirect from the old Github Pages blog . I modified the permalinks of Fastpages so that I have the same URLs in the old and new websites, just the domain changes. Github pages does not support custom rewriting rules, so I modified the Pelican template to put a custom redirection tag in each HTML header. . In the Pelican template article.html, in the &lt;header&gt; section I added: . &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev/&quot;&gt; &lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/&quot;&gt; . So that Pelican regenerated all the articles with their original address and automatically redirects upon access. The canonical link hopefully helps with SEO. . Did the same with the index.html template to redirect the homepage, this depends on your template: . &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev&quot;&gt; &lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/&quot;&gt; . Screenshots of the old blog . Yeah, for posterity, growing older I get more nostalgic. . . .",
+            "content": "I have been using the Pelican static website generator for a few years, hosting the content on Github, automatically build on push via Travis-CI and deploy on Github pages to zonca.github.io. . I am a heavy Jupyter Notebook user so once I saw the announcement of Fastpages I decided it was time to switch. I loved the idea of having Jupyter Notebooks built-in and not added via plugins, also great idea to use Github actions. . Only issue I found was that you cannot setup Fastpages on username.github.io, so went for using a custom domain name instead. . Import content . I created a script, in Python of course, to modify the front matter of the markdown posts from the Pelican formatting to Jekyll, see pelican_to_jekyll.py. It also renames the files, because Jekyll expects a date at the beginning of filenames. . Setup paginate . Currently Fastpages doesn’t support pagination for the homepage, but implemented a workaround. . Redirect from the old Github Pages blog . I modified the permalinks of Fastpages so that I have the same URLs in the old and new websites, just the domain changes. Github pages does not support custom rewriting rules, so I modified the Pelican template to put a custom redirection tag in each HTML header. . In the Pelican template article.html, in the &lt;header&gt; section I added: . &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev/&quot;&gt; &lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/&quot;&gt; . So that Pelican regenerated all the articles with their original address and automatically redirects upon access. The canonical link hopefully helps with SEO. . Did the same with the index.html template to redirect the homepage, this depends on your template: . &lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev&quot;&gt; &lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/&quot;&gt; . Screenshots of the old blog . Yeah, for posterity, growing older I get more nostalgic. . The homepage: . . A section of an article page: . .",
             "url": "https://zonca.dev/2020/03/pelican-to-fastpages.html",
             "relUrl": "/2020/03/pelican-to-fastpages.html",
             "date": " • Mar 9, 2020"
@@ -761,11 +761,11 @@
   
     
         ,"post69": {
-            "title": "",
+            "title": "openproceedings - Github/FigShare based publishing platform for conference proceedings",
             "content": "Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both. The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: https://github.com/scipy-conference/scipy_proceedings/pull/61. . I wanted to develop a system to make it easier to continously publish updated versions of the papers and also leverage FigShare to provide a long term repository, a sharing interface and a DOI. . I based it on the blog engine Pelican, developed a plugin figshare_pdf to upload a PDF of an article via API and configured Travis-ci as building platform. . See more details on the project page on Github: https://github.com/openproceedings/openproceedings-buildbot .",
-            "url": "https://zonca.dev/2020/03/2014-02-13-openproceedings.html",
-            "relUrl": "/2020/03/2014-02-13-openproceedings.html",
-            "date": " • Mar 9, 2020"
+            "url": "https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html",
+            "relUrl": "/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html",
+            "date": " • Feb 13, 2014"
         }
         
     
@@ -893,11 +893,11 @@
   
     
         ,"post81": {
-            "title": "",
+            "title": "Interactive figures in the browser - CMB Power Spectra",
             "content": "For a long time I&#39;ve been curious about trying out d3.js , the javascript plotting library which is becoming the standard for interactive plotting in the browser. . What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by Authorea . An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature. The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see The Universe Simulator in the browser . The Planck Collaboration released a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model. It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data. The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve. For this I used rickshaw , a library based on d3.js which makes it easier to create time-series plots. In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github: https://github.com/zonca/visualize-planck-cl The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw. Check out the result: http://bit.ly/planck-spectra",
-            "url": "https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html",
-            "relUrl": "/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html",
-            "date": " • Mar 9, 2020"
+            "url": "https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html",
+            "relUrl": "/2013/08/interactive-figures-planck-power-spectra.html",
+            "date": " • Aug 30, 2013"
         }
         
     
@@ -1443,11 +1443,11 @@
   
     
         ,"post131": {
-            "title": "",
+            "title": "netcat, quickly send binaries through network",
             "content": "just start nc in server mode on localhost: [sourcecode language=&#39;python&#39;] nc -l -p 3333 [/sourcecode] send a string to localhost on port 3333: [sourcecode language=&#39;python&#39;] echo &quot;hello world&quot; | nc localhost 3333 [/sourcecode] you&#39;ll see on server side appearing the string you sent. very useful for sending binaries, see examples . .",
-            "url": "https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html",
-            "relUrl": "/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html",
-            "date": " • Mar 9, 2020"
+            "url": "https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html",
+            "relUrl": "/2008/04/netcat-quickly-send-binaries-through.html",
+            "date": " • Apr 29, 2008"
         }
         
     

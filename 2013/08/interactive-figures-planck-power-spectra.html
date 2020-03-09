@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Interactive figures in the browser - CMB Power Spectra | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Interactive figures in the browser - CMB Power Spectra" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="For a long time I&#39;ve been curious about trying out d3.js , the javascript plotting library which is becoming the standard for interactive plotting in the browser. What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by Authorea . An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature. The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see The Universe Simulator in the browser . The Planck Collaboration released a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model. It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data. The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve. For this I used rickshaw , a library based on d3.js which makes it easier to create time-series plots. In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github: https://github.com/zonca/visualize-planck-cl The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw. Check out the result: http://bit.ly/planck-spectra" />
+<meta property="og:description" content="For a long time I&#39;ve been curious about trying out d3.js , the javascript plotting library which is becoming the standard for interactive plotting in the browser. What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by Authorea . An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature. The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see The Universe Simulator in the browser . The Planck Collaboration released a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model. It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data. The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve. For this I used rickshaw , a library based on d3.js which makes it easier to create time-series plots. In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github: https://github.com/zonca/visualize-planck-cl The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw. Check out the result: http://bit.ly/planck-spectra" />
+<link rel="canonical" href="https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html" />
+<meta property="og:url" content="https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-08-30T08:52:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Interactive figures in the browser - CMB Power Spectra","dateModified":"2013-08-30T08:52:00-05:00","description":"For a long time I&#39;ve been curious about trying out d3.js , the javascript plotting library which is becoming the standard for interactive plotting in the browser. What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by Authorea . An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature. The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see The Universe Simulator in the browser . The Planck Collaboration released a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model. It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data. The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve. For this I used rickshaw , a library based on d3.js which makes it easier to create time-series plots. In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github: https://github.com/zonca/visualize-planck-cl The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw. Check out the result: http://bit.ly/planck-spectra","datePublished":"2013-08-30T08:52:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html"},"url":"https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Interactive figures in the browser - CMB Power Spectra | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Interactive figures in the browser - CMB Power Spectra" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="For a long time I&#39;ve been curious about trying out d3.js , the javascript plotting library which is becoming the standard for interactive plotting in the browser. What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by Authorea . An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature. The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see The Universe Simulator in the browser . The Planck Collaboration released a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model. It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data. The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve. For this I used rickshaw , a library based on d3.js which makes it easier to create time-series plots. In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github: https://github.com/zonca/visualize-planck-cl The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw. Check out the result: http://bit.ly/planck-spectra" />
+<meta property="og:description" content="For a long time I&#39;ve been curious about trying out d3.js , the javascript plotting library which is becoming the standard for interactive plotting in the browser. What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by Authorea . An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature. The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see The Universe Simulator in the browser . The Planck Collaboration released a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model. It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data. The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve. For this I used rickshaw , a library based on d3.js which makes it easier to create time-series plots. In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github: https://github.com/zonca/visualize-planck-cl The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw. Check out the result: http://bit.ly/planck-spectra" />
+<link rel="canonical" href="https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html" />
+<meta property="og:url" content="https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2013-08-30T08:52:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Interactive figures in the browser - CMB Power Spectra","dateModified":"2013-08-30T08:52:00-05:00","description":"For a long time I&#39;ve been curious about trying out d3.js , the javascript plotting library which is becoming the standard for interactive plotting in the browser. What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by Authorea . An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature. The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see The Universe Simulator in the browser . The Planck Collaboration released a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model. It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data. The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve. For this I used rickshaw , a library based on d3.js which makes it easier to create time-series plots. In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github: https://github.com/zonca/visualize-planck-cl The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw. Check out the result: http://bit.ly/planck-spectra","datePublished":"2013-08-30T08:52:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html"},"url":"https://zonca.dev/2013/08/interactive-figures-planck-power-spectra.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    // remove paragraph tags in rendered toc (happens from notebooks)
+    var toctags = document.querySelectorAll(".toc-entry")
+    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Interactive figures in the browser - CMB Power Spectra</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2013-08-30T08:52:00-05:00" itemprop="datePublished">
+        Aug 30, 2013
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#javascript">javascript</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#d3">d3</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#power spectra">power spectra</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#astrophysics">astrophysics</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#Planck">Planck</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>
+ For a long time I've been curious about trying out
+ <span style="font-family: Courier New, Courier, monospace;">
+  d3.js
+ </span>
+ , the javascript plotting library which is becoming the standard for interactive plotting in the browser.
+ <br />
+</p>
+<div>
+ <br />
+</div>
+<div>
+ What is really appealing is the capability of sharing with other people powerful interactive visualization simply via the link to a web page. This will hopefully be the future of scientific publications, as envisioned, for example, by
+ <a href="https://www.authorea.com/">
+  Authorea
+ </a>
+ .
+</div>
+<div>
+ <a name="more">
+ </a>
+ An interesting example related to my work on Planck is a plot of the high number of Angular Power Spectra of the anisotropies of the Cosmic Microwave Background Temperature.
+</div>
+<div>
+ The CMB Power spectra describe how the temperature fluctuations were distributed in the sky as a function of the angular scale, for example the largest peak at about 1 degree means that the brightest cold/warm spots of the CMB have that angular size, see
+ <a href="http://www.strudel.org.uk/blog/astro/001030.shtml">
+  The Universe Simulator in the browser
+ </a>
+ .
+</div>
+<div>
+ The
+ <a href="http://irsa.ipac.caltech.edu/data/Planck/release_1/ancillary-data/">
+  Planck Collaboration released
+ </a>
+ a combined spectrum, which aggregates several channels to give the best result, spectra frequency by frequency (for some frequencies split in detector-sets) and a best-fit spectrum given a Universe Model.
+</div>
+<div>
+ It is also interesting to compare to the latest release spectrum by WMAP with 9 years of data.
+</div>
+<div>
+ <br />
+</div>
+<div>
+ The plan is to create a visualization where it is easier to zoom to different angular scales on the horizontal axis and quickly show/hide each curve.
+</div>
+<div>
+ For this I used
+ <a href="http://code.shutterstock.com/rickshaw/">
+  rickshaw
+ </a>
+ , a library based on
+ <span style="font-family: Courier New, Courier, monospace;">
+  d3.js
+ </span>
+ <span style="font-family: inherit;">
+  which makes it easier to create time-series plots.
+ </span>
+</div>
+<div>
+ <span style="font-family: inherit;">
+  In fact most of the features are already implemented, it is just a matter of configuring them, see the code on github:
+ </span>
+ <a href="https://github.com/zonca/visualize-planck-cl">
+  https://github.com/zonca/visualize-planck-cl
+ </a>
+</div>
+<div>
+ The most complex task is actually to load all the data, previously converted to JSON, in the background from the server and push them in a data structure which is understood by rickshaw.
+</div>
+<div>
+ <br />
+</div>
+<div>
+ Check out the result:
+</div>
+<div style="text-align: center;">
+ <b>
+  <a href="http://bit.ly/planck-spectra">
+   http://bit.ly/planck-spectra
+  </a>
+ </b>
+</div>
+<div>
+ <br />
+</div>
+
+  </div><a class="u-url" href="/2013/08/interactive-figures-planck-power-spectra.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
