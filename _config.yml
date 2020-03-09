@@ -97,5 +97,5 @@ kramdown:
 
 permalink: /:year/:month/:title:output_ext
 
-paginate: 10
+paginate: 8
 paginate_path: /page:num/
