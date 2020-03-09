@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-09T13:39:18-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Migrate from Pelican to Fastpages</title><link href="https://zonca.dev/2020/03/pelican-to-fastpages.html" rel="alternate" type="text/html" title="Migrate from Pelican to Fastpages" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/pelican-to-fastpages</id><content type="html" xml:base="https://zonca.dev/2020/03/pelican-to-fastpages.html">&lt;p&gt;I have been using the Pelican static website generator for a few years,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-09T14:00:43-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Migrate from Pelican to Fastpages</title><link href="https://zonca.dev/2020/03/pelican-to-fastpages.html" rel="alternate" type="text/html" title="Migrate from Pelican to Fastpages" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/pelican-to-fastpages</id><content type="html" xml:base="https://zonca.dev/2020/03/pelican-to-fastpages.html">&lt;p&gt;I have been using the Pelican static website generator for a few years,
 hosting the content on Github, automatically build on push via Travis-CI
 and deploy on Github pages to &lt;code class=&quot;highlighter-rouge&quot;&gt;zonca.github.io&lt;/code&gt;.&lt;/p&gt;
 
@@ -30,8 +30,8 @@ to put a custom redirection tag in each HTML header.&lt;/p&gt;
 
 &lt;p&gt;In the Pelican template &lt;code class=&quot;highlighter-rouge&quot;&gt;article.html&lt;/code&gt;, in the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;header&amp;gt;&lt;/code&gt; section I added:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev/&quot;&amp;gt;
-&amp;lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/&quot;&amp;gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev/{{ article.url }}&quot;&amp;gt;
+&amp;lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/{{ article.url }}&quot;&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;So that Pelican regenerated all the articles with their original address

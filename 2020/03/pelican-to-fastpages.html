@@ -158,8 +158,8 @@ to put a custom redirection tag in each HTML header.</p>
 
 <p>In the Pelican template <code class="highlighter-rouge">article.html</code>, in the <code class="highlighter-rouge">&lt;header&gt;</code> section I added:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;meta http-equiv="refresh" content="0; URL=https://zonca.dev/"&gt;
-&lt;link rel="canonical" href="https://zonca.dev/"&gt;
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;meta http-equiv="refresh" content="0; URL=https://zonca.dev/{{ article.url }}"&gt;
+&lt;link rel="canonical" href="https://zonca.dev/{{ article.url }}"&gt;
 </code></pre></div></div>
 
 <p>So that Pelican regenerated all the articles with their original address
