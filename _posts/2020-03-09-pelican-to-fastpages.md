@@ -38,10 +38,14 @@ to put a custom redirection tag in each HTML header.
 
 In the Pelican template `article.html`, in the `<header>` section I added:
 
+{% raw  %}
+
 ```
 <meta http-equiv="refresh" content="0; URL=https://zonca.dev/{{ article.url }}">
 <link rel="canonical" href="https://zonca.dev/{{ article.url }}">
 ```
+
+{% endraw %}
 
 So that Pelican regenerated all the articles with their original address
 and automatically redirects upon access.
