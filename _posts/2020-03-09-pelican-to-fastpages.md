@@ -47,6 +47,14 @@ So that Pelican regenerated all the articles with their original address
 and automatically redirects upon access.
 The canonical link hopefully helps with SEO.
 
+Did the same with the `index.html` template to redirect the homepage,
+this depends on your template:
+
+```
+<meta http-equiv="refresh" content="0; URL=https://zonca.dev">
+<link rel="canonical" href="https://zonca.dev/">
+```
+
 ## Screenshots of the old blog
 
 Yeah, for posterity, growing older I get more nostalgic.
