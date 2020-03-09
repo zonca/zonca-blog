@@ -1,6 +1,6 @@
 ---
 layout: post
-title: openproceedings: Github/FigShare based publishing platform for conference proceedings
+title: openproceedings - Github/FigShare based publishing platform for conference proceedings
 date: 2014-02-13 23:30
 categories: [python, pelican, openscience]
 slug: openproceedings-github-figshare-pelican-conference-proceedings

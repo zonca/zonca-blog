@@ -1,6 +1,6 @@
 ---
 layout: post
-title: netcat: quickly send binaries through network
+title: netcat, quickly send binaries through network
 date: 2008-04-29 12:25
 categories: [linux]
 slug: netcat-quickly-send-binaries-through
