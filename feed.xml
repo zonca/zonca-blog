@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-09T11:07:17-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T11:07:17-05:00</published><updated>2020-03-09T11:07:17-05:00</updated><id>https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra</id><content type="html" xml:base="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html">&lt;p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-03-09T13:12:56-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T13:12:56-05:00</published><updated>2020-03-09T13:12:56-05:00</updated><id>https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra</id><content type="html" xml:base="https://zonca.dev/2020/03/2013-08-30-interactive-figures-planck-power-spectra.html">&lt;p&gt;
  For a long time I've been curious about trying out
  &lt;span style=&quot;font-family: Courier New, Courier, monospace;&quot;&gt;
   d3.js
@@ -83,7 +83,7 @@
 &lt;/div&gt;
 &lt;div&gt;
  &lt;br /&gt;
-&lt;/div&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2014-02-13-openproceedings.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T11:07:17-05:00</published><updated>2020-03-09T11:07:17-05:00</updated><id>https://zonca.dev/2020/03/2014-02-13-openproceedings</id><content type="html" xml:base="https://zonca.dev/2020/03/2014-02-13-openproceedings.html">&lt;p&gt;Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both.
+&lt;/div&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2014-02-13-openproceedings.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T13:12:56-05:00</published><updated>2020-03-09T13:12:56-05:00</updated><id>https://zonca.dev/2020/03/2014-02-13-openproceedings</id><content type="html" xml:base="https://zonca.dev/2020/03/2014-02-13-openproceedings.html">&lt;p&gt;Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both.
 The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: &lt;a href=&quot;https://github.com/scipy-conference/scipy_proceedings/pull/61&quot;&gt;https://github.com/scipy-conference/scipy_proceedings/pull/61&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;I wanted to develop a system to make it easier to continously publish updated versions of the papers and also leverage FigShare to provide a long term repository, a sharing interface and a &lt;a href=&quot;http://en.wikipedia.org/wiki/Digital_object_identifier&quot;&gt;DOI&lt;/a&gt;.&lt;/p&gt;
@@ -91,7 +91,7 @@ The Scipy conference is at the forefront on this and did great work in peer revi
 &lt;p&gt;I based it on the blog engine &lt;a href=&quot;http://getpelican.com&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Pelican&lt;/code&gt;&lt;/a&gt;, developed a plugin &lt;a href=&quot;http://github.com/openproceedings/pelican_figshare_pdf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;figshare_pdf&lt;/code&gt;&lt;/a&gt; to upload a PDF of an article via API and configured &lt;a href=&quot;http://travis-ci.org&quot;&gt;Travis-ci&lt;/a&gt; as building platform.&lt;/p&gt;
 
 &lt;p&gt;See more details on the project page on Github:
-&lt;a href=&quot;https://github.com/openproceedings/openproceedings-buildbot&quot;&gt;https://github.com/openproceedings/openproceedings-buildbot&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T11:07:17-05:00</published><updated>2020-03-09T11:07:17-05:00</updated><id>https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through</id><content type="html" xml:base="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html">&lt;p&gt;
+&lt;a href=&quot;https://github.com/openproceedings/openproceedings-buildbot&quot;&gt;https://github.com/openproceedings/openproceedings-buildbot&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html"></title><link href="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html" rel="alternate" type="text/html" title="" /><published>2020-03-09T13:12:56-05:00</published><updated>2020-03-09T13:12:56-05:00</updated><id>https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through</id><content type="html" xml:base="https://zonca.dev/2020/03/2008-04-29-netcat-quickly-send-binaries-through.html">&lt;p&gt;
  just start nc in server mode on localhost:
  &lt;br /&gt;
  &lt;br /&gt;
@@ -112,7 +112,53 @@ The Scipy conference is at the forefront on this and did great work in peer revi
   examples
  &lt;/a&gt;
  .
-&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html">Deploy CVMFS on Kubernetes</title><link href="https://zonca.dev/2020/02/cvmfs-kubernetes.html" rel="alternate" type="text/html" title="Deploy CVMFS on Kubernetes" /><published>2020-02-26T13:00:00-06:00</published><updated>2020-02-26T13:00:00-06:00</updated><id>https://zonca.dev/2020/02/cvmfs-kubernetes</id><content type="html" xml:base="https://zonca.dev/2020/02/cvmfs-kubernetes.html">&lt;p&gt;&lt;a href=&quot;https://cvmfs.readthedocs.io/&quot;&gt;CVMFS&lt;/a&gt; is a software distribution service, it is used by High Energy Physics experiments at CERN
+&lt;/p&gt;</content><author><name></name></author></entry><entry><title type="html">Migrate from Pelican to Fastpages</title><link href="https://zonca.dev/2020/03/pelican-to-fastpages.html" rel="alternate" type="text/html" title="Migrate from Pelican to Fastpages" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/pelican-to-fastpages</id><content type="html" xml:base="https://zonca.dev/2020/03/pelican-to-fastpages.html">&lt;p&gt;I have been using the Pelican static website generator for a few years,
+hosting the content on Github, automatically build on push via Travis-CI
+and deploy on Github pages to &lt;code class=&quot;highlighter-rouge&quot;&gt;zonca.github.io&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I am a heavy Jupyter Notebook user so once I saw the announcement of &lt;a href=&quot;https://fastpages.fast.ai/&quot;&gt;Fastpages&lt;/a&gt;
+I decided it was time to switch.
+I loved the idea of having Jupyter Notebooks built-in and not added via plugins,
+also great idea to use Github actions.&lt;/p&gt;
+
+&lt;p&gt;Only issue I found was that you cannot setup Fastpages on &lt;code class=&quot;highlighter-rouge&quot;&gt;username.github.io&lt;/code&gt;,
+so went for using a custom domain name instead.&lt;/p&gt;
+
+&lt;h2 id=&quot;import-content&quot;&gt;Import content&lt;/h2&gt;
+
+&lt;p&gt;I created a script, in Python of course, to modify the front matter of the markdown
+posts from the Pelican formatting to Jekyll, see &lt;a href=&quot;https://gist.github.com/zonca/b4a5a44513854e1c8918743d219f5f34&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pelican_to_jekyll.py&lt;/code&gt;&lt;/a&gt;.
+It also renames the files, because Jekyll expects a date at the beginning of filenames.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-paginate&quot;&gt;Setup paginate&lt;/h2&gt;
+
+&lt;p&gt;Currently Fastpages doesn’t support pagination for the homepage,
+but &lt;a href=&quot;https://github.com/fastai/fastpages/issues/48#issuecomment-596608688&quot;&gt;implemented a workaround&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;redirect-from-the-old-github-pages-blog&quot;&gt;Redirect from the old Github Pages blog&lt;/h2&gt;
+
+&lt;p&gt;I modified the permalinks of Fastpages so that I have the same URLs in the old and new websites,
+just the domain changes.
+Github pages does not support custom rewriting rules, so I modified the Pelican template
+to put a custom redirection tag in each HTML header.&lt;/p&gt;
+
+&lt;p&gt;In the Pelican template &lt;code class=&quot;highlighter-rouge&quot;&gt;article.html&lt;/code&gt;, in the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;header&amp;gt;&lt;/code&gt; section I added:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev/&quot;&amp;gt;
+&amp;lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/&quot;&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So that Pelican regenerated all the articles with their original address
+and automatically redirects upon access.
+The canonical link hopefully helps with SEO.&lt;/p&gt;
+
+&lt;h2 id=&quot;screenshots-of-the-old-blog&quot;&gt;Screenshots of the old blog&lt;/h2&gt;
+
+&lt;p&gt;Yeah, for posterity, growing older I get more nostalgic.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/old_blog_homepage.png&quot; alt=&quot;Old blog homepage&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/images/old_blog_article_page.png&quot; alt=&quot;Old blog article page&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I have been using the Pelican static website generator for a few years, hosting the content on Github, automatically build on push via Travis-CI and deploy on Github pages to zonca.github.io.</summary></entry><entry><title type="html">Deploy CVMFS on Kubernetes</title><link href="https://zonca.dev/2020/02/cvmfs-kubernetes.html" rel="alternate" type="text/html" title="Deploy CVMFS on Kubernetes" /><published>2020-02-26T13:00:00-06:00</published><updated>2020-02-26T13:00:00-06:00</updated><id>https://zonca.dev/2020/02/cvmfs-kubernetes</id><content type="html" xml:base="https://zonca.dev/2020/02/cvmfs-kubernetes.html">&lt;p&gt;&lt;a href=&quot;https://cvmfs.readthedocs.io/&quot;&gt;CVMFS&lt;/a&gt; is a software distribution service, it is used by High Energy Physics experiments at CERN
 to synchronize software environments across the whole collaborations.&lt;/p&gt;
 
 &lt;p&gt;In the context of a Kubernetes + JupyterHub deployment on Jetstream, for example &lt;a href=&quot;http://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;deployed using Magnum following my tutorial&lt;/a&gt;, it is useful to use CVMFS to make the software tools of a collaboration to all the users connected to JupyterHub, so that we can keep the base Docker image simpler and smaller.&lt;/p&gt;
@@ -486,131 +532,4 @@ Private repositories are useful for early stages of development or if it is nece
 
 &lt;p&gt;See for example the organization account of the &lt;a href=&quot;https://github.com/dib-lab&quot;&gt;“The Lab for Data Intensive Biology” led by Dr. C. Titus Brown&lt;/a&gt; where they share code, documentation and papers. Open Science!!&lt;/p&gt;
 
-&lt;p&gt;Other suggestions on the setup very welcome!&lt;/p&gt;</content><author><name></name></author><summary type="html">Github allows a research group to create their own webpage where they can host, share and develop their software using the git version control system and the powerful Github online issue-tracking interface.</summary></entry><entry><title type="html">Ship large files with Python packages</title><link href="https://zonca.dev/2019/08/large-files-python-packages.html" rel="alternate" type="text/html" title="Ship large files with Python packages" /><published>2019-08-21T18:00:00-05:00</published><updated>2019-08-21T18:00:00-05:00</updated><id>https://zonca.dev/2019/08/large-files-python-packages</id><content type="html" xml:base="https://zonca.dev/2019/08/large-files-python-packages.html">&lt;p&gt;It is often useful to ship large data files together with a Python package,
-a couple of scenarios are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;data necessary to the functionality provided by the package, for example images, any binary or large text dataset, they could be either required just for a subset of the functionality of the package or for all of it&lt;/li&gt;
-  &lt;li&gt;data necessary for unit or integration testing, both example inputs and expected outputs&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If data are collectively less than 2 GB compressed and do not change very often, a simple and a bit hacky solution is to use GitHub release assets. For each packaged release on GitHub it is possible to attach one or more assets smaller than 2 GB. You can then attach data to each release, the downside is that users need to make sure to use the correct dataset for the release they are using and the first time they use the software the need to install the Python package and also download the dataset and install it in the right folder. See &lt;a href=&quot;https://gist.github.com/zonca/52857f2425942725fb74595c4f8600e9&quot;&gt;an example script to upload from the command line&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;If data files are individually less than 10 MB and collectively less than 100 MB you can directly add them into the Python package. This is the easiest and most convenient option, for example the &lt;a href=&quot;https://github.com/astropy/package-template&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;astropy package template&lt;/code&gt;&lt;/a&gt; automatically adds to the package any file inside the &lt;code class=&quot;highlighter-rouge&quot;&gt;packagename/data&lt;/code&gt; folder.&lt;/p&gt;
-
-&lt;p&gt;For larger datasets I recommend to host the files externally and use the &lt;a href=&quot;http://docs.astropy.org/en/stable/utils/#module-astropy.utils.data&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;astropy.utils.data&lt;/code&gt; module&lt;/a&gt;.
-This module automates the process of retrieving a file from a remote server and caching it locally (in the users home folder), next time the user needs it, it is automatically retrieved from the cache:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    &lt;span class=&quot;n&quot;&gt;dataurl&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://my-web-server.ucsd.edu/test-data/&quot;&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dataurl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataurl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;remote_timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;local_file_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_pkg_data_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;myfile.jpg)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we need to host there files publicly, I have a few options.&lt;/p&gt;
-
-&lt;h3 id=&quot;host-on-a-dedicated-github-repository&quot;&gt;Host on a dedicated GitHub repository&lt;/h3&gt;
-
-&lt;p&gt;If files are individually less than 100MB and collectively a few GB, you can create a dedicated repository on GitHub and push there your files.
-Then &lt;a href=&quot;https://help.github.com/en/articles/what-is-github-pages&quot;&gt;activate GitHub Pages&lt;/a&gt; so that those files are published at &lt;code class=&quot;highlighter-rouge&quot;&gt;https://your-organization.github.io/your-repository/&lt;/code&gt;.
-Then use this URL as &lt;code class=&quot;highlighter-rouge&quot;&gt;dataurl&lt;/code&gt; in the above script.&lt;/p&gt;
-
-&lt;h3 id=&quot;host-on-a-supercomputer-or-own-server&quot;&gt;Host on a Supercomputer or own server&lt;/h3&gt;
-
-&lt;p&gt;Some Supercomputers offer the feature of providing public web access from specific folders, for example NERSC allows user to publish web-pages publicly, see &lt;a href=&quot;https://www.nersc.gov/users/computational-systems/pdsf/software-and-tools/hosting-webpages/&quot;&gt;their documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is very useful for huge datasets because you can automatically detect if the package is being run at NERSC and then automatically access the files with their path instead of downloading them.&lt;/p&gt;
-
-&lt;p&gt;For example:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;get_data_from_url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Retrieves input templates from remote server,
-    in case data is available in one of the PREDEFINED_DATA_FOLDERS defined above,
-    e.g. at NERSC, those are directly returned.&quot;&quot;&quot;&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;PREDEFINED_DATA_FOLDERS&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;folder&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Access data from {full_path}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-            &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;full_path&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;dataurl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;DATAURL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;conf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-        &lt;span class=&quot;s&quot;&gt;&quot;remote_timeout&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;
-    &lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;warn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Retrieve data for {filename} (if not cached already)&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;map_out&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_pkg_data_filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;show_progress&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;map_out&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Similar setup can be achieved on a GNU/Linux server, for example a powerful machine used by all members of a scientific team, where a folder is dedicated to host these data and is also published online with Apache or NGINX.&lt;/p&gt;
-
-&lt;p&gt;The main downside of this approach is that there is no built-in version control. One possibility is to enforce a policy where no files are ever overwritten and version control is automatically achieved with filenames. Otherwise, use &lt;a href=&quot;https://git-lfs.github.com/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;git lfs&lt;/code&gt;&lt;/a&gt; in that folder to track any change in a dedicated local &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; repository, e.g.:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-git init
-git lfs track &lt;span class=&quot;s2&quot;&gt;&quot;*.fits&quot;&lt;/span&gt;
-git add &lt;span class=&quot;s2&quot;&gt;&quot;*.fits&quot;&lt;/span&gt;
-git commit &lt;span class=&quot;nt&quot;&gt;-m&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;initial version of all FITS files&quot;&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This method tracks the checksum of all the binary files and helps managing the history, even if only locally (make sure the folder is also regularly backed up). You could push it to GitHub, that would cost $5/month for each 50GB of storage.&lt;/p&gt;
-
-&lt;h3 id=&quot;host-on-figshare&quot;&gt;Host on Figshare&lt;/h3&gt;
-
-&lt;p&gt;You can upload files to Figshare using the browser and create a dataset which also comes with a DOI and a page where you can save metadata about this object.&lt;/p&gt;
-
-&lt;p&gt;Once you have set the dataset public, you can find out the URL of the actual file, which is of the form &lt;code class=&quot;highlighter-rouge&quot;&gt;https://ndownloader.figshare.com/files/2432432432&lt;/code&gt;, therefore we can set &lt;code class=&quot;highlighter-rouge&quot;&gt;https://ndownloader.figshare.com/files/&lt;/code&gt; as the repository and use the integer defined in Figshare as filename. Using integers as filenames makes it a bit cryptic, but it has the great advantage that other people can do the uploading to Figshare and you can point to their files as easily as if the are yours. This is more convenient than alternatives where instead you need to give other people access to your file repository.&lt;/p&gt;
-
-&lt;h3 id=&quot;host-on-amazon-s3-or-other-object-store&quot;&gt;Host on Amazon S3 or other object store&lt;/h3&gt;
-
-&lt;p&gt;A public bucket on Amazon S3 or other object store provides cheap storage and built-in version control.
-The cost currently is about $0.026/GB/month.&lt;/p&gt;
-
-&lt;p&gt;First login to the AWS console and create a new bucket, set it public by turning of “Block all public access” and under “Access Control List” set “List objects” to Yes for “Public access”.&lt;/p&gt;
-
-&lt;p&gt;You could upload files with the browser, but for larger files command line is better.&lt;/p&gt;
-
-&lt;p&gt;The files will be available at &lt;a href=&quot;https://bucket-name.s3-us-west-1.amazonaws.com/&quot;&gt;https://bucket-name.s3-us-west-1.amazonaws.com/&lt;/a&gt;, this changes based on the chosen region.&lt;/p&gt;
-
-&lt;h4 id=&quot;advanced-upload-files-from-the-command-line&quot;&gt;(Advanced) Upload files from the command line&lt;/h4&gt;
-
-&lt;p&gt;This is optional and requires some more familiarity with AWS.
-Go back to the AWS console to the Identity and Access Management (IAM) section, then users, create, create a policy to give access only to 1 bucket (replace &lt;code class=&quot;highlighter-rouge&quot;&gt;bucket-name&lt;/code&gt;):&lt;/p&gt;
-
-&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;2012-10-17&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Statement&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Sid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;ListObjectsInBucket&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Effect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:ListBucket&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Resource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;arn:aws:s3:::bucket-name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Sid&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;AllObjectActions&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Effect&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Allow&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Action&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:*Object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-                &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;s3:PutObjectAcl&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-            &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;Resource&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;arn:aws:s3:::bucket-name/*&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-        &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;See the &lt;a href=&quot;https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_examples_s3_rw-bucket.html&quot;&gt;AWS documentation&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Install &lt;code class=&quot;highlighter-rouge&quot;&gt;s3cmd&lt;/code&gt;, then run &lt;code class=&quot;highlighter-rouge&quot;&gt;s3cmd --configure&lt;/code&gt; to set it up and paste the Access and Secret keys, it will fail to test the configuration because it cannot list all the buckets, anyway choose to save the configuration.&lt;/p&gt;
-
-&lt;p&gt;Test it:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    s3cmd &lt;span class=&quot;nb&quot;&gt;ls &lt;/span&gt;s3://bucket-name
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then upload your files (reduced redundancy is cheaper):&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    s3cmd put &lt;span class=&quot;nt&quot;&gt;--reduced-redundancy&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;--acl-public&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;.fits s3://bucket-name
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">It is often useful to ship large data files together with a Python package, a couple of scenarios are:</summary></entry></feed>
+&lt;p&gt;Other suggestions on the setup very welcome!&lt;/p&gt;</content><author><name></name></author><summary type="html">Github allows a research group to create their own webpage where they can host, share and develop their software using the git version control system and the powerful Github online issue-tracking interface.</summary></entry></feed>
