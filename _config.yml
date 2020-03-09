@@ -96,3 +96,6 @@ kramdown:
   syntax_highlighter: rouge
 
 permalink: /:year/:month/:title:output_ext
+
+paginate: 10
+paginate_path: /page:num/
