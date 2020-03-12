@@ -28,6 +28,8 @@ It also renames the files, because Jekyll expects a date at the beginning of fil
 Currently Fastpages doesn't support pagination for the homepage,
 but [implemented a workaround](https://github.com/fastai/fastpages/issues/48#issuecomment-596608688).
 
+**Update 12 March 2020**: Now `fastpages` supports pagination natively! see [the documentation](https://github.com/fastai/fastpages)
+
 
 ## Redirect from the old Github Pages blog
 
