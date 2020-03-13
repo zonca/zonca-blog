@@ -42,6 +42,11 @@ The only setup that could be peculiar to the deployment on top of `kubespray` is
 
 ## Setup HTTPS with letsencrypt
 
+**this is outdated as of March 2020**
+
+Letsencrypt won't issue certificates anymore with the old version of `cert-manager` installed by our version of Kubespray.
+I disabled the installation of `cert-manager`, please follow [this newer tutorial on how to setup a recent `cert-manager`](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html)
+
 Kubespray instead of installing `kube-lego`, installs [`certmanager`](https://cert-manager.readthedocs.io/en/latest/index.html) to handle HTTPS certificates.
 
 First we need to create a Issuer, set your email inside `setup_https_kubespray/https_issuer.yml` and create it with the usual:
