@@ -66,6 +66,12 @@ exclude:
 include:
   - _pages
 
+# This specifies what badges are turned on by default for notebook posts.
+default_badges:
+  github: true
+  binder: true
+  colab: true
+
 # Everything below here should be left alone. Modifications may break fastpages
 future: true
 theme: minima
@@ -78,6 +84,7 @@ plugins:
   - jekyll-relative-links
   - jekyll-seo-tag
   - jekyll-remote-theme
+  - jekyll-paginate
 
 remote_theme: jekyll/minima
 
@@ -97,5 +104,5 @@ kramdown:
 
 permalink: /:year/:month/:title:output_ext
 
-paginate: 8
+paginate: 10
 paginate_path: /page:num/
