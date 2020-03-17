@@ -1624,7 +1624,7 @@
   
       ,"page1": {
           "title": "About Me",
-          "content": ". I am a computational scientist the San Diego Supercomputer Center, Calfornia, USA. . I mostly work on distributed data processing in Python of Astrophysics/Cosmology datasets. I simulate and analyze data from Cosmic Microwave Background experiments, I got my Ph.D. at the University of Milano, Italy, working on the Planck satellite (European Space Agency). See my publications on Google Scholar or Arxiv. . Currently I also work on cloud deployments of interactive computing platforms based on JupyterHub on top of Kubernetes. . I am available for consulting, code-review, software infrastructure design. . Contact me via Twitter or email (andrea on the domain andreazonca.com). . This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
+          "content": "This is where you put the contents of your About page. Like all your pages, it’s in Markdown format. . This website is powered by fastpages 1. . a blogging platform that natively supports Jupyter notebooks in addition to other formats. &#8617; . |",
           "url": "https://zonca.dev/about/",
           "relUrl": "/about/",
           "date": ""

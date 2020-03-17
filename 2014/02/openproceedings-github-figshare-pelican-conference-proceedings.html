@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2014-02-13T23:30:00-06:00" />
 <script type="application/ld+json">
-{"headline":"openproceedings - Github/FigShare based publishing platform for conference proceedings","dateModified":"2014-02-13T23:30:00-06:00","description":"Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both. The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: https://github.com/scipy-conference/scipy_proceedings/pull/61.","datePublished":"2014-02-13T23:30:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html"},"url":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html","@context":"https://schema.org"}</script>
+{"description":"Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both. The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: https://github.com/scipy-conference/scipy_proceedings/pull/61.","headline":"openproceedings - Github/FigShare based publishing platform for conference proceedings","dateModified":"2014-02-13T23:30:00-06:00","datePublished":"2014-02-13T23:30:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html"},"url":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>openproceedings - Github/FigShare based publishing platform for conference proceedings | Andrea Zonca</title>
@@ -30,7 +30,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2014-02-13T23:30:00-06:00" />
 <script type="application/ld+json">
-{"headline":"openproceedings - Github/FigShare based publishing platform for conference proceedings","dateModified":"2014-02-13T23:30:00-06:00","description":"Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both. The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: https://github.com/scipy-conference/scipy_proceedings/pull/61.","datePublished":"2014-02-13T23:30:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html"},"url":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html","@context":"https://schema.org"}</script>
+{"description":"Github provides a great interface for gathering, peer reviewing and accepting papers for conference proceedings, the second step is to publish them on a website either in HTML or PDF form or both. The Scipy conference is at the forefront on this and did great work in peer reviewing on Github, see: https://github.com/scipy-conference/scipy_proceedings/pull/61.","headline":"openproceedings - Github/FigShare based publishing platform for conference proceedings","dateModified":"2014-02-13T23:30:00-06:00","datePublished":"2014-02-13T23:30:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html"},"url":"https://zonca.dev/2014/02/openproceedings-github-figshare-pelican-conference-proceedings.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -79,9 +79,6 @@ window.onload = wrap_img;
     // add link icon to anchor tags
     var elem = document.querySelectorAll(".anchor-link")
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
-    // remove paragraph tags in rendered toc (happens from notebooks)
-    var toctags = document.querySelectorAll(".toc-entry")
-    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
     });
 </script>
 </head><body><header class="site-header">

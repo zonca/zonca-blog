@@ -15,7 +15,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2008-04-29T12:25:00-05:00" />
 <script type="application/ld+json">
-{"headline":"netcat, quickly send binaries through network","dateModified":"2008-04-29T12:25:00-05:00","description":"just start nc in server mode on localhost: [sourcecode language=&#39;python&#39;] nc -l -p 3333 [/sourcecode] send a string to localhost on port 3333: [sourcecode language=&#39;python&#39;] echo &quot;hello world&quot; | nc localhost 3333 [/sourcecode] you&#39;ll see on server side appearing the string you sent. very useful for sending binaries, see examples .","datePublished":"2008-04-29T12:25:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html"},"url":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html","@context":"https://schema.org"}</script>
+{"description":"just start nc in server mode on localhost: [sourcecode language=&#39;python&#39;] nc -l -p 3333 [/sourcecode] send a string to localhost on port 3333: [sourcecode language=&#39;python&#39;] echo &quot;hello world&quot; | nc localhost 3333 [/sourcecode] you&#39;ll see on server side appearing the string you sent. very useful for sending binaries, see examples .","headline":"netcat, quickly send binaries through network","dateModified":"2008-04-29T12:25:00-05:00","datePublished":"2008-04-29T12:25:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html"},"url":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>netcat, quickly send binaries through network | Andrea Zonca</title>
@@ -30,7 +30,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2008-04-29T12:25:00-05:00" />
 <script type="application/ld+json">
-{"headline":"netcat, quickly send binaries through network","dateModified":"2008-04-29T12:25:00-05:00","description":"just start nc in server mode on localhost: [sourcecode language=&#39;python&#39;] nc -l -p 3333 [/sourcecode] send a string to localhost on port 3333: [sourcecode language=&#39;python&#39;] echo &quot;hello world&quot; | nc localhost 3333 [/sourcecode] you&#39;ll see on server side appearing the string you sent. very useful for sending binaries, see examples .","datePublished":"2008-04-29T12:25:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html"},"url":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html","@context":"https://schema.org"}</script>
+{"description":"just start nc in server mode on localhost: [sourcecode language=&#39;python&#39;] nc -l -p 3333 [/sourcecode] send a string to localhost on port 3333: [sourcecode language=&#39;python&#39;] echo &quot;hello world&quot; | nc localhost 3333 [/sourcecode] you&#39;ll see on server side appearing the string you sent. very useful for sending binaries, see examples .","headline":"netcat, quickly send binaries through network","dateModified":"2008-04-29T12:25:00-05:00","datePublished":"2008-04-29T12:25:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html"},"url":"https://zonca.dev/2008/04/netcat-quickly-send-binaries-through.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -79,9 +79,6 @@ window.onload = wrap_img;
     // add link icon to anchor tags
     var elem = document.querySelectorAll(".anchor-link")
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
-    // remove paragraph tags in rendered toc (happens from notebooks)
-    var toctags = document.querySelectorAll(".toc-entry")
-    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
     });
 </script>
 </head><body><header class="site-header">

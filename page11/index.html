@@ -15,7 +15,7 @@
 <link rel="prev" href="https://zonca.dev/page10/" />
 <link rel="next" href="https://zonca.dev/page12/" />
 <script type="application/ld+json">
-{"headline":"Andrea Zonca","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@type":"WebPage","url":"https://zonca.dev/page11/","@context":"https://schema.org"}</script>
+{"description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","headline":"Andrea Zonca","@type":"WebPage","url":"https://zonca.dev/page11/","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Page 11 of 19 for Andrea Zonca | Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</title>
@@ -30,7 +30,7 @@
 <link rel="prev" href="https://zonca.dev/page10/" />
 <link rel="next" href="https://zonca.dev/page12/" />
 <script type="application/ld+json">
-{"headline":"Andrea Zonca","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@type":"WebPage","url":"https://zonca.dev/page11/","@context":"https://schema.org"}</script>
+{"description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","headline":"Andrea Zonca","@type":"WebPage","url":"https://zonca.dev/page11/","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -79,9 +79,6 @@ window.onload = wrap_img;
     // add link icon to anchor tags
     var elem = document.querySelectorAll(".anchor-link")
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
-    // remove paragraph tags in rendered toc (happens from notebooks)
-    var toctags = document.querySelectorAll(".toc-entry")
-    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
     });
 </script>
 </head><body><header class="site-header">
@@ -101,9 +98,22 @@ window.onload = wrap_img;
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <div class="home"><p>This site is built with <a href="https://github.com/fastai/fastpages">fastpages</a>, An easy to use blogging platform with extra features for Jupyter Notebooks.</p>
+
+<p><img src="/images/diagram.png" alt="" title="https://github.com/fastai/fastpages" /></p>
+
+<p><a href="https://github.com/fastai/fastpages">fastpages</a> automates the process of creating blog posts via GitHub Actions, so you don’t have to fuss with conversion scripts.  A full list of features can be found on <a href="https://github.com/fastai/fastpages">GitHub</a>.</p>
+
+<p>You can edit the <code class="highlighter-rouge">index.html</code> file to change this content.</p>
+
+<h1 id="posts">Posts</h1>
 
 
+
+  
+
+  <!-- Hide posts if front matter flag hide:true -->
+  
   <ul class="post-list"><li><h3>
     <a class="post-link" href="/2013/09/automatically-build-pelican-and-publish-to-github-pages.html">
     How to automatically build your Pelican blog and publish it to Github Pages

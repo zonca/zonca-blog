@@ -13,7 +13,7 @@
 <meta property="og:url" content="https://zonca.dev/about/" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <script type="application/ld+json">
-{"headline":"About Me","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@type":"WebSite","url":"https://zonca.dev/about/","name":"Andrea Zonca","@context":"https://schema.org"}</script>
+{"description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","headline":"About Me","@type":"WebSite","url":"https://zonca.dev/about/","name":"Andrea Zonca","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>About Me | Andrea Zonca</title>
@@ -26,7 +26,7 @@
 <meta property="og:url" content="https://zonca.dev/about/" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <script type="application/ld+json">
-{"headline":"About Me","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@type":"WebSite","url":"https://zonca.dev/about/","name":"Andrea Zonca","@context":"https://schema.org"}</script>
+{"description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","headline":"About Me","@type":"WebSite","url":"https://zonca.dev/about/","name":"Andrea Zonca","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -75,9 +75,6 @@ window.onload = wrap_img;
     // add link icon to anchor tags
     var elem = document.querySelectorAll(".anchor-link")
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
-    // remove paragraph tags in rendered toc (happens from notebooks)
-    var toctags = document.querySelectorAll(".toc-entry")
-    toctags.forEach(e => (e.firstElementChild.innerText = e.firstElementChild.innerText.replace('¶', '')))
     });
 </script>
 </head><body><header class="site-header">
@@ -104,23 +101,7 @@ window.onload = wrap_img;
   </header>
 
   <div class="post-content">
-    <p><img src="/images/andreazonca.jpg" alt="Profile picture" /></p>
-
-<p>I am a computational scientist the San Diego Supercomputer Center, Calfornia, USA.</p>
-
-<p>I mostly work on distributed data processing in Python of Astrophysics/Cosmology datasets.
-I simulate and analyze data from Cosmic Microwave Background experiments, I got my Ph.D. at
-the University of Milano, Italy, working on the Planck satellite (European Space Agency).
-See my publications on <a href="https://scholar.google.com/citations?user=wuR3UQ4AAAAJ&amp;hl=en">Google Scholar</a>
-or <a href="https://arxiv.org/search/?searchtype=author&amp;query=Zonca%2C+A">Arxiv</a>.</p>
-
-<p>Currently I also work on cloud deployments of interactive computing platforms based on
-JupyterHub on top of Kubernetes.</p>
-
-<p>I am available for consulting, code-review, software infrastructure design.</p>
-
-<p>Contact me via <a href="https://twitter.com/andreazonca">Twitter</a> or email (<code class="highlighter-rouge">andrea</code> on the domain
-andreazonca.com).</p>
+    <p>This is where you put the contents of your <em>About</em> page. Like all your pages, it’s in <a href="https://guides.github.com/features/mastering-markdown/">Markdown</a> format.</p>
 
 <p>This website is powered by <strong><a href="https://github.com/fastai/fastpages">fastpages</a></strong> <sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup>.</p>
 
