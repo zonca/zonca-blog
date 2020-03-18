@@ -164,6 +164,15 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Often to describe data quality of timelines or images, we use array of integers where each of its bit has a specific meaning, so that we can identify what issues affect each data point.</p>
+<p>For example we have 10 data points, and we assign an array of 8 bits for data quality.
+Generally <code>0</code> means a good data point, any bit raised is sign of some problem in the data, this is more compressed then using different boolean arrays, and allows to make batch <code>np.bitwise_and</code> and <code>np.bitwise_or</code> operations.</p>
+
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
