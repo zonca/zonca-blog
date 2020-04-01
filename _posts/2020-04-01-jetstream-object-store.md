@@ -20,7 +20,7 @@ used in all tools which expects Amazon APIs.
 
 ## Command line access to object store with s3cmd
 
-One of the most convenient tools is `s3cmd`, which allows to list, upload
+One of the most convenient tools is [`s3cmd`](https://s3tools.org/s3cmd), which allows to list, upload
 and download files from object store. It is included in most linux distributions.
 
 First run the interactive configuration tool:
