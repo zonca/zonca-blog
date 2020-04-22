@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-04-14T21:08:46-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Use the Jetstream object store</title><link href="https://zonca.dev/2020/04/jetstream-object-store.html" rel="alternate" type="text/html" title="Use the Jetstream object store" /><published>2020-04-01T00:00:00-05:00</published><updated>2020-04-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/04/jetstream-object-store</id><content type="html" xml:base="https://zonca.dev/2020/04/jetstream-object-store.html">&lt;p&gt;I plan to collect here notes about using the Openstack object store
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-04-21T19:50:59-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Use the Jetstream object store</title><link href="https://zonca.dev/2020/04/jetstream-object-store.html" rel="alternate" type="text/html" title="Use the Jetstream object store" /><published>2020-04-01T00:00:00-05:00</published><updated>2020-04-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/04/jetstream-object-store</id><content type="html" xml:base="https://zonca.dev/2020/04/jetstream-object-store.html">&lt;p&gt;I plan to collect here notes about using the Openstack object store
 on Jetstream.&lt;/p&gt;
 
 &lt;h2 id=&quot;get-amazon-style-credentials&quot;&gt;Get Amazon-style credentials&lt;/h2&gt;
@@ -605,13 +605,43 @@ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/relea
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f setup_https/https_issuer.yml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;After this, we can display all the resources in the &lt;code class=&quot;highlighter-rouge&quot;&gt;cert-manager&lt;/code&gt; namespace to
+check that the services and pods are running:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get all --namespace=cert-manager
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The result should be something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NAME                                           READY     STATUS    RESTARTS   AGE
+pod/cert-manager-866d87f6c7-xtmrm              1/1       Running   0          34m
+pod/cert-manager-cainjector-6cc7748c5b-9zfkb   1/1       Running   0          34m
+pod/cert-manager-webhook-6c7d497cf8-zrlw5      1/1       Running   0          34m
+
+NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/cert-manager           ClusterIP   10.254.234.231   &amp;lt;none&amp;gt;        9402/TCP   39d
+service/cert-manager-webhook   ClusterIP   10.254.8.143     &amp;lt;none&amp;gt;        443/TCP    39d
+
+NAME                                      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cert-manager              1         1         1            1           39d
+deployment.apps/cert-manager-cainjector   1         1         1            1           39d
+deployment.apps/cert-manager-webhook      1         1         1            1           39d
+
+NAME                                                 DESIRED   CURRENT   READY     AGE
+replicaset.apps/cert-manager-866d87f6c7              1         1         1         39d
+replicaset.apps/cert-manager-cainjector-6cc7748c5b   1         1         1         39d
+replicaset.apps/cert-manager-webhook-6c7d497cf8      1         1         1         39d
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;setup-jupyterhub&quot;&gt;Setup JupyterHub&lt;/h2&gt;
+
 &lt;p&gt;Then we modify the JupyterHub ingress configuration to use this Issuer,
 modify &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; to:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ingress:
   enabled: true
   annotations:
-    kubernetes.io/ingress.class: &quot;nginx&quot;    
+    kubernetes.io/ingress.class: &quot;nginx&quot;
     cert-manager.io/issuer: &quot;letsencrypt&quot;
   hosts:
       - js-XXX-YYY.jetstream-cloud.org
@@ -624,6 +654,14 @@ modify &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt;
 &lt;p&gt;Finally update the JupyterHub deployment rerunning the deployment script (no need to delete it):&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After a few minutes we should have a certificate resource available:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl get certificate --all-namespaces
+
+NAMESPACE   NAME                         READY     SECRET                       AGE
+jhub        certmanager-tls-jupyterhub   True      certmanager-tls-jupyterhub   11m
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy.</summary></entry><entry><title type="html">Kill Jupyter Notebook servers</title><link href="https://zonca.dev/2020/03/kill-jupyter-notebook.html" rel="alternate" type="text/html" title="Kill Jupyter Notebook servers" /><published>2020-03-12T00:00:00-05:00</published><updated>2020-03-12T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/kill-jupyter-notebook</id><content type="html" xml:base="https://zonca.dev/2020/03/kill-jupyter-notebook.html">&lt;p&gt;Just today I learned how to properly stop previously running Jupyter Notebook
 servers, here for future reference:&lt;/p&gt;
 
