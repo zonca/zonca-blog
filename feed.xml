@@ -1,4 +1,245 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-04-27T11:29:56-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">White noise NET in Radio-astronomy and Cosmology</title><link href="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html" rel="alternate" type="text/html" title="White noise NET in Radio-astronomy and Cosmology" /><published>2020-04-24T00:00:00-05:00</published><updated>2020-04-24T00:00:00-05:00</updated><id>https://zonca.dev/2020/04/white-noise-angular-power-spectrum</id><content type="html" xml:base="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-05-21T13:34:03-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
+JupyterHub on top of that using &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/&quot;&gt;zero-to-jupyterhub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is an updated version of the &lt;a href=&quot;https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;Kubernetes on Jetstream with Magnum tutorial&lt;/a&gt; based now on Kubernetes 1.15 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-access-to-the-jetstream-api&quot;&gt;Setup access to the Jetstream API&lt;/h2&gt;
+
+&lt;p&gt;First install the OpenStack client, please use these exact versions, also please run at Indiana, which currently has the Rocky release of Openstack, the TACC deployment has an older release of Openstack.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install python-openstackclient==3.16 python-magnumclient==2.10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Load your API credentials from &lt;code class=&quot;highlighter-rouge&quot;&gt;openrc.sh&lt;/code&gt;, check &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh&quot;&gt;documentation of the Jetstream wiki for details&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;You need to have a keypair uploaded to Openstack, this just needs to be done once per account. See &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/35913730/OpenStack+command+line&quot;&gt;the Jetstream documentation&lt;/a&gt; under the section “Upload SSH key - do this once”.&lt;/p&gt;
+
+&lt;h2 id=&quot;create-the-cluster-with-magnum&quot;&gt;Create the cluster with Magnum&lt;/h2&gt;
+
+&lt;p&gt;As usual, checkout the repository with all the configuration files on the machine you will use the Jetstream API from, typically your laptop.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+cd jupyterhub-deploy-kubernetes-jetstream
+cd kubernetes_magnum
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we are ready to use Magnum to first create a cluster template and then the actual cluster, edit first &lt;code class=&quot;highlighter-rouge&quot;&gt;create_cluster.sh&lt;/code&gt; and set the parameters of the cluster on the top. Also make sure to set the keypair name.
+Finally run:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_network.sh
+bash create_template.sh
+bash create_cluster.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I have setup a test cluster with only 1 master node and 1 normal node but you can modify that later.&lt;/p&gt;
+
+&lt;p&gt;Check the status of your cluster, after about 10 minutes, it should be in state &lt;code class=&quot;highlighter-rouge&quot;&gt;CREATE_COMPLETE&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack coe cluster show k8s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;configure-kubectl-locally&quot;&gt;Configure kubectl locally&lt;/h3&gt;
+
+&lt;p&gt;Install the &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; client locally, first check the version of the master node:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server list # find the floating public IP of the master node (starts with 149_
+IP=149.xxx.xxx.xxx
+ssh fedora@$IP
+kubectl version
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now install the same version following the &lt;a href=&quot;https://kubernetes.io/docs/tasks/tools/install-kubectl/&quot;&gt;Kubernetes documentation&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Now configure &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; on your laptop to connect to the Kubernetes cluster created with Magnum:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir kubectl_secret
+cd kubectl_secret
+openstack coe cluster config k8s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This downloads a configuration file and the required certificates.&lt;/p&gt;
+
+&lt;p&gt;and returns  &lt;code class=&quot;highlighter-rouge&quot;&gt;export KUBECONFIG=/absolute/path/to/config&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;See also the &lt;code class=&quot;highlighter-rouge&quot;&gt;update_kubectl_secret.sh&lt;/code&gt; script to automate this step, but it requires to already have setup the environment variable.&lt;/p&gt;
+
+&lt;p&gt;execute that and then:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get nodes
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;we can also verify the Kubernetes version available, it should now be &lt;code class=&quot;highlighter-rouge&quot;&gt;1.15.7&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl version
+Server Version: version.Info{Major:&quot;1&quot;, Minor:&quot;15&quot;, GitVersion:&quot;v1.15.7&quot;, GitCommit:&quot;6c143d35bb11d74970e7bc0b6c45b6bfdffc0bd4&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2019-12-11T12:34:17Z&quot;, GoVersion:&quot;go1.12.12&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;configure-storage&quot;&gt;Configure storage&lt;/h2&gt;
+
+&lt;p&gt;Magnum configures a provider that knows how to create Kubernetes volumes using Openstack Cinder,
+but does not configure a &lt;code class=&quot;highlighter-rouge&quot;&gt;storageclass&lt;/code&gt;, we can do that with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f storageclass.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can test this by creating a Persistent Volume Claim:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f persistent_volume_claim.yaml
+
+kubectl describe pv
+
+kubectl describe pvc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:            pvc-e8b93455-898b-11e9-a37c-fa163efb4609
+Labels:          failure-domain.beta.kubernetes.io/zone=nova
+Annotations:     kubernetes.io/createdby: cinder-dynamic-provisioner
+                 pv.kubernetes.io/bound-by-controller: yes
+                 pv.kubernetes.io/provisioned-by: kubernetes.io/cinder
+Finalizers:      [kubernetes.io/pv-protection]
+StorageClass:    standard
+Status:          Bound
+Claim:           default/pvc-test
+Reclaim Policy:  Delete
+Access Modes:    RWO
+Capacity:        5Gi
+Node Affinity:   &amp;lt;none&amp;gt;
+Message:
+Source:
+    Type:       Cinder (a Persistent Disk resource in OpenStack)
+    VolumeID:   2795724b-ef11-4053-9922-d854107c731f
+    FSType:
+    ReadOnly:   false
+    SecretRef:  nil
+Events:         &amp;lt;none&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can also test creating an actual pod with a persistent volume and check
+that the volume is successfully mounted and the pod started:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f ../alpine-persistent-volume.yaml
+kubectl describe pod alpine
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;note-about-availability-zones&quot;&gt;Note about availability zones&lt;/h3&gt;
+
+&lt;p&gt;By default Openstack servers and Openstack volumes are created in different availability zones. This created an issue with the default Magnum templates because we need to modify the Kubernetes scheduler policy to allow this. Kubespray does this by default, so I created a &lt;a href=&quot;https://github.com/zonca/magnum/pull/2&quot;&gt;fix to be applied to the Jetstream Magnum templates&lt;/a&gt;, this needs to be re-applied after every Openstack upgrade. The Jetstream team has applied these fixes, they are linked here just for reference.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-helm&quot;&gt;Install Helm&lt;/h2&gt;
+
+&lt;p&gt;The Kubernetes deployment from Magnum is not as complete as the one out of Kubespray, we need
+to setup &lt;code class=&quot;highlighter-rouge&quot;&gt;helm&lt;/code&gt; and the NGINX ingress ourselves. We would also need to setup a system to automatically
+deploy HTTPS certificates, I’ll add this later on.&lt;/p&gt;
+
+&lt;p&gt;First &lt;a href=&quot;https://helm.sh/docs/using_helm/#installing-helm&quot;&gt;install the Helm client on your laptop&lt;/a&gt;, make
+sure you have configured &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; correctly.&lt;/p&gt;
+
+&lt;p&gt;Then we need to create a service account to give enough privilege to Helm to reconfigure the cluster:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f tiller_service_account.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then we can create the &lt;code class=&quot;highlighter-rouge&quot;&gt;tiller&lt;/code&gt; pod inside Kubernetes:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;helm init --service-account tiller --wait --history-max 200
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pods --all-namespaces
+kube-system   coredns-ffc7449c-5zmcp                     1/1     Running   1          43m                                            kube-system   coredns-ffc7449c-f69pb                     1/1     Running   1          43m                                            kube-system   heapster-868bbf8578-lhm6s                  1/1     Running   1          43m                                            kube-system   k8s-keystone-auth-hzds6                    1/1     Running   1          43m                                            kube-system   kube-dns-autoscaler-6d5d44bf86-kx24c       1/1     Running   1          43m
+kube-system   kube-flannel-ds-amd64-86vrb                1/1     Running   1          43m
+kube-system   kube-flannel-ds-amd64-mr4qk                1/1     Running   1          38m
+kube-system   kubernetes-dashboard-6bcf74b4cd-xc4fc      1/1     Running   1          43m
+kube-system   npd-9jfhr                                  1/1     Running   1          37m
+kube-system   openstack-cloud-controller-manager-5rkkf   1/1     Running   1          42m
+kube-system   tiller-deploy-7d8df5456-vcfz8              1/1     Running   0          4m12s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And check that all the versions agree:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;helm version
+Client: &amp;amp;version.Version{SemVer:&quot;v2.16.6&quot;, GitCommit:&quot;dd2e5695da88625b190e6b22e9542550ab503a47&quot;, GitTreeState:&quot;clean&quot;}
+Server: &amp;amp;version.Version{SemVer:&quot;v2.16.6&quot;, GitCommit:&quot;dd2e5695da88625b190e6b22e9542550ab503a47&quot;, GitTreeState:&quot;clean&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;setup-nginx-ingress&quot;&gt;Setup NGINX ingress&lt;/h2&gt;
+
+&lt;p&gt;We need to have the NGINX web server to act as front-end to the services running inside the Kubernetes cluster.&lt;/p&gt;
+
+&lt;h3 id=&quot;open-http-and-https-ports&quot;&gt;Open HTTP and HTTPS ports&lt;/h3&gt;
+
+&lt;p&gt;First we need to open the HTTP and HTTPS ports on the master node, you can either connect to the Horizon interface,
+create new rule named &lt;code class=&quot;highlighter-rouge&quot;&gt;http_https&lt;/code&gt;, then add 2 rules, in the Rule drop down choose HTTP and HTTPS; or from the command line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack security group create http_https
+openstack security group rule create --ingress --protocol tcp --dst-port 80 http_https
+openstack security group rule create --ingress --protocol tcp --dst-port 443 http_https
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you can find the name of the master node in &lt;code class=&quot;highlighter-rouge&quot;&gt;openstack server list&lt;/code&gt; then add this security group to that instance:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server add security group  k8s-xxxxxxxxxxxx-master-0 http_https
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;install-nginx-ingress-with-helm&quot;&gt;Install NGINX ingress with Helm&lt;/h3&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_nginx_ingress.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Note, the documentation says we should add this annotation to ingress with &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl edit ingress -n jhub&lt;/code&gt;, but I found out it is not necessary:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;metadata:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If this is correctly working, you should be able to run &lt;code class=&quot;highlighter-rouge&quot;&gt;curl localhost&lt;/code&gt; from the master node and get a &lt;code class=&quot;highlighter-rouge&quot;&gt;Default backend: 404&lt;/code&gt; message.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-jupyterhub&quot;&gt;Install JupyterHub&lt;/h2&gt;
+
+&lt;p&gt;Finally, we can go back to the root of the repository and install JupyterHub, first create the secrets file:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_secrets.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then edit &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; and modify the hostname under &lt;code class=&quot;highlighter-rouge&quot;&gt;hosts&lt;/code&gt; to display the hostname of your master Jetstream instance, i.e. if your instance public floating IP is &lt;code class=&quot;highlighter-rouge&quot;&gt;aaa.bbb.xxx.yyy&lt;/code&gt;, the hostname should be &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; (without &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt;).&lt;/p&gt;
+
+&lt;p&gt;You should also check that connecting with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; shows &lt;code class=&quot;highlighter-rouge&quot;&gt;default backend - 404&lt;/code&gt;, this means NGINX is also reachable from the internet, i.e. the web port is open on the master node.&lt;/p&gt;
+
+&lt;p&gt;Finally:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash configure_helm_jupyterhub.sh
+bash install_jhub.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Connect with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; to check if it works.&lt;/p&gt;
+
+&lt;h3 id=&quot;allow-services-on-master&quot;&gt;Allow services on master&lt;/h3&gt;
+
+&lt;p&gt;By default the new Kubernetes version has 2 taints on the master node:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  taints:
+  - effect: NoSchedule
+    key: CriticalAddonsOnly
+    value: &quot;True&quot;
+  - effect: NoSchedule
+    key: dedicated
+    value: master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The JupyterHub recipe does not allow to automatically set tolerations on the hub and the proxy
+pods, therefore if we want to run them on master, the easiest way is to delete those 2 taints
+from the master node:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl edit node NODENAME
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;issues-and-feedback&quot;&gt;Issues and feedback&lt;/h2&gt;
+
+&lt;p&gt;Please &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/&quot;&gt;open an issue on the repository&lt;/a&gt; to report any issue or give feedback. Also you find out there there what I am working on next.&lt;/p&gt;
+
+&lt;h2 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h2&gt;
+
+&lt;p&gt;Many thanks to Jeremy Fischer and Mike Lowe for upgrading the infrastructure to the new Magnum and Kubernetes versions and applying the necessary fixes.&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub.</summary></entry><entry><title type="html">White noise NET in Radio-astronomy and Cosmology</title><link href="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html" rel="alternate" type="text/html" title="White noise NET in Radio-astronomy and Cosmology" /><published>2020-04-24T00:00:00-05:00</published><updated>2020-04-24T00:00:00-05:00</updated><id>https://zonca.dev/2020/04/white-noise-angular-power-spectrum</id><content type="html" xml:base="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -1305,12 +1546,4 @@ I1101 06:33:21.588022       1 magnum_nodegroup.go:67] Waited &lt;span class=&quo
 
 &lt;h2 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h2&gt;
 
-&lt;p&gt;Thanks Yuvi Panda for providing &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt;, thanks Julien Chastang for testing my deployments.&lt;/p&gt;</content><author><name></name></author><summary type="html">I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:</summary></entry><entry><title type="html">Execute Jupyter Notebooks not interactively</title><link href="https://zonca.dev/2019/09/batch-notebook-execution.html" rel="alternate" type="text/html" title="Execute Jupyter Notebooks not interactively" /><published>2019-09-23T12:00:00-05:00</published><updated>2019-09-23T12:00:00-05:00</updated><id>https://zonca.dev/2019/09/batch-notebook-execution</id><content type="html" xml:base="https://zonca.dev/2019/09/batch-notebook-execution.html">&lt;p&gt;Over the years, I have explored how to scale up easily computation through
-Jupyter Notebooks by executing them not-interactively, possibily parametrized
-and remotely. This is mostly for reference.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/nbsubmit&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;nbsubmit&lt;/code&gt;&lt;/a&gt; is a Python package which has Python API to send a local notebook for execution on a remote SLURM cluster, for example Comet, see &lt;a href=&quot;https://github.com/zonca/nbsubmit/blob/master/example/multiple_jobs/submit_multiple_jobs.ipynb&quot;&gt;an example&lt;/a&gt;. This project is not maintained right now.&lt;/li&gt;
-  &lt;li&gt;Back in 2017 I tested submitting notebooks to Open Science Grid, see &lt;a href=&quot;https://github.com/zonca/batch-notebooks-condor&quot;&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;batch-notebooks-condor&lt;/code&gt; repository&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Back in 2016 I created scripts to template a Jupyter Notebook and launch SLURM jobs, see &lt;a href=&quot;https://github.com/sdsc/sdsc-summer-institute-2016/blob/master/hpc3_python_hpc/slurm.shared.template&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;slurm.shared.template&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://github.com/sdsc/sdsc-summer-institute-2016/blob/master/hpc3_python_hpc/runipyloop.sh&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;runipyloop.sh&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">Over the years, I have explored how to scale up easily computation through Jupyter Notebooks by executing them not-interactively, possibily parametrized and remotely. This is mostly for reference.</summary></entry></feed>
+&lt;p&gt;Thanks Yuvi Panda for providing &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt;, thanks Julien Chastang for testing my deployments.&lt;/p&gt;</content><author><name></name></author><summary type="html">I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:</summary></entry></feed>
