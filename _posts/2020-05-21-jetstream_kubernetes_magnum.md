@@ -205,6 +205,8 @@ Finally:
 
 Connect with your browser to `js-xxx-yyy.jetstream-cloud.org` to check if it works.
 
+We are installing the `zero-to-jupyterhub` helm recipe version `0.9.0` instead of `0.8.2`.
+
 ### Allow services on master
 
 By default the new Kubernetes version has 2 taints on the master node:
