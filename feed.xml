@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-05-21T13:36:13-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-05-27T18:53:42-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
 JupyterHub on top of that using &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/&quot;&gt;zero-to-jupyterhub&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This is an updated version of the &lt;a href=&quot;https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;Kubernetes on Jetstream with Magnum tutorial&lt;/a&gt; based now on Kubernetes 1.15 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.&lt;/p&gt;
@@ -1223,7 +1223,9 @@ for example the 4th bit is 16, so:&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Setup HTTPS on Kubernetes with Letsencrypt</title><link href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" rel="alternate" type="text/html" title="Setup HTTPS on Kubernetes with Letsencrypt" /><published>2020-03-13T00:00:00-05:00</published><updated>2020-03-13T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt</id><content type="html" xml:base="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html">&lt;p&gt;This is a follow-up to the Magnum-based deployment running on Jetstream,
+&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Setup HTTPS on Kubernetes with Letsencrypt</title><link href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" rel="alternate" type="text/html" title="Setup HTTPS on Kubernetes with Letsencrypt" /><published>2020-03-13T00:00:00-05:00</published><updated>2020-03-13T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt</id><content type="html" xml:base="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html">&lt;p&gt;&lt;strong&gt;Updated in May 2020&lt;/strong&gt;: changes for Kubernetes 1.15&lt;/p&gt;
+
+&lt;p&gt;This is a follow-up to the Magnum-based deployment running on Jetstream,
 see &lt;a href=&quot;https://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;my recent tutorial about that&lt;/a&gt;, however it is not specific to that deployment strategy.&lt;/p&gt;
 
 &lt;p&gt;First make sure your payload, for example JupyterHub, is working without HTTPS, so that you check that the ports are open, Ingress is working, and JupyterHub itself can accept connections.&lt;/p&gt;
@@ -1231,7 +1233,11 @@ see &lt;a href=&quot;https://zonca.github.io/2019/06/kubernetes-jupyterhub-jetst
 &lt;p&gt;Let’s follow the &lt;a href=&quot;https://cert-manager.io/docs/installation/kubernetes/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cert-manager&lt;/code&gt; documentation&lt;/a&gt;, for convenience I pasted the commands below:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create namespace cert-manager
-kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.14.0/cert-manager-legacy.yaml
+# Kubernetes 1.15+
+$ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.yaml
+
+# Kubernetes &amp;lt;1.15
+$ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager-legacy.yaml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Once we have &lt;code class=&quot;highlighter-rouge&quot;&gt;cert-manager&lt;/code&gt; setup we can create a Issuer in the &lt;code class=&quot;highlighter-rouge&quot;&gt;jhub&lt;/code&gt; workspace,
@@ -1248,24 +1254,22 @@ check that the services and pods are running:&lt;/p&gt;
 
 &lt;p&gt;The result should be something like:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NAME                                           READY     STATUS    RESTARTS   AGE
-pod/cert-manager-866d87f6c7-xtmrm              1/1       Running   0          34m
-pod/cert-manager-cainjector-6cc7748c5b-9zfkb   1/1       Running   0          34m
-pod/cert-manager-webhook-6c7d497cf8-zrlw5      1/1       Running   0          34m
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;NAME                                           READY   STATUS    RESTARTS   AGE
+pod/cert-manager-77f4c9d4b-4228j               1/1     Running   0          55s
+pod/cert-manager-cainjector-7cd4857fc7-shlpj   1/1     Running   0          56s
+pod/cert-manager-webhook-586c9597db-t6fqv      1/1     Running   0          54s
 
-NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-service/cert-manager           ClusterIP   10.254.234.231   &amp;lt;none&amp;gt;        9402/TCP   39d
-service/cert-manager-webhook   ClusterIP   10.254.8.143     &amp;lt;none&amp;gt;        443/TCP    39d
+NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/cert-manager           ClusterIP   10.254.78.6     &amp;lt;none&amp;gt;        9402/TCP   56s
+service/cert-manager-webhook   ClusterIP   10.254.237.64   &amp;lt;none&amp;gt;        443/TCP    56s
 
-NAME                                      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/cert-manager              1         1         1            1           39d
-deployment.apps/cert-manager-cainjector   1         1         1            1           39d
-deployment.apps/cert-manager-webhook      1         1         1            1           39d
-
-NAME                                                 DESIRED   CURRENT   READY     AGE
-replicaset.apps/cert-manager-866d87f6c7              1         1         1         39d
-replicaset.apps/cert-manager-cainjector-6cc7748c5b   1         1         1         39d
-replicaset.apps/cert-manager-webhook-6c7d497cf8      1         1         1         39d
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cert-manager              1/1     1            1           55s
+deployment.apps/cert-manager-cainjector   1/1     1            1           56s
+deployment.apps/cert-manager-webhook      1/1     1            1           54s
+                                                                                                                                     NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/cert-manager-77f4c9d4b               1         1         1       55s
+replicaset.apps/cert-manager-cainjector-7cd4857fc7   1         1         1       56s                                                 replicaset.apps/cert-manager-webhook-586c9597db      1         1         1       54s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;setup-jupyterhub&quot;&gt;Setup JupyterHub&lt;/h2&gt;
@@ -1297,7 +1301,7 @@ modify &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt;
 
 NAMESPACE   NAME                         READY     SECRET                       AGE
 jhub        certmanager-tls-jupyterhub   True      certmanager-tls-jupyterhub   11m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy.</summary></entry><entry><title type="html">Kill Jupyter Notebook servers</title><link href="https://zonca.dev/2020/03/kill-jupyter-notebook.html" rel="alternate" type="text/html" title="Kill Jupyter Notebook servers" /><published>2020-03-12T00:00:00-05:00</published><updated>2020-03-12T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/kill-jupyter-notebook</id><content type="html" xml:base="https://zonca.dev/2020/03/kill-jupyter-notebook.html">&lt;p&gt;Just today I learned how to properly stop previously running Jupyter Notebook
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Updated in May 2020: changes for Kubernetes 1.15</summary></entry><entry><title type="html">Kill Jupyter Notebook servers</title><link href="https://zonca.dev/2020/03/kill-jupyter-notebook.html" rel="alternate" type="text/html" title="Kill Jupyter Notebook servers" /><published>2020-03-12T00:00:00-05:00</published><updated>2020-03-12T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/kill-jupyter-notebook</id><content type="html" xml:base="https://zonca.dev/2020/03/kill-jupyter-notebook.html">&lt;p&gt;Just today I learned how to properly stop previously running Jupyter Notebook
 servers, here for future reference:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jupyter notebook stop

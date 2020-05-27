@@ -7,30 +7,30 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Setup HTTPS on Kubernetes with Letsencrypt" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy." />
-<meta property="og:description" content="This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy." />
+<meta name="description" content="Updated in May 2020: changes for Kubernetes 1.15" />
+<meta property="og:description" content="Updated in May 2020: changes for Kubernetes 1.15" />
 <link rel="canonical" href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:url" content="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-13T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy.","headline":"Setup HTTPS on Kubernetes with Letsencrypt","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","@context":"https://schema.org"}</script>
+{"description":"Updated in May 2020: changes for Kubernetes 1.15","headline":"Setup HTTPS on Kubernetes with Letsencrypt","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Setup HTTPS on Kubernetes with Letsencrypt | Andrea Zonca</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Setup HTTPS on Kubernetes with Letsencrypt" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy." />
-<meta property="og:description" content="This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy." />
+<meta name="description" content="Updated in May 2020: changes for Kubernetes 1.15" />
+<meta property="og:description" content="Updated in May 2020: changes for Kubernetes 1.15" />
 <link rel="canonical" href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:url" content="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-13T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"This is a follow-up to the Magnum-based deployment running on Jetstream, see my recent tutorial about that, however it is not specific to that deployment strategy.","headline":"Setup HTTPS on Kubernetes with Letsencrypt","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","@context":"https://schema.org"}</script>
+{"description":"Updated in May 2020: changes for Kubernetes 1.15","headline":"Setup HTTPS on Kubernetes with Letsencrypt","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -132,7 +132,9 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>This is a follow-up to the Magnum-based deployment running on Jetstream,
+    <p><strong>Updated in May 2020</strong>: changes for Kubernetes 1.15</p>
+
+<p>This is a follow-up to the Magnum-based deployment running on Jetstream,
 see <a href="https://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">my recent tutorial about that</a>, however it is not specific to that deployment strategy.</p>
 
 <p>First make sure your payload, for example JupyterHub, is working without HTTPS, so that you check that the ports are open, Ingress is working, and JupyterHub itself can accept connections.</p>
@@ -140,7 +142,11 @@ see <a href="https://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-mag
 <p>Let’s follow the <a href="https://cert-manager.io/docs/installation/kubernetes/"><code class="highlighter-rouge">cert-manager</code> documentation</a>, for convenience I pasted the commands below:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create namespace cert-manager
-kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.14.0/cert-manager-legacy.yaml
+# Kubernetes 1.15+
+$ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.yaml
+
+# Kubernetes &lt;1.15
+$ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager-legacy.yaml
 </code></pre></div></div>
 
 <p>Once we have <code class="highlighter-rouge">cert-manager</code> setup we can create a Issuer in the <code class="highlighter-rouge">jhub</code> workspace,
@@ -157,24 +163,22 @@ check that the services and pods are running:</p>
 
 <p>The result should be something like:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME                                           READY     STATUS    RESTARTS   AGE
-pod/cert-manager-866d87f6c7-xtmrm              1/1       Running   0          34m
-pod/cert-manager-cainjector-6cc7748c5b-9zfkb   1/1       Running   0          34m
-pod/cert-manager-webhook-6c7d497cf8-zrlw5      1/1       Running   0          34m
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NAME                                           READY   STATUS    RESTARTS   AGE
+pod/cert-manager-77f4c9d4b-4228j               1/1     Running   0          55s
+pod/cert-manager-cainjector-7cd4857fc7-shlpj   1/1     Running   0          56s
+pod/cert-manager-webhook-586c9597db-t6fqv      1/1     Running   0          54s
 
-NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-service/cert-manager           ClusterIP   10.254.234.231   &lt;none&gt;        9402/TCP   39d
-service/cert-manager-webhook   ClusterIP   10.254.8.143     &lt;none&gt;        443/TCP    39d
+NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/cert-manager           ClusterIP   10.254.78.6     &lt;none&gt;        9402/TCP   56s
+service/cert-manager-webhook   ClusterIP   10.254.237.64   &lt;none&gt;        443/TCP    56s
 
-NAME                                      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/cert-manager              1         1         1            1           39d
-deployment.apps/cert-manager-cainjector   1         1         1            1           39d
-deployment.apps/cert-manager-webhook      1         1         1            1           39d
-
-NAME                                                 DESIRED   CURRENT   READY     AGE
-replicaset.apps/cert-manager-866d87f6c7              1         1         1         39d
-replicaset.apps/cert-manager-cainjector-6cc7748c5b   1         1         1         39d
-replicaset.apps/cert-manager-webhook-6c7d497cf8      1         1         1         39d
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cert-manager              1/1     1            1           55s
+deployment.apps/cert-manager-cainjector   1/1     1            1           56s
+deployment.apps/cert-manager-webhook      1/1     1            1           54s
+                                                                                                                                     NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/cert-manager-77f4c9d4b               1         1         1       55s
+replicaset.apps/cert-manager-cainjector-7cd4857fc7   1         1         1       56s                                                 replicaset.apps/cert-manager-webhook-586c9597db      1         1         1       54s
 </code></pre></div></div>
 
 <h2 id="setup-jupyterhub">Setup JupyterHub</h2>
