@@ -4,6 +4,8 @@ title: Setup HTTPS on Kubernetes with Letsencrypt
 categories: [kubernetes, openstack, jetstream, jupyterhub]
 ---
 
+**Updated in May 2020**: changes for Kubernetes 1.15
+
 This is a follow-up to the Magnum-based deployment running on Jetstream,
 see [my recent tutorial about that](https://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html), however it is not specific to that deployment strategy.
 
@@ -12,7 +14,12 @@ First make sure your payload, for example JupyterHub, is working without HTTPS, 
 Let's follow the [`cert-manager` documentation](https://cert-manager.io/docs/installation/kubernetes/), for convenience I pasted the commands below:
 
     kubectl create namespace cert-manager
-    kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.14.0/cert-manager-legacy.yaml
+    # Kubernetes 1.15+
+    $ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.yaml
+
+    # Kubernetes <1.15
+    $ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager-legacy.yaml
+
 
 Once we have `cert-manager` setup we can create a Issuer in the `jhub` workspace,
 (first edit the `yml` and add your email address):
@@ -27,24 +34,22 @@ check that the services and pods are running:
 The result should be something like:
 
 ```
-NAME                                           READY     STATUS    RESTARTS   AGE
-pod/cert-manager-866d87f6c7-xtmrm              1/1       Running   0          34m
-pod/cert-manager-cainjector-6cc7748c5b-9zfkb   1/1       Running   0          34m
-pod/cert-manager-webhook-6c7d497cf8-zrlw5      1/1       Running   0          34m
+NAME                                           READY   STATUS    RESTARTS   AGE
+pod/cert-manager-77f4c9d4b-4228j               1/1     Running   0          55s
+pod/cert-manager-cainjector-7cd4857fc7-shlpj   1/1     Running   0          56s
+pod/cert-manager-webhook-586c9597db-t6fqv      1/1     Running   0          54s
 
-NAME                           TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
-service/cert-manager           ClusterIP   10.254.234.231   <none>        9402/TCP   39d
-service/cert-manager-webhook   ClusterIP   10.254.8.143     <none>        443/TCP    39d
+NAME                           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+service/cert-manager           ClusterIP   10.254.78.6     <none>        9402/TCP   56s
+service/cert-manager-webhook   ClusterIP   10.254.237.64   <none>        443/TCP    56s
 
-NAME                                      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/cert-manager              1         1         1            1           39d
-deployment.apps/cert-manager-cainjector   1         1         1            1           39d
-deployment.apps/cert-manager-webhook      1         1         1            1           39d
-
-NAME                                                 DESIRED   CURRENT   READY     AGE
-replicaset.apps/cert-manager-866d87f6c7              1         1         1         39d
-replicaset.apps/cert-manager-cainjector-6cc7748c5b   1         1         1         39d
-replicaset.apps/cert-manager-webhook-6c7d497cf8      1         1         1         39d
+NAME                                      READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/cert-manager              1/1     1            1           55s
+deployment.apps/cert-manager-cainjector   1/1     1            1           56s
+deployment.apps/cert-manager-webhook      1/1     1            1           54s
+                                                                                                                                     NAME                                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/cert-manager-77f4c9d4b               1         1         1       55s
+replicaset.apps/cert-manager-cainjector-7cd4857fc7   1         1         1       56s                                                 replicaset.apps/cert-manager-webhook-586c9597db      1         1         1       54s
 ```
 
 ## Setup JupyterHub
