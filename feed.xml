@@ -1,4 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-05-27T18:53:42-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-05-27T19:05:03-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Minimal example of readthedocs configuration for conda</title><link href="https://zonca.dev/2020/05/readthedocs-conda.html" rel="alternate" type="text/html" title="Minimal example of readthedocs configuration for conda" /><published>2020-05-27T00:00:00-05:00</published><updated>2020-05-27T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/readthedocs-conda</id><content type="html" xml:base="https://zonca.dev/2020/05/readthedocs-conda.html">&lt;p&gt;Prompted by the &lt;a href=&quot;https://blog.readthedocs.com/better-conda-support/&quot;&gt;announced better support of conda in readthedocs&lt;/a&gt;,
+more memory! I setup a Python package with &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt; to automatically build the documentation on
+&lt;a href=&quot;https://readthedocs.org&quot;&gt;readthedocs&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I had some trouble because I couldn’t find a minimal example that gives all the necessary configuration options,
+for example if &lt;code class=&quot;highlighter-rouge&quot;&gt;python / install&lt;/code&gt; is not provided, the project is not even built.&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558&quot;&gt;these files on Gist&lt;/a&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><summary type="html">Prompted by the announced better support of conda in readthedocs, more memory! I setup a Python package with conda to automatically build the documentation on readthedocs.</summary></entry><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
 JupyterHub on top of that using &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/&quot;&gt;zero-to-jupyterhub&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This is an updated version of the &lt;a href=&quot;https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;Kubernetes on Jetstream with Magnum tutorial&lt;/a&gt; based now on Kubernetes 1.15 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.&lt;/p&gt;
@@ -1456,100 +1465,4 @@ And possibly a “General” category with events that should interest the whole
 See the screenshot below, &lt;img src=&quot;/images/add_google_calendar.png&quot; alt=&quot;screenshot of add to Google Calendar&quot; /&gt;.&lt;/p&gt;
 
 &lt;p&gt;As an additional benefit, we can compartimentalize permissions more easily, e.g. leads of a working group
-get writing access only to their relevant calendar/calendars.&lt;/p&gt;</content><author><name></name></author><summary type="html">Many scientific collaborations have a central calendar, often hosted on Google Calendar, to coordinate Teleconferences, meetings and events across timezones.</summary></entry><entry><title type="html">Simulate users on JupyterHub</title><link href="https://zonca.dev/2019/10/loadtest-jupyterhub.html" rel="alternate" type="text/html" title="Simulate users on JupyterHub" /><published>2019-10-30T12:00:00-05:00</published><updated>2019-10-30T12:00:00-05:00</updated><id>https://zonca.dev/2019/10/loadtest-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2019/10/loadtest-jupyterhub.html">&lt;p&gt;I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Using &lt;a href=&quot;https://zonca.github.io/2019/02/kubernetes-jupyterhub-jetstream-kubespray.html&quot;&gt;Kubespray&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Using &lt;a href=&quot;http://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;Magnum&lt;/a&gt;, which also supports the &lt;a href=&quot;http://zonca.github.io/2019/09/kubernetes-jetstream-autoscaler.html&quot;&gt;Cluster Autoscaler&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In this tutorial I’ll show how to use Yuvi Pandas’ &lt;a href=&quot;https://github.com/yuvipanda/hubtraf&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt;&lt;/a&gt; to simulate load on JupyterHub, i.e. programmatically generate a predefined number of users connecting and executing notebooks on the system.&lt;/p&gt;
-
-&lt;p&gt;This is especially useful to test the Cluster Autoscaler.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt; assumes you are using the Dummy authenticator, which is the default installed by the &lt;code class=&quot;highlighter-rouge&quot;&gt;zero-to-jupyterhub&lt;/code&gt; helm chart. If you have configured another authenticator, temporarily disable it for testing purposes.&lt;/p&gt;
-
-&lt;p&gt;First go through the &lt;a href=&quot;https://github.com/yuvipanda/hubtraf/blob/master/docs/index.rst#jupyterhub-traffic-simulator&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt; documentation&lt;/a&gt; to understand its functionalities.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt; also has a Helm recipe to run it within Kubernetes, but the simpler way is to test from your laptop, follow the [documentation of &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt;] to install the package and then run:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hubtraf http://js-xxx-yyy.jetstream-cloud.org 2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;To simulate 2 users connecting to the system, you can then check with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pods -n jhub
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;That the pods are being created successfully and check the logs on the command line from &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt; which explains what it is doing and tracks the time every operation takes, so it is useful to debug any delay in providing resources to users.&lt;/p&gt;
-
-&lt;p&gt;Consider that volumes created by JupyterHub for the test users will remain in Kubernetes and in Openstack, therefore if you would like to use the same deployment for production, remember to cleanup the Kubernetes &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolume&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolumeClaim&lt;/code&gt; resources.&lt;/p&gt;
-
-&lt;p&gt;Now we can test scalability of the deployment with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    hubtraf http://js-xxx-yyy.jetstream-cloud.org 100
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Make sure you have asked the XSEDE support to increase the maximum number of volumes in Openstack in your allocation that by default is only 10. Otherwise edit &lt;code class=&quot;highlighter-rouge&quot;&gt;config_standard_storage.yaml&lt;/code&gt; and set:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;singleuser:
-  storage:
-    type: none
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;test-the-cluster-autoscaler&quot;&gt;Test the Cluster Autoscaler&lt;/h2&gt;
-
-&lt;p&gt;If you followed the tutorial to deploy the Cluster Autoscaler on Magnum, you can launch &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt; to create a large number of pods, then check that some pods are “Running” and the ones that do not fit in the current nodes are “Pending”:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pods -n jhub
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and then check in the logs of the autoscaler that it detects that those pods are pending and requests additional nodes.
-For example:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; kubectl logs &lt;span class=&quot;nt&quot;&gt;-n&lt;/span&gt; kube-system cluster-autoscaler-hhhhhhh-uuuuuuu
-I1031 00:48:39.807384       1 scale_up.go:689] Scale-up: setting group DefaultNodeGroup size to 2
-I1031 00:48:41.583449       1 magnum_nodegroup.go:101] Increasing size by 1, 1-&amp;gt;2
-I1031 00:49:14.141351       1 magnum_nodegroup.go:67] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cluster UPDATE_IN_PROGRESS status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;After 4 or 5 minutes the new node should be available and should show up in:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get nodes
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And we can check that some user pods are now running on the new node:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pods -n jhub -o wide
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In my case the Autoscaler actually requested a 3rd node to accomodate all the users pods:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I1031 00:48:39.807384       1 scale_up.go:689] Scale-up: setting group DefaultNodeGroup size to 2
-I1031 00:48:41.583449       1 magnum_nodegroup.go:101] Increasing size by 1, 1-&amp;gt;2
-I1031 00:49:14.141351       1 magnum_nodegroup.go:67] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cluster UPDATE_IN_PROGRESS status
-I1031 00:52:51.308054       1 magnum_nodegroup.go:67] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cluster UPDATE_COMPLETE status
-I1031 00:53:01.315179       1 scale_up.go:689] Scale-up: setting group DefaultNodeGroup size to 3
-I1031 00:53:02.996583       1 magnum_nodegroup.go:101] Increasing size by 1, 2-&amp;gt;3
-I1031 00:53:35.607158       1 magnum_nodegroup.go:67] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cluster UPDATE_IN_PROGRESS status
-I1031 00:56:41.834151       1 magnum_nodegroup.go:67] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cluster UPDATE_COMPLETE status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Moreover Cluster Autoscaler also provides useful information in the status of each “Pending” node. For example if it detects that it is useless to create a new node because the node is “Pending” for some other reason (e.g. volume quota reached), this infomation will be accessible using:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl describe node -n jhub jupyter-xxxxxxx
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;When the simulated users disconnect, &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt; has a default of about 5 minutes, the autoscaler waits for the configured amount of minutes, by default it is 10 minutes, in my deployment it is 1 minute to simplify testing, see the &lt;code class=&quot;highlighter-rouge&quot;&gt;cluster-autoscaler-deployment-master.yaml&lt;/code&gt; file.
-After this delay, the autoscaler scales down the size of the cluster, it is a 2 step process, it first terminates the Openstack Virtual machine and then adjusts the size of the Magnum cluster (&lt;code class=&quot;highlighter-rouge&quot;&gt;node_count&lt;/code&gt;), you can monitor the process using &lt;code class=&quot;highlighter-rouge&quot;&gt;openstack server list&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;openstack coe cluster list&lt;/code&gt;, and the log of the autoscaler:&lt;/p&gt;
-
-&lt;div class=&quot;language-bash highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I1101 06:31:10.223660       1 scale_down.go:882] Scale-down: removing empty node k8s-e2iw7axmhym7-minion-1 
-I1101 06:31:16.081223       1 magnum_manager_heat.go:276] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;stack UPDATE_IN_PROGRESS status
-I1101 06:32:17.061860       1 magnum_manager_heat.go:276] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;stack UPDATE_COMPLETE status
-I1101 06:32:49.826439       1 magnum_nodegroup.go:67] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cluster UPDATE_IN_PROGRESS status
-I1101 06:33:21.588022       1 magnum_nodegroup.go:67] Waited &lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;cluster UPDATE_COMPLETE status
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h2&gt;
-
-&lt;p&gt;Thanks Yuvi Panda for providing &lt;code class=&quot;highlighter-rouge&quot;&gt;hubtraf&lt;/code&gt;, thanks Julien Chastang for testing my deployments.&lt;/p&gt;</content><author><name></name></author><summary type="html">I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:</summary></entry></feed>
+get writing access only to their relevant calendar/calendars.&lt;/p&gt;</content><author><name></name></author><summary type="html">Many scientific collaborations have a central calendar, often hosted on Google Calendar, to coordinate Teleconferences, meetings and events across timezones.</summary></entry></feed>
