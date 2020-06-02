@@ -1,4 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-05-27T19:05:03-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Minimal example of readthedocs configuration for conda</title><link href="https://zonca.dev/2020/05/readthedocs-conda.html" rel="alternate" type="text/html" title="Minimal example of readthedocs configuration for conda" /><published>2020-05-27T00:00:00-05:00</published><updated>2020-05-27T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/readthedocs-conda</id><content type="html" xml:base="https://zonca.dev/2020/05/readthedocs-conda.html">&lt;p&gt;Prompted by the &lt;a href=&quot;https://blog.readthedocs.com/better-conda-support/&quot;&gt;announced better support of conda in readthedocs&lt;/a&gt;,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-06-01T19:31:21-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Import and export list of blocked users on Twitter</title><link href="https://zonca.dev/2020/06/twitter-blocklist.html" rel="alternate" type="text/html" title="Import and export list of blocked users on Twitter" /><published>2020-06-01T00:00:00-05:00</published><updated>2020-06-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/twitter-blocklist</id><content type="html" xml:base="https://zonca.dev/2020/06/twitter-blocklist.html">&lt;p&gt;&lt;a href=&quot;https://blog.twitter.com/en_us/a/2015/sharing-block-lists-to-help-make-twitter-safer.html&quot;&gt;Back in 2015&lt;/a&gt;, Twitter
+provided the feature to export and import lists of blocked users, unfortunately they discontinued this
+service.&lt;/p&gt;
+
+&lt;p&gt;In order to fill this void, &lt;a href=&quot;https://blocktogether.org/&quot;&gt;https://blocktogether.org/&lt;/a&gt; provides a great service to allow users to subscribe
+to public block-lists that are always kept updated by some maintainers,
+unfortunately they have capacity issues and needed to impose limits on number of subscribers and list length.&lt;/p&gt;
+
+&lt;p&gt;I have written a small Python script that can provide a self-service import and export functionality
+using the Twitter API.&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&quot;https://github.com/zonca/twitter_blocklist&quot;&gt;https://github.com/zonca/twitter_blocklist&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in 2015, Twitter provided the feature to export and import lists of blocked users, unfortunately they discontinued this service.</summary></entry><entry><title type="html">Minimal example of readthedocs configuration for conda</title><link href="https://zonca.dev/2020/05/readthedocs-conda.html" rel="alternate" type="text/html" title="Minimal example of readthedocs configuration for conda" /><published>2020-05-27T00:00:00-05:00</published><updated>2020-05-27T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/readthedocs-conda</id><content type="html" xml:base="https://zonca.dev/2020/05/readthedocs-conda.html">&lt;p&gt;Prompted by the &lt;a href=&quot;https://blog.readthedocs.com/better-conda-support/&quot;&gt;announced better support of conda in readthedocs&lt;/a&gt;,
 more memory! I setup a Python package with &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt; to automatically build the documentation on
 &lt;a href=&quot;https://readthedocs.org&quot;&gt;readthedocs&lt;/a&gt;.&lt;/p&gt;
 
@@ -1438,31 +1449,4 @@ It also creates the &lt;code class=&quot;highlighter-rouge&quot;&gt;nfs-service&
 
 &lt;p&gt;This creates a volume which mounts the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder shared with NFS, this automatically also shares also all the subfolders.&lt;/p&gt;
 
-&lt;p&gt;Finally we can check the content of the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder.&lt;/p&gt;</content><author><name></name></author><summary type="html">CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations.</summary></entry><entry><title type="html">Organize calendars for a large scientific collaboration</title><link href="https://zonca.dev/2019/12/organize-calendar-collaboration.html" rel="alternate" type="text/html" title="Organize calendars for a large scientific collaboration" /><published>2019-12-02T12:00:00-06:00</published><updated>2019-12-02T12:00:00-06:00</updated><id>https://zonca.dev/2019/12/organize-calendar-collaboration</id><content type="html" xml:base="https://zonca.dev/2019/12/organize-calendar-collaboration.html">&lt;p&gt;Many scientific collaborations have a central calendar, often hosted on Google Calendar,
-to coordinate Teleconferences, meetings and events across timezones.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-issue&quot;&gt;The issue&lt;/h3&gt;
-
-&lt;p&gt;Most users are only interested in a small subset of the events, however Google Calendar
-does not allow them to subscribe to single events. The central calendar admin could invite
-each person to events, but that requires lots of work.&lt;/p&gt;
-
-&lt;p&gt;So, users either subscribe to the whole calendar, but then have a huge clutter of un-interesting events,
-or copy just a subset of the events to their calendars, but loose track of any rescheduling of the
-original event.&lt;/p&gt;
-
-&lt;h3 id=&quot;proposed-solution&quot;&gt;Proposed solution&lt;/h3&gt;
-
-&lt;p&gt;I recommend to split the events across multiple calendars, for example one for each working group,
-or any other categorization where most users would be interested in all events in a calendar.
-And possibly a “General” category with events that should interest the whole collaboration.&lt;/p&gt;
-
-&lt;p&gt;Still, we can embed all of the calendars in a single webpage, see an example below where 2 calendars (Monday and Tuesday telecon calendars) are visualized together, &lt;a href=&quot;https://support.google.com/calendar/answer/41207?hl=en&quot;&gt;see the Google Calendar documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;iframe src=&quot;https://calendar.google.com/calendar/embed?height=600&amp;amp;wkst=1&amp;amp;bgcolor=%23ffffff&amp;amp;ctz=America%2FLos_Angeles&amp;amp;src=dTI2dnBkNnZvcm1qNHVucnVtajMzZzdwcGNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;amp;src=c2FwazM1OTVmcHRiZHVtOWdqZnJwdWxkbnNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&amp;amp;color=%23DD4477&amp;amp;color=%236633CC&quot; style=&quot;border-width:0&quot; width=&quot;800&quot; height=&quot;600&quot; frameborder=&quot;0&quot; scrolling=&quot;no&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;Users can click on the bottom “Add to Google Calendar” button and subscribe to a subset or all the calendars.
-See the screenshot below, &lt;img src=&quot;/images/add_google_calendar.png&quot; alt=&quot;screenshot of add to Google Calendar&quot; /&gt;.&lt;/p&gt;
-
-&lt;p&gt;As an additional benefit, we can compartimentalize permissions more easily, e.g. leads of a working group
-get writing access only to their relevant calendar/calendars.&lt;/p&gt;</content><author><name></name></author><summary type="html">Many scientific collaborations have a central calendar, often hosted on Google Calendar, to coordinate Teleconferences, meetings and events across timezones.</summary></entry></feed>
+&lt;p&gt;Finally we can check the content of the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder.&lt;/p&gt;</content><author><name></name></author><summary type="html">CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations.</summary></entry></feed>
