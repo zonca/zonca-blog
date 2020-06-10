@@ -43,6 +43,7 @@ The only setup that could be peculiar to the deployment on top of `kubespray` is
 ## Setup HTTPS with letsencrypt
 
 **this is outdated as of March 2020**
+Follow [this tutorial to deploy letsencrypt](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html)
 
 Letsencrypt won't issue certificates anymore with the old version of `cert-manager` installed by our version of Kubespray.
 I disabled the installation of `cert-manager`, please follow [this newer tutorial on how to setup a recent `cert-manager`](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html)
