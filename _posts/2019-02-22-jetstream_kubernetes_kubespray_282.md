@@ -24,6 +24,14 @@ Once you get my fork of kubespray with a few fixes for Jetstream:
 
 See an [overview of my changes compared to the standard `kubespray` release 2.8.2](https://github.com/zonca/jetstream_kubespray/pull/5).
 
+### Use Ansible 2.7.10
+
+Newer versions of ansible do not work with Kubespray 2.8.2
+
+It is available on conda-forge:
+
+    conda install -c conda-forge ansible==2.7.10
+
 ### Use the new template
 
 The name of my template is now just `zonca` instead of `zonca_kubespray`:
