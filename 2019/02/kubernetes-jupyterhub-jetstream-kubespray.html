@@ -149,6 +149,15 @@ window.onload = wrap_img;
 
 <p>See an <a href="https://github.com/zonca/jetstream_kubespray/pull/5">overview of my changes compared to the standard <code class="highlighter-rouge">kubespray</code> release 2.8.2</a>.</p>
 
+<h3 id="use-ansible-2710">Use Ansible 2.7.10</h3>
+
+<p>Newer versions of ansible do not work with Kubespray 2.8.2</p>
+
+<p>It is available on conda-forge:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>conda install -c conda-forge ansible==2.7.10
+</code></pre></div></div>
+
 <h3 id="use-the-new-template">Use the new template</h3>
 
 <p>The name of my template is now just <code class="highlighter-rouge">zonca</code> instead of <code class="highlighter-rouge">zonca_kubespray</code>:</p>
