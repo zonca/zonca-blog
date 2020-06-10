@@ -5,6 +5,10 @@ categories: [kubernetes, openstack, jetstream, jupyterhub]
 slug: kubernetes-jupyterhub-jetstream-magnum
 ---
 
+**WARNING**: Currently (June 2020) there is an issue on Openstack Magnum preventing the deployment.
+See [this issue for updates](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/32)
+I'll remove the notice when it will be fixed.
+
 This tutorial deploys Kubernetes on Jetstream with Magnum and then
 JupyterHub on top of that using [zero-to-jupyterhub](https://zero-to-jupyterhub.readthedocs.io/).
 
