@@ -83,3 +83,11 @@ After a few minutes we should have a certificate resource available:
 NAMESPACE   NAME                         READY     SECRET                       AGE
 jhub        certmanager-tls-jupyterhub   True      certmanager-tls-jupyterhub   11m
 ```
+
+for newer versions, check the `certificaterequest` resource instead:
+
+```
+kubectl get certificaterequest --all-namespaces
+NAMESPACE   NAME                                   READY   AGE
+jhub        certmanager-tls-jupyterhub-781206586   True    9m5s
+```
