@@ -1,4 +1,276 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-06-10T13:14:49-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Import and export list of blocked users on Twitter</title><link href="https://zonca.dev/2020/06/twitter-blocklist.html" rel="alternate" type="text/html" title="Import and export list of blocked users on Twitter" /><published>2020-06-01T00:00:00-05:00</published><updated>2020-06-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/twitter-blocklist</id><content type="html" xml:base="https://zonca.dev/2020/06/twitter-blocklist.html">&lt;p&gt;&lt;a href=&quot;https://blog.twitter.com/en_us/a/2015/sharing-block-lists-to-help-make-twitter-safer.html&quot;&gt;Back in 2015&lt;/a&gt;, Twitter
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-06-16T01:35:33-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes on Jetstream with Kubespray</title><link href="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html" rel="alternate" type="text/html" title="Deploy Kubernetes on Jetstream with Kubespray" /><published>2020-06-15T00:00:00-05:00</published><updated>2020-06-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/kubernetes-jetstream-kubespray</id><content type="html" xml:base="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html">&lt;p&gt;This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).&lt;/p&gt;
+
+&lt;p&gt;We will use Kubespray 2.13.1, which first runs &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform&lt;/code&gt; to create the Openstack resources,
+then &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; to configure the servers to run all the Kubernetes services.&lt;/p&gt;
+
+&lt;h2 id=&quot;create-jetstream-virtual-machines-with-terraform&quot;&gt;Create Jetstream Virtual machines with Terraform&lt;/h2&gt;
+
+&lt;p&gt;Terraform allows to execute recipes that describe a set of OpenStack resources and their relationship. In the context of this tutorial, we do not need to learn much about Terraform, we will configure and execute the recipe provided by &lt;code class=&quot;highlighter-rouge&quot;&gt;kubespray&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;requirements&quot;&gt;Requirements&lt;/h3&gt;
+
+&lt;p&gt;On a Ubuntu 18.04 install &lt;code class=&quot;highlighter-rouge&quot;&gt;python3-openstackclient&lt;/code&gt; with APT.
+Any other platform works as well, also install &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform&lt;/code&gt; by copying the correct binary to &lt;code class=&quot;highlighter-rouge&quot;&gt;/usr/local/bin/&lt;/code&gt;, see &lt;a href=&quot;https://www.terraform.io/intro/getting-started/install.html&quot;&gt;https://www.terraform.io/intro/getting-started/install.html&lt;/a&gt;.
+Install the newest 0.12.x release, I tested with &lt;code class=&quot;highlighter-rouge&quot;&gt;0.12.26&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;request-api-access&quot;&gt;Request API access&lt;/h3&gt;
+
+&lt;p&gt;In order to make sure your XSEDE account can access the Jetstream API, you need to contact the Helpdesk, see the &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682057/Using+the+Jetstream+API&quot;&gt;instructions on the Jetstream Wiki&lt;/a&gt;. You will also receive your &lt;strong&gt;TACC&lt;/strong&gt; password, which could be different than your XSEDE one (username is generally the same).&lt;/p&gt;
+
+&lt;p&gt;Login to the TACC Horizon panel at &lt;a href=&quot;https://tacc.jetstream-cloud.org/dashboard&quot;&gt;https://tacc.jetstream-cloud.org/dashboard&lt;/a&gt;, this is basically the low level web interface to OpenStack, a lot more complex and powerful than Atmosphere available at &lt;a href=&quot;https://use.jetstream-cloud.org/application&quot;&gt;https://use.jetstream-cloud.org/application&lt;/a&gt;. Use &lt;code class=&quot;highlighter-rouge&quot;&gt;tacc&lt;/code&gt; as domain, your TACC username (generally the same as your XSEDE username) and your TACC password.&lt;/p&gt;
+
+&lt;p&gt;First choose the right project you would like to charge to in the top dropdown menu (see the XSEDE website if you don’t recognize the grant code).&lt;/p&gt;
+
+&lt;p&gt;Click on Compute / API Access and download the OpenRC V3 authentication file to your machine. Source it typing:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;source XX-XXXXXXXX-openrc.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;it should ask for your TACC password. This configures all the environment variables needed by the &lt;code class=&quot;highlighter-rouge&quot;&gt;openstack&lt;/code&gt; command line tool to interface with the Openstack API.&lt;/p&gt;
+
+&lt;p&gt;Test with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack flavor list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This should return the list of available “sizes” of the Virtual Machines.&lt;/p&gt;
+
+&lt;h3 id=&quot;clone-kubespray&quot;&gt;Clone kubespray&lt;/h3&gt;
+
+&lt;p&gt;I needed to make a few modifications to &lt;code class=&quot;highlighter-rouge&quot;&gt;kubespray&lt;/code&gt; to adapt it to Jetstream:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jetstream_kubespray
+git checkout -b branch_v2.13.1 origin/branch_v2.13.1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;See an &lt;a href=&quot;https://github.com/zonca/jetstream_kubespray/pull/13&quot;&gt;overview of my changes compared to the standard &lt;code class=&quot;highlighter-rouge&quot;&gt;kubespray&lt;/code&gt; release 2.13.1&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;run-terraform&quot;&gt;Run Terraform&lt;/h3&gt;
+
+&lt;p&gt;Inside &lt;code class=&quot;highlighter-rouge&quot;&gt;jetstream_kubespray&lt;/code&gt;, copy from my template:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export CLUSTER=$USER
+cp -LRp inventory/zonca inventory/$CLUSTER
+cd inventory/$CLUSTER
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Open and modify &lt;code class=&quot;highlighter-rouge&quot;&gt;cluster.tf&lt;/code&gt;, choose your image and number of nodes.
+Make sure to change the network name to something unique, like the expanded form of &lt;code class=&quot;highlighter-rouge&quot;&gt;$CLUSTER_network&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can find suitable images (they need to be JS-API-Featured, you cannot use the same instances used in Atmosphere):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack image list | grep &quot;JS-API&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The default is &lt;code class=&quot;highlighter-rouge&quot;&gt;JS-API-Featured-Ubuntu18-Latest&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;I already preconfigured the network UUID both for IU and TACC, but you can crosscheck
+looking for the &lt;code class=&quot;highlighter-rouge&quot;&gt;public&lt;/code&gt; network in:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack network list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Initialize Terraform:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash terraform_init.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create the resources:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash terraform_apply.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The last output log of Terraform should contain the IP of the master node &lt;code class=&quot;highlighter-rouge&quot;&gt;k8s_master_fips&lt;/code&gt;, wait for it to boot then
+SSH in with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh ubuntu@$IP
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;or &lt;code class=&quot;highlighter-rouge&quot;&gt;centos@$IP&lt;/code&gt; for CentOS images.&lt;/p&gt;
+
+&lt;p&gt;Inspect with Openstack the resources created:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server list
+openstack network list
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can cleanup the virtual machines and all other Openstack resources (all data is lost) with &lt;code class=&quot;highlighter-rouge&quot;&gt;bash terraform_destroy.sh&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-kubernetes-with-kubespray&quot;&gt;Install Kubernetes with &lt;code class=&quot;highlighter-rouge&quot;&gt;kubespray&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;Change folder back to the root of the &lt;code class=&quot;highlighter-rouge&quot;&gt;jetstream_kubespray&lt;/code&gt; repository,&lt;/p&gt;
+
+&lt;p&gt;First make sure you have a recent version of &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; installed, you also need additional modules,
+so first run:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install -r requirements.txt
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It is useful to create a &lt;code class=&quot;highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt; and install packages inside that.
+This will also install &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt;, it is important to install &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;pip&lt;/code&gt; so that the path to access the modules is correct. So remove any pre-installed &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Or install &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; with &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt;, the minimum required version of &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; is 2.9.&lt;/p&gt;
+
+&lt;p&gt;Then following the &lt;a href=&quot;https://github.com/kubernetes-incubator/kubespray/blob/master/contrib/terraform/openstack/README.md#ansible&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;kubespray&lt;/code&gt; documentation&lt;/a&gt;, we setup &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh-agent&lt;/code&gt; so that &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; can SSH from the machine with public IP to the others:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Test the connection through ansible:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ansible -i inventory/$CLUSTER/hosts -m ping all
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If a server is not answering to ping, first try to reboot it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server reboot $CLUSTER-k8s-node-nf-1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Or delete it and run &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform_apply.sh&lt;/code&gt; to create it again.&lt;/p&gt;
+
+&lt;p&gt;check &lt;code class=&quot;highlighter-rouge&quot;&gt;inventory/$CLUSTER/group_vars/all.yml&lt;/code&gt;, in particular &lt;code class=&quot;highlighter-rouge&quot;&gt;bootstrap_os&lt;/code&gt;, I setup &lt;code class=&quot;highlighter-rouge&quot;&gt;ubuntu&lt;/code&gt;, change it to &lt;code class=&quot;highlighter-rouge&quot;&gt;centos&lt;/code&gt; if you used the Centos 7 base image.&lt;/p&gt;
+
+&lt;p&gt;Finally run the full playbook, it is going to take a good 10 minutes:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash k8s_install.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If the playbook fails with “cannot lock the administrative directory”, it is due to the fact that the Virtual Machine is automatically updating so it has locked the APT directory. Just wait a minute and launch it again. It is always safe to run &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; multiple times.&lt;/p&gt;
+
+&lt;p&gt;If the playbook gives any error, try to retry the above command, sometimes there are temporary failed tasks, Ansible is designed to be executed multiple times with consistent results.&lt;/p&gt;
+
+&lt;p&gt;You should have now a Kubernetes cluster running, test it:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ ssh ubuntu@$IP
+$ sudo su
+$ kubectl get pods --all-namespaces
+NAMESPACE       NAME                                                   READY     STATUS    RESTARTS   AGE
+cert-manager    cert-manager-597bc67bf9-cf7xv                 1/1     Running   0          2m9s
+ingress-nginx   ingress-nginx-controller-tfqbn                1/1     Running   0          2m31s
+kube-system     coredns-76798d84dd-hhjs9                      1/1     Running   0          98s
+kube-system     coredns-76798d84dd-l6fh2                      1/1     Running   0          83s
+kube-system     dns-autoscaler-85f898cd5c-kld9w               1/1     Running   0          90s
+kube-system     kube-apiserver-dummy2-k8s-master-1            1/1     Running   1          5m11s
+kube-system     kube-controller-manager-dummy2-k8s-master-1   1/1     Running   0          5m11s
+kube-system     kube-flannel-tzj4h                            1/1     Running   0          3m13s
+kube-system     kube-flannel-xqq4j                            1/1     Running   0          3m13s
+kube-system     kube-proxy-tfpzd                              1/1     Running   0          3m39s
+kube-system     kube-proxy-z2djx                              1/1     Running   0          3m39s
+kube-system     kube-scheduler-dummy2-k8s-master-1            1/1     Running   1          5m11s
+kube-system     kubernetes-dashboard-77475cf576-ht5th         1/1     Running   0          82s
+kube-system     kubernetes-metrics-scraper-747b4fd5cd-sdxsc   1/1     Running   0          82s
+kube-system     nginx-proxy-dummy2-k8s-node-nf-1              1/1     Running   0          3m21s
+kube-system     nodelocaldns-sg8x4                            1/1     Running   0          86s
+kube-system     nodelocaldns-vljgx                            1/1     Running   0          86s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Compare that you have all those services running also in your cluster.
+We have also configured NGINX to proxy any service that we will later deploy on Kubernetes,
+test it with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ wget localhost
+--2018-09-24 03:01:14--  http://localhost/
+Resolving localhost (localhost)... 127.0.0.1
+Connecting to localhost (localhost)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2018-09-24 03:01:14 ERROR 404: Not Found.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Error 404 is a good sign, the service is up and serving requests, currently there is nothing to deliver.
+Finally test that the routing through the Jetstream instance is working correctly by opening your browser
+and test that if you access &lt;code class=&quot;highlighter-rouge&quot;&gt;js-XX-XXX.jetstream-cloud.org&lt;/code&gt; you also get a &lt;code class=&quot;highlighter-rouge&quot;&gt;default backend - 404&lt;/code&gt; message.
+If any of the tests hangs or cannot connect, there is probably a networking issue.&lt;/p&gt;
+
+&lt;h2 id=&quot;optional-setup-kubectl-locally&quot;&gt;(Optional) Setup kubectl locally&lt;/h2&gt;
+
+&lt;p&gt;We also set &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl_localhost: true&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;kubeconfig_localhost: true&lt;/code&gt;.
+so that &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; is installed on your local machine&lt;/p&gt;
+
+&lt;p&gt;Or install it yourself, I tested with 1.18.3.&lt;/p&gt;
+
+&lt;p&gt;it also copies &lt;code class=&quot;highlighter-rouge&quot;&gt;admin.conf&lt;/code&gt; to:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;inventory/$CLUSTER/artifacts
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I have a script to copy that to &lt;code class=&quot;highlighter-rouge&quot;&gt;.config/kube&lt;/code&gt; and to replace the IP with localhost,
+because we cannot replace it with the public floating ip because the certificate is not valid for that.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash k8s_configure_kubectl_locally.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then make a SSH tunnel (lasts 3 hours):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash k8s_tunnel.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;optional-setup-helm-locally&quot;&gt;(Optional) Setup helm locally&lt;/h2&gt;
+
+&lt;p&gt;Install helm 3 from &lt;a href=&quot;https://github.com/helm/helm/releases&quot;&gt;the release page on Github&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;I tested with &lt;code class=&quot;highlighter-rouge&quot;&gt;v3.2.4&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-jupyterhub&quot;&gt;Install Jupyterhub&lt;/h2&gt;
+
+&lt;p&gt;It is preferable to run the Hub and the Proxy on the master node, just in case we
+want to downsize the cluster to only one node to save resources.&lt;/p&gt;
+
+&lt;p&gt;We need to remove the taint from the master node because currently the JupyterHub recipe doesn’t
+allow to add tolerations to the master node.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl edit node $CLUSTER-k8s-master-1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Remove the 3 lines with the taint:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;taints:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now checkout the JupyterHub configuration files repository on the local machine (if you have setup kubectl and helm locally,
+otherwise on the master node).&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Inside that, first run&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_secrets.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;to create the secret strings needed by JupyterHub then edit its output
+&lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; to make sure it is consistent, edit the &lt;code class=&quot;highlighter-rouge&quot;&gt;hosts&lt;/code&gt; lines if needed. For example, supply the Jetstream DNS name of the master node &lt;code class=&quot;highlighter-rouge&quot;&gt;js-XXX-YYY.jetstream-cloud.org&lt;/code&gt; (XXX and YYY are the last 2 groups of the floating IP of the instance AAA.BBB.XXX.YYY).&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash configure_helm_jupyterhub.sh
+kubectl create namespace jhub
+bash install_jhub.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check some preliminary pods running with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pods -n jhub
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the &lt;code class=&quot;highlighter-rouge&quot;&gt;proxy&lt;/code&gt; is running, even if &lt;code class=&quot;highlighter-rouge&quot;&gt;hub&lt;/code&gt; is still in preparation, you can check
+in browser, you should get “Service Unavailable” which is a good sign that
+the proxy is working.&lt;/p&gt;
+
+&lt;h2 id=&quot;customize-jupyterhub&quot;&gt;Customize JupyterHub&lt;/h2&gt;
+
+&lt;p&gt;After JupyterHub is deployed and integrated with Cinder for persistent volumes,
+for any other customizations, first authentication, you are in good hands as the
+&lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/en/stable/extending-jupyterhub.html&quot;&gt;Zero-to-Jupyterhub documentation&lt;/a&gt; is great.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-https-with-letsencrypt&quot;&gt;Setup HTTPS with letsencrypt&lt;/h2&gt;
+
+&lt;p&gt;Kubespray has the option of deploying also &lt;code class=&quot;highlighter-rouge&quot;&gt;cert-manager&lt;/code&gt;, but I had trouble deploying an issuer,
+it was easier to just deploy it afterwards following &lt;a href=&quot;https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html&quot;&gt;my previous tutorial&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
+
+&lt;p&gt;Feedback on this is very welcome, please open an issue on the &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream&quot;&gt;Github repository&lt;/a&gt; or email me at &lt;code class=&quot;highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain of the San Diego Supercomputer Center (sdsc.edu).&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).</summary></entry><entry><title type="html">Import and export list of blocked users on Twitter</title><link href="https://zonca.dev/2020/06/twitter-blocklist.html" rel="alternate" type="text/html" title="Import and export list of blocked users on Twitter" /><published>2020-06-01T00:00:00-05:00</published><updated>2020-06-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/twitter-blocklist</id><content type="html" xml:base="https://zonca.dev/2020/06/twitter-blocklist.html">&lt;p&gt;&lt;a href=&quot;https://blog.twitter.com/en_us/a/2015/sharing-block-lists-to-help-make-twitter-safer.html&quot;&gt;Back in 2015&lt;/a&gt;, Twitter
 provided the feature to export and import lists of blocked users, unfortunately they discontinued this
 service.&lt;/p&gt;
 
@@ -1325,6 +1597,13 @@ modify &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt;
 
 NAMESPACE   NAME                         READY     SECRET                       AGE
 jhub        certmanager-tls-jupyterhub   True      certmanager-tls-jupyterhub   11m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;for newer versions, check the &lt;code class=&quot;highlighter-rouge&quot;&gt;certificaterequest&lt;/code&gt; resource instead:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get certificaterequest --all-namespaces
+NAMESPACE   NAME                                   READY   AGE
+jhub        certmanager-tls-jupyterhub-781206586   True    9m5s
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Updated in May 2020: changes for Kubernetes 1.15</summary></entry><entry><title type="html">Kill Jupyter Notebook servers</title><link href="https://zonca.dev/2020/03/kill-jupyter-notebook.html" rel="alternate" type="text/html" title="Kill Jupyter Notebook servers" /><published>2020-03-12T00:00:00-05:00</published><updated>2020-03-12T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/kill-jupyter-notebook</id><content type="html" xml:base="https://zonca.dev/2020/03/kill-jupyter-notebook.html">&lt;p&gt;Just today I learned how to properly stop previously running Jupyter Notebook
 servers, here for future reference:&lt;/p&gt;
 
@@ -1394,63 +1673,4 @@ this depends on your template:&lt;/p&gt;
 
 &lt;p&gt;A section of an article page:&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;/images/old_blog_article_page.png&quot; alt=&quot;Old blog article page&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I have been using the Pelican static website generator for a few years, hosting the content on Github, automatically build on push via Travis-CI and deploy on Github pages to zonca.github.io.</summary></entry><entry><title type="html">Deploy CVMFS on Kubernetes</title><link href="https://zonca.dev/2020/02/cvmfs-kubernetes.html" rel="alternate" type="text/html" title="Deploy CVMFS on Kubernetes" /><published>2020-02-26T13:00:00-06:00</published><updated>2020-02-26T13:00:00-06:00</updated><id>https://zonca.dev/2020/02/cvmfs-kubernetes</id><content type="html" xml:base="https://zonca.dev/2020/02/cvmfs-kubernetes.html">&lt;p&gt;&lt;a href=&quot;https://cvmfs.readthedocs.io/&quot;&gt;CVMFS&lt;/a&gt; is a software distribution service, it is used by High Energy Physics experiments at CERN
-to synchronize software environments across the whole collaborations.&lt;/p&gt;
-
-&lt;p&gt;In the context of a Kubernetes + JupyterHub deployment on Jetstream, for example &lt;a href=&quot;http://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;deployed using Magnum following my tutorial&lt;/a&gt;, it is useful to use CVMFS to make the software tools of a collaboration to all the users connected to JupyterHub, so that we can keep the base Docker image simpler and smaller.&lt;/p&gt;
-
-&lt;h2 id=&quot;alternatives&quot;&gt;Alternatives&lt;/h2&gt;
-
-&lt;p&gt;A already existing solution is &lt;a href=&quot;https://github.com/cernops/cvmfs-csi&quot;&gt;the CVMFS CSI driver&lt;/a&gt;, however it doesn’t have much documentation, so I haven’t tested it. It would be useful for larger deployments, but we are designing for a 5 (possibly up to 10) nodes Kubernetes cluster.&lt;/p&gt;
-
-&lt;h2 id=&quot;architecture&quot;&gt;Architecture&lt;/h2&gt;
-
-&lt;p&gt;We have a pod running in Kubernetes (running as a privileged Docker container) which runs the CVMFS client and caches locally
-(on a dedicated Openstack volume) some pre-defined CVMFS repositories (at the moment we do not support automounting).&lt;/p&gt;
-
-&lt;p&gt;Currently we are using the &lt;code class=&quot;highlighter-rouge&quot;&gt;DIRECT&lt;/code&gt; connection for the CVMFS client, due to having just a single client which accesses
-a small amount of data. Using a proxy is required instead for heavier usage, and it could also be deployed inside Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;The same pod also runs a NFS server and exposes it internally into the Kubernetes cluster, over the local Jetstream network,
-to any other pod which can use a NFS volume and mount it to the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder inside the container.
-We also activate the CVMFS configuration options for NFS support, following the &lt;a href=&quot;https://cvmfs.readthedocs.io/en/stable/cpt-configure.html#nfs-server-mode&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;deployment&quot;&gt;Deployment&lt;/h2&gt;
-
-&lt;p&gt;The repositories used in this deployment are:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/docker-cvmfs-client&quot;&gt;Github repository for the Docker image of the CVMFS client&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Docker Hub repositories where the 2 containers are built: &lt;a href=&quot;https://hub.docker.com/r/zonca/cvmfs-client&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cvmfs-client&lt;/code&gt;&lt;/a&gt; and &lt;a href=&quot;https://hub.docker.com/r/zonca/cvmfs-client-nfs&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cvmfs-client-nfs&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;The &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/tree/master/cvmfs&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;jupyterhub-deploy-kubernetes-jetstream&lt;/code&gt;&lt;/a&gt; Github repositories with the Kubernetes configuration files&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;First we need to checkout the &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyterhub-deploy-kubernetes-jetstream&lt;/code&gt; repository:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream.git
-cd jupyterhub-deploy-kubernetes-jetstream/cvmfs
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then configure the CVMFS pod with the required repositories, see the &lt;code class=&quot;highlighter-rouge&quot;&gt;CVMFS_REPOSITORIES&lt;/code&gt; variable in &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/cvmfs/pod_cvmfs_nfs.yaml&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pod_cvmfs_nfs.yaml&lt;/code&gt;&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Then deploy the pod with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f pod_cvmfs_nfs.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This creates 2 Openstack volumes, a 20 GB volume for the CVMFS cache, and a 1 GB volume which is just necessary as the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; root folder of the NFS server.
-It also creates the &lt;code class=&quot;highlighter-rouge&quot;&gt;nfs-service&lt;/code&gt; Service, with a fixed IP, so that we can use it in the pod using this.&lt;/p&gt;
-
-&lt;p&gt;Finally we can create a pod using mounting the folder via NFS:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f test_nfs_mount.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then get a terminal in the pod with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash ../terminal_pod.sh test-nfs-mount
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This creates a volume which mounts the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder shared with NFS, this automatically also shares also all the subfolders.&lt;/p&gt;
-
-&lt;p&gt;Finally we can check the content of the &lt;code class=&quot;highlighter-rouge&quot;&gt;/cvmfs&lt;/code&gt; folder.&lt;/p&gt;</content><author><name></name></author><summary type="html">CVMFS is a software distribution service, it is used by High Energy Physics experiments at CERN to synchronize software environments across the whole collaborations.</summary></entry></feed>
+&lt;p&gt;&lt;img src=&quot;/images/old_blog_article_page.png&quot; alt=&quot;Old blog article page&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I have been using the Pelican static website generator for a few years, hosting the content on Github, automatically build on push via Travis-CI and deploy on Github pages to zonca.github.io.</summary></entry></feed>

@@ -212,6 +212,13 @@ NAMESPACE   NAME                         READY     SECRET                       
 jhub        certmanager-tls-jupyterhub   True      certmanager-tls-jupyterhub   11m
 </code></pre></div></div>
 
+<p>for newer versions, check the <code class="highlighter-rouge">certificaterequest</code> resource instead:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get certificaterequest --all-namespaces
+NAMESPACE   NAME                                   READY   AGE
+jhub        certmanager-tls-jupyterhub-781206586   True    9m5s
+</code></pre></div></div>
+
   </div><a class="u-url" href="/2020/03/setup-https-kubernetes-letsencrypt.html" hidden></a>
 </article>
       </div>
