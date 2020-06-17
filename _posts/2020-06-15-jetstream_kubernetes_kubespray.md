@@ -57,7 +57,7 @@ Inside `jetstream_kubespray`, copy from my template:
     cp -LRp inventory/zonca inventory/$CLUSTER
     cd inventory/$CLUSTER
 
-Open and modify `cluster.tf`, choose your image and number of nodes.
+Open and modify `cluster.tfvars`, choose your image and number of nodes.
 Make sure to change the network name to something unique, like the expanded form of `$CLUSTER_network`.
 
 You can find suitable images (they need to be JS-API-Featured, you cannot use the same instances used in Atmosphere):
