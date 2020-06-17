@@ -185,7 +185,7 @@ cp -LRp inventory/zonca inventory/$CLUSTER
 cd inventory/$CLUSTER
 </code></pre></div></div>
 
-<p>Open and modify <code class="highlighter-rouge">cluster.tf</code>, choose your image and number of nodes.
+<p>Open and modify <code class="highlighter-rouge">cluster.tfvars</code>, choose your image and number of nodes.
 Make sure to change the network name to something unique, like the expanded form of <code class="highlighter-rouge">$CLUSTER_network</code>.</p>
 
 <p>You can find suitable images (they need to be JS-API-Featured, you cannot use the same instances used in Atmosphere):</p>
