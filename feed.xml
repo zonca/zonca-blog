@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-06-17T16:53:53-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes on Jetstream with Kubespray</title><link href="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html" rel="alternate" type="text/html" title="Deploy Kubernetes on Jetstream with Kubespray" /><published>2020-06-15T00:00:00-05:00</published><updated>2020-06-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/kubernetes-jetstream-kubespray</id><content type="html" xml:base="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html">&lt;p&gt;This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-06-18T15:55:05-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes on Jetstream with Kubespray</title><link href="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html" rel="alternate" type="text/html" title="Deploy Kubernetes on Jetstream with Kubespray" /><published>2020-06-15T00:00:00-05:00</published><updated>2020-06-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/kubernetes-jetstream-kubespray</id><content type="html" xml:base="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html">&lt;p&gt;This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).&lt;/p&gt;
 
 &lt;p&gt;We will use Kubespray 2.13.1, which first runs &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform&lt;/code&gt; to create the Openstack resources,
 then &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; to configure the servers to run all the Kubernetes services.&lt;/p&gt;
@@ -281,7 +281,15 @@ unfortunately they have capacity issues and needed to impose limits on number of
 &lt;p&gt;I have written a small Python script that can provide a self-service import and export functionality
 using the Twitter API.&lt;/p&gt;
 
-&lt;p&gt;See &lt;a href=&quot;https://github.com/zonca/twitter_blocklist&quot;&gt;https://github.com/zonca/twitter_blocklist&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in 2015, Twitter provided the feature to export and import lists of blocked users, unfortunately they discontinued this service.</summary></entry><entry><title type="html">Minimal example of readthedocs configuration for conda</title><link href="https://zonca.dev/2020/05/readthedocs-conda.html" rel="alternate" type="text/html" title="Minimal example of readthedocs configuration for conda" /><published>2020-05-27T00:00:00-05:00</published><updated>2020-05-27T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/readthedocs-conda</id><content type="html" xml:base="https://zonca.dev/2020/05/readthedocs-conda.html">&lt;p&gt;Prompted by the &lt;a href=&quot;https://blog.readthedocs.com/better-conda-support/&quot;&gt;announced better support of conda in readthedocs&lt;/a&gt;,
+&lt;p&gt;See &lt;a href=&quot;https://github.com/zonca/twitter_blocklist&quot;&gt;https://github.com/zonca/twitter_blocklist&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in 2015, Twitter provided the feature to export and import lists of blocked users, unfortunately they discontinued this service.</summary></entry><entry><title type="html">My own git cheatsheet</title><link href="https://zonca.dev/2020/06/git.html" rel="alternate" type="text/html" title="My own git cheatsheet" /><published>2020-06-01T00:00:00-05:00</published><updated>2020-06-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/git</id><content type="html" xml:base="https://zonca.dev/2020/06/git.html">&lt;p&gt;I noticed I always google the same procedures…&lt;/p&gt;
+
+&lt;h2 id=&quot;remove-a-file-from-a-commit&quot;&gt;Remove a file from a commit&lt;/h2&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --soft HEAD~1
+git reset HEAD path/to/unwanted_file
+git commit -c ORIG_HEAD
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/12481639/remove-files-from-git-commit&quot;&gt;Source&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I noticed I always google the same procedures…</summary></entry><entry><title type="html">Minimal example of readthedocs configuration for conda</title><link href="https://zonca.dev/2020/05/readthedocs-conda.html" rel="alternate" type="text/html" title="Minimal example of readthedocs configuration for conda" /><published>2020-05-27T00:00:00-05:00</published><updated>2020-05-27T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/readthedocs-conda</id><content type="html" xml:base="https://zonca.dev/2020/05/readthedocs-conda.html">&lt;p&gt;Prompted by the &lt;a href=&quot;https://blog.readthedocs.com/better-conda-support/&quot;&gt;announced better support of conda in readthedocs&lt;/a&gt;,
 more memory! I setup a Python package with &lt;code class=&quot;highlighter-rouge&quot;&gt;conda&lt;/code&gt; to automatically build the documentation on
 &lt;a href=&quot;https://readthedocs.org&quot;&gt;readthedocs&lt;/a&gt;.&lt;/p&gt;
 
@@ -1614,63 +1622,4 @@ servers, here for future reference:&lt;/p&gt;
 Choose which ones to stop then:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jupyter notebook stop PORTNUMBER
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Just today I learned how to properly stop previously running Jupyter Notebook servers, here for future reference:</summary></entry><entry><title type="html">Migrate from Pelican to Fastpages</title><link href="https://zonca.dev/2020/03/pelican-to-fastpages.html" rel="alternate" type="text/html" title="Migrate from Pelican to Fastpages" /><published>2020-03-09T00:00:00-05:00</published><updated>2020-03-09T00:00:00-05:00</updated><id>https://zonca.dev/2020/03/pelican-to-fastpages</id><content type="html" xml:base="https://zonca.dev/2020/03/pelican-to-fastpages.html">&lt;p&gt;I have been using the Pelican static website generator for a few years,
-hosting the content on Github, automatically build on push via Travis-CI
-and deploy on Github pages to &lt;code class=&quot;highlighter-rouge&quot;&gt;zonca.github.io&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;I am a heavy Jupyter Notebook user so once I saw the announcement of &lt;a href=&quot;https://fastpages.fast.ai/&quot;&gt;Fastpages&lt;/a&gt;
-I decided it was time to switch.
-I loved the idea of having Jupyter Notebooks built-in and not added via plugins,
-also great idea to use Github actions.&lt;/p&gt;
-
-&lt;p&gt;Only issue I found was that you cannot setup Fastpages on &lt;code class=&quot;highlighter-rouge&quot;&gt;username.github.io&lt;/code&gt;,
-so went for using a custom domain name instead.&lt;/p&gt;
-
-&lt;h2 id=&quot;import-content&quot;&gt;Import content&lt;/h2&gt;
-
-&lt;p&gt;I created a script, in Python of course, to modify the front matter of the markdown
-posts from the Pelican formatting to Jekyll, see &lt;a href=&quot;https://gist.github.com/zonca/b4a5a44513854e1c8918743d219f5f34&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;pelican_to_jekyll.py&lt;/code&gt;&lt;/a&gt;.
-It also renames the files, because Jekyll expects a date at the beginning of filenames.&lt;/p&gt;
-
-&lt;h2 id=&quot;setup-paginate&quot;&gt;Setup paginate&lt;/h2&gt;
-
-&lt;p&gt;Currently Fastpages doesn’t support pagination for the homepage,
-but &lt;a href=&quot;https://github.com/fastai/fastpages/issues/48#issuecomment-596608688&quot;&gt;implemented a workaround&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Update 12 March 2020&lt;/strong&gt;: Now &lt;code class=&quot;highlighter-rouge&quot;&gt;fastpages&lt;/code&gt; supports pagination natively! see &lt;a href=&quot;https://github.com/fastai/fastpages&quot;&gt;the documentation&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;redirect-from-the-old-github-pages-blog&quot;&gt;Redirect from the old Github Pages blog&lt;/h2&gt;
-
-&lt;p&gt;I modified the permalinks of Fastpages so that I have the same URLs in the old and new websites,
-just the domain changes.
-Github pages does not support custom rewriting rules, so I modified the Pelican template
-to put a custom redirection tag in each HTML header.&lt;/p&gt;
-
-&lt;p&gt;In the Pelican template &lt;code class=&quot;highlighter-rouge&quot;&gt;article.html&lt;/code&gt;, in the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;header&amp;gt;&lt;/code&gt; section I added:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev/{{ article.url }}&quot;&amp;gt;
-&amp;lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/{{ article.url }}&quot;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So that Pelican regenerated all the articles with their original address
-and automatically redirects upon access.
-The canonical link hopefully helps with SEO.&lt;/p&gt;
-
-&lt;p&gt;Did the same with the &lt;code class=&quot;highlighter-rouge&quot;&gt;index.html&lt;/code&gt; template to redirect the homepage,
-this depends on your template:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;meta http-equiv=&quot;refresh&quot; content=&quot;0; URL=https://zonca.dev&quot;&amp;gt;
-&amp;lt;link rel=&quot;canonical&quot; href=&quot;https://zonca.dev/&quot;&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;screenshots-of-the-old-blog&quot;&gt;Screenshots of the old blog&lt;/h2&gt;
-
-&lt;p&gt;Yeah, for posterity, growing older I get more nostalgic.&lt;/p&gt;
-
-&lt;p&gt;The homepage:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/old_blog_homepage.png&quot; alt=&quot;Old blog homepage&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;A section of an article page:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/old_blog_article_page.png&quot; alt=&quot;Old blog article page&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I have been using the Pelican static website generator for a few years, hosting the content on Github, automatically build on push via Travis-CI and deploy on Github pages to zonca.github.io.</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Just today I learned how to properly stop previously running Jupyter Notebook servers, here for future reference:</summary></entry></feed>
