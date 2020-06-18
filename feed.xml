@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-06-18T15:55:05-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes on Jetstream with Kubespray</title><link href="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html" rel="alternate" type="text/html" title="Deploy Kubernetes on Jetstream with Kubespray" /><published>2020-06-15T00:00:00-05:00</published><updated>2020-06-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/kubernetes-jetstream-kubespray</id><content type="html" xml:base="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html">&lt;p&gt;This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-06-18T15:57:35-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes on Jetstream with Kubespray</title><link href="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html" rel="alternate" type="text/html" title="Deploy Kubernetes on Jetstream with Kubespray" /><published>2020-06-15T00:00:00-05:00</published><updated>2020-06-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/kubernetes-jetstream-kubespray</id><content type="html" xml:base="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html">&lt;p&gt;This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).&lt;/p&gt;
 
 &lt;p&gt;We will use Kubespray 2.13.1, which first runs &lt;code class=&quot;highlighter-rouge&quot;&gt;terraform&lt;/code&gt; to create the Openstack resources,
 then &lt;code class=&quot;highlighter-rouge&quot;&gt;ansible&lt;/code&gt; to configure the servers to run all the Kubernetes services.&lt;/p&gt;
@@ -284,6 +284,14 @@ using the Twitter API.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&quot;https://github.com/zonca/twitter_blocklist&quot;&gt;https://github.com/zonca/twitter_blocklist&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in 2015, Twitter provided the feature to export and import lists of blocked users, unfortunately they discontinued this service.</summary></entry><entry><title type="html">My own git cheatsheet</title><link href="https://zonca.dev/2020/06/git.html" rel="alternate" type="text/html" title="My own git cheatsheet" /><published>2020-06-01T00:00:00-05:00</published><updated>2020-06-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/git</id><content type="html" xml:base="https://zonca.dev/2020/06/git.html">&lt;p&gt;I noticed I always google the same procedures…&lt;/p&gt;
 
 &lt;h2 id=&quot;remove-a-file-from-a-commit&quot;&gt;Remove a file from a commit&lt;/h2&gt;
+
+&lt;p&gt;Direct remove without editing anything:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset HEAD^ -- path/to/file
+git commit --amend --no-edit
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Step-by-step:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git reset --soft HEAD~1
 git reset HEAD path/to/unwanted_file

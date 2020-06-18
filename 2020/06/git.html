@@ -127,6 +127,14 @@ window.onload = wrap_img;
 
 <h2 id="remove-a-file-from-a-commit">Remove a file from a commit</h2>
 
+<p>Direct remove without editing anything:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset HEAD^ -- path/to/file
+git commit --amend --no-edit
+</code></pre></div></div>
+
+<p>Step-by-step:</p>
+
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git reset --soft HEAD~1
 git reset HEAD path/to/unwanted_file
 git commit -c ORIG_HEAD
