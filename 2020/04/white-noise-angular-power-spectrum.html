@@ -364,9 +364,9 @@ $200 \; \mathrm{\mu K\,s^{1/2}}$
 <h2 id="Power-spectrum">Power spectrum<a class="anchor-link" href="#Power-spectrum"> </a></h2><p>Finally we can compute the angular power spectrum with <code>anafast</code>, i.e. the power as a function of the angular scales, from low $\ell$ values for large angular scales, to high $\ell$ values for small angular scales.</p>
 <p>At low $\ell$ there is not much statistics and the power spectrum is biased, but if we exclude lower ells, we can have an estimate of the white noise $C_\ell$ coefficients. We can then compare with the theoretical power computed as:</p>
 <p>
-$$ C_\ell = \Omega_{pix}\sigma $$
+$$ C_\ell = \Omega_{pix}\sigma^2 $$
 </p>
-<p>Where: $\Omega_{pix}$ is the pixel are in square-radians and $\sigma$ is the white noise standard deviation.</p>
+<p>Where: $\Omega_{pix}$ is the pixel are in square-radians and $\sigma^2$ is the white noise standard variance.</p>
 
 </div>
 </div>
