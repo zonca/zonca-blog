@@ -6,6 +6,8 @@ categories: [kubernetes, kubespray, jetstream]
 slug: kubernetes-jupyterhub-jetstream-kubespray
 ---
 
+**This tutorial is obsolete, check the [updated version of the tutorial](https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html)**
+
 Back in September 2018 I published a [tutorial to deploy Kubernetes on Jetstream](https://zonca.github.io/2018/09/kubernetes-jetstream-kubespray-jupyterhub.html) using Kubernetes.
 
 Software in the Kubernetes space moves very fast, so I decided to update the recipe to use the newer Kubespray 2.8.2 that deploys Kubernetes v1.12.5.

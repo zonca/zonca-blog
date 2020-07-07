@@ -6,7 +6,7 @@ categories: [kubernetes, kubespray, jetstream]
 slug: kubernetes-jetstream-kubespray
 ---
 
-**Please check the last version of this tutorial (which mostly redirects here but uses a newer `kubespray`) at <https://zonca.github.io/2019/02/kubernetes-jupyterhub-jetstream-kubespray.html>**
+**This tutorial is obsolete, check the [updated version of the tutorial](https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html)**
 
 The purpose of this tutorial series is to deploy Jupyterhub on top of
 Kubernetes on Jetstream.
