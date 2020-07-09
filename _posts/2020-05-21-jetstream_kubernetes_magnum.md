@@ -16,9 +16,9 @@ This is an updated version of the [Kubernetes on Jetstream with Magnum tutorial]
 
 ## Setup access to the Jetstream API
 
-First install the OpenStack client, please use these exact versions, also please run at Indiana, which currently has the Rocky release of Openstack, the TACC deployment has an older release of Openstack.
+First install the OpenStack client, please use these exact versions, also please run at Indiana, the TACC deployment has an older release of Openstack.
 
-    pip install python-openstackclient==3.16 python-magnumclient==2.10
+    pip install python-openstackclient==3.18 python-magnumclient==3.10
 
 Load your API credentials from `openrc.sh`, check [documentation of the Jetstream wiki for details](https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh).
 
@@ -34,11 +34,21 @@ As usual, checkout the repository with all the configuration files on the machin
 
 
 Now we are ready to use Magnum to first create a cluster template and then the actual cluster, edit first `create_cluster.sh` and set the parameters of the cluster on the top. Also make sure to set the keypair name.
-Finally run:
+Create the network resources and the cluster template, these need to be created just
+once, then they can be reused by clusters created later on:
 
     bash create_network.sh
     bash create_template.sh
+
+Then a cluster can be created with:
+
     bash create_cluster.sh
+
+The cluster consumes resources when active, it can be switched off with:
+
+    bash delete_cluster.sh
+
+Consider this is deleting all Jetstream virtual machines and data that could be stored in JupyterHub.
 
 I have setup a test cluster with only 1 master node and 1 normal node but you can modify that later.
 
