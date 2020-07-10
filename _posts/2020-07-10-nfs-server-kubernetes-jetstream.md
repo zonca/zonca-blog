@@ -26,18 +26,31 @@ Clone as usual the repository with all the configuration files:
 By default the NFS server is configured both for reading and writing,
 and then using the filesystem permissions we can make some or all folders writable.
 
-In `pod_nfs_server.yaml` we use the image [itsthenetwork/nfs-server-alpine](https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/), check their documentation for more configuration options.
+In `nfs_server.yaml` we use the image [itsthenetwork/nfs-server-alpine](https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/), check their documentation for more configuration options.
+
+We create a deployment with a replica number of 1 instead of creating directly a pod, so that in case servers are rebooted
+or a node dies, Kubernetes will take care of spawning another pod.
 
 Some configuration options you might want to edit:
 
 * I named the shared folder `/share`
 * In case you are interested in sharing read-only, uncomment the `READ_ONLY` flag.
-* In the persistent volume claim definition, modify the volume size (default is 10 GB)
-* Select the right IP for either Magnum or Kubespray (or you can delete the line to be assigned an IP by Kubernetes)
+* In the persistent volume claim definition `create_nfs_volume.yaml`, modify the volume size (default is 10 GB)
+* Select the right IP in `service_nfs.yaml` for either Magnum or Kubespray (or you can delete the line to be assigned an IP by Kubernetes)
 
-Create the PersistentVolumeClaim, the service and the pod:
+First we create the PersistentVolumeClaim:
 
-    kubectl create -f pod_nfs_server.yaml
+    kubectl create -f create_nfs_volume.yaml
+
+then the service and the pod:
+
+    kubectl create -f service_nfs.yaml
+    kubectl create -f nfs_server.yaml
+
+I separated them so that later on we more easily delete the NFS server,
+but keep all the data on the (potentially large) NFS volume:
+
+    kubectl delete -f nfs_server.yaml
 
 ## Test the NFS server
 
@@ -114,8 +127,9 @@ First edit `ssh_server.yaml`:
 * Set the NFS server IP
 * Set the string of the `PUBLIC_KEY` to the SSH key which will be able to access
 * Optionally, you can modify username and ports
+* See the [`linuxserver/openssh-server` documentation for other options](https://hub.docker.com/r/linuxserver/openssh-server)
 
-Deploy the pod:
+Deploy the pod (also here we create a Deployment with a replica number of 1):
 
     kubectl create -f ssh_server.yaml
 
