@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-07-10T02:02:19-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy a NFS server to share data between JupyterHub users on Jetstream</title><link href="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy a NFS server to share data between JupyterHub users on Jetstream" /><published>2020-07-10T00:00:00-05:00</published><updated>2020-07-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html">&lt;p&gt;In this tutorial I’ll show how to create a data volume on Jetstream and share it
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-07-10T11:35:18-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy a NFS server to share data between JupyterHub users on Jetstream</title><link href="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy a NFS server to share data between JupyterHub users on Jetstream" /><published>2020-07-10T00:00:00-05:00</published><updated>2020-07-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html">&lt;p&gt;In this tutorial I’ll show how to create a data volume on Jetstream and share it
 using a NFS server to all JupyterHub users.
 All JupyterHub users run as the &lt;code class=&quot;highlighter-rouge&quot;&gt;jovyan&lt;/code&gt; user, therefore each folder in the shared
 filesystem can be either read-only, or writable by every user.
@@ -21,20 +21,35 @@ cd nfs
 &lt;p&gt;By default the NFS server is configured both for reading and writing,
 and then using the filesystem permissions we can make some or all folders writable.&lt;/p&gt;
 
-&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;pod_nfs_server.yaml&lt;/code&gt; we use the image &lt;a href=&quot;https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/&quot;&gt;itsthenetwork/nfs-server-alpine&lt;/a&gt;, check their documentation for more configuration options.&lt;/p&gt;
+&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;nfs_server.yaml&lt;/code&gt; we use the image &lt;a href=&quot;https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/&quot;&gt;itsthenetwork/nfs-server-alpine&lt;/a&gt;, check their documentation for more configuration options.&lt;/p&gt;
+
+&lt;p&gt;We create a deployment with a replica number of 1 instead of creating directly a pod, so that in case servers are rebooted
+or a node dies, Kubernetes will take care of spawning another pod.&lt;/p&gt;
 
 &lt;p&gt;Some configuration options you might want to edit:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;I named the shared folder &lt;code class=&quot;highlighter-rouge&quot;&gt;/share&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;In case you are interested in sharing read-only, uncomment the &lt;code class=&quot;highlighter-rouge&quot;&gt;READ_ONLY&lt;/code&gt; flag.&lt;/li&gt;
-  &lt;li&gt;In the persistent volume claim definition, modify the volume size (default is 10 GB)&lt;/li&gt;
-  &lt;li&gt;Select the right IP for either Magnum or Kubespray (or you can delete the line to be assigned an IP by Kubernetes)&lt;/li&gt;
+  &lt;li&gt;In the persistent volume claim definition &lt;code class=&quot;highlighter-rouge&quot;&gt;create_nfs_volume.yaml&lt;/code&gt;, modify the volume size (default is 10 GB)&lt;/li&gt;
+  &lt;li&gt;Select the right IP in &lt;code class=&quot;highlighter-rouge&quot;&gt;service_nfs.yaml&lt;/code&gt; for either Magnum or Kubespray (or you can delete the line to be assigned an IP by Kubernetes)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Create the PersistentVolumeClaim, the service and the pod:&lt;/p&gt;
+&lt;p&gt;First we create the PersistentVolumeClaim:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f pod_nfs_server.yaml
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f create_nfs_volume.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;then the service and the pod:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f service_nfs.yaml
+kubectl create -f nfs_server.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;I separated them so that later on we more easily delete the NFS server,
+but keep all the data on the (potentially large) NFS volume:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl delete -f nfs_server.yaml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;test-the-nfs-server&quot;&gt;Test the NFS server&lt;/h2&gt;
@@ -115,9 +130,10 @@ SSH certificate can login.&lt;/p&gt;
   &lt;li&gt;Set the NFS server IP&lt;/li&gt;
   &lt;li&gt;Set the string of the &lt;code class=&quot;highlighter-rouge&quot;&gt;PUBLIC_KEY&lt;/code&gt; to the SSH key which will be able to access&lt;/li&gt;
   &lt;li&gt;Optionally, you can modify username and ports&lt;/li&gt;
+  &lt;li&gt;See the &lt;a href=&quot;https://hub.docker.com/r/linuxserver/openssh-server&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;linuxserver/openssh-server&lt;/code&gt; documentation for other options&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Deploy the pod:&lt;/p&gt;
+&lt;p&gt;Deploy the pod (also here we create a Deployment with a replica number of 1):&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f ssh_server.yaml
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      3 min read
+      4 min read
     
 </span></p>
 
@@ -155,20 +155,35 @@ cd nfs
 <p>By default the NFS server is configured both for reading and writing,
 and then using the filesystem permissions we can make some or all folders writable.</p>
 
-<p>In <code class="highlighter-rouge">pod_nfs_server.yaml</code> we use the image <a href="https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/">itsthenetwork/nfs-server-alpine</a>, check their documentation for more configuration options.</p>
+<p>In <code class="highlighter-rouge">nfs_server.yaml</code> we use the image <a href="https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/">itsthenetwork/nfs-server-alpine</a>, check their documentation for more configuration options.</p>
+
+<p>We create a deployment with a replica number of 1 instead of creating directly a pod, so that in case servers are rebooted
+or a node dies, Kubernetes will take care of spawning another pod.</p>
 
 <p>Some configuration options you might want to edit:</p>
 
 <ul>
   <li>I named the shared folder <code class="highlighter-rouge">/share</code></li>
   <li>In case you are interested in sharing read-only, uncomment the <code class="highlighter-rouge">READ_ONLY</code> flag.</li>
-  <li>In the persistent volume claim definition, modify the volume size (default is 10 GB)</li>
-  <li>Select the right IP for either Magnum or Kubespray (or you can delete the line to be assigned an IP by Kubernetes)</li>
+  <li>In the persistent volume claim definition <code class="highlighter-rouge">create_nfs_volume.yaml</code>, modify the volume size (default is 10 GB)</li>
+  <li>Select the right IP in <code class="highlighter-rouge">service_nfs.yaml</code> for either Magnum or Kubespray (or you can delete the line to be assigned an IP by Kubernetes)</li>
 </ul>
 
-<p>Create the PersistentVolumeClaim, the service and the pod:</p>
+<p>First we create the PersistentVolumeClaim:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f pod_nfs_server.yaml
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f create_nfs_volume.yaml
+</code></pre></div></div>
+
+<p>then the service and the pod:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f service_nfs.yaml
+kubectl create -f nfs_server.yaml
+</code></pre></div></div>
+
+<p>I separated them so that later on we more easily delete the NFS server,
+but keep all the data on the (potentially large) NFS volume:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete -f nfs_server.yaml
 </code></pre></div></div>
 
 <h2 id="test-the-nfs-server">Test the NFS server</h2>
@@ -249,9 +264,10 @@ SSH certificate can login.</p>
   <li>Set the NFS server IP</li>
   <li>Set the string of the <code class="highlighter-rouge">PUBLIC_KEY</code> to the SSH key which will be able to access</li>
   <li>Optionally, you can modify username and ports</li>
+  <li>See the <a href="https://hub.docker.com/r/linuxserver/openssh-server"><code class="highlighter-rouge">linuxserver/openssh-server</code> documentation for other options</a></li>
 </ul>
 
-<p>Deploy the pod:</p>
+<p>Deploy the pod (also here we create a Deployment with a replica number of 1):</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f ssh_server.yaml
 </code></pre></div></div>
