@@ -1,4 +1,151 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-07-09T22:34:06-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Handle white noise with healpy 3 not-uniform and partial sky coverage</title><link href="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html" rel="alternate" type="text/html" title="Handle white noise with healpy 3 not-uniform and partial sky coverage" /><published>2020-06-21T00:00:00-05:00</published><updated>2020-06-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/white-noise-hitmap-not-uniform</id><content type="html" xml:base="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-07-10T02:02:19-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy a NFS server to share data between JupyterHub users on Jetstream</title><link href="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy a NFS server to share data between JupyterHub users on Jetstream" /><published>2020-07-10T00:00:00-05:00</published><updated>2020-07-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html">&lt;p&gt;In this tutorial I’ll show how to create a data volume on Jetstream and share it
+using a NFS server to all JupyterHub users.
+All JupyterHub users run as the &lt;code class=&quot;highlighter-rouge&quot;&gt;jovyan&lt;/code&gt; user, therefore each folder in the shared
+filesystem can be either read-only, or writable by every user.
+The main concern is that a user could delete by mistake data of another user,
+however the users still have access to their own home folder.&lt;/p&gt;
+
+&lt;h1 id=&quot;deploy-kubernetes-and-jupyterhub&quot;&gt;Deploy Kubernetes and JupyterHub&lt;/h1&gt;
+
+&lt;p&gt;I assume here you already have a deployment of JupyterHub on top of Kubernetes on Jetstream,
+deployed either &lt;a href=&quot;https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html&quot;&gt;via Kubespray&lt;/a&gt; or &lt;a href=&quot;https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;via Magnum&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h1 id=&quot;deploy-the-nfs-server&quot;&gt;Deploy the NFS server&lt;/h1&gt;
+
+&lt;p&gt;Clone as usual the repository with all the configuration files:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+cd nfs
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;By default the NFS server is configured both for reading and writing,
+and then using the filesystem permissions we can make some or all folders writable.&lt;/p&gt;
+
+&lt;p&gt;In &lt;code class=&quot;highlighter-rouge&quot;&gt;pod_nfs_server.yaml&lt;/code&gt; we use the image &lt;a href=&quot;https://hub.docker.com/r/itsthenetwork/nfs-server-alpine/&quot;&gt;itsthenetwork/nfs-server-alpine&lt;/a&gt;, check their documentation for more configuration options.&lt;/p&gt;
+
+&lt;p&gt;Some configuration options you might want to edit:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;I named the shared folder &lt;code class=&quot;highlighter-rouge&quot;&gt;/share&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;In case you are interested in sharing read-only, uncomment the &lt;code class=&quot;highlighter-rouge&quot;&gt;READ_ONLY&lt;/code&gt; flag.&lt;/li&gt;
+  &lt;li&gt;In the persistent volume claim definition, modify the volume size (default is 10 GB)&lt;/li&gt;
+  &lt;li&gt;Select the right IP for either Magnum or Kubespray (or you can delete the line to be assigned an IP by Kubernetes)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Create the PersistentVolumeClaim, the service and the pod:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f pod_nfs_server.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;test-the-nfs-server&quot;&gt;Test the NFS server&lt;/h2&gt;
+
+&lt;p&gt;Edit &lt;code class=&quot;highlighter-rouge&quot;&gt;test_nfs_mount.yaml&lt;/code&gt; to set the right IP for the NFS server,
+then:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f test_nfs_mount.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and access the terminal to test:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash ../terminal_pod.sh test-nfs-mount
+df -h
+
+...
+10.254.204.67:/       9.8G   36M  9.8G   1% /share
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We have the root user, we can use the terminal to copy or rsync data into the shared volume.
+We can also create writable folders owned by the user &lt;code class=&quot;highlighter-rouge&quot;&gt;1000&lt;/code&gt; which maps to &lt;code class=&quot;highlighter-rouge&quot;&gt;jovyan&lt;/code&gt;
+in JupyterHub:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sh-4.2# mkdir readonly_folder
+sh-4.2# touch readonly_folder/aaa
+sh-4.2# mkdir writable_folder
+sh-4.2# chown 1000:100 writable_folder
+sh-4.2# ls -l /share
+total 24
+drwx------. 2 root root  16384 Jul 10 06:32 lost+found
+drwxr-xr-x. 2 root root   4096 Jul 10 06:43 readonly_folder
+drwxr-xr-x. 2 1000 users  4096 Jul 10 06:43 writable_folder
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;mount-the-shared-filesystem-on-jupyterhub&quot;&gt;Mount the shared filesystem on JupyterHub&lt;/h1&gt;
+
+&lt;p&gt;Set the NFS server IP in &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyterhub_nfs.yaml&lt;/code&gt;, then add this line to &lt;code class=&quot;highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; (just before the last line, the file is located in the parent folder):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;--values nfs/jupyterhub_nfs.yaml \
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then run &lt;code class=&quot;highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; to have the NFS filesystem mounted on all JupyterHub single user containers:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ..
+bash install_jhub.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;test-in-jupyter&quot;&gt;Test in Jupyter&lt;/h2&gt;
+
+&lt;p&gt;Now connect to JupyterHub and check in a terminal:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jovyan@jupyter-zonca2:/share$ pwd
+/share
+jovyan@jupyter-zonca2:/share$ whoami
+jovyan
+jovyan@jupyter-zonca2:/share$ touch readonly_folder/ccc
+touch: cannot touch 'readonly_folder/ccc': Permission denied
+jovyan@jupyter-zonca2:/share$
+jovyan@jupyter-zonca2:/share$ touch writable_folder/ccc
+jovyan@jupyter-zonca2:/share$ ls -l writable_folder/
+total 0
+-rw-r--r--. 1 jovyan root 0 Jul 10 06:50 ccc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;expose-a-ssh-server-to-copy-data-to-the-shared-volume&quot;&gt;Expose a SSH server to copy data to the shared volume&lt;/h1&gt;
+
+&lt;p&gt;The main restriction is that the only way to copy data to the read-only folders
+is through Kubernetes.
+Next we will deploy a SSH server which mounts the container and whose user can
+become root to manage permissions and copy data.
+We will also expose this service externally so that people with the right
+SSH certificate can login.&lt;/p&gt;
+
+&lt;p&gt;First edit &lt;code class=&quot;highlighter-rouge&quot;&gt;ssh_server.yaml&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Set the NFS server IP&lt;/li&gt;
+  &lt;li&gt;Set the string of the &lt;code class=&quot;highlighter-rouge&quot;&gt;PUBLIC_KEY&lt;/code&gt; to the SSH key which will be able to access&lt;/li&gt;
+  &lt;li&gt;Optionally, you can modify username and ports&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Deploy the pod:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f ssh_server.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Open the Horizon interface, go to “Security groups”, open the &lt;code class=&quot;highlighter-rouge&quot;&gt;http_https&lt;/code&gt; group,
+which we use to open ports on the master instance, and add a new rule to open port
+&lt;code class=&quot;highlighter-rouge&quot;&gt;30022&lt;/code&gt; for Ingress TCP traffic.&lt;/p&gt;
+
+&lt;h2 id=&quot;test-the-ssh-server&quot;&gt;Test the SSH server&lt;/h2&gt;
+
+&lt;p&gt;From a machine external to Jetstream:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh -i path/to/private/key -p 30022 datacopier@js-xxx-xxx.jetstream-cloud.org
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Welcome to OpenSSH Server
+
+ssh-server:~$ whoami
+datacopier
+ssh-server:~$ sudo su
+ssh-server:/config# whoami
+root
+ssh-server:/config# cd /share
+ssh-server:/share# ls
+lost+found  readonly_folder  writable_folder
+ssh-server:/share# touch readonly_folder/moredata
+ssh-server:/share#
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">In this tutorial I’ll show how to create a data volume on Jetstream and share it using a NFS server to all JupyterHub users. All JupyterHub users run as the jovyan user, therefore each folder in the shared filesystem can be either read-only, or writable by every user. The main concern is that a user could delete by mistake data of another user, however the users still have access to their own home folder.</summary></entry><entry><title type="html">Handle white noise with healpy 3 not-uniform and partial sky coverage</title><link href="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html" rel="alternate" type="text/html" title="Handle white noise with healpy 3 not-uniform and partial sky coverage" /><published>2020-06-21T00:00:00-05:00</published><updated>2020-06-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/white-noise-hitmap-not-uniform</id><content type="html" xml:base="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -3586,58 +3733,4 @@ At first order, for simple masks, we can just correct for the amplitude by divid
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Use the Jetstream object store</title><link href="https://zonca.dev/2020/04/jetstream-object-store.html" rel="alternate" type="text/html" title="Use the Jetstream object store" /><published>2020-04-01T00:00:00-05:00</published><updated>2020-04-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/04/jetstream-object-store</id><content type="html" xml:base="https://zonca.dev/2020/04/jetstream-object-store.html">&lt;p&gt;I plan to collect here notes about using the Openstack object store
-on Jetstream.&lt;/p&gt;
-
-&lt;h2 id=&quot;get-amazon-style-credentials&quot;&gt;Get Amazon-style credentials&lt;/h2&gt;
-
-&lt;p&gt;Most of the ecosystem is used to Amazon S3, so Openstack Swift provides
-Amazon compatible APIs, to access those, make sure your openstack client
-can authenticate with the correct allocation, then run:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack ec2 credentials create
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This prints on the screen the Access and the Secret keys, those can be
-used in all tools which expects Amazon APIs.&lt;/p&gt;
-
-&lt;h2 id=&quot;command-line-access-to-object-store-with-s3cmd&quot;&gt;Command line access to object store with s3cmd&lt;/h2&gt;
-
-&lt;p&gt;One of the most convenient tools is &lt;a href=&quot;https://s3tools.org/s3cmd&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;s3cmd&lt;/code&gt;&lt;/a&gt;, which allows to list, upload
-and download files from object store. It is included in most linux distributions.&lt;/p&gt;
-
-&lt;p&gt;First run the interactive configuration tool:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;s3cmd --configure
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;And set:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Region: &lt;code class=&quot;highlighter-rouge&quot;&gt;RegionOne&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Any password for encryption&lt;/li&gt;
-  &lt;li&gt;Use HTTPS: Yes&lt;/li&gt;
-  &lt;li&gt;Do not test&lt;/li&gt;
-  &lt;li&gt;Save the configuration&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Now edit &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.s3cfg&lt;/code&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;set &lt;code class=&quot;highlighter-rouge&quot;&gt;check_ssl_certificate&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;check_ssl_hostname&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;False&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;set &lt;code class=&quot;highlighter-rouge&quot;&gt;host_base=JETSTREAM_SWIFT_ENDPOINT&lt;/code&gt; where &lt;code class=&quot;highlighter-rouge&quot;&gt;JETSTREAM_SWIFT_ENDPOINT&lt;/code&gt; is just the hostname, without &lt;code class=&quot;highlighter-rouge&quot;&gt;https://&lt;/code&gt; and without &lt;code class=&quot;highlighter-rouge&quot;&gt;/swift/v1&lt;/code&gt;, I prefer not to post publicly check on your Openstack dashboard or email me.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Now you can list the content of buckets/containers:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; s3cmd ls
-2020-03-11 23:25  s3://data_store
-
-&amp;gt; s3cmd ls s3://data_store
-                       DIR   s3://data_store/bbb/
-                       DIR   s3://data_store/data/
-                       DIR   s3://data_store/fff/
-2020-03-27 01:39       500   s3://data_store/nginx-cinder.yaml
-
-&amp;gt; s3cmd put local_file.txt s3://data_store/fff/ggg
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">I plan to collect here notes about using the Openstack object store on Jetstream.</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>
