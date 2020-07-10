@@ -12,7 +12,8 @@ I'll remove the notice when it will be fixed.
 This tutorial deploys Kubernetes on Jetstream with Magnum and then
 JupyterHub on top of that using [zero-to-jupyterhub](https://zero-to-jupyterhub.readthedocs.io/).
 
-This is an updated version of the [Kubernetes on Jetstream with Magnum tutorial](https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html) based now on Kubernetes 1.15 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.
+This is an updated version of the [Kubernetes on Jetstream with Magnum tutorial](https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html) based now on Kubernetes 1.15.7 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.
+If you need a newer version of Kubernetes, you can install Kubernetes with Kubespray instead, see [this tutorial](https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html).
 
 ## Setup access to the Jetstream API
 
@@ -140,38 +141,13 @@ By default Openstack servers and Openstack volumes are created in different avai
 ## Install Helm
 
 The Kubernetes deployment from Magnum is not as complete as the one out of Kubespray, we need
-to setup `helm` and the NGINX ingress ourselves. We would also need to setup a system to automatically
-deploy HTTPS certificates, I'll add this later on.
+to setup the NGINX ingress ourselves.
 
-First [install the Helm client on your laptop](https://helm.sh/docs/using_helm/#installing-helm), make
-sure you have configured `kubectl` correctly.
+[Install the Helm client on your laptop](https://helm.sh/docs/using_helm/#installing-helm),
+make sure you install Helm 3 or later.
 
-Then we need to create a service account to give enough privilege to Helm to reconfigure the cluster:
+Run `helm ls` and make sure it doesn't give any error message but just an empty result.
 
-    kubectl create -f tiller_service_account.yaml
-
-Then we can create the `tiller` pod inside Kubernetes:
-
-    helm init --service-account tiller --wait --history-max 200
-
-```
-kubectl get pods --all-namespaces
-kube-system   coredns-ffc7449c-5zmcp                     1/1     Running   1          43m                                            kube-system   coredns-ffc7449c-f69pb                     1/1     Running   1          43m                                            kube-system   heapster-868bbf8578-lhm6s                  1/1     Running   1          43m                                            kube-system   k8s-keystone-auth-hzds6                    1/1     Running   1          43m                                            kube-system   kube-dns-autoscaler-6d5d44bf86-kx24c       1/1     Running   1          43m
-kube-system   kube-flannel-ds-amd64-86vrb                1/1     Running   1          43m
-kube-system   kube-flannel-ds-amd64-mr4qk                1/1     Running   1          38m
-kube-system   kubernetes-dashboard-6bcf74b4cd-xc4fc      1/1     Running   1          43m
-kube-system   npd-9jfhr                                  1/1     Running   1          37m
-kube-system   openstack-cloud-controller-manager-5rkkf   1/1     Running   1          42m
-kube-system   tiller-deploy-7d8df5456-vcfz8              1/1     Running   0          4m12s
-```
-
-And check that all the versions agree:
-
-```
-helm version
-Client: &version.Version{SemVer:"v2.16.6", GitCommit:"dd2e5695da88625b190e6b22e9542550ab503a47", GitTreeState:"clean"}
-Server: &version.Version{SemVer:"v2.16.6", GitCommit:"dd2e5695da88625b190e6b22e9542550ab503a47", GitTreeState:"clean"}
-```
 
 ## Setup NGINX ingress
 
@@ -191,6 +167,13 @@ Then you can find the name of the master node in `openstack server list` then ad
     openstack server add security group  k8s-xxxxxxxxxxxx-master-0 http_https
 
 ### Install NGINX ingress with Helm
+
+We prefer to run the NGINX ingress on the master node, in fact in the configuration in `nginx.yaml` specifies:
+
+  nodeSelector:
+    node-role.kubernetes.io/master: ""
+
+This is useful to reduce traffic across the cluster, FIXME check the tolerations to make this cleaner.
 
     bash install_nginx_ingress.sh
 
@@ -215,6 +198,7 @@ You should also check that connecting with your browser to `js-xxx-yyy.jetstream
 Finally:
 
     bash configure_helm_jupyterhub.sh
+    kubectl create namespace jhub
     bash install_jhub.sh
 
 Connect with your browser to `js-xxx-yyy.jetstream-cloud.org` to check if it works.
@@ -223,20 +207,17 @@ We are installing the `zero-to-jupyterhub` helm recipe version `0.9.0` instead o
 
 ### Allow services on master
 
-By default the new Kubernetes version has 2 taints on the master node:
+By default the new Kubernetes version has 1 taint on the master node:
 
 ```
   taints:
-  - effect: NoSchedule
-    key: CriticalAddonsOnly
-    value: "True"
   - effect: NoSchedule
     key: dedicated
     value: master
 ```
 
 The JupyterHub recipe does not allow to automatically set tolerations on the hub and the proxy
-pods, therefore if we want to run them on master, the easiest way is to delete those 2 taints
+pods, therefore if we want to run them on master, the easiest way is to delete that taint
 from the master node:
 
     kubectl edit node NODENAME
