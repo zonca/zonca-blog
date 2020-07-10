@@ -84,6 +84,37 @@ drwxr-xr-x. 2 root root   4096 Jul 10 06:43 readonly_folder
 drwxr-xr-x. 2 1000 users  4096 Jul 10 06:43 writable_folder
 ```
 
+## Preserve the data volume across redeployments
+
+The NFS data volume could contain a lot of data that you would want to preserve in case you
+need to completely tear down the Kubernetes cluster.
+
+First we find out what is the ID of the `PersistentVolume` associated with the NFS volume:
+
+```
+kubectl get pv | grep nfs
+pvc-ee1f02aa-11f8-433f-806f-186f6d622a30   10Gi       RWO            Delete           Bound    default/nfs-share-folder-claim   standard                5m55s
+```
+
+Then you can save the `PersistentVolume` and the `PersistentVolumeClaim` to YAML:
+
+```
+kubectl get pvc nfs-share-folder-claim -o yaml > existing_nfs_volume_claim.yaml
+kubectl get pv pvc-ee1f02aa-11f8-433f-806f-186f6d622a30 -o yaml > existing_nfs_volume.yaml
+```
+
+Next we can delete the servers directly from Openstack, be careful not to delete the `PersistentVolume` or
+the `PersistentVolumeClaim` in Kubernetes or the underlying volume in Openstack will be deleted, also
+do not delete the namespace associated with those resources.
+
+Finally redeploy everything,
+and instead of launching `create_nfs_volume.yaml`, we create first the `PersistentVolume` then the `PersistentVolumeClaim`:
+
+```
+kubectl create -f existing_nfs_volume.yaml
+kubectl create -f existing_nfs_volume_claim.yaml
+```
+
 # Mount the shared filesystem on JupyterHub
 
 Set the NFS server IP in `jupyterhub_nfs.yaml`, then add this line to `install_jhub.sh` (just before the last line, the file is located in the parent folder):
@@ -157,3 +188,7 @@ lost+found  readonly_folder  writable_folder
 ssh-server:/share# touch readonly_folder/moredata
 ssh-server:/share#
 ```
+
+# Troubleshooting
+
+* Consider that if you reboot or re-create the NFS server, the user pods need to be restarted, otherwise the NFS volume hangs.
