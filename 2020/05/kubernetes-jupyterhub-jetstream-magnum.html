@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      7 min read
+      6 min read
     
 </span></p>
 
@@ -139,13 +139,14 @@ I’ll remove the notice when it will be fixed.</p>
 <p>This tutorial deploys Kubernetes on Jetstream with Magnum and then
 JupyterHub on top of that using <a href="https://zero-to-jupyterhub.readthedocs.io/">zero-to-jupyterhub</a>.</p>
 
-<p>This is an updated version of the <a href="https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">Kubernetes on Jetstream with Magnum tutorial</a> based now on Kubernetes 1.15 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.</p>
+<p>This is an updated version of the <a href="https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">Kubernetes on Jetstream with Magnum tutorial</a> based now on Kubernetes 1.15.7 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.
+If you need a newer version of Kubernetes, you can install Kubernetes with Kubespray instead, see <a href="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html">this tutorial</a>.</p>
 
 <h2 id="setup-access-to-the-jetstream-api">Setup access to the Jetstream API</h2>
 
-<p>First install the OpenStack client, please use these exact versions, also please run at Indiana, which currently has the Rocky release of Openstack, the TACC deployment has an older release of Openstack.</p>
+<p>First install the OpenStack client, please use these exact versions, also please run at Indiana, the TACC deployment has an older release of Openstack.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install python-openstackclient==3.16 python-magnumclient==2.10
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install python-openstackclient==3.18 python-magnumclient==3.10
 </code></pre></div></div>
 
 <p>Load your API credentials from <code class="highlighter-rouge">openrc.sh</code>, check <a href="https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh">documentation of the Jetstream wiki for details</a>.</p>
@@ -162,12 +163,24 @@ cd kubernetes_magnum
 </code></pre></div></div>
 
 <p>Now we are ready to use Magnum to first create a cluster template and then the actual cluster, edit first <code class="highlighter-rouge">create_cluster.sh</code> and set the parameters of the cluster on the top. Also make sure to set the keypair name.
-Finally run:</p>
+Create the network resources and the cluster template, these need to be created just
+once, then they can be reused by clusters created later on:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_network.sh
 bash create_template.sh
-bash create_cluster.sh
 </code></pre></div></div>
+
+<p>Then a cluster can be created with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_cluster.sh
+</code></pre></div></div>
+
+<p>The cluster consumes resources when active, it can be switched off with:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash delete_cluster.sh
+</code></pre></div></div>
+
+<p>Consider this is deleting all Jetstream virtual machines and data that could be stored in JupyterHub.</p>
 
 <p>I have setup a test cluster with only 1 master node and 1 normal node but you can modify that later.</p>
 
@@ -266,38 +279,12 @@ kubectl describe pod alpine
 <h2 id="install-helm">Install Helm</h2>
 
 <p>The Kubernetes deployment from Magnum is not as complete as the one out of Kubespray, we need
-to setup <code class="highlighter-rouge">helm</code> and the NGINX ingress ourselves. We would also need to setup a system to automatically
-deploy HTTPS certificates, I’ll add this later on.</p>
+to setup the NGINX ingress ourselves.</p>
 
-<p>First <a href="https://helm.sh/docs/using_helm/#installing-helm">install the Helm client on your laptop</a>, make
-sure you have configured <code class="highlighter-rouge">kubectl</code> correctly.</p>
+<p><a href="https://helm.sh/docs/using_helm/#installing-helm">Install the Helm client on your laptop</a>,
+make sure you install Helm 3 or later.</p>
 
-<p>Then we need to create a service account to give enough privilege to Helm to reconfigure the cluster:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f tiller_service_account.yaml
-</code></pre></div></div>
-
-<p>Then we can create the <code class="highlighter-rouge">tiller</code> pod inside Kubernetes:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm init --service-account tiller --wait --history-max 200
-</code></pre></div></div>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pods --all-namespaces
-kube-system   coredns-ffc7449c-5zmcp                     1/1     Running   1          43m                                            kube-system   coredns-ffc7449c-f69pb                     1/1     Running   1          43m                                            kube-system   heapster-868bbf8578-lhm6s                  1/1     Running   1          43m                                            kube-system   k8s-keystone-auth-hzds6                    1/1     Running   1          43m                                            kube-system   kube-dns-autoscaler-6d5d44bf86-kx24c       1/1     Running   1          43m
-kube-system   kube-flannel-ds-amd64-86vrb                1/1     Running   1          43m
-kube-system   kube-flannel-ds-amd64-mr4qk                1/1     Running   1          38m
-kube-system   kubernetes-dashboard-6bcf74b4cd-xc4fc      1/1     Running   1          43m
-kube-system   npd-9jfhr                                  1/1     Running   1          37m
-kube-system   openstack-cloud-controller-manager-5rkkf   1/1     Running   1          42m
-kube-system   tiller-deploy-7d8df5456-vcfz8              1/1     Running   0          4m12s
-</code></pre></div></div>
-
-<p>And check that all the versions agree:</p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm version
-Client: &amp;version.Version{SemVer:"v2.16.6", GitCommit:"dd2e5695da88625b190e6b22e9542550ab503a47", GitTreeState:"clean"}
-Server: &amp;version.Version{SemVer:"v2.16.6", GitCommit:"dd2e5695da88625b190e6b22e9542550ab503a47", GitTreeState:"clean"}
-</code></pre></div></div>
+<p>Run <code class="highlighter-rouge">helm ls</code> and make sure it doesn’t give any error message but just an empty result.</p>
 
 <h2 id="setup-nginx-ingress">Setup NGINX ingress</h2>
 
@@ -319,6 +306,13 @@ openstack security group rule create --ingress --protocol tcp --dst-port 443 htt
 </code></pre></div></div>
 
 <h3 id="install-nginx-ingress-with-helm">Install NGINX ingress with Helm</h3>
+
+<p>We prefer to run the NGINX ingress on the master node, in fact in the configuration in <code class="highlighter-rouge">nginx.yaml</code> specifies:</p>
+
+<p>nodeSelector:
+    node-role.kubernetes.io/master: “”</p>
+
+<p>This is useful to reduce traffic across the cluster, FIXME check the tolerations to make this cleaner.</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_nginx_ingress.sh
 </code></pre></div></div>
@@ -346,6 +340,7 @@ openstack security group rule create --ingress --protocol tcp --dst-port 443 htt
 <p>Finally:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash configure_helm_jupyterhub.sh
+kubectl create namespace jhub
 bash install_jhub.sh
 </code></pre></div></div>
 
@@ -355,19 +350,16 @@ bash install_jhub.sh
 
 <h3 id="allow-services-on-master">Allow services on master</h3>
 
-<p>By default the new Kubernetes version has 2 taints on the master node:</p>
+<p>By default the new Kubernetes version has 1 taint on the master node:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  taints:
-  - effect: NoSchedule
-    key: CriticalAddonsOnly
-    value: "True"
   - effect: NoSchedule
     key: dedicated
     value: master
 </code></pre></div></div>
 
 <p>The JupyterHub recipe does not allow to automatically set tolerations on the hub and the proxy
-pods, therefore if we want to run them on master, the easiest way is to delete those 2 taints
+pods, therefore if we want to run them on master, the easiest way is to delete that taint
 from the master node:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl edit node NODENAME
