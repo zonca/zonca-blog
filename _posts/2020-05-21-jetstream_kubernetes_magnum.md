@@ -170,10 +170,12 @@ Then you can find the name of the master node in `openstack server list` then ad
 
 We prefer to run the NGINX ingress on the master node, in fact in the configuration in `nginx.yaml` specifies:
 
-  nodeSelector:
+```
+nodeSelector:
     node-role.kubernetes.io/master: ""
+```
 
-This is useful to reduce traffic across the cluster, FIXME check the tolerations to make this cleaner.
+This is useful to reduce traffic across the cluster, install NGINX using Helm:
 
     bash install_nginx_ingress.sh
 
