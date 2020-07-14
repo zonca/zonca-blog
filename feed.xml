@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-07-10T11:35:18-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy a NFS server to share data between JupyterHub users on Jetstream</title><link href="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy a NFS server to share data between JupyterHub users on Jetstream" /><published>2020-07-10T00:00:00-05:00</published><updated>2020-07-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html">&lt;p&gt;In this tutorial I’ll show how to create a data volume on Jetstream and share it
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-07-14T12:16:20-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy a NFS server to share data between JupyterHub users on Jetstream</title><link href="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy a NFS server to share data between JupyterHub users on Jetstream" /><published>2020-07-10T00:00:00-05:00</published><updated>2020-07-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2020/07/nfs-server-kubernetes-jetstream.html">&lt;p&gt;In this tutorial I’ll show how to create a data volume on Jetstream and share it
 using a NFS server to all JupyterHub users.
 All JupyterHub users run as the &lt;code class=&quot;highlighter-rouge&quot;&gt;jovyan&lt;/code&gt; user, therefore each folder in the shared
 filesystem can be either read-only, or writable by every user.
@@ -85,6 +85,34 @@ drwxr-xr-x. 2 root root   4096 Jul 10 06:43 readonly_folder
 drwxr-xr-x. 2 1000 users  4096 Jul 10 06:43 writable_folder
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;h2 id=&quot;preserve-the-data-volume-across-redeployments&quot;&gt;Preserve the data volume across redeployments&lt;/h2&gt;
+
+&lt;p&gt;The NFS data volume could contain a lot of data that you would want to preserve in case you
+need to completely tear down the Kubernetes cluster.&lt;/p&gt;
+
+&lt;p&gt;First we find out what is the ID of the &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolume&lt;/code&gt; associated with the NFS volume:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pv | grep nfs
+pvc-ee1f02aa-11f8-433f-806f-186f6d622a30   10Gi       RWO            Delete           Bound    default/nfs-share-folder-claim   standard                5m55s
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you can save the &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolume&lt;/code&gt; and the &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolumeClaim&lt;/code&gt; to YAML:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get pvc nfs-share-folder-claim -o yaml &amp;gt; existing_nfs_volume_claim.yaml
+kubectl get pv pvc-ee1f02aa-11f8-433f-806f-186f6d622a30 -o yaml &amp;gt; existing_nfs_volume.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Next we can delete the servers directly from Openstack, be careful not to delete the &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolume&lt;/code&gt; or
+the &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolumeClaim&lt;/code&gt; in Kubernetes or the underlying volume in Openstack will be deleted, also
+do not delete the namespace associated with those resources.&lt;/p&gt;
+
+&lt;p&gt;Finally redeploy everything,
+and instead of launching &lt;code class=&quot;highlighter-rouge&quot;&gt;create_nfs_volume.yaml&lt;/code&gt;, we create first the &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolume&lt;/code&gt; then the &lt;code class=&quot;highlighter-rouge&quot;&gt;PersistentVolumeClaim&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f existing_nfs_volume.yaml
+kubectl create -f existing_nfs_volume_claim.yaml
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
 &lt;h1 id=&quot;mount-the-shared-filesystem-on-jupyterhub&quot;&gt;Mount the shared filesystem on JupyterHub&lt;/h1&gt;
 
 &lt;p&gt;Set the NFS server IP in &lt;code class=&quot;highlighter-rouge&quot;&gt;jupyterhub_nfs.yaml&lt;/code&gt;, then add this line to &lt;code class=&quot;highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; (just before the last line, the file is located in the parent folder):&lt;/p&gt;
@@ -161,7 +189,13 @@ ssh-server:/share# ls
 lost+found  readonly_folder  writable_folder
 ssh-server:/share# touch readonly_folder/moredata
 ssh-server:/share#
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">In this tutorial I’ll show how to create a data volume on Jetstream and share it using a NFS server to all JupyterHub users. All JupyterHub users run as the jovyan user, therefore each folder in the shared filesystem can be either read-only, or writable by every user. The main concern is that a user could delete by mistake data of another user, however the users still have access to their own home folder.</summary></entry><entry><title type="html">Handle white noise with healpy 3 not-uniform and partial sky coverage</title><link href="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html" rel="alternate" type="text/html" title="Handle white noise with healpy 3 not-uniform and partial sky coverage" /><published>2020-06-21T00:00:00-05:00</published><updated>2020-06-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/white-noise-hitmap-not-uniform</id><content type="html" xml:base="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html">&lt;!--
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;/h1&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Consider that if you reboot or re-create the NFS server, the user pods need to be restarted, otherwise the NFS volume hangs.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">In this tutorial I’ll show how to create a data volume on Jetstream and share it using a NFS server to all JupyterHub users. All JupyterHub users run as the jovyan user, therefore each folder in the shared filesystem can be either read-only, or writable by every user. The main concern is that a user could delete by mistake data of another user, however the users still have access to their own home folder.</summary></entry><entry><title type="html">Handle white noise with healpy 3 not-uniform and partial sky coverage</title><link href="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html" rel="alternate" type="text/html" title="Handle white noise with healpy 3 not-uniform and partial sky coverage" /><published>2020-06-21T00:00:00-05:00</published><updated>2020-06-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/white-noise-hitmap-not-uniform</id><content type="html" xml:base="https://zonca.dev/2020/06/white-noise-hitmap-not-uniform.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -2946,11 +2980,7 @@ for example if &lt;code class=&quot;highlighter-rouge&quot;&gt;python / install&
 
 &lt;p&gt;See &lt;a href=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558&quot;&gt;these files on Gist&lt;/a&gt;&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><summary type="html">Prompted by the announced better support of conda in readthedocs, more memory! I setup a Python package with conda to automatically build the documentation on readthedocs.</summary></entry><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;&lt;strong&gt;WARNING&lt;/strong&gt;: Currently (June 2020) there is an issue on Openstack Magnum preventing the deployment.
-See &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/32&quot;&gt;this issue for updates&lt;/a&gt;
-I’ll remove the notice when it will be fixed.&lt;/p&gt;
-
-&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
+&lt;script src=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><summary type="html">Prompted by the announced better support of conda in readthedocs, more memory! I setup a Python package with conda to automatically build the documentation on readthedocs.</summary></entry><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
 JupyterHub on top of that using &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/&quot;&gt;zero-to-jupyterhub&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This is an updated version of the &lt;a href=&quot;https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;Kubernetes on Jetstream with Magnum tutorial&lt;/a&gt; based now on Kubernetes 1.15.7 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.
@@ -3123,10 +3153,11 @@ openstack security group rule create --ingress --protocol tcp --dst-port 443 htt
 
 &lt;p&gt;We prefer to run the NGINX ingress on the master node, in fact in the configuration in &lt;code class=&quot;highlighter-rouge&quot;&gt;nginx.yaml&lt;/code&gt; specifies:&lt;/p&gt;
 
-&lt;p&gt;nodeSelector:
-    node-role.kubernetes.io/master: “”&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nodeSelector:
+    node-role.kubernetes.io/master: &quot;&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This is useful to reduce traffic across the cluster, FIXME check the tolerations to make this cleaner.&lt;/p&gt;
+&lt;p&gt;This is useful to reduce traffic across the cluster, install NGINX using Helm:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_nginx_ingress.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -3185,7 +3216,7 @@ from the master node:&lt;/p&gt;
 
 &lt;h2 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h2&gt;
 
-&lt;p&gt;Many thanks to Jeremy Fischer and Mike Lowe for upgrading the infrastructure to the new Magnum and Kubernetes versions and applying the necessary fixes.&lt;/p&gt;</content><author><name></name></author><summary type="html">WARNING: Currently (June 2020) there is an issue on Openstack Magnum preventing the deployment. See this issue for updates I’ll remove the notice when it will be fixed.</summary></entry><entry><title type="html">White noise NET in Radio-astronomy and Cosmology</title><link href="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html" rel="alternate" type="text/html" title="White noise NET in Radio-astronomy and Cosmology" /><published>2020-04-24T00:00:00-05:00</published><updated>2020-04-24T00:00:00-05:00</updated><id>https://zonca.dev/2020/04/white-noise-angular-power-spectrum</id><content type="html" xml:base="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html">&lt;!--
+&lt;p&gt;Many thanks to Jeremy Fischer and Mike Lowe for upgrading the infrastructure to the new Magnum and Kubernetes versions and applying the necessary fixes.&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub.</summary></entry><entry><title type="html">White noise NET in Radio-astronomy and Cosmology</title><link href="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html" rel="alternate" type="text/html" title="White noise NET in Radio-astronomy and Cosmology" /><published>2020-04-24T00:00:00-05:00</published><updated>2020-04-24T00:00:00-05:00</updated><id>https://zonca.dev/2020/04/white-noise-angular-power-spectrum</id><content type="html" xml:base="https://zonca.dev/2020/04/white-noise-angular-power-spectrum.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################

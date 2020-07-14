@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      4 min read
+      5 min read
     
 </span></p>
 
@@ -219,6 +219,34 @@ drwxr-xr-x. 2 root root   4096 Jul 10 06:43 readonly_folder
 drwxr-xr-x. 2 1000 users  4096 Jul 10 06:43 writable_folder
 </code></pre></div></div>
 
+<h2 id="preserve-the-data-volume-across-redeployments">Preserve the data volume across redeployments</h2>
+
+<p>The NFS data volume could contain a lot of data that you would want to preserve in case you
+need to completely tear down the Kubernetes cluster.</p>
+
+<p>First we find out what is the ID of the <code class="highlighter-rouge">PersistentVolume</code> associated with the NFS volume:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pv | grep nfs
+pvc-ee1f02aa-11f8-433f-806f-186f6d622a30   10Gi       RWO            Delete           Bound    default/nfs-share-folder-claim   standard                5m55s
+</code></pre></div></div>
+
+<p>Then you can save the <code class="highlighter-rouge">PersistentVolume</code> and the <code class="highlighter-rouge">PersistentVolumeClaim</code> to YAML:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pvc nfs-share-folder-claim -o yaml &gt; existing_nfs_volume_claim.yaml
+kubectl get pv pvc-ee1f02aa-11f8-433f-806f-186f6d622a30 -o yaml &gt; existing_nfs_volume.yaml
+</code></pre></div></div>
+
+<p>Next we can delete the servers directly from Openstack, be careful not to delete the <code class="highlighter-rouge">PersistentVolume</code> or
+the <code class="highlighter-rouge">PersistentVolumeClaim</code> in Kubernetes or the underlying volume in Openstack will be deleted, also
+do not delete the namespace associated with those resources.</p>
+
+<p>Finally redeploy everything,
+and instead of launching <code class="highlighter-rouge">create_nfs_volume.yaml</code>, we create first the <code class="highlighter-rouge">PersistentVolume</code> then the <code class="highlighter-rouge">PersistentVolumeClaim</code>:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f existing_nfs_volume.yaml
+kubectl create -f existing_nfs_volume_claim.yaml
+</code></pre></div></div>
+
 <h1 id="mount-the-shared-filesystem-on-jupyterhub">Mount the shared filesystem on JupyterHub</h1>
 
 <p>Set the NFS server IP in <code class="highlighter-rouge">jupyterhub_nfs.yaml</code>, then add this line to <code class="highlighter-rouge">install_jhub.sh</code> (just before the last line, the file is located in the parent folder):</p>
@@ -296,6 +324,12 @@ lost+found  readonly_folder  writable_folder
 ssh-server:/share# touch readonly_folder/moredata
 ssh-server:/share#
 </code></pre></div></div>
+
+<h1 id="troubleshooting">Troubleshooting</h1>
+
+<ul>
+  <li>Consider that if you reboot or re-create the NFS server, the user pods need to be restarted, otherwise the NFS volume hangs.</li>
+</ul>
 
   </div><a class="u-url" href="/2020/07/nfs-server-kubernetes-jetstream.html" hidden></a>
 </article>
