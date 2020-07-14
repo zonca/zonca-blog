@@ -6,6 +6,8 @@ categories: [kubernetes, openstack, jetstream, jupyterhub]
 slug: kubernetes-jupyterhub-jetstream-magnum
 ---
 
+This tutorial is obsolete, please checkout the updated version at <https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html>.
+
 This tutorial deploys Kubernetes on Jetstream with Magnum and then
 JupyterHub on top of that using [zero-to-jupyterhub](https://zero-to-jupyterhub.readthedocs.io/).
 
