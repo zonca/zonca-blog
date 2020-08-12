@@ -1,4 +1,99 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-08-04T13:54:21-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Dask array rounding</title><link href="https://zonca.dev/2020/08/dask-array-rounding.html" rel="alternate" type="text/html" title="Dask array rounding" /><published>2020-08-04T00:00:00-05:00</published><updated>2020-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2020/08/dask-array-rounding</id><content type="html" xml:base="https://zonca.dev/2020/08/dask-array-rounding.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-08-11T19:14:59-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2020/08/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2020-08-11T00:00:00-05:00</published><updated>2020-08-11T00:00:00-05:00</updated><id>https://zonca.dev/2020/08/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2020/08/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
+the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
+in 2 separate &lt;code class=&quot;highlighter-rouge&quot;&gt;Helm&lt;/code&gt; recipes.&lt;/p&gt;
+
+&lt;p&gt;I assume to start from a Kubernetes cluster already running and
+JupyterHub deployed on top of it via Helm. And SSL encryption also activated (it isn’t probably necessary, but I haven’t tested that).
+I tested on Jetstream, but this is agnostic of that.&lt;/p&gt;
+
+&lt;h2 id=&quot;preparation&quot;&gt;Preparation&lt;/h2&gt;
+
+&lt;p&gt;Clone on the machine you use to run &lt;code class=&quot;highlighter-rouge&quot;&gt;helm&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; the repository
+with the configuration files and scripts:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you need to setup one API token, create it with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl rand -hex 32
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then paste it both in &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_dask-gateway.yaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;launch-dask-gateway&quot;&gt;Launch dask gateway&lt;/h2&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://gateway.dask.org/install-kube.html&quot;&gt;dask gateway documentation&lt;/a&gt; for reference:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ helm repo add daskgateway https://dask.org/dask-gateway-helm-repo/
+$ helm repo update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;enter the &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt; folder and run:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash install_dash-gateway.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You might want to check &lt;code class=&quot;highlighter-rouge&quot;&gt;config_dask-gateway.yaml&lt;/code&gt; for extra configuration options, but for initial setup and testing it shouldn’t be necessary.&lt;/p&gt;
+
+&lt;p&gt;After this you should see the 3 dask gateway pods running, e.g.:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl -n jhub get pods
+NAME                                       READY   STATUS    RESTARTS   AGE
+api-dask-gateway-64bf5db96c-4xfd6          1/1     Running   2          23m
+controller-dask-gateway-7674bd545d-cwfnx   1/1     Running   0          23m
+traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;modify-the-jupyterhub-configuration&quot;&gt;Modify the JupyterHub configuration&lt;/h2&gt;
+
+&lt;p&gt;Only 2 options need to be changed in JupyterHub:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We need to run a image which has the same version of &lt;code class=&quot;highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; we installed on Kubernetes (currently &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8.0&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;We need to proxy &lt;code class=&quot;highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; through JupyterHub so the users can access the Dask dashboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are using my &lt;code class=&quot;highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; script to deploy JupyterHub,
+you can modify it and add another &lt;code class=&quot;highlighter-rouge&quot;&gt;values&lt;/code&gt; option at the end, &lt;code class=&quot;highlighter-rouge&quot;&gt;--values dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.
+Then redeploy JupyterHub:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check that the service is working correctly,
+if open a browser tab and access &lt;a href=&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&quot;&gt;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&lt;/a&gt;, you should see:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;create-a-dask-cluster&quot;&gt;Create a dask cluster&lt;/h2&gt;
+
+&lt;p&gt;You can now login to JupyterHub and check you can connect properly to &lt;code class=&quot;highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dask_gateway&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://traefik-dask-gateway/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jupyterhub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_clusters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then create a cluster and use it:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_public_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Client is a standard &lt;code class=&quot;highlighter-rouge&quot;&gt;distributed&lt;/code&gt; client and all subsequent calls to dask will go
+through the cluster.&lt;/p&gt;
+
+&lt;p&gt;For a full example and screenshots of the widgets and of the dashboard see:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(Click on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial follows the work by the Pangeo collaboration, the main difference is that I prefer to keep JupyterHub and the Dask infrastructure in 2 separate Helm recipes.</summary></entry><entry><title type="html">Dask array rounding</title><link href="https://zonca.dev/2020/08/dask-array-rounding.html" rel="alternate" type="text/html" title="Dask array rounding" /><published>2020-08-04T00:00:00-05:00</published><updated>2020-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2020/08/dask-array-rounding</id><content type="html" xml:base="https://zonca.dev/2020/08/dask-array-rounding.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -3640,240 +3735,4 @@ for example if &lt;code class=&quot;highlighter-rouge&quot;&gt;python / install&
 
 &lt;p&gt;See &lt;a href=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558&quot;&gt;these files on Gist&lt;/a&gt;&lt;/p&gt;
 
-&lt;script src=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><summary type="html">Prompted by the announced better support of conda in readthedocs, more memory! I setup a Python package with conda to automatically build the documentation on readthedocs.</summary></entry><entry><title type="html">Deploy Kubernetes and JupyterHub on Jetstream with Magnum</title><link href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" rel="alternate" type="text/html" title="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" /><published>2020-05-21T00:00:00-05:00</published><updated>2020-05-21T00:00:00-05:00</updated><id>https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum</id><content type="html" xml:base="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html">&lt;p&gt;This tutorial deploys Kubernetes on Jetstream with Magnum and then
-JupyterHub on top of that using &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/&quot;&gt;zero-to-jupyterhub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;This is an updated version of the &lt;a href=&quot;https://zonca.dev/2019/06/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;Kubernetes on Jetstream with Magnum tutorial&lt;/a&gt; based now on Kubernetes 1.15.7 instead of Kubernetes 1.11, the node images are based on Fedora Atomic 29 and the Jetstream Magnum deployment is now updated to the Openstack Train release.
-If you need a newer version of Kubernetes, you can install Kubernetes with Kubespray instead, see &lt;a href=&quot;https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html&quot;&gt;this tutorial&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;setup-access-to-the-jetstream-api&quot;&gt;Setup access to the Jetstream API&lt;/h2&gt;
-
-&lt;p&gt;First install the OpenStack client, please use these exact versions, also please run at Indiana, the TACC deployment has an older release of Openstack.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install python-openstackclient==3.18 python-magnumclient==3.10
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Load your API credentials from &lt;code class=&quot;highlighter-rouge&quot;&gt;openrc.sh&lt;/code&gt;, check &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh&quot;&gt;documentation of the Jetstream wiki for details&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;You need to have a keypair uploaded to Openstack, this just needs to be done once per account. See &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/35913730/OpenStack+command+line&quot;&gt;the Jetstream documentation&lt;/a&gt; under the section “Upload SSH key - do this once”.&lt;/p&gt;
-
-&lt;h2 id=&quot;create-the-cluster-with-magnum&quot;&gt;Create the cluster with Magnum&lt;/h2&gt;
-
-&lt;p&gt;As usual, checkout the repository with all the configuration files on the machine you will use the Jetstream API from, typically your laptop.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
-cd jupyterhub-deploy-kubernetes-jetstream
-cd kubernetes_magnum
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now we are ready to use Magnum to first create a cluster template and then the actual cluster, edit first &lt;code class=&quot;highlighter-rouge&quot;&gt;create_cluster.sh&lt;/code&gt; and set the parameters of the cluster on the top. Also make sure to set the keypair name.
-Create the network resources and the cluster template, these need to be created just
-once, then they can be reused by clusters created later on:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_network.sh
-bash create_template.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then a cluster can be created with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_cluster.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The cluster consumes resources when active, it can be switched off with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash delete_cluster.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Consider this is deleting all Jetstream virtual machines and data that could be stored in JupyterHub.&lt;/p&gt;
-
-&lt;p&gt;I have setup a test cluster with only 1 master node and 1 normal node but you can modify that later.&lt;/p&gt;
-
-&lt;p&gt;Check the status of your cluster, after about 10 minutes, it should be in state &lt;code class=&quot;highlighter-rouge&quot;&gt;CREATE_COMPLETE&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack coe cluster show k8s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;configure-kubectl-locally&quot;&gt;Configure kubectl locally&lt;/h3&gt;
-
-&lt;p&gt;Install the &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; client locally, first check the version of the master node:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server list # find the floating public IP of the master node (starts with 149_
-IP=149.xxx.xxx.xxx
-ssh fedora@$IP
-kubectl version
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now install the same version following the &lt;a href=&quot;https://kubernetes.io/docs/tasks/tools/install-kubectl/&quot;&gt;Kubernetes documentation&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Now configure &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; on your laptop to connect to the Kubernetes cluster created with Magnum:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir kubectl_secret
-cd kubectl_secret
-openstack coe cluster config k8s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This downloads a configuration file and the required certificates.&lt;/p&gt;
-
-&lt;p&gt;and returns  &lt;code class=&quot;highlighter-rouge&quot;&gt;export KUBECONFIG=/absolute/path/to/config&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;See also the &lt;code class=&quot;highlighter-rouge&quot;&gt;update_kubectl_secret.sh&lt;/code&gt; script to automate this step, but it requires to already have setup the environment variable.&lt;/p&gt;
-
-&lt;p&gt;execute that and then:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl get nodes
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;we can also verify the Kubernetes version available, it should now be &lt;code class=&quot;highlighter-rouge&quot;&gt;1.15.7&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl version
-Server Version: version.Info{Major:&quot;1&quot;, Minor:&quot;15&quot;, GitVersion:&quot;v1.15.7&quot;, GitCommit:&quot;6c143d35bb11d74970e7bc0b6c45b6bfdffc0bd4&quot;, GitTreeState:&quot;clean&quot;, BuildDate:&quot;2019-12-11T12:34:17Z&quot;, GoVersion:&quot;go1.12.12&quot;, Compiler:&quot;gc&quot;, Platform:&quot;linux/amd64&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;configure-storage&quot;&gt;Configure storage&lt;/h2&gt;
-
-&lt;p&gt;Magnum configures a provider that knows how to create Kubernetes volumes using Openstack Cinder,
-but does not configure a &lt;code class=&quot;highlighter-rouge&quot;&gt;storageclass&lt;/code&gt;, we can do that with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f storageclass.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can test this by creating a Persistent Volume Claim:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f persistent_volume_claim.yaml
-
-kubectl describe pv
-
-kubectl describe pvc
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Name:            pvc-e8b93455-898b-11e9-a37c-fa163efb4609
-Labels:          failure-domain.beta.kubernetes.io/zone=nova
-Annotations:     kubernetes.io/createdby: cinder-dynamic-provisioner
-                 pv.kubernetes.io/bound-by-controller: yes
-                 pv.kubernetes.io/provisioned-by: kubernetes.io/cinder
-Finalizers:      [kubernetes.io/pv-protection]
-StorageClass:    standard
-Status:          Bound
-Claim:           default/pvc-test
-Reclaim Policy:  Delete
-Access Modes:    RWO
-Capacity:        5Gi
-Node Affinity:   &amp;lt;none&amp;gt;
-Message:
-Source:
-    Type:       Cinder (a Persistent Disk resource in OpenStack)
-    VolumeID:   2795724b-ef11-4053-9922-d854107c731f
-    FSType:
-    ReadOnly:   false
-    SecretRef:  nil
-Events:         &amp;lt;none&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;We can also test creating an actual pod with a persistent volume and check
-that the volume is successfully mounted and the pod started:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f ../alpine-persistent-volume.yaml
-kubectl describe pod alpine
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;note-about-availability-zones&quot;&gt;Note about availability zones&lt;/h3&gt;
-
-&lt;p&gt;By default Openstack servers and Openstack volumes are created in different availability zones. This created an issue with the default Magnum templates because we need to modify the Kubernetes scheduler policy to allow this. Kubespray does this by default, so I created a &lt;a href=&quot;https://github.com/zonca/magnum/pull/2&quot;&gt;fix to be applied to the Jetstream Magnum templates&lt;/a&gt;, this needs to be re-applied after every Openstack upgrade. The Jetstream team has applied these fixes, they are linked here just for reference.&lt;/p&gt;
-
-&lt;h2 id=&quot;install-helm&quot;&gt;Install Helm&lt;/h2&gt;
-
-&lt;p&gt;The Kubernetes deployment from Magnum is not as complete as the one out of Kubespray, we need
-to setup the NGINX ingress ourselves.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://helm.sh/docs/using_helm/#installing-helm&quot;&gt;Install the Helm client on your laptop&lt;/a&gt;,
-make sure you install Helm 3 or later.&lt;/p&gt;
-
-&lt;p&gt;Run &lt;code class=&quot;highlighter-rouge&quot;&gt;helm ls&lt;/code&gt; and make sure it doesn’t give any error message but just an empty result.&lt;/p&gt;
-
-&lt;h2 id=&quot;setup-nginx-ingress&quot;&gt;Setup NGINX ingress&lt;/h2&gt;
-
-&lt;p&gt;We need to have the NGINX web server to act as front-end to the services running inside the Kubernetes cluster.&lt;/p&gt;
-
-&lt;h3 id=&quot;open-http-and-https-ports&quot;&gt;Open HTTP and HTTPS ports&lt;/h3&gt;
-
-&lt;p&gt;First we need to open the HTTP and HTTPS ports on the master node, you can either connect to the Horizon interface,
-create new rule named &lt;code class=&quot;highlighter-rouge&quot;&gt;http_https&lt;/code&gt;, then add 2 rules, in the Rule drop down choose HTTP and HTTPS; or from the command line:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack security group create http_https
-openstack security group rule create --ingress --protocol tcp --dst-port 80 http_https
-openstack security group rule create --ingress --protocol tcp --dst-port 443 http_https
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then you can find the name of the master node in &lt;code class=&quot;highlighter-rouge&quot;&gt;openstack server list&lt;/code&gt; then add this security group to that instance:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack server add security group  k8s-xxxxxxxxxxxx-master-0 http_https
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;install-nginx-ingress-with-helm&quot;&gt;Install NGINX ingress with Helm&lt;/h3&gt;
-
-&lt;p&gt;We prefer to run the NGINX ingress on the master node, in fact in the configuration in &lt;code class=&quot;highlighter-rouge&quot;&gt;nginx.yaml&lt;/code&gt; specifies:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nodeSelector:
-    node-role.kubernetes.io/master: &quot;&quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This is useful to reduce traffic across the cluster, install NGINX using Helm:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_nginx_ingress.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Note, the documentation says we should add this annotation to ingress with &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl edit ingress -n jhub&lt;/code&gt;, but I found out it is not necessary:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;metadata:
-  annotations:
-    kubernetes.io/ingress.class: nginx
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If this is correctly working, you should be able to run &lt;code class=&quot;highlighter-rouge&quot;&gt;curl localhost&lt;/code&gt; from the master node and get a &lt;code class=&quot;highlighter-rouge&quot;&gt;Default backend: 404&lt;/code&gt; message.&lt;/p&gt;
-
-&lt;h2 id=&quot;install-jupyterhub&quot;&gt;Install JupyterHub&lt;/h2&gt;
-
-&lt;p&gt;Finally, we can go back to the root of the repository and install JupyterHub, first create the secrets file:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_secrets.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then edit &lt;code class=&quot;highlighter-rouge&quot;&gt;secrets.yaml&lt;/code&gt; and modify the hostname under &lt;code class=&quot;highlighter-rouge&quot;&gt;hosts&lt;/code&gt; to display the hostname of your master Jetstream instance, i.e. if your instance public floating IP is &lt;code class=&quot;highlighter-rouge&quot;&gt;aaa.bbb.xxx.yyy&lt;/code&gt;, the hostname should be &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; (without &lt;code class=&quot;highlighter-rouge&quot;&gt;http://&lt;/code&gt;).&lt;/p&gt;
-
-&lt;p&gt;You should also check that connecting with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; shows &lt;code class=&quot;highlighter-rouge&quot;&gt;default backend - 404&lt;/code&gt;, this means NGINX is also reachable from the internet, i.e. the web port is open on the master node.&lt;/p&gt;
-
-&lt;p&gt;Finally:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash configure_helm_jupyterhub.sh
-kubectl create namespace jhub
-bash install_jhub.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Connect with your browser to &lt;code class=&quot;highlighter-rouge&quot;&gt;js-xxx-yyy.jetstream-cloud.org&lt;/code&gt; to check if it works.&lt;/p&gt;
-
-&lt;p&gt;We are installing the &lt;code class=&quot;highlighter-rouge&quot;&gt;zero-to-jupyterhub&lt;/code&gt; helm recipe version &lt;code class=&quot;highlighter-rouge&quot;&gt;0.9.0&lt;/code&gt; instead of &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8.2&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;allow-services-on-master&quot;&gt;Allow services on master&lt;/h3&gt;
-
-&lt;p&gt;By default the new Kubernetes version has 1 taint on the master node:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  taints:
-  - effect: NoSchedule
-    key: dedicated
-    value: master
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The JupyterHub recipe does not allow to automatically set tolerations on the hub and the proxy
-pods, therefore if we want to run them on master, the easiest way is to delete that taint
-from the master node:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl edit node NODENAME
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;issues-and-feedback&quot;&gt;Issues and feedback&lt;/h2&gt;
-
-&lt;p&gt;Please &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/&quot;&gt;open an issue on the repository&lt;/a&gt; to report any issue or give feedback. Also you find out there there what I am working on next.&lt;/p&gt;
-
-&lt;h2 id=&quot;acknowledgments&quot;&gt;Acknowledgments&lt;/h2&gt;
-
-&lt;p&gt;Many thanks to Jeremy Fischer and Mike Lowe for upgrading the infrastructure to the new Magnum and Kubernetes versions and applying the necessary fixes.&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub.</summary></entry></feed>
+&lt;script src=&quot;https://gist.github.com/zonca/c6f29060a2e77cffcfb155dd4ef1a558.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><summary type="html">Prompted by the announced better support of conda in readthedocs, more memory! I setup a Python package with conda to automatically build the documentation on readthedocs.</summary></entry></feed>
