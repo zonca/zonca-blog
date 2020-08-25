@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Investigate broken implementation of bandpass unit conversion in PySM 3 | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Investigate broken implementation of bandpass unit conversion in PySM 3" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<link rel="canonical" href="https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html" />
+<meta property="og:url" content="https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-24T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Investigate broken implementation of bandpass unit conversion in PySM 3","dateModified":"2020-08-24T00:00:00-05:00","datePublished":"2020-08-24T00:00:00-05:00","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Investigate broken implementation of bandpass unit conversion in PySM 3 | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Investigate broken implementation of bandpass unit conversion in PySM 3" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<link rel="canonical" href="https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html" />
+<meta property="og:url" content="https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-08-24T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Investigate broken implementation of bandpass unit conversion in PySM 3","dateModified":"2020-08-24T00:00:00-05:00","datePublished":"2020-08-24T00:00:00-05:00","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/08/debug-bandpass-unit-conversion-pysm3.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Investigate broken implementation of bandpass unit conversion in PySM 3</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-08-24T00:00:00-05:00" itemprop="datePublished">
+        Aug 24, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#cmbs4">cmbs4</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#pysm">pysm</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#simonsobs">simonsobs</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/zonca/zonca-blog/tree/master/_notebooks/2020-08-24-debug-bandpass-unit-conversion-pysm3.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/zonca/zonca-blog/master?filepath=_notebooks%2F2020-08-24-debug-bandpass-unit-conversion-pysm3.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/zonca/zonca-blog/blob/master/_notebooks/2020-08-24-debug-bandpass-unit-conversion-pysm3.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-08-24-debug-bandpass-unit-conversion-pysm3.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pysm3</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">healpy</span> <span class="k">as</span> <span class="nn">hp</span>
+<span class="kn">from</span> <span class="nn">astropy.tests.helper</span> <span class="kn">import</span> <span class="n">assert_quantity_allclose</span>
+<span class="kn">import</span> <span class="nn">pysm3.units</span> <span class="k">as</span> <span class="nn">u</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Investigation of the broken implementation of the bandpass unit conversion function in PySM 3 and
+check of its impact on existing Simons Observatory and CMB-S4 simulated datasets.</p>
+<p>See the <a href="https://github.com/healpy/pysm/issues/59">related issue</a> and the <a href="https://github.com/healpy/pysm/issues/60">pull request with the fix</a>. This affects all PySM 3 versions <code>&lt;3.2.2</code>, it will be fixed in <code>3.3.0</code>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>$ \tilde{I} = \int g(\nu) I(\nu)d\nu$</p>
+<p>If we consider emission of the CMB in $K_{CMB}$ units, $I_{CMB}$ is not a function of $\nu$:</p>
+<p>$ \tilde{I}_{CMB}[K_{CMB}] = \int g(\nu) I_{CMB}[K_{CMB}] d\nu = I_{CMB}[K_{CMB}] \int g(\nu)  d\nu = I_{CMB}[K_{CMB}]$</p>
+<p>$ \tilde{I}_{CMB}[K_{RJ}]  = I_{CMB}[K_{CMB}] \int g(\nu) C_{K_{CMB}}^{K_{RJ}}(\nu)  d\nu $</p>
+<p>However we assume that the bandpass of the instrument $g(\nu)$ is given in power units, i.e. $Jy/sr$, the python <code>normalize_weights</code> functions does:</p>
+<p>$ g [K_{RJ}/K_{RJ}] = \dfrac{C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}]}{\int C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}] d(\nu)} $</p>
+<p>CMB bandpass integrated converted to $K_{RJ}$.</p>
+<p>$ \tilde{I}_{CMB}[K_{RJ}] =  I_{CMB}[K_{CMB}] \int g(\nu)[K_{RJ}/K_{RJ}] C_{K_{CMB}}^{K_{RJ}}(\nu)  d\nu = I_{CMB}[K_{CMB}] \int \dfrac {C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}]}{\int C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}] d(\nu)} C_{K_{CMB}}^{K_{RJ}}(\nu)  d\nu $</p>
+<p>You can think the last equation as getting a value in $K_{CMB}$, turn it into $K_{RJ}$ and then to $Jy~sr^{-1}$, and do the relative weighting then.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>However we assume that the bandpass of the instrument $g(\nu)$ is given in power units, i.e. $Jy/sr$, the python <code>normalize_weights</code> functions does:</p>
+<p>$ g [K_{RJ}/K_{RJ}] = \dfrac{C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}]}{\int C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}] d(\nu)} $</p>
+<h2 id="From-$K_{CMB}$-to-$K_{RJ}$:">From $K_{CMB}$ to $K_{RJ}$:<a class="anchor-link" href="#From-$K_{CMB}$-to-$K_{RJ}$:"> </a></h2><p>If the output is requested in $K_{CMB}$, we basically have to undo that steps, so:</p>
+<p>$ \tilde{I}_{CMB}[K_{RJ}] = I_{CMB}[K_{CMB}] \int \dfrac{C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}]}{\int C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}] d(\nu)} C_{K_{CMB}}^{K_{RJ}}(\nu)  d\nu $</p>
+<h3 id="fixed_bandpass_unit_conversion"><code>fixed_bandpass_unit_conversion</code><a class="anchor-link" href="#fixed_bandpass_unit_conversion"> </a></h3><p>$ \tilde{I}_{CMB}[K_{CMB}] = \tilde{I}_{CMB}[K_{RJ}] \dfrac{ \int C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g(\nu) d\nu}  { \int C_{K_{CMB}}^{Jy~sr^{-1}}(\nu) g(\nu) d\nu} $</p>
+<h3 id="broken_bandpass_unit_conversion"><code>broken_bandpass_unit_conversion</code><a class="anchor-link" href="#broken_bandpass_unit_conversion"> </a></h3><p>$ \tilde{I}_{CMB}[K_{CMB}] = \tilde{I}_{CMB}[K_{RJ}]  \int C_{K_{RJ}}^{K_{CMB}}(\nu) g_{RJ}(\nu) d(\nu) = \tilde{I}_{CMB}[K_{RJ}]  \int C_{K_{RJ}}^{K_{CMB}}(\nu) \dfrac{C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}]}{\int C_{K_{RJ}}^{Jy~sr^{-1}}(\nu) g [Jy~sr^{-1} / Jy~sr^{-1}] d(\nu)} d(\nu)$</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pysm3.utils</span> <span class="kn">import</span> <span class="n">normalize_weights</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">broken_bandpass_unit_conversion</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unit conversion from uK_RJ to output unit given a bandpass</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    freqs : astropy.units.Quantity</span>
+<span class="sd">        Frequency array in a unit compatible with GHz</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">check_freq_input</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+    <span class="n">factors</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">freqs</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_RJ</span><span class="p">)</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span>
+        <span class="n">output_unit</span><span class="p">,</span> <span class="n">equivalencies</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cmb_equivalencies</span><span class="p">(</span><span class="n">freqs</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">GHz</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">normalize_weights</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+        <span class="n">factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">factors</span> <span class="o">*</span> <span class="n">w</span><span class="p">,</span> <span class="n">freqs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">factor</span> <span class="o">=</span> <span class="n">factors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="n">output_unit</span><span class="p">)</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_RJ</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span>    <span class="n">nside</span> <span class="o">=</span> <span class="mi">32</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">250</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">])</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">GHz</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">freqs</span><span class="p">))</span>
+    <span class="n">sky</span> <span class="o">=</span> <span class="n">pysm3</span><span class="o">.</span><span class="n">Sky</span><span class="p">(</span><span class="n">nside</span><span class="o">=</span><span class="n">nside</span><span class="p">,</span> <span class="n">preset_strings</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;c2&quot;</span><span class="p">])</span>
+    <span class="n">CMB_rj_int</span> <span class="o">=</span> <span class="n">sky</span><span class="o">.</span><span class="n">get_emission</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+    <span class="n">CMB_thermo_int</span> <span class="o">=</span> <span class="n">CMB_rj_int</span><span class="o">*</span><span class="n">fixed_bandpass_unit_conversion</span><span class="p">(</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="n">expected_map</span> <span class="o">=</span> <span class="n">pysm3</span><span class="o">.</span><span class="n">read_map</span><span class="p">(</span>
+        <span class="s2">&quot;pysm_2/lensed_cmb.fits&quot;</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">nside</span><span class="o">=</span><span class="n">nside</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">pol</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]:</span>
+        <span class="c1">#assert_quantity_allclose(expected_map[pol], CMB_thermo_int[pol], rtol=1e-4)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: </span><span class="si">{:.2f}</span><span class="s2"> %&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">100</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">((</span><span class="n">CMB_thermo_int</span><span class="p">[</span><span class="n">pol</span><span class="p">]</span><span class="o">/</span><span class="n">expected_map</span><span class="p">[</span><span class="n">pol</span><span class="p">])</span><span class="o">.</span><span class="n">value</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Error: -0.00 %
+Error: -0.00 %
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pysm3.utils</span> <span class="kn">import</span> <span class="n">check_freq_input</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fixed_bandpass_unit_conversion</span><span class="p">(</span><span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">output_unit</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Unit conversion from uK_RJ to output unit given a bandpass</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    freqs : astropy.units.Quantity</span>
+<span class="sd">        Frequency array in a unit compatible with GHz</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">check_freq_input</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span>
+    <span class="n">weights_to_rj</span> <span class="o">=</span> <span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_RJ</span><span class="p">)</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Jy</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">sr</span><span class="p">),</span> <span class="n">equivalencies</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cmb_equivalencies</span><span class="p">(</span><span class="n">freqs</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">GHz</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="n">weights_to_out</span> <span class="o">=</span> <span class="p">(</span><span class="n">weights</span> <span class="o">*</span> <span class="n">output_unit</span><span class="p">)</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Jy</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">sr</span><span class="p">),</span> <span class="n">equivalencies</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cmb_equivalencies</span><span class="p">(</span><span class="n">freqs</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">GHz</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">freqs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">weights_to_rj</span><span class="p">,</span> <span class="n">freqs</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">trapz</span><span class="p">(</span><span class="n">weights_to_out</span><span class="p">,</span> <span class="n">freqs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">factor</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_RJ</span><span class="p">)</span><span class="o">.</span><span class="n">to_value</span><span class="p">(</span>
+            <span class="n">output_unit</span><span class="p">,</span> <span class="n">equivalencies</span><span class="o">=</span><span class="n">u</span><span class="o">.</span><span class="n">cmb_equivalencies</span><span class="p">(</span><span class="n">freqs</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">GHz</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="n">output_unit</span><span class="p">)</span> <span class="o">/</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_RJ</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Unit-conversion-error-for-20%-tophat-bandpasses">Unit conversion error for 20% tophat bandpasses<a class="anchor-link" href="#Unit-conversion-error-for-20%-tophat-bandpasses"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">perc_error</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">center_freq</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">350</span><span class="p">,</span> <span class="mi">400</span><span class="p">])</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">GHz</span><span class="p">:</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">center_freq</span><span class="o">*.</span><span class="mi">8</span><span class="p">,</span> <span class="n">center_freq</span><span class="o">*</span><span class="mf">1.2</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">rj_to_cmb</span> <span class="o">=</span> <span class="n">broken_bandpass_unit_conversion</span><span class="p">(</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="n">fixed_rj_to_cmb</span> <span class="o">=</span> <span class="n">fixed_bandpass_unit_conversion</span><span class="p">(</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="n">perc_error</span><span class="p">[</span><span class="n">center_freq</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rj_to_cmb</span> <span class="o">-</span> <span class="n">fixed_rj_to_cmb</span><span class="p">)</span> <span class="o">/</span> <span class="n">fixed_rj_to_cmb</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{: &lt;3.0f}</span><span class="s2">, broken: </span><span class="si">{:.3f}</span><span class="s2">, fixed: </span><span class="si">{:.3f}</span><span class="s2">, error </span><span class="si">{:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">center_freq</span><span class="p">,</span> <span class="n">rj_to_cmb</span><span class="p">,</span> <span class="n">fixed_rj_to_cmb</span><span class="p">,</span> <span class="n">perc_error</span><span class="p">[</span><span class="n">center_freq</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>10  GHz, broken: 1.003 uK_CMB / uK_RJ, fixed: 1.003 uK_CMB / uK_RJ, error 0.00%
+20  GHz, broken: 1.011 uK_CMB / uK_RJ, fixed: 1.011 uK_CMB / uK_RJ, error 0.00%
+40  GHz, broken: 1.045 uK_CMB / uK_RJ, fixed: 1.045 uK_CMB / uK_RJ, error 0.01%
+70  GHz, broken: 1.143 uK_CMB / uK_RJ, fixed: 1.142 uK_CMB / uK_RJ, error 0.08%
+100 GHz, broken: 1.310 uK_CMB / uK_RJ, fixed: 1.306 uK_CMB / uK_RJ, error 0.32%
+150 GHz, broken: 1.808 uK_CMB / uK_RJ, fixed: 1.782 uK_CMB / uK_RJ, error 1.47%
+200 GHz, broken: 2.770 uK_CMB / uK_RJ, fixed: 2.661 uK_CMB / uK_RJ, error 4.06%
+250 GHz, broken: 4.627 uK_CMB / uK_RJ, fixed: 4.260 uK_CMB / uK_RJ, error 8.62%
+270 GHz, broken: 5.800 uK_CMB / uK_RJ, fixed: 5.221 uK_CMB / uK_RJ, error 11.10%
+300 GHz, broken: 8.297 uK_CMB / uK_RJ, fixed: 7.178 uK_CMB / uK_RJ, error 15.59%
+350 GHz, broken: 15.749 uK_CMB / uK_RJ, fixed: 12.560 uK_CMB / uK_RJ, error 25.39%
+400 GHz, broken: 31.306 uK_CMB / uK_RJ, fixed: 22.588 uK_CMB / uK_RJ, error 38.59%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Unit-conversion-error-for-Simons-Observatory-channels">Unit conversion error for Simons Observatory channels<a class="anchor-link" href="#Unit-conversion-error-for-Simons-Observatory-channels"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">h5py</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SO_chs</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;../mapsims/mapsims/data/simonsobs_instrument_parameters_2020.06.h5&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SO_chs</span><span class="p">[</span><span class="s2">&quot;LT0_UHF1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;KeysViewHDF5 [&#39;bandpass_frequency_GHz&#39;, &#39;bandpass_weight&#39;]&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">SO_chs</span><span class="p">[</span><span class="s2">&quot;LT0_UHF1&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;KeysViewHDF5 [&#39;band&#39;, &#39;band_id&#39;, &#39;center_frequency_GHz&#39;, &#39;fwhm_arcmin&#39;, &#39;noise_band_index&#39;, &#39;telescope&#39;, &#39;tube&#39;, &#39;tube_id&#39;]&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">perc_error</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">SO_chs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">&quot;bandpass_frequency_GHz&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">GHz</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">&quot;bandpass_weight&quot;</span><span class="p">]</span>
+    <span class="n">rj_to_cmb</span> <span class="o">=</span> <span class="n">broken_bandpass_unit_conversion</span><span class="p">(</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="n">fixed_rj_to_cmb</span> <span class="o">=</span> <span class="n">fixed_bandpass_unit_conversion</span><span class="p">(</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="n">perc_error</span><span class="p">[</span><span class="n">center_freq</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rj_to_cmb</span> <span class="o">-</span> <span class="n">fixed_rj_to_cmb</span><span class="p">)</span> <span class="o">/</span> <span class="n">fixed_rj_to_cmb</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{:4s}</span><span class="s2">, </span><span class="si">{:6.2f}</span><span class="s2"> GHz, broken: </span><span class="si">{:.3f}</span><span class="s2">, fixed: </span><span class="si">{:.3f}</span><span class="s2">, error </span><span class="si">{:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ch</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;telescope&quot;</span><span class="p">],</span> <span class="n">ch</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;band&quot;</span><span class="p">],</span> <span class="n">ch</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;center_frequency_GHz&quot;</span><span class="p">],</span> <span class="n">rj_to_cmb</span><span class="p">,</span> <span class="n">fixed_rj_to_cmb</span><span class="p">,</span> <span class="n">perc_error</span><span class="p">[</span><span class="n">center_freq</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>LA UHF1, 225.70 GHz, broken: 3.377 uK_CMB / uK_RJ, fixed: 3.293 uK_CMB / uK_RJ, error 2.54%
+LA UHF2, 285.40 GHz, broken: 6.166 uK_CMB / uK_RJ, fixed: 5.990 uK_CMB / uK_RJ, error 2.93%
+LA UHF1, 225.70 GHz, broken: 3.377 uK_CMB / uK_RJ, fixed: 3.293 uK_CMB / uK_RJ, error 2.54%
+LA UHF2, 285.40 GHz, broken: 6.166 uK_CMB / uK_RJ, fixed: 5.990 uK_CMB / uK_RJ, error 2.93%
+LA MFF1,  92.00 GHz, broken: 1.248 uK_CMB / uK_RJ, fixed: 1.247 uK_CMB / uK_RJ, error 0.12%
+LA MFF2, 147.50 GHz, broken: 1.729 uK_CMB / uK_RJ, fixed: 1.721 uK_CMB / uK_RJ, error 0.49%
+LA MFF1,  92.00 GHz, broken: 1.248 uK_CMB / uK_RJ, fixed: 1.247 uK_CMB / uK_RJ, error 0.12%
+LA MFF2, 147.50 GHz, broken: 1.729 uK_CMB / uK_RJ, fixed: 1.721 uK_CMB / uK_RJ, error 0.49%
+LA MFS1,  88.60 GHz, broken: 1.229 uK_CMB / uK_RJ, fixed: 1.228 uK_CMB / uK_RJ, error 0.11%
+LA MFS2, 146.50 GHz, broken: 1.720 uK_CMB / uK_RJ, fixed: 1.711 uK_CMB / uK_RJ, error 0.54%
+LA MFS1,  88.60 GHz, broken: 1.229 uK_CMB / uK_RJ, fixed: 1.228 uK_CMB / uK_RJ, error 0.11%
+LA MFS2, 146.50 GHz, broken: 1.720 uK_CMB / uK_RJ, fixed: 1.711 uK_CMB / uK_RJ, error 0.54%
+LA LF1 ,  25.70 GHz, broken: 1.018 uK_CMB / uK_RJ, fixed: 1.018 uK_CMB / uK_RJ, error 0.00%
+LA LF2 ,  38.90 GHz, broken: 1.043 uK_CMB / uK_RJ, fixed: 1.043 uK_CMB / uK_RJ, error 0.01%
+SA UHF1, 225.70 GHz, broken: 3.377 uK_CMB / uK_RJ, fixed: 3.293 uK_CMB / uK_RJ, error 2.54%
+SA UHF2, 285.40 GHz, broken: 6.166 uK_CMB / uK_RJ, fixed: 5.990 uK_CMB / uK_RJ, error 2.93%
+SA MFF1,  92.00 GHz, broken: 1.248 uK_CMB / uK_RJ, fixed: 1.247 uK_CMB / uK_RJ, error 0.12%
+SA MFF2, 147.50 GHz, broken: 1.729 uK_CMB / uK_RJ, fixed: 1.721 uK_CMB / uK_RJ, error 0.49%
+SA MFS1,  88.60 GHz, broken: 1.229 uK_CMB / uK_RJ, fixed: 1.228 uK_CMB / uK_RJ, error 0.11%
+SA MFS2, 146.50 GHz, broken: 1.720 uK_CMB / uK_RJ, fixed: 1.711 uK_CMB / uK_RJ, error 0.54%
+SA LF1 ,  25.70 GHz, broken: 1.018 uK_CMB / uK_RJ, fixed: 1.018 uK_CMB / uK_RJ, error 0.00%
+SA LF2 ,  38.90 GHz, broken: 1.043 uK_CMB / uK_RJ, fixed: 1.043 uK_CMB / uK_RJ, error 0.01%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Unit-conversion-error-for-CMB-S4-channels">Unit conversion error for CMB-S4 channels<a class="anchor-link" href="#Unit-conversion-error-for-CMB-S4-channels"> </a></h2>
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">S4_chs</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="s2">&quot;../s4mapbasedsims/202006_foregrounds_extragalactic_cmb_tophat/cmbs4_tophat.h5&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">perc_error</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">ch</span> <span class="ow">in</span> <span class="n">S4_chs</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">freqs</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">&quot;bandpass_frequency_GHz&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">GHz</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">ch</span><span class="p">[</span><span class="s2">&quot;bandpass_weight&quot;</span><span class="p">]</span>
+    <span class="n">rj_to_cmb</span> <span class="o">=</span> <span class="n">broken_bandpass_unit_conversion</span><span class="p">(</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="n">fixed_rj_to_cmb</span> <span class="o">=</span> <span class="n">fixed_bandpass_unit_conversion</span><span class="p">(</span>
+        <span class="n">freqs</span><span class="p">,</span> <span class="n">weights</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">uK_CMB</span>
+    <span class="p">)</span>
+    <span class="n">perc_error</span><span class="p">[</span><span class="n">center_freq</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rj_to_cmb</span> <span class="o">-</span> <span class="n">fixed_rj_to_cmb</span><span class="p">)</span> <span class="o">/</span> <span class="n">fixed_rj_to_cmb</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{:5s}</span><span class="s2">, </span><span class="si">{:6.2f}</span><span class="s2"> GHz, broken: </span><span class="si">{:.3f}</span><span class="s2">, fixed: </span><span class="si">{:.3f}</span><span class="s2">, error </span><span class="si">{:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="n">ch</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;telescope&quot;</span><span class="p">],</span> <span class="n">ch</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;band&quot;</span><span class="p">],</span> <span class="n">ch</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;center_frequency_GHz&quot;</span><span class="p">],</span> <span class="n">rj_to_cmb</span><span class="p">,</span> <span class="n">fixed_rj_to_cmb</span><span class="p">,</span> <span class="n">perc_error</span><span class="p">[</span><span class="n">center_freq</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>LAT HFL1 , 225.00 GHz, broken: 3.364 uK_CMB / uK_RJ, fixed: 3.275 uK_CMB / uK_RJ, error 2.71%
+LAT HFL2 , 278.00 GHz, broken: 5.632 uK_CMB / uK_RJ, fixed: 5.523 uK_CMB / uK_RJ, error 1.98%
+SAT HFS1 , 220.00 GHz, broken: 3.163 uK_CMB / uK_RJ, fixed: 3.109 uK_CMB / uK_RJ, error 1.71%
+SAT HFS2 , 270.00 GHz, broken: 5.269 uK_CMB / uK_RJ, fixed: 5.099 uK_CMB / uK_RJ, error 3.34%
+LAT LFL1 ,  27.00 GHz, broken: 1.019 uK_CMB / uK_RJ, fixed: 1.019 uK_CMB / uK_RJ, error 0.00%
+LAT LFL2 ,  39.00 GHz, broken: 1.044 uK_CMB / uK_RJ, fixed: 1.044 uK_CMB / uK_RJ, error 0.01%
+SAT LFS1 ,  30.00 GHz, broken: 1.024 uK_CMB / uK_RJ, fixed: 1.024 uK_CMB / uK_RJ, error 0.00%
+SAT LFS2 ,  40.00 GHz, broken: 1.044 uK_CMB / uK_RJ, fixed: 1.044 uK_CMB / uK_RJ, error 0.01%
+SAT MFHS1,  95.00 GHz, broken: 1.263 uK_CMB / uK_RJ, fixed: 1.262 uK_CMB / uK_RJ, error 0.10%
+SAT MFHS2, 155.10 GHz, broken: 1.822 uK_CMB / uK_RJ, fixed: 1.813 uK_CMB / uK_RJ, error 0.51%
+LAT MFL1 ,  93.00 GHz, broken: 1.262 uK_CMB / uK_RJ, fixed: 1.259 uK_CMB / uK_RJ, error 0.22%
+LAT MFL2 , 145.00 GHz, broken: 1.707 uK_CMB / uK_RJ, fixed: 1.697 uK_CMB / uK_RJ, error 0.62%
+SAT MFLS1,  85.00 GHz, broken: 1.207 uK_CMB / uK_RJ, fixed: 1.206 uK_CMB / uK_RJ, error 0.06%
+SAT MFLS2, 145.10 GHz, broken: 1.696 uK_CMB / uK_RJ, fixed: 1.690 uK_CMB / uK_RJ, error 0.40%
+LAT ULFL1,  20.00 GHz, broken: 1.011 uK_CMB / uK_RJ, fixed: 1.011 uK_CMB / uK_RJ, error 0.00%
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/2020/08/debug-bandpass-unit-conversion-pysm3.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
