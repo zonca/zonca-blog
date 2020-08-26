@@ -113,7 +113,7 @@
     
         ,"post10": {
             "title": "My own git cheatsheet",
-            "content": "I noticed I always google the same procedures… . Remove a file from a commit . Direct remove without editing anything: . git reset HEAD^ -- path/to/file git commit --amend --no-edit . Step-by-step: . git reset --soft HEAD~1 git reset HEAD path/to/unwanted_file git commit -c ORIG_HEAD . Source .",
+            "content": "I noticed I always google the same procedures… . Remove a file from a commit . Direct remove without editing anything: . git reset HEAD^ -- path/to/file git commit --amend --no-edit . Step-by-step: . git reset --soft HEAD~1 git reset HEAD path/to/unwanted_file git commit -c ORIG_HEAD . Source . Only checkout a subset of files stored in git LFS . GIT_LFS_SKIP_SMUDGE=1 gh repo clone orgname/reponame . Then checkout only specific files: . git lfs fetch --include=&quot;pattern*&quot; --exclude=&quot;&quot; .",
             "url": "https://zonca.dev/2020/06/git.html",
             "relUrl": "/2020/06/git.html",
             "date": " • Jun 1, 2020"

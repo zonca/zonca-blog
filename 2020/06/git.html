@@ -141,6 +141,16 @@ git commit -c ORIG_HEAD
 </code></pre></div></div>
 <p><a href="https://stackoverflow.com/questions/12481639/remove-files-from-git-commit">Source</a></p>
 
+<h2 id="only-checkout-a-subset-of-files-stored-in-git-lfs">Only checkout a subset of files stored in <code class="highlighter-rouge">git</code> LFS</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>GIT_LFS_SKIP_SMUDGE=1 gh repo clone orgname/reponame
+</code></pre></div></div>
+
+<p>Then checkout only specific files:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git lfs fetch --include="pattern*" --exclude=""
+</code></pre></div></div>
+
   </div><a class="u-url" href="/2020/06/git.html" hidden></a>
 </article>
       </div>
