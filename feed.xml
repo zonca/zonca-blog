@@ -1,4 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-08-26T13:39:18-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Renew letsencrypt certificate with NGINX</title><link href="https://zonca.dev/2020/08/renew-letsencrypt-nginx.html" rel="alternate" type="text/html" title="Renew letsencrypt certificate with NGINX" /><published>2020-08-24T00:00:00-05:00</published><updated>2020-08-24T00:00:00-05:00</updated><id>https://zonca.dev/2020/08/renew-letsencrypt-nginx</id><content type="html" xml:base="https://zonca.dev/2020/08/renew-letsencrypt-nginx.html">&lt;p&gt;If you have a default domain already configured with NGINX,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-01T14:26:13-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
+
+&lt;p&gt;We want to be able to redirect from &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; keeping the relative url.&lt;/p&gt;
+
+&lt;p&gt;First we can setup user-defined redirects from the admin page on &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt;,
+see the &lt;a href=&quot;https://docs.readthedocs.io/en/stable/user-defined-redirects.html#exact-redirects&quot;&gt;full documentation&lt;/a&gt;,
+you can choose “Exact redirect”, I only care about redirecting the &lt;code class=&quot;highlighter-rouge&quot;&gt;latest&lt;/code&gt; version, so:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/en/latest/$rest -&amp;gt; https://myorganization.github.io/myrepo/master/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$rest&lt;/code&gt; is a special variable which redirects also all the other pages correctly.&lt;/p&gt;
+
+&lt;p&gt;The only issue now is that this redirect only works when the documentation is not found,
+therefore I made a temporary commit to &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; which deletes all of the Sphinx pages
+of the documentation and replaces &lt;code class=&quot;highlighter-rouge&quot;&gt;index.rst&lt;/code&gt; with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.. raw:: html
+
+    &amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
+        window.location.replace('https://myorganization.github.io/myrepo/master/');
+    &amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;After &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; builds this version, go to &lt;a href=&quot;https://github.com/myorganization/myrepo/settings/hooks&quot;&gt;https://github.com/myorganization/myrepo/settings/hooks&lt;/a&gt; and disable
+the &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; web hook.&lt;/p&gt;
+
+&lt;p&gt;Finally restore the documentation on your master branch and push.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is useful if you switch to hosting your own documentation, for example using Sphinx Multiversion on Github pages, tutorial coming soon.</summary></entry><entry><title type="html">Renew letsencrypt certificate with NGINX</title><link href="https://zonca.dev/2020/08/renew-letsencrypt-nginx.html" rel="alternate" type="text/html" title="Renew letsencrypt certificate with NGINX" /><published>2020-08-24T00:00:00-05:00</published><updated>2020-08-24T00:00:00-05:00</updated><id>https://zonca.dev/2020/08/renew-letsencrypt-nginx</id><content type="html" xml:base="https://zonca.dev/2020/08/renew-letsencrypt-nginx.html">&lt;p&gt;If you have a default domain already configured with NGINX,
 the easiest way to renew manually a domain is to temporarily
 disable your custom domain and then use &lt;code class=&quot;highlighter-rouge&quot;&gt;certbot-auto&lt;/code&gt; renew the certificate.&lt;/p&gt;
 
@@ -4234,15 +4261,4 @@ it was easier to just deploy it afterwards following &lt;a href=&quot;https://zo
 
 &lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
 
-&lt;p&gt;Feedback on this is very welcome, please open an issue on the &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream&quot;&gt;Github repository&lt;/a&gt; or email me at &lt;code class=&quot;highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain of the San Diego Supercomputer Center (sdsc.edu).&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).</summary></entry><entry><title type="html">Import and export list of blocked users on Twitter</title><link href="https://zonca.dev/2020/06/twitter-blocklist.html" rel="alternate" type="text/html" title="Import and export list of blocked users on Twitter" /><published>2020-06-01T00:00:00-05:00</published><updated>2020-06-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/06/twitter-blocklist</id><content type="html" xml:base="https://zonca.dev/2020/06/twitter-blocklist.html">&lt;p&gt;&lt;a href=&quot;https://blog.twitter.com/en_us/a/2015/sharing-block-lists-to-help-make-twitter-safer.html&quot;&gt;Back in 2015&lt;/a&gt;, Twitter
-provided the feature to export and import lists of blocked users, unfortunately they discontinued this
-service.&lt;/p&gt;
-
-&lt;p&gt;In order to fill this void, &lt;a href=&quot;https://blocktogether.org/&quot;&gt;https://blocktogether.org/&lt;/a&gt; provides a great service to allow users to subscribe
-to public block-lists that are always kept updated by some maintainers,
-unfortunately they have capacity issues and needed to impose limits on number of subscribers and list length.&lt;/p&gt;
-
-&lt;p&gt;I have written a small Python script that can provide a self-service import and export functionality
-using the Twitter API.&lt;/p&gt;
-
-&lt;p&gt;See &lt;a href=&quot;https://github.com/zonca/twitter_blocklist&quot;&gt;https://github.com/zonca/twitter_blocklist&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">Back in 2015, Twitter provided the feature to export and import lists of blocked users, unfortunately they discontinued this service.</summary></entry></feed>
+&lt;p&gt;Feedback on this is very welcome, please open an issue on the &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream&quot;&gt;Github repository&lt;/a&gt; or email me at &lt;code class=&quot;highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain of the San Diego Supercomputer Center (sdsc.edu).&lt;/p&gt;</content><author><name></name></author><summary type="html">This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).</summary></entry></feed>
