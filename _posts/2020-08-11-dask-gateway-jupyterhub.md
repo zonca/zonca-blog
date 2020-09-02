@@ -64,6 +64,15 @@ if open a browser tab and access <https://js-XXX-YYY.jetstream-cloud.org/service
 
 	{"status": "pass"}
 
+If this is not working, you can open login to JupyterHub, get a terminal and first check if the service is working:
+
+    >  curl http://traefik-dask-gateway/services/dask-gateway/api/health
+
+Should give:
+
+    {"status": "pass"}
+
+
 ## Create a dask cluster
 
 You can now login to JupyterHub and check you can connect properly to `dask-gateway`:
