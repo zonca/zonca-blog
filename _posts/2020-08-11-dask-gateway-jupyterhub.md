@@ -34,7 +34,7 @@ See the [dask gateway documentation](https://gateway.dask.org/install-kube.html)
 
 enter the `dask_gateway` folder and run:
 
-	$ bash install_dash-gateway.sh
+	$ bash install_dask-gateway.sh
 
 You might want to check `config_dask-gateway.yaml` for extra configuration options, but for initial setup and testing it shouldn't be necessary.
 
