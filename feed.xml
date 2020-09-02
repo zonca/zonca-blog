@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-02T13:29:17-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-02T16:22:31-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
 
 &lt;p&gt;We want to be able to redirect from &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; keeping the relative url.&lt;/p&gt;
 
@@ -673,6 +673,16 @@ Then redeploy JupyterHub:&lt;/p&gt;
 
 &lt;p&gt;Check that the service is working correctly,
 if open a browser tab and access &lt;a href=&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&quot;&gt;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&lt;/a&gt;, you should see:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If this is not working, you can open login to JupyterHub, get a terminal and first check if the service is working:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;  curl http://traefik-dask-gateway/services/dask-gateway/api/health
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Should give:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

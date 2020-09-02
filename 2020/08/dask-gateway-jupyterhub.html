@@ -204,6 +204,16 @@ if open a browser tab and access <a href="https://js-XXX-YYY.jetstream-cloud.org
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"status": "pass"}
 </code></pre></div></div>
 
+<p>If this is not working, you can open login to JupyterHub, get a terminal and first check if the service is working:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;  curl http://traefik-dask-gateway/services/dask-gateway/api/health
+</code></pre></div></div>
+
+<p>Should give:</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{"status": "pass"}
+</code></pre></div></div>
+
 <h2 id="create-a-dask-cluster">Create a dask cluster</h2>
 
 <p>You can now login to JupyterHub and check you can connect properly to <code class="highlighter-rouge">dask-gateway</code>:</p>
