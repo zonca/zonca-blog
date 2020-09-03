@@ -6,6 +6,8 @@ categories: [kubernetes, kubespray, jetstream, jupyterhub]
 slug: kubernetes-monitoring-prometheus-grafana
 ---
 
+**Updated September 2020**
+
 In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively.
 Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana
 to access those data and provide real-time plotting and inspection capability.
@@ -27,13 +29,11 @@ Unfortunately it is not based on Helm, so you need to first checkout the reposit
 and then follow the instructions [in the documentation](https://github.com/coreos/kube-prometheus#quickstart),
 copied here for convenience:
 
-```
-kubectl create -f manifests/
-```
+    kubectl create -f manifests/setup
 
-wait a moment, do not worry if some of the tasks fails, they should get fixed running:
+Wait a few minutes, then:
 
-    kubectl apply -f manifests/
+    kubectl create -f manifests/
 
 This creates several pods in the `monitoring` namespace:
 
@@ -63,6 +63,9 @@ Access `localhost:3000` with your browser and you should be able to navigate thr
 see for example this screenshot. The credentials are user `admin` and password `admin`.
 
 ![Screenshot of the Grafana UI](/images/grafana.png)
+
+From the "Home" page, you can access all the preconfigured dashboards by clicking on the top "Home" button, it will show
+a searchable list of all available dashboards.
 
 ## Access the UI from a different machine
 
@@ -96,3 +99,9 @@ Follow the [instructions for slack on the Grafana documentation](https://grafana
 * In the Grafana Alerting menu, set the webhook incoming url, the channel name
 
 ![Screenshot of the Grafana slack notification](/images/grafana_slack.png)
+
+## Configure ingress
+
+It is also possible to expose Grafana to the web via an Ingress,
+the easiest is to have a dedicated URL just for grafana (different from the URL of JupyterHub),
+in this case, see an [example ingress](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/monitoring/grafana-ingress.yaml). It is important that it is in the `monitoring` namespace.
