@@ -7,30 +7,30 @@
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Kubernetes monitoring with Prometheus and Grafana" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively. Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana to access those data and provide real-time plotting and inspection capability. Moreover, they both provide systems to send alerts in case some conditions on the state of the cluster are met, i.e. using more than 90% of RAM or CPU." />
-<meta property="og:description" content="In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively. Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana to access those data and provide real-time plotting and inspection capability. Moreover, they both provide systems to send alerts in case some conditions on the state of the cluster are met, i.e. using more than 90% of RAM or CPU." />
+<meta name="description" content="Updated September 2020" />
+<meta property="og:description" content="Updated September 2020" />
 <link rel="canonical" href="https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html" />
 <meta property="og:url" content="https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-04-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Kubernetes monitoring with Prometheus and Grafana","dateModified":"2019-04-20T00:00:00-05:00","datePublished":"2019-04-20T00:00:00-05:00","description":"In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively. Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana to access those data and provide real-time plotting and inspection capability. Moreover, they both provide systems to send alerts in case some conditions on the state of the cluster are met, i.e. using more than 90% of RAM or CPU.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html"},"@type":"BlogPosting","url":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html","@context":"https://schema.org"}</script>
+{"headline":"Kubernetes monitoring with Prometheus and Grafana","dateModified":"2019-04-20T00:00:00-05:00","datePublished":"2019-04-20T00:00:00-05:00","description":"Updated September 2020","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html"},"@type":"BlogPosting","url":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Kubernetes monitoring with Prometheus and Grafana | Andrea Zonca</title>
 <meta name="generator" content="Jekyll v4.0.0" />
 <meta property="og:title" content="Kubernetes monitoring with Prometheus and Grafana" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively. Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana to access those data and provide real-time plotting and inspection capability. Moreover, they both provide systems to send alerts in case some conditions on the state of the cluster are met, i.e. using more than 90% of RAM or CPU." />
-<meta property="og:description" content="In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively. Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana to access those data and provide real-time plotting and inspection capability. Moreover, they both provide systems to send alerts in case some conditions on the state of the cluster are met, i.e. using more than 90% of RAM or CPU." />
+<meta name="description" content="Updated September 2020" />
+<meta property="og:description" content="Updated September 2020" />
 <link rel="canonical" href="https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html" />
 <meta property="og:url" content="https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-04-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Kubernetes monitoring with Prometheus and Grafana","dateModified":"2019-04-20T00:00:00-05:00","datePublished":"2019-04-20T00:00:00-05:00","description":"In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively. Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana to access those data and provide real-time plotting and inspection capability. Moreover, they both provide systems to send alerts in case some conditions on the state of the cluster are met, i.e. using more than 90% of RAM or CPU.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html"},"@type":"BlogPosting","url":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html","@context":"https://schema.org"}</script>
+{"headline":"Kubernetes monitoring with Prometheus and Grafana","dateModified":"2019-04-20T00:00:00-05:00","datePublished":"2019-04-20T00:00:00-05:00","description":"Updated September 2020","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html"},"@type":"BlogPosting","url":"https://zonca.dev/2019/04/kubernetes-monitoring-prometheus-grafana.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -132,7 +132,9 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively.
+    <p><strong>Updated September 2020</strong></p>
+
+<p>In a production Kubernetes deployment it is necessary to make it easier to monitor the status of the cluster effectively.
 Kubernetes provides Prometheus to gather data from the different components of Kubernetes and Grafana
 to access those data and provide real-time plotting and inspection capability.
 Moreover, they both provide systems to send alerts in case some conditions on the state of the cluster are met, i.e. using more than 90% of RAM or CPU.</p>
@@ -154,12 +156,12 @@ the status of a Kubernetes cluster.</p>
 <p>and then follow the instructions <a href="https://github.com/coreos/kube-prometheus#quickstart">in the documentation</a>,
 copied here for convenience:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f manifests/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f manifests/setup
 </code></pre></div></div>
 
-<p>wait a moment, do not worry if some of the tasks fails, they should get fixed running:</p>
+<p>Wait a few minutes, then:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl apply -f manifests/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f manifests/
 </code></pre></div></div>
 
 <p>This creates several pods in the <code class="highlighter-rouge">monitoring</code> namespace:</p>
@@ -188,6 +190,9 @@ prometheus-operator-65c44fb7b7-8ltzs   1/1     Running   0          14m
 see for example this screenshot. The credentials are user <code class="highlighter-rouge">admin</code> and password <code class="highlighter-rouge">admin</code>.</p>
 
 <p><img src="/images/grafana.png" alt="Screenshot of the Grafana UI" /></p>
+
+<p>From the “Home” page, you can access all the preconfigured dashboards by clicking on the top “Home” button, it will show
+a searchable list of all available dashboards.</p>
 
 <h2 id="access-the-ui-from-a-different-machine">Access the UI from a different machine</h2>
 
@@ -225,6 +230,12 @@ The easiest way is to setup an alert to Slack, and optionally be notified via em
 </ul>
 
 <p><img src="/images/grafana_slack.png" alt="Screenshot of the Grafana slack notification" /></p>
+
+<h2 id="configure-ingress">Configure ingress</h2>
+
+<p>It is also possible to expose Grafana to the web via an Ingress,
+the easiest is to have a dedicated URL just for grafana (different from the URL of JupyterHub),
+in this case, see an <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/monitoring/grafana-ingress.yaml">example ingress</a>. It is important that it is in the <code class="highlighter-rouge">monitoring</code> namespace.</p>
 
   </div><a class="u-url" href="/2019/04/kubernetes-monitoring-prometheus-grafana.html" hidden></a>
 </article>
