@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-02T16:22:31-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-02T23:12:31-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
 
 &lt;p&gt;We want to be able to redirect from &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; keeping the relative url.&lt;/p&gt;
 
@@ -629,7 +629,8 @@ with the configuration files and scripts:&lt;/p&gt;
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl rand -hex 32
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Then paste it both in &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_dask-gateway.yaml&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Then paste it both in &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_dask-gateway.yaml&lt;/code&gt;,
+look for the string &lt;code class=&quot;highlighter-rouge&quot;&gt;TOKEN&lt;/code&gt; and replace it.&lt;/p&gt;
 
 &lt;h2 id=&quot;launch-dask-gateway&quot;&gt;Launch dask gateway&lt;/h2&gt;
 
@@ -665,8 +666,13 @@ traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
 &lt;/ul&gt;
 
 &lt;p&gt;If you are using my &lt;code class=&quot;highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; script to deploy JupyterHub,
-you can modify it and add another &lt;code class=&quot;highlighter-rouge&quot;&gt;values&lt;/code&gt; option at the end, &lt;code class=&quot;highlighter-rouge&quot;&gt;--values dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.
-Then redeploy JupyterHub:&lt;/p&gt;
+you can modify it and add another &lt;code class=&quot;highlighter-rouge&quot;&gt;values&lt;/code&gt; option at the end, &lt;code class=&quot;highlighter-rouge&quot;&gt;--values dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can modify the image you are using for Jupyterhub in &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of &lt;code class=&quot;highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;distributed&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt;. If this is not possible, you can test different combinations and they might work. For example I tested a “Client” on Python 3.6 and everything else with Python 3.7 and seems to be working fine.&lt;/p&gt;
+
+&lt;p&gt;Then redeploy JupyterHub:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -701,7 +707,7 @@ if open a browser tab and access &lt;a href=&quot;https://js-XXX-YYY.jetstream-c
 
 &lt;p&gt;Then create a cluster and use it:&lt;/p&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_public_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_public_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

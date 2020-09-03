@@ -156,7 +156,8 @@ with the configuration files and scripts:</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openssl rand -hex 32
 </code></pre></div></div>
 
-<p>Then paste it both in <code class="highlighter-rouge">dask_gateway/config_jupyterhub.yaml</code> and <code class="highlighter-rouge">dask_gateway/config_dask-gateway.yaml</code>.</p>
+<p>Then paste it both in <code class="highlighter-rouge">dask_gateway/config_jupyterhub.yaml</code> and <code class="highlighter-rouge">dask_gateway/config_dask-gateway.yaml</code>,
+look for the string <code class="highlighter-rouge">TOKEN</code> and replace it.</p>
 
 <h2 id="launch-dask-gateway">Launch dask gateway</h2>
 
@@ -192,8 +193,13 @@ traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
 </ul>
 
 <p>If you are using my <code class="highlighter-rouge">install_jhub.sh</code> script to deploy JupyterHub,
-you can modify it and add another <code class="highlighter-rouge">values</code> option at the end, <code class="highlighter-rouge">--values dask_gateway/config_jupyterhub.yaml</code>.
-Then redeploy JupyterHub:</p>
+you can modify it and add another <code class="highlighter-rouge">values</code> option at the end, <code class="highlighter-rouge">--values dask_gateway/config_jupyterhub.yaml</code>.</p>
+
+<p>You can modify the image you are using for Jupyterhub in <code class="highlighter-rouge">dask_gateway/config_jupyterhub.yaml</code>.</p>
+
+<p>To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of <code class="highlighter-rouge">dask</code>, <code class="highlighter-rouge">distributed</code> and <code class="highlighter-rouge">dask_gateway</code>. If this is not possible, you can test different combinations and they might work. For example I tested a “Client” on Python 3.6 and everything else with Python 3.7 and seems to be working fine.</p>
+
+<p>Then redeploy JupyterHub:</p>
 
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_jhub.sh
 </code></pre></div></div>
@@ -228,7 +234,7 @@ if open a browser tab and access <a href="https://js-XXX-YYY.jetstream-cloud.org
 
 <p>Then create a cluster and use it:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cluster</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">new_cluster</span><span class="p">(</span><span class="n">options</span><span class="p">,</span> <span class="n">public_address</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">_public_address</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cluster</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">new_cluster</span><span class="p">(</span><span class="n">public_address</span> <span class="o">=</span> <span class="n">gateway</span><span class="o">.</span><span class="n">_public_address</span><span class="p">)</span>
 <span class="n">cluster</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">get_client</span><span class="p">()</span>
 </code></pre></div></div>
