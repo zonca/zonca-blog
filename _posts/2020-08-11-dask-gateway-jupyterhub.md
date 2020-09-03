@@ -23,7 +23,8 @@ Then you need to setup one API token, create it with:
 
 	openssl rand -hex 32
 
-Then paste it both in `dask_gateway/config_jupyterhub.yaml` and `dask_gateway/config_dask-gateway.yaml`.
+Then paste it both in `dask_gateway/config_jupyterhub.yaml` and `dask_gateway/config_dask-gateway.yaml`,
+look for the string `TOKEN` and replace it.
 
 ## Launch dask gateway
 
@@ -55,6 +56,11 @@ Only 2 options need to be changed in JupyterHub:
 
 If you are using my `install_jhub.sh` script to deploy JupyterHub,
 you can modify it and add another `values` option at the end, `--values dask_gateway/config_jupyterhub.yaml`.
+
+You can modify the image you are using for Jupyterhub in `dask_gateway/config_jupyterhub.yaml`.
+
+To assure that there are not compatibility issues, the "Client" (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of `dask`, `distributed` and `dask_gateway`. If this is not possible, you can test different combinations and they might work. For example I tested a "Client" on Python 3.6 and everything else with Python 3.7 and seems to be working fine.
+
 Then redeploy JupyterHub:
 
 	bash install_jhub.sh
@@ -89,7 +95,7 @@ gateway.list_clusters()
 Then create a cluster and use it:
 
 ```python
-cluster = gateway.new_cluster(options, public_address = gateway._public_address)
+cluster = gateway.new_cluster(public_address = gateway._public_address)
 cluster.scale(2)
 client = cluster.get_client()
 ```
