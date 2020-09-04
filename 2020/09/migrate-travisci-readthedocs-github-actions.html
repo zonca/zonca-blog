@@ -154,30 +154,27 @@ versions of the documentation together, fortunately the <a href="https://holzhau
 
 <ul>
   <li>Create a <code class="highlighter-rouge">docs/requirements.txt</code> file which includes <code class="highlighter-rouge">sphinx-multiversion</code>, I directly use <code class="highlighter-rouge">https://github.com/Holzhaus/sphinx-multiversion/archive/master.zip</code></li>
-  <li>
-    <p>Follow the <code class="highlighter-rouge">sphinx-multiversion</code> documentation to configure <code class="highlighter-rouge">docs/conf.py</code>, for example my configuration is:</p>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ``` # Sphinx multiversion configuration extensions += ["sphinx_multiversion"]
-</code></pre></div>    </div>
-  </li>
+  <li>Follow the <code class="highlighter-rouge">sphinx-multiversion</code> documentation to configure <code class="highlighter-rouge">docs/conf.py</code>, for example my configuration is:</li>
 </ul>
 
-<p>templates_path = [
-            “_templates”,                                                                                                                      ]
-                                                                                                                                   #html_sidebars = {‘**’:  [</p>
-<h1 id="versioninghtml">“versioning.html”,</h1>
-<h1>]}</h1>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Sphinx multiversion configuration
+extensions += ["sphinx_multiversion"]
 
-<h1 id="whitelist-pattern-for-tags-set-to-none-to-ignore-all-tags----------------------------------------------------------------------smv_tag_whitelist--r">Whitelist pattern for tags (set to None to ignore all tags)                                                                      smv_tag_whitelist = r’^.*</h1>
-<h1 id="whitelist-pattern-for-branches-set-to-none-to-ignore-all-branches--------------------------------------------------------------smv_branch_whitelist--rmaster">Whitelist pattern for branches (set to None to ignore all branches)                                                              smv_branch_whitelist = r’^master$’</h1>
+templates_path = [
+            "_templates",                                                                                                                      ]
+                                                                                                                                   #html_sidebars = {'**':  [
+#            "versioning.html",
+#            ]}
 
-<h1 id="whitelist-pattern-for-remotes-set-to-none-to-use-local-branches-only-----------------------------------------------------------smv_remote_whitelist--none">Whitelist pattern for remotes (set to None to use local branches only)                                                           smv_remote_whitelist = None</h1>
+# Whitelist pattern for tags (set to None to ignore all tags)                                                                      smv_tag_whitelist = r'^.*
+# Whitelist pattern for branches (set to None to ignore all branches)                                                              smv_branch_whitelist = r'^master$'
 
-<h1 id="pattern-for-released-versions----------------------------------------------------------------------------------------------------smv_released_pattern--rtags">Pattern for released versions                                                                                                    smv_released_pattern = r’^.<em>tags.</em>$’</h1>
+# Whitelist pattern for remotes (set to None to use local branches only)                                                           smv_remote_whitelist = None
 
-<h1 id="format-for-versioned-output-directories-inside-the-build-directory---------------------------------------------------------------smv_outputdir_format--refname">Format for versioned output directories inside the build directory                                                               smv_outputdir_format = ‘{ref.name}’</h1>
-<h1 id="determines-whether-remote-or-local-git-branchestags-are-preferred-if-their-output-dirs-conflict---------------------------------smv_prefer_remote_refs--false">Determines whether remote or local git branches/tags are preferred if their output dirs conflict                                 smv_prefer_remote_refs = False</h1>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ```
+# Pattern for released versions                                                                                                    smv_released_pattern = r'^.*tags.*$'
+
+# Format for versioned output directories inside the build directory                                                               smv_outputdir_format = '{ref.name}'
+# Determines whether remote or local git branches/tags are preferred if their output dirs conflict                                 smv_prefer_remote_refs = False
 </code></pre></div></div>
 
 <ul>
