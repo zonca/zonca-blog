@@ -154,10 +154,11 @@ versions of the documentation together, fortunately the <a href="https://holzhau
 
 <ul>
   <li>Create a <code class="highlighter-rouge">docs/requirements.txt</code> file which includes <code class="highlighter-rouge">sphinx-multiversion</code>, I directly use <code class="highlighter-rouge">https://github.com/Holzhaus/sphinx-multiversion/archive/master.zip</code></li>
-  <li>Follow the <code class="highlighter-rouge">sphinx-multiversion</code> documentation to configure <code class="highlighter-rouge">docs/conf.py</code>, for example my configuration is:
-      ```
-    <h1 id="sphinx-multiversion-configuration">Sphinx multiversion configuration</h1>
-    <p>extensions += [“sphinx_multiversion”]</p>
+  <li>
+    <p>Follow the <code class="highlighter-rouge">sphinx-multiversion</code> documentation to configure <code class="highlighter-rouge">docs/conf.py</code>, for example my configuration is:</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  ``` # Sphinx multiversion configuration extensions += ["sphinx_multiversion"]
+</code></pre></div>    </div>
   </li>
 </ul>
 
@@ -176,8 +177,13 @@ versions of the documentation together, fortunately the <a href="https://holzhau
 
 <h1 id="format-for-versioned-output-directories-inside-the-build-directory---------------------------------------------------------------smv_outputdir_format--refname">Format for versioned output directories inside the build directory                                                               smv_outputdir_format = ‘{ref.name}’</h1>
 <h1 id="determines-whether-remote-or-local-git-branchestags-are-preferred-if-their-output-dirs-conflict---------------------------------smv_prefer_remote_refs--false">Determines whether remote or local git branches/tags are preferred if their output dirs conflict                                 smv_prefer_remote_refs = False</h1>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ``` * If necessary, customize the templates, for example I added `localtoc.html` and `page.html` to mine, see [this gist](https://gist.github.com/ad17f00a91355eaedd221abb34d75c11) * Decide where you want to host the docs, I created a dedicated repository (same name of the python package replacing `_` by `-`), created a Github deploy key on it, and added it as `DEPLOY_KEY` within the secrets of the Github repository so that it is available in the Github action (`GITHUB_TOKEN` instead is automatically created).
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    ```
 </code></pre></div></div>
+
+<ul>
+  <li>If necessary, customize the templates, for example I added <code class="highlighter-rouge">localtoc.html</code> and <code class="highlighter-rouge">page.html</code> to mine, see <a href="https://gist.github.com/ad17f00a91355eaedd221abb34d75c11">this gist</a></li>
+  <li>Decide where you want to host the docs, I created a dedicated repository (same name of the python package replacing <code class="highlighter-rouge">_</code> by <code class="highlighter-rouge">-</code>), created a Github deploy key on it, and added it as <code class="highlighter-rouge">DEPLOY_KEY</code> within the secrets of the Github repository so that it is available in the Github action (<code class="highlighter-rouge">GITHUB_TOKEN</code> instead is automatically created).</li>
+</ul>
 
   </div><a class="u-url" href="/2020/09/migrate-travisci-readthedocs-github-actions.html" hidden></a>
 </article>
