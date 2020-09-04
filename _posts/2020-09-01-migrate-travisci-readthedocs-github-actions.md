@@ -27,6 +27,7 @@ Next I'll be sharing an example configuration for `Github` actions that integrat
 
 * Create a `docs/requirements.txt` file which includes `sphinx-multiversion`, I directly use `https://github.com/Holzhaus/sphinx-multiversion/archive/master.zip`
 * Follow the `sphinx-multiversion` documentation to configure `docs/conf.py`, for example my configuration is:
+
         ```
 # Sphinx multiversion configuration
 extensions += ["sphinx_multiversion"]
@@ -47,5 +48,6 @@ templates_path = [
 # Format for versioned output directories inside the build directory                                                               smv_outputdir_format = '{ref.name}'
 # Determines whether remote or local git branches/tags are preferred if their output dirs conflict                                 smv_prefer_remote_refs = False
         ```
+
 * If necessary, customize the templates, for example I added `localtoc.html` and `page.html` to mine, see [this gist](https://gist.github.com/ad17f00a91355eaedd221abb34d75c11)
 * Decide where you want to host the docs, I created a dedicated repository (same name of the python package replacing `_` by `-`), created a Github deploy key on it, and added it as `DEPLOY_KEY` within the secrets of the Github repository so that it is available in the Github action (`GITHUB_TOKEN` instead is automatically created).
