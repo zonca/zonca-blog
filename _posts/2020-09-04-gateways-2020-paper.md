@@ -1,5 +1,8 @@
+---
+layout: post
 title: Gateways 2020 paper about Kubernetes and JupyterHub on Jetstream
 categories: [jupyterhub, jetstream, gateways, kubernetes]
+---
 
 My paper in collaboration with Richard Signell (USGS), Julien Chastang (UCAR), John Michael Lowe (IU/Jetstream), Jeremy Fischer (IU/Jetstream) and Robert Sinkovits (SDSC) was accepted at [Gateways 2020](https://sciencegateways.org/web/gateways2020) (October 12–23, 2020).
 
