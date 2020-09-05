@@ -16,6 +16,6 @@ the 2 most important tutorials explain the 2 strategies for deploying Kubernetes
 
 Once Kubernetes is available, it is quite easy to deploy `JupyterHub` configuring properly [`zero-to-jupyterhub`](https://zero-to-jupyterhub.readthedocs.io/en/latest/)
 
-See the [Gateways 2020 paper (open-access) on OSF](https://osf.io/zyhwt/)
+See the [Gateways 2020 paper (open-access) on OSF](https://osf.io/zyhwt/), ([direct link to PDF](https://osf.io/gkz9v/download))
 
 On the same topic I also gave a 1-hour webinar focused on introducing how to use Openstack and Kubernetes for people with no previous experience, [the video (April 2020 ECSS Symposium) is available on Youtube](https://www.youtube.com/watch?v=jiYw4g4RX-w)
