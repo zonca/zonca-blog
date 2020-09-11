@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Simple WCS with astropy modeling and gwcs | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Simple WCS with astropy modeling and gwcs" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<link rel="canonical" href="https://zonca.dev/2020/09/wcs-astropy.html" />
+<meta property="og:url" content="https://zonca.dev/2020/09/wcs-astropy.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-10T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Simple WCS with astropy modeling and gwcs","dateModified":"2020-09-10T00:00:00-05:00","datePublished":"2020-09-10T00:00:00-05:00","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/09/wcs-astropy.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/09/wcs-astropy.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Simple WCS with astropy modeling and gwcs | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="Simple WCS with astropy modeling and gwcs" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
+<link rel="canonical" href="https://zonca.dev/2020/09/wcs-astropy.html" />
+<meta property="og:url" content="https://zonca.dev/2020/09/wcs-astropy.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-10T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Simple WCS with astropy modeling and gwcs","dateModified":"2020-09-10T00:00:00-05:00","datePublished":"2020-09-10T00:00:00-05:00","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/09/wcs-astropy.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/09/wcs-astropy.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Simple WCS with astropy modeling and gwcs</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-10T00:00:00-05:00" itemprop="datePublished">
+        Sep 10, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/zonca/zonca-blog/tree/master/_notebooks/2020-09-10-wcs-astropy.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/zonca/zonca-blog/master?filepath=_notebooks%2F2020-09-10-wcs-astropy.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/zonca/zonca-blog/blob/master/_notebooks/2020-09-10-wcs-astropy.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-09-10-wcs-astropy.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Some notes on how to convert a FITS WCS to a WCS from <code>gwcs</code> (Generalized WCS) to be used within the JWST pipeline</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">astropy</span>
+<span class="kn">from</span> <span class="nn">astropy.io</span> <span class="kn">import</span> <span class="n">fits</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">wcs</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hdulist</span> <span class="o">=</span> <span class="n">fits</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;example_field/iris_sim_gc_filterKN3.fits&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The conventional FITS WCS is defined by keywords in the FITS file
+and is automatically parsed by <code>astropy.wcs.WCS</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[:</span><span class="mi">22</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>SIMPLE  =                    T / Written by IDL:  Mon Dec 16 16:40:46 2019      
+BITPIX  =                  -64 /  IEEE double precision floating point          
+NAXIS   =                    2 /                                                
+NAXIS1  =                 4096 /                                                
+NAXIS2  =                 4096 /                                                
+INSTR   = &#39;IRIS    &#39;           /                                                
+SCALE   =           0.00400000 / pixel scale (arcsec)                           
+UNITS   = &#39;electrons&#39;          /                                                
+COORD_SY= &#39;C       &#39;           /                                                
+RADECSYS= &#39;FK5     &#39;           /                                                
+CTYPE1  = &#39;RA--LINEAR&#39;         /                                                
+CTYPE2  = &#39;DEC-LINEAR&#39;         /                                                
+CUNIT1  = &#39;deg     &#39;           /                                                
+CUNIT2  = &#39;deg     &#39;           /                                                
+CRPIX1  =              2048.12 /                                                
+CRPIX2  =              2048.12 /                                                
+CRVAL1  =        265.197723389 /                                                
+CRVAL2  =       -28.9921894073 /                                                
+CDELT1  =    1.11111013731E-06 /0.00400000 pixel scale                          
+CDELT2  =    1.11111013731E-06 /0.00400000 pixel scale                          
+CROTA1  =                    0 /                                                
+CROTA2  =                    0 /                                                </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Cannot make <code>LINEAR</code> to work, so let's instead replace it with Gnomonic</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CTYPE1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;RA---TAN&quot;</span>
+<span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CTYPE2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;DEC--TAN&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">wcs</span><span class="o">.</span><span class="n">WCS</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>WARNING: FITSFixedWarning: RADECSYS= &#39;FK5 &#39; / 
+the RADECSYS keyword is deprecated, use RADESYSa. [astropy.wcs.wcs]
+WARNING: FITSFixedWarning: EPOCH = &#39;2019-12-17T00:40:46.48107737302794Z&#39; / 
+a floating-point value was expected. [astropy.wcs.wcs]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span><span class="o">.</span><span class="n">to_header</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>WCSAXES =                    2 / Number of coordinate axes                      
+CRPIX1  =              2048.12 / Pixel coordinate of reference point            
+CRPIX2  =              2048.12 / Pixel coordinate of reference point            
+CDELT1  =    1.11111013731E-06 / [deg] Coordinate increment at reference point  
+CDELT2  =    1.11111013731E-06 / [deg] Coordinate increment at reference point  
+CUNIT1  = &#39;deg&#39;                / Units of coordinate increment and value        
+CUNIT2  = &#39;deg&#39;                / Units of coordinate increment and value        
+CTYPE1  = &#39;RA---TAN&#39;           / Right ascension, gnomonic projection           
+CTYPE2  = &#39;DEC--TAN&#39;           / Declination, gnomonic projection               
+CRVAL1  =        265.197723389 / [deg] Coordinate value at reference point      
+CRVAL2  =       -28.9921894073 / [deg] Coordinate value at reference point      
+LONPOLE =                180.0 / [deg] Native longitude of celestial pole       
+LATPOLE =       -28.9921894073 / [deg] Native latitude of celestial pole        
+MJDREFI =                  0.0 / [d] MJD of fiducial time, integer part         
+MJDREFF =                  0.0 / [d] MJD of fiducial time, fractional part      
+RADESYS = &#39;FK5&#39;                / Equatorial coordinate system                   
+EQUINOX =               2000.0 / [yr] Equinox of equatorial coordinates         </pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can then convert between the pixel indices and the coordinates in the sky</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pixcrd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4096</span><span class="p">],[</span><span class="mi">4096</span><span class="p">,</span> <span class="mi">4096</span><span class="p">],</span> <span class="p">[</span><span class="mi">4096</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">wcs_pix2world</span><span class="p">(</span><span class="n">pixcrd</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">world</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[[265.19512288 -28.99446396]
+ [265.195123   -28.98991285]
+ [265.20032602 -28.98991285]
+ [265.20032613 -28.99446396]]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can calculate the size of the instrument field of view</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span><span class="o">-</span><span class="n">world</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="n">world</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$18.731693 \; \mathrm{{}^{\prime\prime}}$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span><span class="o">-</span><span class="n">world</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span> <span class="n">world</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$16.383986 \; \mathrm{{}^{\prime\prime}}$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">w</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>WCS Keywords
+
+Number of WCS axes: 2
+CTYPE : &#39;RA---TAN&#39;  &#39;DEC--TAN&#39;  
+CRVAL : 265.197723389  -28.9921894073  
+CRPIX : 2048.12  2048.12  
+NAXIS : 4096  4096</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Create-a-gwcs-WCS-object">Create a <code>gwcs</code> WCS object<a class="anchor-link" href="#Create-a-gwcs-WCS-object"> </a></h2><p>We want now to use <code>astropy.modeling</code> to build a transformation that is equivalent to the FITS WCS transformation defined above</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">gwcs</span> <span class="kn">import</span> <span class="n">WCS</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">astropy.modeling</span> <span class="kn">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">coordinates</span> <span class="k">as</span> <span class="n">coord</span>
+<span class="kn">from</span> <span class="nn">astropy</span> <span class="kn">import</span> <span class="n">units</span> <span class="k">as</span> <span class="n">u</span>
+<span class="kn">from</span> <span class="nn">gwcs</span> <span class="kn">import</span> <span class="n">coordinate_frames</span> <span class="k">as</span> <span class="n">cf</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">shift_by_crpix</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Shift</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CRPIX1&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">models</span><span class="o">.</span><span class="n">Shift</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CRPIX2&quot;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tan</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">Pix2Sky_TAN</span><span class="p">()</span>
+<span class="n">celestial_rotation</span> <span class="o">=</span>  <span class="n">models</span><span class="o">.</span><span class="n">RotateNative2Celestial</span><span class="p">(</span>
+    <span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CRVAL1&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">,</span> <span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CRVAL2&quot;</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">,</span> <span class="mi">180</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">tan</span><span class="o">.</span><span class="n">input_units_equivalencies</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="n">u</span><span class="o">.</span><span class="n">pixel_scale</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CDELT1&quot;</span><span class="p">]</span> <span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">),</span>
+                                      <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="n">u</span><span class="o">.</span><span class="n">pixel_scale</span><span class="p">(</span><span class="n">hdulist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;CDELT2&quot;</span><span class="p">]</span> <span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">)}</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">det2sky</span> <span class="o">=</span> <span class="n">shift_by_crpix</span> <span class="o">|</span> <span class="n">tan</span> <span class="o">|</span> <span class="n">celestial_rotation</span>
+<span class="n">det2sky</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;linear_transform&quot;</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">detector_frame</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">Frame2D</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;detector&quot;</span><span class="p">,</span> <span class="n">axes_names</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">),</span>
+                            <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">))</span>
+<span class="n">sky_frame</span> <span class="o">=</span> <span class="n">cf</span><span class="o">.</span><span class="n">CelestialFrame</span><span class="p">(</span><span class="n">reference_frame</span><span class="o">=</span><span class="n">coord</span><span class="o">.</span><span class="n">FK5</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;fk5&#39;</span><span class="p">,</span>
+                              <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">,</span> <span class="n">u</span><span class="o">.</span><span class="n">deg</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="p">[(</span><span class="n">detector_frame</span><span class="p">,</span> <span class="n">det2sky</span><span class="p">),</span>
+            <span class="p">(</span><span class="n">sky_frame</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+           <span class="p">]</span>
+<span class="n">wcsobj</span> <span class="o">=</span> <span class="n">WCS</span><span class="p">(</span><span class="n">pipeline</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">wcsobj</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  From      Transform    
+-------- ----------------
+detector linear_transform
+     fk5             None
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> <span class="n">wcsobj</span><span class="p">(</span><span class="n">pixcrd</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">,</span> <span class="n">pixcrd</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="o">.</span><span class="n">pix</span><span class="p">,</span> <span class="n">with_units</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>(&lt;Quantity [265.19512288, 265.195123  , 265.20032602, 265.20032613] deg&gt;,
+ &lt;Quantity [-28.99446396, -28.98991285, -28.98991285, -28.99446396] deg&gt;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span><span class="o">-</span><span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="n">_</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$18.731693 \; \mathrm{{}^{\prime\prime}}$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="p">((</span><span class="o">-</span><span class="n">__</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="n">__</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">arcsec</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_latex output_subarea output_execute_result">
+$16.383986 \; \mathrm{{}^{\prime\prime}}$
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">wcsobj</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;WCS(output_frame=fk5, input_frame=detector, forward_transform=Model: CompoundModel
+Name: linear_transform
+Inputs: (&#39;x0&#39;, &#39;x1&#39;)
+Outputs: (&#39;alpha_C&#39;, &#39;delta_C&#39;)
+Model set size: 1
+Expression: [0] &amp; [1] | [2] | [3]
+Components: 
+    [0]: &lt;Shift(offset=-2047.12 pix)&gt;
+
+    [1]: &lt;Shift(offset=-2047.12 pix)&gt;
+
+    [2]: &lt;Pix2Sky_Gnomonic()&gt;
+
+    [3]: &lt;RotateNative2Celestial(lon=265.19772339 deg, lat=-28.99218941 deg, lon_pole=180. deg)&gt;
+Parameters:
+    offset_0 offset_1     lon_3            lat_3        lon_pole_3
+      pix      pix         deg              deg            deg    
+    -------- -------- ------------- ------------------- ----------
+    -2047.12 -2047.12 265.197723389 -28.992189407300003      180.0)&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+</div>
+
+
+
+  </div><a class="u-url" href="/2020/09/wcs-astropy.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
