@@ -20,6 +20,8 @@ Navigate to <https://gist.github.com/>, it shows a text-area for copy-pasting
 content, you can drag your `ipynb` file from your File Manager into the text-area
 and it will paste its content into the area, then you can click on
 "Create a public gist" button and it will be uploaded and rendered automatically.
+If you don't want the `gist` to appear under `gist.github.com/yourusername` and
+not be findable on Google, select "Create a private gist" instead.
 You can also upload multiple notebooks to the same `gist`.
 
 The good thing is that behind this interface there is an actual `git` repository,
