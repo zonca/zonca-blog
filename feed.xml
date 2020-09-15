@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-11T12:22:28-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Simple WCS with astropy modeling and gwcs</title><link href="https://zonca.dev/2020/09/wcs-astropy.html" rel="alternate" type="text/html" title="Simple WCS with astropy modeling and gwcs" /><published>2020-09-10T00:00:00-05:00</published><updated>2020-09-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/wcs-astropy</id><content type="html" xml:base="https://zonca.dev/2020/09/wcs-astropy.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-15T11:41:14-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">How to share Jupyter Notebooks</title><link href="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html" rel="alternate" type="text/html" title="How to share Jupyter Notebooks" /><published>2020-09-15T00:00:00-05:00</published><updated>2020-09-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/how-to-share-jupyter-notebooks</id><content type="html" xml:base="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html">&lt;p&gt;I tend to preserve and post online all the work I do for later reference and sharing.
+Jupyter Notebooks are a bit more complex than standard source code because they
+are natively in a format (JSON) that needs to be rendered to be readable.&lt;/p&gt;
+
+&lt;p&gt;Most of the times you want to share a static copy of your “executed” notebook which contains
+all the generated plots and outputs.&lt;/p&gt;
+
+&lt;h2 id=&quot;share-on-gist-through-the-browser&quot;&gt;Share on gist through the browser&lt;/h2&gt;
+
+&lt;p&gt;The easiest way to share a Jupyter Notebook is to use a &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt;, which is
+quick sharing service provided by Github based on copy-paste.&lt;/p&gt;
+
+&lt;p&gt;Navigate to &lt;a href=&quot;https://gist.github.com/&quot;&gt;https://gist.github.com/&lt;/a&gt;, it shows a text-area for copy-pasting
+content, you can drag your &lt;code class=&quot;highlighter-rouge&quot;&gt;ipynb&lt;/code&gt; file from your File Manager into the text-area
+and it will paste its content into the area, then you can click on
+“Create a public gist” button and it will be uploaded and rendered automatically.
+You can also upload multiple notebooks to the same &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The good thing is that behind this interface there is an actual &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; repository,
+so you can later clone and update it using &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt;. Or you can even
+use the web interface to copy-paste a newer version of your Notebook.&lt;/p&gt;
+
+&lt;h2 id=&quot;share-on-gist-from-the-command-line&quot;&gt;Share on gist from the command line&lt;/h2&gt;
+
+&lt;p&gt;If you are working on a remote machine (e.g. HPC), it is way better to setup the &lt;a href=&quot;https://cli.github.com/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gh&lt;/code&gt;
+client for Github&lt;/a&gt;, then you can directly create a gist from the command line:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gh gist create --public -d &quot;My description&quot; *.ipynb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and it will print to stdout the gist URL.&lt;/p&gt;
+
+&lt;h2 id=&quot;render-larger-notebooks-via-nbviewer&quot;&gt;Render larger Notebooks via nbviewer&lt;/h2&gt;
+
+&lt;p&gt;The Github rendering engine is not the most reliable: it fails for larger notebooks,
+it doesn’t work on mobile and it doesn’t support some JavaScript based libraries, like &lt;code class=&quot;highlighter-rouge&quot;&gt;altair&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then after having uploaded your Notebook to &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt;, you can go to &lt;a href=&quot;https://nbviewer.jupyter.org/&quot;&gt;https://nbviewer.jupyter.org/&lt;/a&gt;,
+paste the full link to your &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt; and share the &lt;code class=&quot;highlighter-rouge&quot;&gt;nbviewer&lt;/code&gt; rendering instead.&lt;/p&gt;
+
+&lt;h2 id=&quot;save-clean-notebooks-in-github-repositories&quot;&gt;Save clean Notebooks in Github repositories&lt;/h2&gt;
+
+&lt;p&gt;I also recommend to save a copy of notebooks without any outputs (either doing “Clear all outputs” from
+the interface or using &lt;code class=&quot;highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt;) into a related Github repository, this makes it easier to reference
+it later on. However don’t save executed notebooks inside Github repositories, they are too large
+and cause ugly &lt;code class=&quot;highlighter-rouge&quot;&gt;diff&lt;/code&gt; between versions (also use &lt;code class=&quot;highlighter-rouge&quot;&gt;nbdime&lt;/code&gt; to help manage notebooks inside repos).&lt;/p&gt;
+
+&lt;h2 id=&quot;share-related-group-of-notebooks&quot;&gt;Share related group of notebooks&lt;/h2&gt;
+
+&lt;p&gt;For teaching it is often useful to share a number of related notebooks, in this case you can
+create a repository full of notebooks and then point &lt;code class=&quot;highlighter-rouge&quot;&gt;nbviewer&lt;/code&gt; to the address of that repository,
+it will automatically create an index where people can navigate through notebooks.
+See for example &lt;a href=&quot;https://nbviewer.jupyter.org/github/zonca/mapsims_tutorials/tree/master/&quot;&gt;https://nbviewer.jupyter.org/github/zonca/mapsims_tutorials/tree/master/&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;For teaching it is often useful to have the main repository which contains clean versions of the
+notebooks and then have a Github fork with a version of the notebooks all executed. This is useful
+for later reference and for people that have trouble executing the notebooks. Better use a fork
+because if we used a &lt;code class=&quot;highlighter-rouge&quot;&gt;branch&lt;/code&gt;, we would make the main repository un-necessarily heavier to download.&lt;/p&gt;
+
+&lt;h2 id=&quot;make-notebooks-executable-in-the-browser&quot;&gt;Make notebooks executable in the browser&lt;/h2&gt;
+
+&lt;p&gt;Once you have notebooks in a repository, you can also plug them into &lt;a href=&quot;https://mybinder.org/&quot;&gt;https://mybinder.org/&lt;/a&gt; to allow
+people to spin a Virtual Machine on Google Cloud automatically and for free and execute them
+in their browser. You can also provide a &lt;code class=&quot;highlighter-rouge&quot;&gt;environment.yml&lt;/code&gt; file to setup the requirements.&lt;/p&gt;
+
+&lt;p&gt;See for example &lt;a href=&quot;https://gist.github.com/zonca/9c114608e0903a3b8ea0bfe41c96f255&quot;&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;healpy&lt;/code&gt; tutorial gist&lt;/a&gt;,
+which can be executed on Binder clicking on the following Icon: &lt;a href=&quot;https://mybinder.org/v2/gist/zonca/9c114608e0903a3b8ea0bfe41c96f255/master&quot;&gt;&lt;img src=&quot;https://mybinder.org/badge_logo.svg&quot; alt=&quot;Binder logo&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I tend to preserve and post online all the work I do for later reference and sharing. Jupyter Notebooks are a bit more complex than standard source code because they are natively in a format (JSON) that needs to be rendered to be readable.</summary></entry><entry><title type="html">Simple WCS with astropy modeling and gwcs</title><link href="https://zonca.dev/2020/09/wcs-astropy.html" rel="alternate" type="text/html" title="Simple WCS with astropy modeling and gwcs" /><published>2020-09-10T00:00:00-05:00</published><updated>2020-09-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/wcs-astropy</id><content type="html" xml:base="https://zonca.dev/2020/09/wcs-astropy.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -3307,664 +3373,4 @@ through the cluster.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;(Click on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial follows the work by the Pangeo collaboration, the main difference is that I prefer to keep JupyterHub and the Dask infrastructure in 2 separate Helm recipes.</summary></entry><entry><title type="html">Dask array rounding</title><link href="https://zonca.dev/2020/08/dask-array-rounding.html" rel="alternate" type="text/html" title="Dask array rounding" /><published>2020-08-04T00:00:00-05:00</published><updated>2020-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2020/08/dask-array-rounding</id><content type="html" xml:base="https://zonca.dev/2020/08/dask-array-rounding.html">&lt;!--
-#################################################
-### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
-#################################################
-# file to edit: _notebooks/2020-08-04-dask-array-rounding.ipynb
---&gt;
-
-&lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
-        
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;This notebook is an extract from the &lt;a href=&quot;https://github.com/dask/dask-tutorial/blob/master/03_array.ipynb&quot;&gt;Dask array Tutorial notebook&lt;/a&gt;, see also the Youtube SciPy 2020 class at &lt;a href=&quot;https://www.youtube.com/watch?v=mqdglv9GnM8&quot;&gt;https://www.youtube.com/watch?v=mqdglv9GnM8&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;We notice that &lt;code&gt;dask&lt;/code&gt; is automatically rounding &lt;code&gt;float32&lt;/code&gt; numbers to machine precision, which I think is the most sensible choice, but surprising difference compared to &lt;code&gt;numpy&lt;/code&gt;.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Create-the-input-data&quot;&gt;Create the input data&lt;a class=&quot;anchor-link&quot; href=&quot;#Create-the-input-data&quot;&gt; &lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Needs only to be done once, defaults to ~4GB of data, you can reduce it by setting &lt;code&gt;blocksize&lt;/code&gt; to a smaller number, e.g. 1000&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;h5py&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%%time&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;blocksize&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;nblocks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nblocks&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blocksize&lt;/span&gt;
-
-&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exists&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;random.hdf5&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-
-    &lt;span class=&quot;k&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h5py&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;random.hdf5&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;w&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;create_dataset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;/x&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;f4&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-        &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blocksize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-            &lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;blocksize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;exponential&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;blocksize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;h2 id=&quot;Setup&quot;&gt;Setup&lt;a class=&quot;anchor-link&quot; href=&quot;#Setup&quot;&gt; &lt;/a&gt;&lt;/h2&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dask.distributed&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Client&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n_workers&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;processes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Load data with h5py&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# this creates a pointer to the data, but does not actually load&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;h5py&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;os&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;h5py&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;File&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;random.hdf5&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;r&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;/x&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-
-&lt;div class=&quot;output_text output_subarea output_execute_result&quot;&gt;
-&lt;pre&gt;dtype(&amp;#39;&amp;lt;f4&amp;#39;)&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;ls -lah data/random.hdf5
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-&lt;div class=&quot;output_subarea output_stream output_stdout output_text&quot;&gt;
-&lt;pre&gt;-rw-r--r-- 1 zonca csb148 3.8G Jul 24 22:51 data/random.hdf5
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;&lt;strong&gt;Compute sum using blocked algorithm&lt;/strong&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;Before using dask, lets consider the concept of blocked algorithms. We can compute the sum of a large number of elements by loading them chunk-by-chunk, and keeping a running total.&lt;/p&gt;
-&lt;p&gt;Here we compute the sum of this large array on disk by&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Computing the sum of each 1,000,000 sized chunk of the array&lt;/li&gt;
-&lt;li&gt;Computing the sum of the 1,000 intermediate sums&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;Note that this is a sequential process in the notebook kernel, both the loading and summing.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;len&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-
-&lt;div class=&quot;output_text output_subarea output_execute_result&quot;&gt;
-&lt;pre&gt;1000000000&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# Compute sum of large array, one million numbers at a time&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;sums&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;range&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;chunk&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# pull out numpy array&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;sums&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chunk&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sums&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;total&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-&lt;div class=&quot;output_subarea output_stream output_stdout output_text&quot;&gt;
-&lt;pre&gt;999976587.6875
-&lt;/pre&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;&lt;strong&gt;Create &lt;code&gt;dask.array&lt;/code&gt; object&lt;/strong&gt;&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;You can create a &lt;code&gt;dask.array&lt;/code&gt; &lt;code&gt;Array&lt;/code&gt; object with the &lt;code&gt;da.from_array&lt;/code&gt; function.  This function accepts&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;code&gt;data&lt;/code&gt;: Any object that supports NumPy slicing, like &lt;code&gt;dset&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;chunks&lt;/code&gt;: A chunk size to tell us how to block up our array, like &lt;code&gt;(1000000,)&lt;/code&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dask.array&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;da&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;np&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;da&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;from_array&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dset&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chunks&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,))&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-&lt;div class=&quot;output_html rendered_html output_subarea output_execute_result&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;&lt;td&gt; &lt;/td&gt;&lt;th&gt; Array &lt;/th&gt;&lt;th&gt; Chunk &lt;/th&gt;&lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;&lt;th&gt; Bytes &lt;/th&gt;&lt;td&gt; 4.00 GB &lt;/td&gt; &lt;td&gt; 40.00 MB &lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;th&gt; Shape &lt;/th&gt;&lt;td&gt; (1000000000,) &lt;/td&gt; &lt;td&gt; (10000000,) &lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;th&gt; Count &lt;/th&gt;&lt;td&gt; 101 Tasks &lt;/td&gt;&lt;td&gt; 100 Chunks &lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;th&gt; Type &lt;/th&gt;&lt;td&gt; float32 &lt;/td&gt;&lt;td&gt; numpy.ndarray &lt;/td&gt;&lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/td&gt;
-&lt;td&gt;
-&lt;svg width=&quot;170&quot; height=&quot;75&quot; style=&quot;stroke:rgb(0,0,0);stroke-width:1&quot;&gt;
-
-  &lt;!-- Horizontal lines --&gt;
-  &lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;120&quot; y2=&quot;0&quot; style=&quot;stroke-width:2&quot; /&gt;
-  &lt;line x1=&quot;0&quot; y1=&quot;25&quot; x2=&quot;120&quot; y2=&quot;25&quot; style=&quot;stroke-width:2&quot; /&gt;
-
-  &lt;!-- Vertical lines --&gt;
-  &lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;25&quot; style=&quot;stroke-width:2&quot; /&gt;
-  &lt;line x1=&quot;1&quot; y1=&quot;0&quot; x2=&quot;1&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;2&quot; y1=&quot;0&quot; x2=&quot;2&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;3&quot; y1=&quot;0&quot; x2=&quot;3&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;4&quot; y1=&quot;0&quot; x2=&quot;4&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;6&quot; y1=&quot;0&quot; x2=&quot;6&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;7&quot; y1=&quot;0&quot; x2=&quot;7&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;8&quot; y1=&quot;0&quot; x2=&quot;8&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;9&quot; y1=&quot;0&quot; x2=&quot;9&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;10&quot; y1=&quot;0&quot; x2=&quot;10&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;12&quot; y1=&quot;0&quot; x2=&quot;12&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;13&quot; y1=&quot;0&quot; x2=&quot;13&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;14&quot; y1=&quot;0&quot; x2=&quot;14&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;15&quot; y1=&quot;0&quot; x2=&quot;15&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;16&quot; y1=&quot;0&quot; x2=&quot;16&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;18&quot; y1=&quot;0&quot; x2=&quot;18&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;19&quot; y1=&quot;0&quot; x2=&quot;19&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;20&quot; y1=&quot;0&quot; x2=&quot;20&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;21&quot; y1=&quot;0&quot; x2=&quot;21&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;22&quot; y1=&quot;0&quot; x2=&quot;22&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;24&quot; y1=&quot;0&quot; x2=&quot;24&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;25&quot; y1=&quot;0&quot; x2=&quot;25&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;26&quot; y1=&quot;0&quot; x2=&quot;26&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;27&quot; y1=&quot;0&quot; x2=&quot;27&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;28&quot; y1=&quot;0&quot; x2=&quot;28&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;30&quot; y1=&quot;0&quot; x2=&quot;30&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;31&quot; y1=&quot;0&quot; x2=&quot;31&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;32&quot; y1=&quot;0&quot; x2=&quot;32&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;33&quot; y1=&quot;0&quot; x2=&quot;33&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;34&quot; y1=&quot;0&quot; x2=&quot;34&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;36&quot; y1=&quot;0&quot; x2=&quot;36&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;37&quot; y1=&quot;0&quot; x2=&quot;37&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;38&quot; y1=&quot;0&quot; x2=&quot;38&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;39&quot; y1=&quot;0&quot; x2=&quot;39&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;40&quot; y1=&quot;0&quot; x2=&quot;40&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;42&quot; y1=&quot;0&quot; x2=&quot;42&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;43&quot; y1=&quot;0&quot; x2=&quot;43&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;44&quot; y1=&quot;0&quot; x2=&quot;44&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;45&quot; y1=&quot;0&quot; x2=&quot;45&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;46&quot; y1=&quot;0&quot; x2=&quot;46&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;48&quot; y1=&quot;0&quot; x2=&quot;48&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;49&quot; y1=&quot;0&quot; x2=&quot;49&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;50&quot; y1=&quot;0&quot; x2=&quot;50&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;51&quot; y1=&quot;0&quot; x2=&quot;51&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;52&quot; y1=&quot;0&quot; x2=&quot;52&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;54&quot; y1=&quot;0&quot; x2=&quot;54&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;55&quot; y1=&quot;0&quot; x2=&quot;55&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;56&quot; y1=&quot;0&quot; x2=&quot;56&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;57&quot; y1=&quot;0&quot; x2=&quot;57&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;58&quot; y1=&quot;0&quot; x2=&quot;58&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;60&quot; y1=&quot;0&quot; x2=&quot;60&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;61&quot; y1=&quot;0&quot; x2=&quot;61&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;62&quot; y1=&quot;0&quot; x2=&quot;62&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;63&quot; y1=&quot;0&quot; x2=&quot;63&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;64&quot; y1=&quot;0&quot; x2=&quot;64&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;66&quot; y1=&quot;0&quot; x2=&quot;66&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;67&quot; y1=&quot;0&quot; x2=&quot;67&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;68&quot; y1=&quot;0&quot; x2=&quot;68&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;69&quot; y1=&quot;0&quot; x2=&quot;69&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;70&quot; y1=&quot;0&quot; x2=&quot;70&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;72&quot; y1=&quot;0&quot; x2=&quot;72&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;73&quot; y1=&quot;0&quot; x2=&quot;73&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;74&quot; y1=&quot;0&quot; x2=&quot;74&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;75&quot; y1=&quot;0&quot; x2=&quot;75&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;76&quot; y1=&quot;0&quot; x2=&quot;76&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;78&quot; y1=&quot;0&quot; x2=&quot;78&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;79&quot; y1=&quot;0&quot; x2=&quot;79&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;80&quot; y1=&quot;0&quot; x2=&quot;80&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;81&quot; y1=&quot;0&quot; x2=&quot;81&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;82&quot; y1=&quot;0&quot; x2=&quot;82&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;84&quot; y1=&quot;0&quot; x2=&quot;84&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;85&quot; y1=&quot;0&quot; x2=&quot;85&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;86&quot; y1=&quot;0&quot; x2=&quot;86&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;87&quot; y1=&quot;0&quot; x2=&quot;87&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;88&quot; y1=&quot;0&quot; x2=&quot;88&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;90&quot; y1=&quot;0&quot; x2=&quot;90&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;91&quot; y1=&quot;0&quot; x2=&quot;91&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;92&quot; y1=&quot;0&quot; x2=&quot;92&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;93&quot; y1=&quot;0&quot; x2=&quot;93&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;94&quot; y1=&quot;0&quot; x2=&quot;94&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;96&quot; y1=&quot;0&quot; x2=&quot;96&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;97&quot; y1=&quot;0&quot; x2=&quot;97&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;98&quot; y1=&quot;0&quot; x2=&quot;98&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;99&quot; y1=&quot;0&quot; x2=&quot;99&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;100&quot; y1=&quot;0&quot; x2=&quot;100&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;102&quot; y1=&quot;0&quot; x2=&quot;102&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;103&quot; y1=&quot;0&quot; x2=&quot;103&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;104&quot; y1=&quot;0&quot; x2=&quot;104&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;105&quot; y1=&quot;0&quot; x2=&quot;105&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;106&quot; y1=&quot;0&quot; x2=&quot;106&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;108&quot; y1=&quot;0&quot; x2=&quot;108&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;109&quot; y1=&quot;0&quot; x2=&quot;109&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;110&quot; y1=&quot;0&quot; x2=&quot;110&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;111&quot; y1=&quot;0&quot; x2=&quot;111&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;112&quot; y1=&quot;0&quot; x2=&quot;112&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;114&quot; y1=&quot;0&quot; x2=&quot;114&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;115&quot; y1=&quot;0&quot; x2=&quot;115&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;116&quot; y1=&quot;0&quot; x2=&quot;116&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;117&quot; y1=&quot;0&quot; x2=&quot;117&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;118&quot; y1=&quot;0&quot; x2=&quot;118&quot; y2=&quot;25&quot; /&gt;
-  &lt;line x1=&quot;120&quot; y1=&quot;0&quot; x2=&quot;120&quot; y2=&quot;25&quot; style=&quot;stroke-width:2&quot; /&gt;
-
-  &lt;!-- Colored Rectangle --&gt;
-  &lt;polygon points=&quot;0.000000,0.000000 120.000000,0.000000 120.000000,25.412617 0.000000,25.412617&quot; style=&quot;fill:#ECB172A0;stroke-width:0&quot; /&gt;
-
-  &lt;!-- Text --&gt;
-  &lt;text x=&quot;60.000000&quot; y=&quot;45.412617&quot; font-size=&quot;1.0rem&quot; font-weight=&quot;100&quot; text-anchor=&quot;middle&quot;&gt;1000000000&lt;/text&gt;
-  &lt;text x=&quot;140.000000&quot; y=&quot;12.706308&quot; font-size=&quot;1.0rem&quot; font-weight=&quot;100&quot; text-anchor=&quot;middle&quot; transform=&quot;rotate(0,140.000000,12.706308)&quot;&gt;1&lt;/text&gt;
-&lt;/svg&gt;
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_float64&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;astype&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;float64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-
-&lt;div class=&quot;output_text output_subarea output_execute_result&quot;&gt;
-&lt;pre&gt;999976700.0&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
-&lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
-&lt;p&gt;The machine resolution of &lt;code&gt;float32&lt;/code&gt; is &lt;code&gt;1e-6&lt;/code&gt;, therefore everything after the 7th digit is garbage, so it is reasonable to remove it, otherwise it gives you the impression that the computation is more precise than it actually it.
-Still I am surprised &lt;code&gt;dask&lt;/code&gt; does it, &lt;code&gt;numpy&lt;/code&gt; above instead doesn't care about that and prints all the digits.&lt;/p&gt;
-&lt;p&gt;If we need more precision, we need to increase the precision of the calculation, see below, but we are going to use a lot more memory, also, the input data were &lt;code&gt;float32&lt;/code&gt;, so it is not very useful anyway, we should generate again the input with higher precision.&lt;/p&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;finfo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;float32&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-
-&lt;div class=&quot;output_text output_subarea output_execute_result&quot;&gt;
-&lt;pre&gt;finfo(resolution=1e-06, min=-3.4028235e+38, max=3.4028235e+38, dtype=float32)&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_float64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-&lt;div class=&quot;output_html rendered_html output_subarea output_execute_result&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td&gt;
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;&lt;td&gt; &lt;/td&gt;&lt;th&gt; Array &lt;/th&gt;&lt;th&gt; Chunk &lt;/th&gt;&lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;&lt;th&gt; Bytes &lt;/th&gt;&lt;td&gt; 8 B &lt;/td&gt; &lt;td&gt; 8 B &lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;th&gt; Shape &lt;/th&gt;&lt;td&gt; () &lt;/td&gt; &lt;td&gt; () &lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;th&gt; Count &lt;/th&gt;&lt;td&gt; 336 Tasks &lt;/td&gt;&lt;td&gt; 1 Chunks &lt;/td&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;th&gt; Type &lt;/th&gt;&lt;td&gt; float64 &lt;/td&gt;&lt;td&gt; numpy.ndarray &lt;/td&gt;&lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/td&gt;
-&lt;td&gt;
-
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x_float64&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;compute&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;div class=&quot;output_wrapper&quot;&gt;
-&lt;div class=&quot;output&quot;&gt;
-
-&lt;div class=&quot;output_area&quot;&gt;
-
-
-
-&lt;div class=&quot;output_text output_subarea output_execute_result&quot;&gt;
-&lt;pre&gt;999976584.1788422&lt;/pre&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-&lt;div class=&quot;input&quot;&gt;
-
-&lt;div class=&quot;inner_cell&quot;&gt;
-    &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shutdown&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/pre&gt;&lt;/div&gt;
-
-    &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-
-&lt;/div&gt;
-    
-
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>
+&lt;p&gt;(Click on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial follows the work by the Pangeo collaboration, the main difference is that I prefer to keep JupyterHub and the Dask infrastructure in 2 separate Helm recipes.</summary></entry></feed>
