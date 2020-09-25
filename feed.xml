@@ -1,4 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-24T13:31:52-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">How to share Jupyter Notebooks</title><link href="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html" rel="alternate" type="text/html" title="How to share Jupyter Notebooks" /><published>2020-09-15T00:00:00-05:00</published><updated>2020-09-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/how-to-share-jupyter-notebooks</id><content type="html" xml:base="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html">&lt;p&gt;I tend to preserve and post online all the work I do for later reference and sharing.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-09-25T18:37:26-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Edit video recordings with ffmpeg</title><link href="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html" rel="alternate" type="text/html" title="Edit video recordings with ffmpeg" /><published>2020-09-25T00:00:00-05:00</published><updated>2020-09-25T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/ffmpeg-edit-recordings</id><content type="html" xml:base="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html">&lt;p&gt;A few scripts to speedup, concatenate and possibly
+other operations using &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; on linux (also works on Chromebooks) from the command line:&lt;/p&gt;
+
+&lt;script src=&quot;https://gist.github.com/zonca/c13da23155e3451329746772187a2016.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;I used those to pre-record videos for a conference (after recording with &lt;a href=&quot;https://loom.com&quot;&gt;Loom&lt;/a&gt;)&lt;/p&gt;</content><author><name></name></author><summary type="html">A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:</summary></entry><entry><title type="html">How to share Jupyter Notebooks</title><link href="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html" rel="alternate" type="text/html" title="How to share Jupyter Notebooks" /><published>2020-09-15T00:00:00-05:00</published><updated>2020-09-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/how-to-share-jupyter-notebooks</id><content type="html" xml:base="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html">&lt;p&gt;I tend to preserve and post online all the work I do for later reference and sharing.
 Jupyter Notebooks are a bit more complex than standard source code because they
 are natively in a format (JSON) that needs to be rendered to be readable.&lt;/p&gt;
 
@@ -3264,115 +3269,4 @@ LAT ULFL1,  20.00 GHz, broken: 1.011 uK_CMB / uK_RJ, fixed: 1.011 uK_CMB / uK_RJ
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2020/08/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2020-08-11T00:00:00-05:00</published><updated>2020-08-11T00:00:00-05:00</updated><id>https://zonca.dev/2020/08/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2020/08/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
-the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
-in 2 separate &lt;code class=&quot;highlighter-rouge&quot;&gt;Helm&lt;/code&gt; recipes.&lt;/p&gt;
-
-&lt;p&gt;I assume to start from a Kubernetes cluster already running and
-JupyterHub deployed on top of it via Helm. And SSL encryption also activated (it isn’t probably necessary, but I haven’t tested that).
-I tested on Jetstream, but this is agnostic of that.&lt;/p&gt;
-
-&lt;h2 id=&quot;preparation&quot;&gt;Preparation&lt;/h2&gt;
-
-&lt;p&gt;Clone on the machine you use to run &lt;code class=&quot;highlighter-rouge&quot;&gt;helm&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; the repository
-with the configuration files and scripts:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then you need to setup one API token, create it with:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl rand -hex 32
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then paste it both in &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_dask-gateway.yaml&lt;/code&gt;,
-look for the string &lt;code class=&quot;highlighter-rouge&quot;&gt;TOKEN&lt;/code&gt; and replace it.&lt;/p&gt;
-
-&lt;h2 id=&quot;launch-dask-gateway&quot;&gt;Launch dask gateway&lt;/h2&gt;
-
-&lt;p&gt;See the &lt;a href=&quot;https://gateway.dask.org/install-kube.html&quot;&gt;dask gateway documentation&lt;/a&gt; for reference:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ helm repo add daskgateway https://dask.org/dask-gateway-helm-repo/
-$ helm repo update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;enter the &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt; folder and run:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash install_dask-gateway.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You might want to check &lt;code class=&quot;highlighter-rouge&quot;&gt;config_dask-gateway.yaml&lt;/code&gt; for extra configuration options, but for initial setup and testing it shouldn’t be necessary.&lt;/p&gt;
-
-&lt;p&gt;After this you should see the 3 dask gateway pods running, e.g.:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl -n jhub get pods
-NAME                                       READY   STATUS    RESTARTS   AGE
-api-dask-gateway-64bf5db96c-4xfd6          1/1     Running   2          23m
-controller-dask-gateway-7674bd545d-cwfnx   1/1     Running   0          23m
-traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;modify-the-jupyterhub-configuration&quot;&gt;Modify the JupyterHub configuration&lt;/h2&gt;
-
-&lt;p&gt;Only 2 options need to be changed in JupyterHub:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;We need to run a image which has the same version of &lt;code class=&quot;highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; we installed on Kubernetes (currently &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8.0&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;We need to proxy &lt;code class=&quot;highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; through JupyterHub so the users can access the Dask dashboard&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you are using my &lt;code class=&quot;highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; script to deploy JupyterHub,
-you can modify it and add another &lt;code class=&quot;highlighter-rouge&quot;&gt;values&lt;/code&gt; option at the end, &lt;code class=&quot;highlighter-rouge&quot;&gt;--values dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;You can modify the image you are using for Jupyterhub in &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of &lt;code class=&quot;highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;distributed&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt;. If this is not possible, you can test different combinations and they might work. For example I tested a “Client” on Python 3.6 and everything else with Python 3.7 and seems to be working fine.&lt;/p&gt;
-
-&lt;p&gt;Then redeploy JupyterHub:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Check that the service is working correctly,
-if open a browser tab and access &lt;a href=&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&quot;&gt;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&lt;/a&gt;, you should see:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If this is not working, you can open login to JupyterHub, get a terminal and first check if the service is working:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;  curl http://traefik-dask-gateway/services/dask-gateway/api/health
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Should give:&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;create-a-dask-cluster&quot;&gt;Create a dask cluster&lt;/h2&gt;
-
-&lt;p&gt;You can now login to JupyterHub and check you can connect properly to &lt;code class=&quot;highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dask_gateway&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://traefik-dask-gateway/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jupyterhub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_clusters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then create a cluster and use it:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_public_address&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Client is a standard &lt;code class=&quot;highlighter-rouge&quot;&gt;distributed&lt;/code&gt; client and all subsequent calls to dask will go
-through the cluster.&lt;/p&gt;
-
-&lt;p&gt;For a full example and screenshots of the widgets and of the dashboard see:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;(Click on the &lt;code class=&quot;highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><summary type="html">This tutorial follows the work by the Pangeo collaboration, the main difference is that I prefer to keep JupyterHub and the Dask infrastructure in 2 separate Helm recipes.</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>

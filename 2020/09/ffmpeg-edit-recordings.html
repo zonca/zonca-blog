@@ -3,34 +3,34 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Page 12 of 18 for Andrea Zonca | Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</title>
+<title>Edit video recordings with ffmpeg | Andrea Zonca</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Andrea Zonca" />
+<meta property="og:title" content="Edit video recordings with ffmpeg" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<link rel="canonical" href="https://zonca.dev/page12/" />
-<meta property="og:url" content="https://zonca.dev/page12/" />
+<meta name="description" content="A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:" />
+<meta property="og:description" content="A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:" />
+<link rel="canonical" href="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html" />
+<meta property="og:url" content="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
-<link rel="prev" href="https://zonca.dev/page11/" />
-<link rel="next" href="https://zonca.dev/page13/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-25T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Andrea Zonca","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@type":"WebPage","url":"https://zonca.dev/page12/","@context":"https://schema.org"}</script>
+{"headline":"Edit video recordings with ffmpeg","dateModified":"2020-09-25T00:00:00-05:00","datePublished":"2020-09-25T00:00:00-05:00","description":"A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/09/ffmpeg-edit-recordings.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/09/ffmpeg-edit-recordings.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Page 12 of 18 for Andrea Zonca | Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</title>
+<title>Edit video recordings with ffmpeg | Andrea Zonca</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Andrea Zonca" />
+<meta property="og:title" content="Edit video recordings with ffmpeg" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<link rel="canonical" href="https://zonca.dev/page12/" />
-<meta property="og:url" content="https://zonca.dev/page12/" />
+<meta name="description" content="A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:" />
+<meta property="og:description" content="A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:" />
+<link rel="canonical" href="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html" />
+<meta property="og:url" content="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
-<link rel="prev" href="https://zonca.dev/page11/" />
-<link rel="next" href="https://zonca.dev/page13/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-09-25T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Andrea Zonca","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@type":"WebPage","url":"https://zonca.dev/page12/","@context":"https://schema.org"}</script>
+{"headline":"Edit video recordings with ffmpeg","dateModified":"2020-09-25T00:00:00-05:00","datePublished":"2020-09-25T00:00:00-05:00","description":"A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/09/ffmpeg-edit-recordings.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/09/ffmpeg-edit-recordings.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -98,74 +98,46 @@ window.onload = wrap_img;
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-
-
-  
-
-  <!-- Hide posts if front matter flag hide:true -->
-  
-  <ul class="post-list"><li><h3>
-    <a class="post-link" href="/2013/08/planck-ctp-angular-power-spectrum-ell.html">
-    Planck CTP angular power spectrum ell binning
-    </a>
-</h3><p class="post-meta">Aug 20, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/08/healpix-map-of-earth-using-healpy.html">
-    HEALPix map of the Earth using healpy
-    </a>
-</h3><p class="post-meta">Aug 8, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/08/export-google-analytics-data-via-api.html">
-    Export google analytics data via API with Python
-    </a>
-</h3><p class="post-meta">Aug 4, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/07/processing-planck-sources-with-hadoop.html">
-    Processing sources in Planck maps with Hadoop and Python
-    </a>
-</h3><p class="post-meta">Jul 15, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/06/how-to-use-ipython-notebook-on-small.html">
-    How to use the IPython notebook on a small computing cluster
-    </a>
-</h3><p class="post-meta">Jun 22, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/04/ipython-parallell-setup-on-carver-at.html">
-    IPython parallell setup on Carver at NERSC
-    </a>
-</h3><p class="post-meta">Apr 11, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/04/simple-mixin-usage-in-python.html">
-    Simple Mixin usage in python
-    </a>
-</h3><p class="post-meta">Apr 8, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/04/noise-in-spectra-and-map-domain.html">
-    Noise in spectra and map domain
-    </a>
-</h3><p class="post-meta">Apr 8, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/04/basic-forkpull-git-workflow.html">
-    Basic fork/pull git workflow
-    </a>
-</h3><p class="post-meta">Apr 6, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/03/interactive-3d-plot-of-sky-map.html">
-    Interactive 3D plot of a sky map
-    </a>
-</h3><p class="post-meta">Mar 12, 2013</p>
-</li></ul>
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Edit video recordings with ffmpeg</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-09-25T00:00:00-05:00" itemprop="datePublished">
+        Sep 25, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
 
     
-      <div class="pager">
-        <ul class="pagination">
-          <li><a href="/page11/" class="previous-page">11</a></li>
-          <li><div class="current-page">12</div></li>
-          <li><a href="/page13/" class="next-page">13</a></li>
-        </ul>
-      </div></div>
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#jupyterhub">jupyterhub</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#jetstream">jetstream</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#gateways">gateways</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>A few scripts to speedup, concatenate and possibly
+other operations using <code class="highlighter-rouge">ffmpeg</code> on linux (also works on Chromebooks) from the command line:</p>
+
+<script src="https://gist.github.com/zonca/c13da23155e3451329746772187a2016.js"></script>
+
+<p>I used those to pre-record videos for a conference (after recording with <a href="https://loom.com">Loom</a>)</p>
+
+  </div><a class="u-url" href="/2020/09/ffmpeg-edit-recordings.html" hidden></a>
+</article>
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/"></data>
