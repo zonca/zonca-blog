@@ -105,3 +105,7 @@ Follow the [instructions for slack on the Grafana documentation](https://grafana
 It is also possible to expose Grafana to the web via an Ingress,
 the easiest is to have a dedicated URL just for grafana (different from the URL of JupyterHub),
 in this case, see an [example ingress](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/monitoring/grafana-ingress.yaml). It is important that it is in the `monitoring` namespace.
+
+The configuration also supports HTTPS, for that to work you also need to create
+an Issuer in the namespace `monitoring` (also rename the secret key), for more details
+see the [tutorial on deploying letsencrypt](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html).
