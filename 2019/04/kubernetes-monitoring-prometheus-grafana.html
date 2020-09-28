@@ -237,6 +237,10 @@ The easiest way is to setup an alert to Slack, and optionally be notified via em
 the easiest is to have a dedicated URL just for grafana (different from the URL of JupyterHub),
 in this case, see an <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/monitoring/grafana-ingress.yaml">example ingress</a>. It is important that it is in the <code class="highlighter-rouge">monitoring</code> namespace.</p>
 
+<p>The configuration also supports HTTPS, for that to work you also need to create
+an Issuer in the namespace <code class="highlighter-rouge">monitoring</code> (also rename the secret key), for more details
+see the <a href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html">tutorial on deploying letsencrypt</a>.</p>
+
   </div><a class="u-url" href="/2019/04/kubernetes-monitoring-prometheus-grafana.html" hidden></a>
 </article>
       </div>
