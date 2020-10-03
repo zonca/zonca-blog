@@ -279,16 +279,16 @@ The spectra are relegated to the <strong>Ancillary data</strong> section:</p>
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>--2020-10-02 21:56:13--  https://irsa.ipac.caltech.edu/data/Planck/release_3/ancillary-data/cosmoparams/COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt
+<pre>--2020-10-02 23:10:29--  https://irsa.ipac.caltech.edu/data/Planck/release_3/ancillary-data/cosmoparams/COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt
 Resolving irsa.ipac.caltech.edu (irsa.ipac.caltech.edu)... 134.4.54.87
 Connecting to irsa.ipac.caltech.edu (irsa.ipac.caltech.edu)|134.4.54.87|:443... connected.
 HTTP request sent, awaiting response... 200 OK
 Length: 205647 (201K) [text/plain]
-Saving to: ‘COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt.9’
+Saving to: ‘COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt.10’
 
 COM_PowerSpect_CMB- 100%[===================&gt;] 200.83K  --.-KB/s    in 0.02s   
 
-2020-10-02 21:56:13 (12.1 MB/s) - ‘COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt.9’ saved [205647/205647]
+2020-10-02 23:10:30 (11.8 MB/s) - ‘COM_PowerSpect_CMB-base-plikHM-TTTEEE-lowl-lowE-lensing-minimum-theory_R3.01.txt.10’ saved [205647/205647]
 
 </pre>
 </div>
@@ -1571,7 +1571,9 @@ However, in case we want to have the same realization of a CMB map at different 
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>map_nside_32_from_Planck_bestfit_alm_seed_583.fits
+map_nside_32_from_Planck_bestfit_alm_seed_583_K_CMB.fits
 Planck_bestfit_alm_seed_583.fits
+Planck_bestfit_alm_seed_583_lmax_100_K_CMB.fits
 </pre>
 </div>
 </div>
@@ -1868,7 +1870,7 @@ it is not as straightforward as it might seem:</p>
 
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hp</span><span class="o">.</span><span class="n">write_map</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;map_nside_</span><span class="si">{</span><span class="n">low_nside</span><span class="si">}</span><span class="s2">_from_Planck_bestfit_alm_seed_</span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2">.fits&quot;</span><span class="p">,</span> <span class="n">low_nside_cmb_map</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hp</span><span class="o">.</span><span class="n">write_map</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;map_nside_</span><span class="si">{</span><span class="n">low_nside</span><span class="si">}</span><span class="s2">_from_Planck_bestfit_alm_seed_</span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2">_K_CMB.fits&quot;</span><span class="p">,</span> <span class="n">low_nside_cmb_map</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1899,7 +1901,9 @@ it is not as straightforward as it might seem:</p>
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>map_nside_32_from_Planck_bestfit_alm_seed_583.fits
+map_nside_32_from_Planck_bestfit_alm_seed_583_K_CMB.fits
 Planck_bestfit_alm_seed_583.fits
+Planck_bestfit_alm_seed_583_lmax_100_K_CMB.fits
 </pre>
 </div>
 </div>
@@ -1978,8 +1982,8 @@ Planck_bestfit_alm_seed_583.fits
        2586, 2587, 2588, 2589, 2590, 2591, 2592, 2593, 2594, 2595, 2596,
        2597, 2598, 2599, 2600, 2601, 2602, 2603, 2604, 2605, 2606, 2607,
        2608])]
-CPU times: user 8 ms, sys: 0 ns, total: 8 ms
-Wall time: 4.05 ms
+CPU times: user 0 ns, sys: 4 ms, total: 4 ms
+Wall time: 4.11 ms
 </pre>
 </div>
 </div>
@@ -2110,6 +2114,57 @@ Wall time: 4.05 ms
 <pre>0.0</pre>
 </div>
 
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">hp</span><span class="o">.</span><span class="n">write_alm</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Planck_bestfit_alm_seed_</span><span class="si">{</span><span class="n">seed</span><span class="si">}</span><span class="s2">_lmax_</span><span class="si">{</span><span class="n">lclip</span><span class="si">}</span><span class="s2">_K_CMB.fits&quot;</span><span class="p">,</span> <span class="n">alm_really_clipped</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>ls -lah *.fits
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>-rw-rw-r-- 1 zonca zonca 152K Oct  2 21:56 map_nside_32_from_Planck_bestfit_alm_seed_583.fits
+-rw-rw-r-- 1 zonca zonca 152K Oct  2 23:10 map_nside_32_from_Planck_bestfit_alm_seed_583_K_CMB.fits
+-rw-rw-r-- 1 zonca zonca 181M Oct  2 23:10 Planck_bestfit_alm_seed_583.fits
+-rw-rw-r-- 1 zonca zonca 315K Oct  2 23:10 Planck_bestfit_alm_seed_583_lmax_100_K_CMB.fits
+</pre>
+</div>
 </div>
 
 </div>
