@@ -62,7 +62,7 @@ set everything to default except location of `cfitsio` where you need (notice `l
 
     $CONDA_PREFIX/cfitsio/lib
 
-When the installer asks whether to modify `.profile` respond yes (at NERSC trying to modify `.profile` will give permission denied, but will create the files in the `~/.healpix` folder.).
+When the installer asks whether to modify `.profile` respond no.
 Now the installer will create some scripts in the `~/.healpix` folder and modify `.profile`, we want to only activate HEALPix in our conda environment so we should modify `.profile` and remove the lines added by HEALPix.
 
 Finally we can have HEALPix automatically activated when the conda environment is initialized (notice we need the script to end in `.sh`):
@@ -90,11 +90,12 @@ Then:
 
 This will put the `spice` executable into the `../bin` folder, just copy it to the conda environment bin folder:
 
-    cp ../bin/spice ${CONDA_PREFIX}/bin/
+    cd ..
+    ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
 
 We can also copy the 2 python modules into the environment:
 
-    cp bin_llcl.py ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
+    ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
 
 Check it works:
 
