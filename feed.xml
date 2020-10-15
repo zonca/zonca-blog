@@ -1,4 +1,108 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-06T19:34:33-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Example of the `healpy` query disc function</title><link href="https://zonca.dev/2020/10/example-healpy-query_disc.html" rel="alternate" type="text/html" title="Example of the `healpy` query disc function" /><published>2020-10-02T00:00:00-05:00</published><updated>2020-10-02T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/example-healpy-query_disc</id><content type="html" xml:base="https://zonca.dev/2020/10/example-healpy-query_disc.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-15T00:53:39-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
+with some details about doing it at NERSC, but most of the tutorial is independent of that.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-the-conda-environment-and-the-compilers&quot;&gt;Setup the conda environment and the compilers&lt;/h2&gt;
+
+&lt;p&gt;I assume here we are installing it into a custom conda environement
+the possibly contains all other cosmology packages, like &lt;code class=&quot;highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;For example created with:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module load python
+conda create -n pycmb python==3.7 healpy matplotlib ipykernel
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When you activate the conda environment, the variable &lt;code class=&quot;highlighter-rouge&quot;&gt;$CONDA_PREFIX&lt;/code&gt; is
+automatically set to the base folder of the environment,
+something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/anaconda/envs/pycmb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;To make it simpler, I am using &lt;code class=&quot;highlighter-rouge&quot;&gt;gcc&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;gfortran&lt;/code&gt;, if at NERSC run:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module load PrgEnv-gnu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;if that fails, probably you need first to unload the Intel environment:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module unload PrgEnv-intel
+module load PrgEnv-gnu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;install-cfitsio&quot;&gt;Install cfitsio&lt;/h2&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cfitsio&lt;/code&gt; is quite easy, better download the version included in
+&lt;code class=&quot;highlighter-rouge&quot;&gt;healpy&lt;/code&gt; because it has a couple of fixes:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/healpy/cfitsio
+cd cfitsio
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We want to install it into a dedicated folder, not the same &lt;code class=&quot;highlighter-rouge&quot;&gt;lib&lt;/code&gt; folder
+of the conda environment, so that we don’t risk to have conflicts
+with the compiler libraries during the build process:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./configure --prefix=$CONDA_PREFIX/cfitsio
+make -j8 shared install
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;install-healpix&quot;&gt;Install HEALPix&lt;/h2&gt;
+
+&lt;p&gt;HEALPix installs itself in the same folder where it is unpacked, and then modifies the bash
+profile to make things work.
+As we want to keep things isolated, let’s unpack the Healpix package into the conda environment folder, so it will be something like:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$CONDA_PREFIX/Healpix_3.70
+
+./configure
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;configure the C, the Fortran packages, the Fortran package requires &lt;code class=&quot;highlighter-rouge&quot;&gt;libsharp&lt;/code&gt;,
+set everything to default except location of &lt;code class=&quot;highlighter-rouge&quot;&gt;cfitsio&lt;/code&gt; where you need (notice &lt;code class=&quot;highlighter-rouge&quot;&gt;lib&lt;/code&gt; at the end):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$CONDA_PREFIX/cfitsio/lib
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;When the installer asks whether to modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; respond yes (at NERSC trying to modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; will give permission denied, but will create the files in the &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.healpix&lt;/code&gt; folder.).
+Now the installer will create some scripts in the &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.healpix&lt;/code&gt; folder and modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt;, we want to only activate HEALPix in our conda environment so we should modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; and remove the lines added by HEALPix.&lt;/p&gt;
+
+&lt;p&gt;Finally we can have HEALPix automatically activated when the conda environment is initialized (notice we need the script to end in &lt;code class=&quot;highlighter-rouge&quot;&gt;.sh&lt;/code&gt;):&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir -p ${CONDA_PREFIX}/etc/conda/activate.d
+ln -s ~/.healpix/3_70_Linux/config ${CONDA_PREFIX}/etc/conda/activate.d/config.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Restart the conda environment, and try to run &lt;code class=&quot;highlighter-rouge&quot;&gt;anafast&lt;/code&gt; to check that it works.
+If you are at NERSC, make sure that you are always loading the GNU programming environment by having:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module swap PrgEnv-intel PrgEnv-gnu
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;in &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc.ext&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;install-polspice&quot;&gt;Install PolSpice&lt;/h2&gt;
+
+&lt;p&gt;Create a &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; folder inside the source folder and create a &lt;code class=&quot;highlighter-rouge&quot;&gt;run.sh&lt;/code&gt; file with this content:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cmake .. -DCFITSIO=${CONDA_PREFIX}/cfitsio/lib -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_C_COMPILER=gcc
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash run.sh
+make -j8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will put the &lt;code class=&quot;highlighter-rouge&quot;&gt;spice&lt;/code&gt; executable into the &lt;code class=&quot;highlighter-rouge&quot;&gt;../bin&lt;/code&gt; folder, just copy it to the conda environment bin folder:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp ../bin/spice ${CONDA_PREFIX}/bin/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check it works:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;spice -usage
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Some notes on how to install HEALPix and PolSpice inside a conda environment, with some details about doing it at NERSC, but most of the tutorial is independent of that.</summary></entry><entry><title type="html">Example of the `healpy` query disc function</title><link href="https://zonca.dev/2020/10/example-healpy-query_disc.html" rel="alternate" type="text/html" title="Example of the `healpy` query disc function" /><published>2020-10-02T00:00:00-05:00</published><updated>2020-10-02T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/example-healpy-query_disc</id><content type="html" xml:base="https://zonca.dev/2020/10/example-healpy-query_disc.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -5071,58 +5175,4 @@ of the documentation and replaces &lt;code class=&quot;highlighter-rouge&quot;&g
 &lt;p&gt;After &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; builds this version, go to &lt;a href=&quot;https://github.com/myorganization/myrepo/settings/hooks&quot;&gt;https://github.com/myorganization/myrepo/settings/hooks&lt;/a&gt; and disable
 the &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; web hook.&lt;/p&gt;
 
-&lt;p&gt;Finally restore the documentation on your master branch and push.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is useful if you switch to hosting your own documentation, for example using Sphinx Multiversion on Github pages, tutorial coming soon.</summary></entry><entry><title type="html">Migrate from Travis-CI and Readthedocs to Github actions</title><link href="https://zonca.dev/2020/09/migrate-travisci-readthedocs-github-actions.html" rel="alternate" type="text/html" title="Migrate from Travis-CI and Readthedocs to Github actions" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/migrate-travisci-readthedocs-github-actions</id><content type="html" xml:base="https://zonca.dev/2020/09/migrate-travisci-readthedocs-github-actions.html">&lt;p&gt;For a number of years I have been concerned about the duplication of work having to maintain
-continuous integration environments both on Travis-CI to run the unit tests and on Readthedocs
-to build and host the documentation.&lt;/p&gt;
-
-&lt;p&gt;The solution I am proposing is to use Github actions to replace both systems. I chose Github actions
-instead of Travis-CI because they are easier to configure, have better log-viewing interface and
-surprisingly enough they are better integrated with Github!&lt;/p&gt;
-
-&lt;p&gt;The biggest hurdle was to find a way to reproduce the capability of &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; to host multiple
-versions of the documentation together, fortunately the &lt;a href=&quot;https://holzhaus.github.io/sphinx-multiversion/master/index.html&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sphinx-multiversion&lt;/code&gt;&lt;/a&gt; gives a very similar functionality.&lt;/p&gt;
-
-&lt;p&gt;Next I’ll be sharing an example configuration for &lt;code class=&quot;highlighter-rouge&quot;&gt;Github&lt;/code&gt; actions that integrates:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Installs requirements both via the package manager and &lt;code class=&quot;highlighter-rouge&quot;&gt;pip&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Build and run unit tests for Python 3.6 and 3.7&lt;/li&gt;
-  &lt;li&gt;Just with Python 3.6, installs &lt;code class=&quot;highlighter-rouge&quot;&gt;sphinx-multiversion&lt;/code&gt;, builds the docs for all tagged releases, pushes that to the documentation repository&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;script src=&quot;https://gist.github.com/zonca/78125d40bb6ce70510f0dd4226d947ac.js&quot;&gt;&lt;/script&gt;
-
-&lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Create a &lt;code class=&quot;highlighter-rouge&quot;&gt;docs/requirements.txt&lt;/code&gt; file which includes &lt;code class=&quot;highlighter-rouge&quot;&gt;sphinx-multiversion&lt;/code&gt;, I directly use &lt;code class=&quot;highlighter-rouge&quot;&gt;https://github.com/Holzhaus/sphinx-multiversion/archive/master.zip&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Follow the &lt;code class=&quot;highlighter-rouge&quot;&gt;sphinx-multiversion&lt;/code&gt; documentation to configure &lt;code class=&quot;highlighter-rouge&quot;&gt;docs/conf.py&lt;/code&gt;, for example my configuration is:&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  ``` # Sphinx multiversion configuration extensions += [&quot;sphinx_multiversion&quot;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;templates_path = [
-            “_templates”,                                                                                                                      ]
-                                                                                                                                   #html_sidebars = {‘**’:  [&lt;/p&gt;
-&lt;h1 id=&quot;versioninghtml&quot;&gt;“versioning.html”,&lt;/h1&gt;
-&lt;h1&gt;]}&lt;/h1&gt;
-
-&lt;h1 id=&quot;whitelist-pattern-for-tags-set-to-none-to-ignore-all-tags----------------------------------------------------------------------smv_tag_whitelist--r&quot;&gt;Whitelist pattern for tags (set to None to ignore all tags)                                                                      smv_tag_whitelist = r’^.*&lt;/h1&gt;
-&lt;h1 id=&quot;whitelist-pattern-for-branches-set-to-none-to-ignore-all-branches--------------------------------------------------------------smv_branch_whitelist--rmaster&quot;&gt;Whitelist pattern for branches (set to None to ignore all branches)                                                              smv_branch_whitelist = r’^master$’&lt;/h1&gt;
-
-&lt;h1 id=&quot;whitelist-pattern-for-remotes-set-to-none-to-use-local-branches-only-----------------------------------------------------------smv_remote_whitelist--none&quot;&gt;Whitelist pattern for remotes (set to None to use local branches only)                                                           smv_remote_whitelist = None&lt;/h1&gt;
-
-&lt;h1 id=&quot;pattern-for-released-versions----------------------------------------------------------------------------------------------------smv_released_pattern--rtags&quot;&gt;Pattern for released versions                                                                                                    smv_released_pattern = r’^.&lt;em&gt;tags.&lt;/em&gt;$’&lt;/h1&gt;
-
-&lt;h1 id=&quot;format-for-versioned-output-directories-inside-the-build-directory---------------------------------------------------------------smv_outputdir_format--refname&quot;&gt;Format for versioned output directories inside the build directory                                                               smv_outputdir_format = ‘{ref.name}’&lt;/h1&gt;
-&lt;h1 id=&quot;determines-whether-remote-or-local-git-branchestags-are-preferred-if-their-output-dirs-conflict---------------------------------smv_prefer_remote_refs--false&quot;&gt;Determines whether remote or local git branches/tags are preferred if their output dirs conflict                                 smv_prefer_remote_refs = False&lt;/h1&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    ```
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;If necessary, customize the templates, for example I added &lt;code class=&quot;highlighter-rouge&quot;&gt;localtoc.html&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;page.html&lt;/code&gt; to mine, see &lt;a href=&quot;https://gist.github.com/ad17f00a91355eaedd221abb34d75c11&quot;&gt;this gist&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;Decide where you want to host the docs, I created a dedicated repository (same name of the python package replacing &lt;code class=&quot;highlighter-rouge&quot;&gt;_&lt;/code&gt; by &lt;code class=&quot;highlighter-rouge&quot;&gt;-&lt;/code&gt;), created a Github deploy key on it, and added it as &lt;code class=&quot;highlighter-rouge&quot;&gt;DEPLOY_KEY&lt;/code&gt; within the secrets of the Github repository so that it is available in the Github action (&lt;code class=&quot;highlighter-rouge&quot;&gt;GITHUB_TOKEN&lt;/code&gt; instead is automatically created).&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">For a number of years I have been concerned about the duplication of work having to maintain continuous integration environments both on Travis-CI to run the unit tests and on Readthedocs to build and host the documentation.</summary></entry></feed>
+&lt;p&gt;Finally restore the documentation on your master branch and push.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is useful if you switch to hosting your own documentation, for example using Sphinx Multiversion on Github pages, tutorial coming soon.</summary></entry></feed>
