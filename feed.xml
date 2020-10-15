@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-15T12:50:15-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-15T16:39:45-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
 with some details about doing it at NERSC, but most of the tutorial is independent of that.&lt;/p&gt;
 
 &lt;h2 id=&quot;setup-the-conda-environment-and-the-compilers&quot;&gt;Setup the conda environment and the compilers&lt;/h2&gt;
@@ -64,7 +64,7 @@ set everything to default except location of &lt;code class=&quot;highlighter-ro
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$CONDA_PREFIX/cfitsio/lib
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;When the installer asks whether to modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; respond yes (at NERSC trying to modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; will give permission denied, but will create the files in the &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.healpix&lt;/code&gt; folder.).
+&lt;p&gt;When the installer asks whether to modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; respond no.
 Now the installer will create some scripts in the &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.healpix&lt;/code&gt; folder and modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt;, we want to only activate HEALPix in our conda environment so we should modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; and remove the lines added by HEALPix.&lt;/p&gt;
 
 &lt;p&gt;Finally we can have HEALPix automatically activated when the conda environment is initialized (notice we need the script to end in &lt;code class=&quot;highlighter-rouge&quot;&gt;.sh&lt;/code&gt;):&lt;/p&gt;
@@ -96,12 +96,13 @@ make -j8
 
 &lt;p&gt;This will put the &lt;code class=&quot;highlighter-rouge&quot;&gt;spice&lt;/code&gt; executable into the &lt;code class=&quot;highlighter-rouge&quot;&gt;../bin&lt;/code&gt; folder, just copy it to the conda environment bin folder:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp ../bin/spice ${CONDA_PREFIX}/bin/
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ..
+ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;We can also copy the 2 python modules into the environment:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp bin_llcl.py ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Check it works:&lt;/p&gt;

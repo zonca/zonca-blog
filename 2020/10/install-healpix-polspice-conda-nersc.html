@@ -195,7 +195,7 @@ set everything to default except location of <code class="highlighter-rouge">cfi
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$CONDA_PREFIX/cfitsio/lib
 </code></pre></div></div>
 
-<p>When the installer asks whether to modify <code class="highlighter-rouge">.profile</code> respond yes (at NERSC trying to modify <code class="highlighter-rouge">.profile</code> will give permission denied, but will create the files in the <code class="highlighter-rouge">~/.healpix</code> folder.).
+<p>When the installer asks whether to modify <code class="highlighter-rouge">.profile</code> respond no.
 Now the installer will create some scripts in the <code class="highlighter-rouge">~/.healpix</code> folder and modify <code class="highlighter-rouge">.profile</code>, we want to only activate HEALPix in our conda environment so we should modify <code class="highlighter-rouge">.profile</code> and remove the lines added by HEALPix.</p>
 
 <p>Finally we can have HEALPix automatically activated when the conda environment is initialized (notice we need the script to end in <code class="highlighter-rouge">.sh</code>):</p>
@@ -227,12 +227,13 @@ make -j8
 
 <p>This will put the <code class="highlighter-rouge">spice</code> executable into the <code class="highlighter-rouge">../bin</code> folder, just copy it to the conda environment bin folder:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp ../bin/spice ${CONDA_PREFIX}/bin/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ..
+ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
 </code></pre></div></div>
 
 <p>We can also copy the 2 python modules into the environment:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp bin_llcl.py ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
 </code></pre></div></div>
 
 <p>Check it works:</p>
