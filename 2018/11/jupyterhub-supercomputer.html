@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Deploy JupyterHub on a Supercomputer for a workshop or tutorial 2018 edition | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Deploy JupyterHub on a Supercomputer for a workshop or tutorial 2018 edition" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="I described how to deploy JupyterHub with each user session running on a different node of a Supercomputer in my paper for PEARC18, however things are moving fast in the space and I am employing a different strategy this year, in particular relying on the littlest JupyterHub project for the initial deployment." />
@@ -15,30 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-11-07T11:00:00-06:00" />
 <script type="application/ld+json">
-{"headline":"Deploy JupyterHub on a Supercomputer for a workshop or tutorial 2018 edition","dateModified":"2018-11-07T11:00:00-06:00","datePublished":"2018-11-07T11:00:00-06:00","description":"I described how to deploy JupyterHub with each user session running on a different node of a Supercomputer in my paper for PEARC18, however things are moving fast in the space and I am employing a different strategy this year, in particular relying on the littlest JupyterHub project for the initial deployment.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/11/jupyterhub-supercomputer.html"},"@type":"BlogPosting","url":"https://zonca.dev/2018/11/jupyterhub-supercomputer.html","@context":"https://schema.org"}</script>
+{"headline":"Deploy JupyterHub on a Supercomputer for a workshop or tutorial 2018 edition","dateModified":"2018-11-07T11:00:00-06:00","url":"https://zonca.dev/2018/11/jupyterhub-supercomputer.html","datePublished":"2018-11-07T11:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/11/jupyterhub-supercomputer.html"},"description":"I described how to deploy JupyterHub with each user session running on a different node of a Supercomputer in my paper for PEARC18, however things are moving fast in the space and I am employing a different strategy this year, in particular relying on the littlest JupyterHub project for the initial deployment.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Deploy JupyterHub on a Supercomputer for a workshop or tutorial 2018 edition | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Deploy JupyterHub on a Supercomputer for a workshop or tutorial 2018 edition" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="I described how to deploy JupyterHub with each user session running on a different node of a Supercomputer in my paper for PEARC18, however things are moving fast in the space and I am employing a different strategy this year, in particular relying on the littlest JupyterHub project for the initial deployment." />
-<meta property="og:description" content="I described how to deploy JupyterHub with each user session running on a different node of a Supercomputer in my paper for PEARC18, however things are moving fast in the space and I am employing a different strategy this year, in particular relying on the littlest JupyterHub project for the initial deployment." />
-<link rel="canonical" href="https://zonca.dev/2018/11/jupyterhub-supercomputer.html" />
-<meta property="og:url" content="https://zonca.dev/2018/11/jupyterhub-supercomputer.html" />
-<meta property="og:site_name" content="Andrea Zonca" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2018-11-07T11:00:00-06:00" />
-<script type="application/ld+json">
-{"headline":"Deploy JupyterHub on a Supercomputer for a workshop or tutorial 2018 edition","dateModified":"2018-11-07T11:00:00-06:00","datePublished":"2018-11-07T11:00:00-06:00","description":"I described how to deploy JupyterHub with each user session running on a different node of a Supercomputer in my paper for PEARC18, however things are moving fast in the space and I am employing a different strategy this year, in particular relying on the littlest JupyterHub project for the initial deployment.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/11/jupyterhub-supercomputer.html"},"@type":"BlogPosting","url":"https://zonca.dev/2018/11/jupyterhub-supercomputer.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -57,7 +42,7 @@ function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
         var elements = document.querySelectorAll(".post img");
         Array.prototype.forEach.call(elements, function(el, i) {
-            if (el.getAttribute("title")) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
                 const caption = document.createElement('figcaption');
                 var node = document.createTextNode(el.getAttribute("title"));
                 caption.appendChild(node);
@@ -81,7 +66,8 @@ window.onload = wrap_img;
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
     });
 </script>
-</head><body><header class="site-header">
+</head>
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -147,50 +133,50 @@ deployment at the San Diego Supercomputer Center, and requested an instance with
 make sure to use the same username of your Github account, as we will later setup Github Authentication.</p>
 
 <p>You can connect to the instance and check JupyterHub is working and you can login with your user and access the admin panel,
-for SDSC Cloud the address is <code class="highlighter-rouge">http://xxx-xxx-xxx-xxx.compute.cloud.sdsc.edu</code>, filled in with the instance floating IP address.</p>
+for SDSC Cloud the address is <code class="language-plaintext highlighter-rouge">http://xxx-xxx-xxx-xxx.compute.cloud.sdsc.edu</code>, filled in with the instance floating IP address.</p>
 
 <h3 id="setup-https">Setup HTTPS</h3>
 
-<p>Follow the Littlest JupyterHub documentation on how to get a SSL certificate through Letsencrypt automatically, after this you should be able to access JupyterHub from <code class="highlighter-rouge">https://xxx-xxx-xxx-xxx.compute.cloud.sdsc.edu</code> or a custom domain you pointed there.</p>
+<p>Follow the Littlest JupyterHub documentation on how to get a SSL certificate through Letsencrypt automatically, after this you should be able to access JupyterHub from <code class="language-plaintext highlighter-rouge">https://xxx-xxx-xxx-xxx.compute.cloud.sdsc.edu</code> or a custom domain you pointed there.</p>
 
 <h2 id="authentication-with-github">Authentication with Github</h2>
 
-<p>Follow the Littlest JupyterHub documentation, just make sure to set the <code class="highlighter-rouge">http</code> address and not the <code class="highlighter-rouge">https</code> address.</p>
+<p>Follow the Littlest JupyterHub documentation, just make sure to set the <code class="language-plaintext highlighter-rouge">http</code> address and not the <code class="language-plaintext highlighter-rouge">https</code> address.</p>
 
 <h2 id="interface-with-comet-via-batchspawner">Interface with Comet via batchspawner</h2>
 
-<p>We want all users to run on Comet as a single “Gateway” user, as JupyterHub executes as the <code class="highlighter-rouge">root</code> user on the server, we want to create a SSH key for the <code class="highlighter-rouge">root</code> user and copy the public key to the home folder of the gateway user on Comet so that we can SSH without a password.</p>
+<p>We want all users to run on Comet as a single “Gateway” user, as JupyterHub executes as the <code class="language-plaintext highlighter-rouge">root</code> user on the server, we want to create a SSH key for the <code class="language-plaintext highlighter-rouge">root</code> user and copy the public key to the home folder of the gateway user on Comet so that we can SSH without a password.</p>
 
 <p>Instead, if you would like each user to utilize their own XSEDE account, you need them to authenticate via XSEDE and get a certificate from the XSEDE API that can be used to login to Comet on behalf of the user, see <a href="https://github.com/jupyterhub/jupyterhub-deploy-hpc/tree/master/batchspawner-xsedeoauth-sshtunnel-sdsccomet">an example deployment of this</a>.</p>
 
-<p>First install <code class="highlighter-rouge">batchspawner</code> with <code class="highlighter-rouge">pip</code> in the Python environment of the hub, this is different than the Python environment of the user, you can have access to it logging in with the <code class="highlighter-rouge">root</code> user and running:</p>
+<p>First install <code class="language-plaintext highlighter-rouge">batchspawner</code> with <code class="language-plaintext highlighter-rouge">pip</code> in the Python environment of the hub, this is different than the Python environment of the user, you can have access to it logging in with the <code class="language-plaintext highlighter-rouge">root</code> user and running:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH=/opt/tljh/hub/bin:${PATH}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH=/opt/tljh/hub/bin:${PATH}
 </code></pre></div></div>
 
-<p>Set the configuration file, see <a href="https://gist.github.com/zonca/55f7949983e56088186e99db53548ded"><code class="highlighter-rouge">spawner.py</code> on this Gist</a> and copy it into the <code class="highlighter-rouge">/opt/tljh/config/jupyterhub_config.d</code> folder, then add the private SSH key of the tunnelbot user, which is a user on the Virtual Machine with no shell (set <code class="highlighter-rouge">/bin/false</code> in <code class="highlighter-rouge">/etc/passwd</code>) but that can setup a SSH tunnel from Comet back to the Hub.</p>
+<p>Set the configuration file, see <a href="https://gist.github.com/zonca/55f7949983e56088186e99db53548ded"><code class="language-plaintext highlighter-rouge">spawner.py</code> on this Gist</a> and copy it into the <code class="language-plaintext highlighter-rouge">/opt/tljh/config/jupyterhub_config.d</code> folder, then add the private SSH key of the tunnelbot user, which is a user on the Virtual Machine with no shell (set <code class="language-plaintext highlighter-rouge">/bin/false</code> in <code class="language-plaintext highlighter-rouge">/etc/passwd</code>) but that can setup a SSH tunnel from Comet back to the Hub.</p>
 
 <p>Also customize all paths and usernames in the file.</p>
 
 <p>Reload the Jupyterhub configuration with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tljh-config reload
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tljh-config reload
 </code></pre></div></div>
 
-<p>You can then check the Hub logs with <code class="highlighter-rouge">sudo journalctl -r -u jupyterhub</code></p>
+<p>You can then check the Hub logs with <code class="language-plaintext highlighter-rouge">sudo journalctl -r -u jupyterhub</code></p>
 
-<p>The most complicated part is making sure that the environment variables defined by JupyterHub, the most important is the token which allows the singleuser server to authenticate itself with the Hub, are correctly propagated through SSH. See in <code class="highlighter-rouge">spawner.py</code> how I explicitely pass the variables over SSH.</p>
+<p>The most complicated part is making sure that the environment variables defined by JupyterHub, the most important is the token which allows the singleuser server to authenticate itself with the Hub, are correctly propagated through SSH. See in <code class="language-plaintext highlighter-rouge">spawner.py</code> how I explicitely pass the variables over SSH.</p>
 
 <p>Also, as all workshop participants access Comet with the same user account, I automatically create a folder with their Github username and checkout the Notebooks for the workshop in that folder. Then start JupyterLab in that folder, so that the users do not interfere, we are not worrying about security here, with the current setup a user can open a terminal inside JupyterLab and access the folder of another person.</p>
 
 <h2 id="how-to-setup-the-tunnelbot-user">How to setup the tunnelbot user</h2>
 
 <ul>
-  <li>On the JupyterHub virtual machine, create a user named <code class="highlighter-rouge">tunnelbot</code></li>
-  <li><code class="highlighter-rouge">sudo su tunnelbot</code> to act as that user, then create a key with <code class="highlighter-rouge">ssh-keygen</code></li>
-  <li>enter the <code class="highlighter-rouge">.ssh</code> folder and <code class="highlighter-rouge">cp id_rsa.pub authorized_keys</code> so that the ssh key can be used from Comet to ssh passwordless to the server</li>
-  <li>now get the <strong>private key</strong> from <code class="highlighter-rouge">/home/tunnelbot/.ssh/id_rsa</code> and paste it into <code class="highlighter-rouge">spawner.py</code></li>
-  <li>now make sure you set the shell of <code class="highlighter-rouge">tunnelbot</code> to <code class="highlighter-rouge">/bin/false</code> in <code class="highlighter-rouge">/etc/passwd/</code></li>
+  <li>On the JupyterHub virtual machine, create a user named <code class="language-plaintext highlighter-rouge">tunnelbot</code></li>
+  <li><code class="language-plaintext highlighter-rouge">sudo su tunnelbot</code> to act as that user, then create a key with <code class="language-plaintext highlighter-rouge">ssh-keygen</code></li>
+  <li>enter the <code class="language-plaintext highlighter-rouge">.ssh</code> folder and <code class="language-plaintext highlighter-rouge">cp id_rsa.pub authorized_keys</code> so that the ssh key can be used from Comet to ssh passwordless to the server</li>
+  <li>now get the <strong>private key</strong> from <code class="language-plaintext highlighter-rouge">/home/tunnelbot/.ssh/id_rsa</code> and paste it into <code class="language-plaintext highlighter-rouge">spawner.py</code></li>
+  <li>now make sure you set the shell of <code class="language-plaintext highlighter-rouge">tunnelbot</code> to <code class="language-plaintext highlighter-rouge">/bin/false</code> in <code class="language-plaintext highlighter-rouge">/etc/passwd/</code></li>
   <li>for increased security, please also follow the steps in <a href="https://askubuntu.com/questions/48129/how-to-create-a-restricted-ssh-user-for-port-forwarding">this stackoverflow answer</a></li>
 </ul>
 

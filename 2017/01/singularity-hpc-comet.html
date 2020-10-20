@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Run Ubuntu in HPC with Singularity | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Run Ubuntu in HPC with Singularity" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Ever wanted to sudo apt install packages on a Supercomputer? Ever wanted to freeze your software environment and reproduce a calculation after some time? Ever wanted to dump your software environment to a file and move it to another Supercomputer? or wanted the same software on your laptop and on a computing node?" />
@@ -15,30 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-01-13T12:00:00-06:00" />
 <script type="application/ld+json">
-{"headline":"Run Ubuntu in HPC with Singularity","dateModified":"2017-01-13T12:00:00-06:00","datePublished":"2017-01-13T12:00:00-06:00","description":"Ever wanted to sudo apt install packages on a Supercomputer? Ever wanted to freeze your software environment and reproduce a calculation after some time? Ever wanted to dump your software environment to a file and move it to another Supercomputer? or wanted the same software on your laptop and on a computing node?","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/01/singularity-hpc-comet.html"},"@type":"BlogPosting","url":"https://zonca.dev/2017/01/singularity-hpc-comet.html","@context":"https://schema.org"}</script>
+{"headline":"Run Ubuntu in HPC with Singularity","dateModified":"2017-01-13T12:00:00-06:00","url":"https://zonca.dev/2017/01/singularity-hpc-comet.html","datePublished":"2017-01-13T12:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/01/singularity-hpc-comet.html"},"description":"Ever wanted to sudo apt install packages on a Supercomputer? Ever wanted to freeze your software environment and reproduce a calculation after some time? Ever wanted to dump your software environment to a file and move it to another Supercomputer? or wanted the same software on your laptop and on a computing node?","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Run Ubuntu in HPC with Singularity | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Run Ubuntu in HPC with Singularity" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Ever wanted to sudo apt install packages on a Supercomputer? Ever wanted to freeze your software environment and reproduce a calculation after some time? Ever wanted to dump your software environment to a file and move it to another Supercomputer? or wanted the same software on your laptop and on a computing node?" />
-<meta property="og:description" content="Ever wanted to sudo apt install packages on a Supercomputer? Ever wanted to freeze your software environment and reproduce a calculation after some time? Ever wanted to dump your software environment to a file and move it to another Supercomputer? or wanted the same software on your laptop and on a computing node?" />
-<link rel="canonical" href="https://zonca.dev/2017/01/singularity-hpc-comet.html" />
-<meta property="og:url" content="https://zonca.dev/2017/01/singularity-hpc-comet.html" />
-<meta property="og:site_name" content="Andrea Zonca" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-01-13T12:00:00-06:00" />
-<script type="application/ld+json">
-{"headline":"Run Ubuntu in HPC with Singularity","dateModified":"2017-01-13T12:00:00-06:00","datePublished":"2017-01-13T12:00:00-06:00","description":"Ever wanted to sudo apt install packages on a Supercomputer? Ever wanted to freeze your software environment and reproduce a calculation after some time? Ever wanted to dump your software environment to a file and move it to another Supercomputer? or wanted the same software on your laptop and on a computing node?","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/01/singularity-hpc-comet.html"},"@type":"BlogPosting","url":"https://zonca.dev/2017/01/singularity-hpc-comet.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -57,7 +42,7 @@ function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
         var elements = document.querySelectorAll(".post img");
         Array.prototype.forEach.call(elements, function(el, i) {
-            if (el.getAttribute("title")) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
                 const caption = document.createElement('figcaption');
                 var node = document.createTextNode(el.getAttribute("title"));
                 caption.appendChild(node);
@@ -81,7 +66,8 @@ window.onload = wrap_img;
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
     });
 </script>
-</head><body><header class="site-header">
+</head>
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -127,7 +113,7 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul>
-  <li>Ever wanted to <code class="highlighter-rouge">sudo apt install</code> packages on a Supercomputer?</li>
+  <li>Ever wanted to <code class="language-plaintext highlighter-rouge">sudo apt install</code> packages on a Supercomputer?</li>
   <li>Ever wanted to freeze your software environment and reproduce a calculation after some time?</li>
   <li>Ever wanted to dump your software environment to a file and move it to another Supercomputer? or wanted the same software on your laptop and on a computing node?</li>
 </ul>
@@ -140,11 +126,11 @@ window.onload = wrap_img;
 and it has been available for some time on my favorite Supercomputer, i.e. Comet at the San Diego Supercomputer Center.</p>
 
 <p>You can read more details on their website, in summary you choose your own Operative System (any GNU/Linux distribution), describe its configuration in a standard format or even
-import an existing <code class="highlighter-rouge">Dockerfile</code> (from the popular Docker container technology) and Singularity is able to build an image contained in a single file.
+import an existing <code class="language-plaintext highlighter-rouge">Dockerfile</code> (from the popular Docker container technology) and Singularity is able to build an image contained in a single file.
 This file can then be executed on any Linux machine with Singularity installed (even on a Comet computing node), so you can run Ubuntu 16.10 or Red Hat 5 or any other flavor, your choice!
 It doesn’t need any deamon running like Docker, you can just execute a command inside the container by running:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>singularity exec /path/to/your/image.img your_executable
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>singularity exec /path/to/your/image.img your_executable
 </code></pre></div></div>
 
 <p>And your executable is run within the OS of the container.</p>
@@ -154,14 +140,14 @@ It doesn’t need any deamon running like Docker, you can just execute a command
 <p>In summary, referring to the questions above:</p>
 
 <ul>
-  <li>This allows you to <code class="highlighter-rouge">sudo apt install</code> any package inside this environment when it is on your laptop, and then copy it to any Supercomputer and run your software inside that OS.</li>
+  <li>This allows you to <code class="language-plaintext highlighter-rouge">sudo apt install</code> any package inside this environment when it is on your laptop, and then copy it to any Supercomputer and run your software inside that OS.</li>
   <li>You can store this image to help reproduce your scientific results anytime in the future</li>
   <li>You can develop your software inside a Singularity container and never have to worry about environment issues when you are ready for production runs on HPC or moving across different Supercomputers</li>
 </ul>
 
 <h2 id="build-a-singularity-image-for-sdsc-comet-with-mpi-support">Build a Singularity image for SDSC Comet with MPI support</h2>
 
-<p>One of the trickiest things for such technology in HPC is support for MPI, the key stack for high speed network communication. I have prepared a tutorial on Github on how to build either a CentOS 7 or a Ubuntu 16.04 Singularity container for Comet that allows to use the <code class="highlighter-rouge">mpirun</code> command provided by the host OS on Comet but execute a code that supports MPI within the container.</p>
+<p>One of the trickiest things for such technology in HPC is support for MPI, the key stack for high speed network communication. I have prepared a tutorial on Github on how to build either a CentOS 7 or a Ubuntu 16.04 Singularity container for Comet that allows to use the <code class="language-plaintext highlighter-rouge">mpirun</code> command provided by the host OS on Comet but execute a code that supports MPI within the container.</p>
 
 <ul>
   <li><a href="https://github.com/zonca/singularity-comet">https://github.com/zonca/singularity-comet</a></li>
@@ -179,9 +165,9 @@ It doesn’t need any deamon running like Docker, you can just execute a command
 
 <p>I made also available my containers on Comet, they are located in my scratch space:</p>
 
-<p><code class="highlighter-rouge">/oasis/scratch/comet/zonca/temp_project</code></p>
+<p><code class="language-plaintext highlighter-rouge">/oasis/scratch/comet/zonca/temp_project</code></p>
 
-<p>and are named <code class="highlighter-rouge">Centos7.img</code>, <code class="highlighter-rouge">Ubuntu.img</code> and <code class="highlighter-rouge">julia.img</code>.</p>
+<p>and are named <code class="language-plaintext highlighter-rouge">Centos7.img</code>, <code class="language-plaintext highlighter-rouge">Ubuntu.img</code> and <code class="language-plaintext highlighter-rouge">julia.img</code>.</p>
 
 <p>You can also copy those images to your local machine and customize them more.</p>
 

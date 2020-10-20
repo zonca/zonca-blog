@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Deploy Kubernetes and JupyterHub on Jetstream with Magnum | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub." />
@@ -15,30 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-05-21T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Deploy Kubernetes and JupyterHub on Jetstream with Magnum","dateModified":"2020-05-21T00:00:00-05:00","datePublished":"2020-05-21T00:00:00-05:00","description":"This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html","@context":"https://schema.org"}</script>
+{"headline":"Deploy Kubernetes and JupyterHub on Jetstream with Magnum","dateModified":"2020-05-21T00:00:00-05:00","url":"https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html","datePublished":"2020-05-21T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html"},"description":"This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Deploy Kubernetes and JupyterHub on Jetstream with Magnum | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Deploy Kubernetes and JupyterHub on Jetstream with Magnum" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub." />
-<meta property="og:description" content="This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub." />
-<link rel="canonical" href="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" />
-<meta property="og:url" content="https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html" />
-<meta property="og:site_name" content="Andrea Zonca" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-05-21T00:00:00-05:00" />
-<script type="application/ld+json">
-{"headline":"Deploy Kubernetes and JupyterHub on Jetstream with Magnum","dateModified":"2020-05-21T00:00:00-05:00","datePublished":"2020-05-21T00:00:00-05:00","description":"This tutorial deploys Kubernetes on Jetstream with Magnum and then JupyterHub on top of that using zero-to-jupyterhub.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html"},"@type":"BlogPosting","url":"https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -57,7 +42,7 @@ function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
         var elements = document.querySelectorAll(".post img");
         Array.prototype.forEach.call(elements, function(el, i) {
-            if (el.getAttribute("title")) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
                 const caption = document.createElement('figcaption');
                 var node = document.createTextNode(el.getAttribute("title"));
                 caption.appendChild(node);
@@ -81,7 +66,8 @@ window.onload = wrap_img;
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
     });
 </script>
-</head><body><header class="site-header">
+</head>
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -142,10 +128,10 @@ If you need a newer version of Kubernetes, you can install Kubernetes with Kubes
 
 <p>First install the OpenStack client, please use these exact versions, also please run at Indiana, the TACC deployment has an older release of Openstack.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install python-openstackclient==3.18 python-magnumclient==3.10
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install python-openstackclient==3.18 python-magnumclient==3.10
 </code></pre></div></div>
 
-<p>Load your API credentials from <code class="highlighter-rouge">openrc.sh</code>, check <a href="https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh">documentation of the Jetstream wiki for details</a>.</p>
+<p>Load your API credentials from <code class="language-plaintext highlighter-rouge">openrc.sh</code>, check <a href="https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh">documentation of the Jetstream wiki for details</a>.</p>
 
 <p>You need to have a keypair uploaded to Openstack, this just needs to be done once per account. See <a href="https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/35913730/OpenStack+command+line">the Jetstream documentation</a> under the section “Upload SSH key - do this once”.</p>
 
@@ -153,43 +139,43 @@ If you need a newer version of Kubernetes, you can install Kubernetes with Kubes
 
 <p>As usual, checkout the repository with all the configuration files on the machine you will use the Jetstream API from, typically your laptop.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
 cd jupyterhub-deploy-kubernetes-jetstream
 cd kubernetes_magnum
 </code></pre></div></div>
 
-<p>Now we are ready to use Magnum to first create a cluster template and then the actual cluster, edit first <code class="highlighter-rouge">create_cluster.sh</code> and set the parameters of the cluster on the top. Also make sure to set the keypair name.
+<p>Now we are ready to use Magnum to first create a cluster template and then the actual cluster, edit first <code class="language-plaintext highlighter-rouge">create_cluster.sh</code> and set the parameters of the cluster on the top. Also make sure to set the keypair name.
 Create the network resources and the cluster template, these need to be created just
 once, then they can be reused by clusters created later on:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_network.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_network.sh
 bash create_template.sh
 </code></pre></div></div>
 
 <p>Then a cluster can be created with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_cluster.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_cluster.sh
 </code></pre></div></div>
 
 <p>The cluster consumes resources when active, it can be switched off with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash delete_cluster.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash delete_cluster.sh
 </code></pre></div></div>
 
 <p>Consider this is deleting all Jetstream virtual machines and data that could be stored in JupyterHub.</p>
 
 <p>I have setup a test cluster with only 1 master node and 1 normal node but you can modify that later.</p>
 
-<p>Check the status of your cluster, after about 10 minutes, it should be in state <code class="highlighter-rouge">CREATE_COMPLETE</code>:</p>
+<p>Check the status of your cluster, after about 10 minutes, it should be in state <code class="language-plaintext highlighter-rouge">CREATE_COMPLETE</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack coe cluster show k8s
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack coe cluster show k8s
 </code></pre></div></div>
 
 <h3 id="configure-kubectl-locally">Configure kubectl locally</h3>
 
-<p>Install the <code class="highlighter-rouge">kubectl</code> client locally, first check the version of the master node:</p>
+<p>Install the <code class="language-plaintext highlighter-rouge">kubectl</code> client locally, first check the version of the master node:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack server list # find the floating public IP of the master node (starts with 149_
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack server list # find the floating public IP of the master node (starts with 149_
 IP=149.xxx.xxx.xxx
 ssh fedora@$IP
 kubectl version
@@ -197,48 +183,48 @@ kubectl version
 
 <p>Now install the same version following the <a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/">Kubernetes documentation</a></p>
 
-<p>Now configure <code class="highlighter-rouge">kubectl</code> on your laptop to connect to the Kubernetes cluster created with Magnum:</p>
+<p>Now configure <code class="language-plaintext highlighter-rouge">kubectl</code> on your laptop to connect to the Kubernetes cluster created with Magnum:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir kubectl_secret
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir kubectl_secret
 cd kubectl_secret
 openstack coe cluster config k8s
 </code></pre></div></div>
 
 <p>This downloads a configuration file and the required certificates.</p>
 
-<p>and returns  <code class="highlighter-rouge">export KUBECONFIG=/absolute/path/to/config</code></p>
+<p>and returns  <code class="language-plaintext highlighter-rouge">export KUBECONFIG=/absolute/path/to/config</code></p>
 
-<p>See also the <code class="highlighter-rouge">update_kubectl_secret.sh</code> script to automate this step, but it requires to already have setup the environment variable.</p>
+<p>See also the <code class="language-plaintext highlighter-rouge">update_kubectl_secret.sh</code> script to automate this step, but it requires to already have setup the environment variable.</p>
 
 <p>execute that and then:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get nodes
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get nodes
 </code></pre></div></div>
 
-<p>we can also verify the Kubernetes version available, it should now be <code class="highlighter-rouge">1.15.7</code>:</p>
+<p>we can also verify the Kubernetes version available, it should now be <code class="language-plaintext highlighter-rouge">1.15.7</code>:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl version
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl version
 Server Version: version.Info{Major:"1", Minor:"15", GitVersion:"v1.15.7", GitCommit:"6c143d35bb11d74970e7bc0b6c45b6bfdffc0bd4", GitTreeState:"clean", BuildDate:"2019-12-11T12:34:17Z", GoVersion:"go1.12.12", Compiler:"gc", Platform:"linux/amd64"}
 </code></pre></div></div>
 
 <h2 id="configure-storage">Configure storage</h2>
 
 <p>Magnum configures a provider that knows how to create Kubernetes volumes using Openstack Cinder,
-but does not configure a <code class="highlighter-rouge">storageclass</code>, we can do that with:</p>
+but does not configure a <code class="language-plaintext highlighter-rouge">storageclass</code>, we can do that with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f storageclass.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f storageclass.yaml
 </code></pre></div></div>
 
 <p>We can test this by creating a Persistent Volume Claim:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f persistent_volume_claim.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f persistent_volume_claim.yaml
 
 kubectl describe pv
 
 kubectl describe pvc
 </code></pre></div></div>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name:            pvc-e8b93455-898b-11e9-a37c-fa163efb4609
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Name:            pvc-e8b93455-898b-11e9-a37c-fa163efb4609
 Labels:          failure-domain.beta.kubernetes.io/zone=nova
 Annotations:     kubernetes.io/createdby: cinder-dynamic-provisioner
                  pv.kubernetes.io/bound-by-controller: yes
@@ -264,7 +250,7 @@ Events:         &lt;none&gt;
 <p>We can also test creating an actual pod with a persistent volume and check
 that the volume is successfully mounted and the pod started:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f ../alpine-persistent-volume.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f ../alpine-persistent-volume.yaml
 kubectl describe pod alpine
 </code></pre></div></div>
 
@@ -280,7 +266,7 @@ to setup the NGINX ingress ourselves.</p>
 <p><a href="https://helm.sh/docs/using_helm/#installing-helm">Install the Helm client on your laptop</a>,
 make sure you install Helm 3 or later.</p>
 
-<p>Run <code class="highlighter-rouge">helm ls</code> and make sure it doesn’t give any error message but just an empty result.</p>
+<p>Run <code class="language-plaintext highlighter-rouge">helm ls</code> and make sure it doesn’t give any error message but just an empty result.</p>
 
 <h2 id="setup-nginx-ingress">Setup NGINX ingress</h2>
 
@@ -289,67 +275,67 @@ make sure you install Helm 3 or later.</p>
 <h3 id="open-http-and-https-ports">Open HTTP and HTTPS ports</h3>
 
 <p>First we need to open the HTTP and HTTPS ports on the master node, you can either connect to the Horizon interface,
-create new rule named <code class="highlighter-rouge">http_https</code>, then add 2 rules, in the Rule drop down choose HTTP and HTTPS; or from the command line:</p>
+create new rule named <code class="language-plaintext highlighter-rouge">http_https</code>, then add 2 rules, in the Rule drop down choose HTTP and HTTPS; or from the command line:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack security group create http_https
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack security group create http_https
 openstack security group rule create --ingress --protocol tcp --dst-port 80 http_https
 openstack security group rule create --ingress --protocol tcp --dst-port 443 http_https
 </code></pre></div></div>
 
-<p>Then you can find the name of the master node in <code class="highlighter-rouge">openstack server list</code> then add this security group to that instance:</p>
+<p>Then you can find the name of the master node in <code class="language-plaintext highlighter-rouge">openstack server list</code> then add this security group to that instance:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack server add security group  k8s-xxxxxxxxxxxx-master-0 http_https
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack server add security group  k8s-xxxxxxxxxxxx-master-0 http_https
 </code></pre></div></div>
 
 <h3 id="install-nginx-ingress-with-helm">Install NGINX ingress with Helm</h3>
 
-<p>We prefer to run the NGINX ingress on the master node, in fact in the configuration in <code class="highlighter-rouge">nginx.yaml</code> specifies:</p>
+<p>We prefer to run the NGINX ingress on the master node, in fact in the configuration in <code class="language-plaintext highlighter-rouge">nginx.yaml</code> specifies:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nodeSelector:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nodeSelector:
     node-role.kubernetes.io/master: ""
 </code></pre></div></div>
 
 <p>This is useful to reduce traffic across the cluster, install NGINX using Helm:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_nginx_ingress.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_nginx_ingress.sh
 </code></pre></div></div>
 
-<p>Note, the documentation says we should add this annotation to ingress with <code class="highlighter-rouge">kubectl edit ingress -n jhub</code>, but I found out it is not necessary:</p>
+<p>Note, the documentation says we should add this annotation to ingress with <code class="language-plaintext highlighter-rouge">kubectl edit ingress -n jhub</code>, but I found out it is not necessary:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>metadata:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
 </code></pre></div></div>
 
-<p>If this is correctly working, you should be able to run <code class="highlighter-rouge">curl localhost</code> from the master node and get a <code class="highlighter-rouge">Default backend: 404</code> message.</p>
+<p>If this is correctly working, you should be able to run <code class="language-plaintext highlighter-rouge">curl localhost</code> from the master node and get a <code class="language-plaintext highlighter-rouge">Default backend: 404</code> message.</p>
 
 <h2 id="install-jupyterhub">Install JupyterHub</h2>
 
 <p>Finally, we can go back to the root of the repository and install JupyterHub, first create the secrets file:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_secrets.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_secrets.sh
 </code></pre></div></div>
 
-<p>Then edit <code class="highlighter-rouge">secrets.yaml</code> and modify the hostname under <code class="highlighter-rouge">hosts</code> to display the hostname of your master Jetstream instance, i.e. if your instance public floating IP is <code class="highlighter-rouge">aaa.bbb.xxx.yyy</code>, the hostname should be <code class="highlighter-rouge">js-xxx-yyy.jetstream-cloud.org</code> (without <code class="highlighter-rouge">http://</code>).</p>
+<p>Then edit <code class="language-plaintext highlighter-rouge">secrets.yaml</code> and modify the hostname under <code class="language-plaintext highlighter-rouge">hosts</code> to display the hostname of your master Jetstream instance, i.e. if your instance public floating IP is <code class="language-plaintext highlighter-rouge">aaa.bbb.xxx.yyy</code>, the hostname should be <code class="language-plaintext highlighter-rouge">js-xxx-yyy.jetstream-cloud.org</code> (without <code class="language-plaintext highlighter-rouge">http://</code>).</p>
 
-<p>You should also check that connecting with your browser to <code class="highlighter-rouge">js-xxx-yyy.jetstream-cloud.org</code> shows <code class="highlighter-rouge">default backend - 404</code>, this means NGINX is also reachable from the internet, i.e. the web port is open on the master node.</p>
+<p>You should also check that connecting with your browser to <code class="language-plaintext highlighter-rouge">js-xxx-yyy.jetstream-cloud.org</code> shows <code class="language-plaintext highlighter-rouge">default backend - 404</code>, this means NGINX is also reachable from the internet, i.e. the web port is open on the master node.</p>
 
 <p>Finally:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash configure_helm_jupyterhub.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash configure_helm_jupyterhub.sh
 kubectl create namespace jhub
 bash install_jhub.sh
 </code></pre></div></div>
 
-<p>Connect with your browser to <code class="highlighter-rouge">js-xxx-yyy.jetstream-cloud.org</code> to check if it works.</p>
+<p>Connect with your browser to <code class="language-plaintext highlighter-rouge">js-xxx-yyy.jetstream-cloud.org</code> to check if it works.</p>
 
-<p>We are installing the <code class="highlighter-rouge">zero-to-jupyterhub</code> helm recipe version <code class="highlighter-rouge">0.9.0</code> instead of <code class="highlighter-rouge">0.8.2</code>.</p>
+<p>We are installing the <code class="language-plaintext highlighter-rouge">zero-to-jupyterhub</code> helm recipe version <code class="language-plaintext highlighter-rouge">0.9.0</code> instead of <code class="language-plaintext highlighter-rouge">0.8.2</code>.</p>
 
 <h3 id="allow-services-on-master">Allow services on master</h3>
 
 <p>By default the new Kubernetes version has 1 taint on the master node:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  taints:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  taints:
   - effect: NoSchedule
     key: dedicated
     value: master
@@ -359,7 +345,7 @@ bash install_jhub.sh
 pods, therefore if we want to run them on master, the easiest way is to delete that taint
 from the master node:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl edit node NODENAME
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl edit node NODENAME
 </code></pre></div></div>
 
 <h2 id="issues-and-feedback">Issues and feedback</h2>

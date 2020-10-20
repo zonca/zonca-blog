@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Setup private dask clusters in Kubernetes alongside JupyterHub on Jetstream | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Setup private dask clusters in Kubernetes alongside JupyterHub on Jetstream" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="In this post we will leverage software made available by the Pangeo community to allow each user of a Jupyterhub instance deployed on Jetstream on top of Kubernetes to launch a set of dask workers as containers running inside Kubernetes itself and use them for distributed computing." />
@@ -15,30 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-06-07T18:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Setup private dask clusters in Kubernetes alongside JupyterHub on Jetstream","dateModified":"2018-06-07T18:00:00-05:00","datePublished":"2018-06-07T18:00:00-05:00","description":"In this post we will leverage software made available by the Pangeo community to allow each user of a Jupyterhub instance deployed on Jetstream on top of Kubernetes to launch a set of dask workers as containers running inside Kubernetes itself and use them for distributed computing.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html"},"@type":"BlogPosting","url":"https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html","@context":"https://schema.org"}</script>
+{"headline":"Setup private dask clusters in Kubernetes alongside JupyterHub on Jetstream","dateModified":"2018-06-07T18:00:00-05:00","url":"https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html","datePublished":"2018-06-07T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html"},"description":"In this post we will leverage software made available by the Pangeo community to allow each user of a Jupyterhub instance deployed on Jetstream on top of Kubernetes to launch a set of dask workers as containers running inside Kubernetes itself and use them for distributed computing.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Setup private dask clusters in Kubernetes alongside JupyterHub on Jetstream | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Setup private dask clusters in Kubernetes alongside JupyterHub on Jetstream" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="In this post we will leverage software made available by the Pangeo community to allow each user of a Jupyterhub instance deployed on Jetstream on top of Kubernetes to launch a set of dask workers as containers running inside Kubernetes itself and use them for distributed computing." />
-<meta property="og:description" content="In this post we will leverage software made available by the Pangeo community to allow each user of a Jupyterhub instance deployed on Jetstream on top of Kubernetes to launch a set of dask workers as containers running inside Kubernetes itself and use them for distributed computing." />
-<link rel="canonical" href="https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html" />
-<meta property="og:url" content="https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html" />
-<meta property="og:site_name" content="Andrea Zonca" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2018-06-07T18:00:00-05:00" />
-<script type="application/ld+json">
-{"headline":"Setup private dask clusters in Kubernetes alongside JupyterHub on Jetstream","dateModified":"2018-06-07T18:00:00-05:00","datePublished":"2018-06-07T18:00:00-05:00","description":"In this post we will leverage software made available by the Pangeo community to allow each user of a Jupyterhub instance deployed on Jetstream on top of Kubernetes to launch a set of dask workers as containers running inside Kubernetes itself and use them for distributed computing.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html"},"@type":"BlogPosting","url":"https://zonca.dev/2018/06/private-dask-kubernetes-jetstream.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -57,7 +42,7 @@ function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
         var elements = document.querySelectorAll(".post img");
         Array.prototype.forEach.call(elements, function(el, i) {
-            if (el.getAttribute("title")) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
                 const caption = document.createElement('figcaption');
                 var node = document.createTextNode(el.getAttribute("title"));
                 caption.appendChild(node);
@@ -81,7 +66,8 @@ window.onload = wrap_img;
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
     });
 </script>
-</head><body><header class="site-header">
+</head>
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -129,7 +115,7 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>In this post we will leverage software made available by the <a href="https://pangeo-data.github.io">Pangeo community</a> to allow each user of a <a href="https://zonca.github.io/2017/12/scalable-jupyterhub-kubernetes-jetstream.html">Jupyterhub instance deployed on Jetstream on top of Kubernetes</a> to launch a set of <a href="https://dask.pydata.org"><code class="highlighter-rouge">dask</code></a> workers as containers running inside Kubernetes itself and use them for distributed computing.</p>
+    <p>In this post we will leverage software made available by the <a href="https://pangeo-data.github.io">Pangeo community</a> to allow each user of a <a href="https://zonca.github.io/2017/12/scalable-jupyterhub-kubernetes-jetstream.html">Jupyterhub instance deployed on Jetstream on top of Kubernetes</a> to launch a set of <a href="https://dask.pydata.org"><code class="language-plaintext highlighter-rouge">dask</code></a> workers as containers running inside Kubernetes itself and use them for distributed computing.</p>
 
 <p>Pangeo also maintains a deployment of this environment on Google Cloud freely accessible at <a href="https://pangeo.pydata.org">pangeo.pydata.org</a>.</p>
 
@@ -138,8 +124,8 @@ window.onload = wrap_img;
 <h2 id="deploy-kubernetes">Deploy Kubernetes</h2>
 
 <p>We need to first create Jetstream instances and deploy Kubernetes on them. We can follow the first part of the tutorial at <a href="https://zonca.github.io/2017/12/scalable-jupyterhub-kubernetes-jetstream.html">https://zonca.github.io/2017/12/scalable-jupyterhub-kubernetes-jetstream.html</a>.
-I also tested with Ubuntu 18.04 instead of Ubuntu 16.04 and edited the <code class="highlighter-rouge">install-kubeadm.bash</code> accordingly, I also removed version specifications in order to pickup the latest Kubernetes version, currently 1.10. See <a href="https://gist.github.com/zonca/5365fd2245462dedaf2297e0417c4662">my install-kubeadm-18.04.bash</a>.
-Notice that for the <code class="highlighter-rouge">http://apt.kubernetes.io/</code> don’t have yet Ubuntu 18.04 packages, so I left <code class="highlighter-rouge">xenial</code>, this should be updated in the future.</p>
+I also tested with Ubuntu 18.04 instead of Ubuntu 16.04 and edited the <code class="language-plaintext highlighter-rouge">install-kubeadm.bash</code> accordingly, I also removed version specifications in order to pickup the latest Kubernetes version, currently 1.10. See <a href="https://gist.github.com/zonca/5365fd2245462dedaf2297e0417c4662">my install-kubeadm-18.04.bash</a>.
+Notice that for the <code class="language-plaintext highlighter-rouge">http://apt.kubernetes.io/</code> don’t have yet Ubuntu 18.04 packages, so I left <code class="language-plaintext highlighter-rouge">xenial</code>, this should be updated in the future.</p>
 
 <p>In order to simplify the setup we will just be using ephemeral storage, later we can update the deployment using either Rook following the <a href="https://zonca.github.io/2017/12/scalable-jupyterhub-kubernetes-jetstream.html">steps in my original tutorial</a> or a NFS share (I’ll write a tutorial soon about that).</p>
 
@@ -147,88 +133,88 @@ Notice that for the <code class="highlighter-rouge">http://apt.kubernetes.io/</c
 
 <p>Deployment is just a single step because Pangeo published a Helm recipe that depends on the Zero-to-JupyterHub recipe and deploys both in a single step, therefore we <em>should not have deployed JupyterHub beforehand</em>.</p>
 
-<p>First we need to create a <code class="highlighter-rouge">yaml</code> configuration file for the package.
+<p>First we need to create a <code class="language-plaintext highlighter-rouge">yaml</code> configuration file for the package.
 Checkout the Github repository with all the configuration files on the master node of Kubernetes:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
 </code></pre></div></div>
 
-<p>in the <code class="highlighter-rouge">pangeo_helm</code> folder, there is already a draft of the configuration file.</p>
+<p>in the <code class="language-plaintext highlighter-rouge">pangeo_helm</code> folder, there is already a draft of the configuration file.</p>
 
 <p>We need to:</p>
 
 <ul>
-  <li>run <code class="highlighter-rouge">openssl</code> as instructed inside the file and paste the output tokens to the specified location</li>
-  <li>edit the hostname in the <code class="highlighter-rouge">ingress</code> section to the hostname of the Jetstream master node</li>
+  <li>run <code class="language-plaintext highlighter-rouge">openssl</code> as instructed inside the file and paste the output tokens to the specified location</li>
+  <li>edit the hostname in the <code class="language-plaintext highlighter-rouge">ingress</code> section to the hostname of the Jetstream master node</li>
   <li>customize the memory and CPU requirements, currently they are very low so that this can be tested also in a single small instance</li>
 </ul>
 
 <p>We can then deploy with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install pangeo/pangeo -n pangeo --namespace pangeo -f config_pangeo_no_storage.yaml --version=v0.1.1-95ab292
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install pangeo/pangeo -n pangeo --namespace pangeo -f config_pangeo_no_storage.yaml --version=v0.1.1-95ab292
 </code></pre></div></div>
 
 <p>You can optionally check if there are newer versions of the chart at <a href="https://pangeo-data.github.io/helm-chart/">https://pangeo-data.github.io/helm-chart/</a>.</p>
 
 <p>Then check that the pods start checking their status with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl -n pangeo get pods
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl -n pangeo get pods
 </code></pre></div></div>
 
 <p>If any is stuck in Pending, check with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl -n pangeo describe &lt;pod-name&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl -n pangeo describe &lt;pod-name&gt;
 </code></pre></div></div>
 
-<p>Once the <code class="highlighter-rouge">hub</code> pod is running, you should be able to connect with your browser to <code class="highlighter-rouge">js-xxx-xxx.Jetstream-cloud.org</code>, by default it runs with a dummy authenticator, at the login form, just type any username and leave the password empty to login.</p>
+<p>Once the <code class="language-plaintext highlighter-rouge">hub</code> pod is running, you should be able to connect with your browser to <code class="language-plaintext highlighter-rouge">js-xxx-xxx.Jetstream-cloud.org</code>, by default it runs with a dummy authenticator, at the login form, just type any username and leave the password empty to login.</p>
 
 <h2 id="launch-a-dask-cluster">Launch a dask cluster</h2>
 
-<p>Once you get the Jupyter Notebook instance, you should see a file named <code class="highlighter-rouge">worker-template.yaml</code> in your home folder, this is a template for the configuration and the allocated resources for the pod of each <code class="highlighter-rouge">dask</code> worker.
+<p>Once you get the Jupyter Notebook instance, you should see a file named <code class="language-plaintext highlighter-rouge">worker-template.yaml</code> in your home folder, this is a template for the configuration and the allocated resources for the pod of each <code class="language-plaintext highlighter-rouge">dask</code> worker.
 The default workers for Pangeo are beefy, for testing we can reduce their requirements, see for example my <a href="https://gist.github.com/zonca/21ef3125eee7af5c2548e505d47dc200">worker-template.yaml</a> that works on a small Jetstream VM.</p>
 
-<p>Then inside <code class="highlighter-rouge">examples/</code> we have several example notebooks that show how to use <code class="highlighter-rouge">dask</code> for distributed computing.
-<code class="highlighter-rouge">dask-array.ipynb</code> shows basic functionality for distributed multi-dimensional arrays.</p>
+<p>Then inside <code class="language-plaintext highlighter-rouge">examples/</code> we have several example notebooks that show how to use <code class="language-plaintext highlighter-rouge">dask</code> for distributed computing.
+<code class="language-plaintext highlighter-rouge">dask-array.ipynb</code> shows basic functionality for distributed multi-dimensional arrays.</p>
 
 <p>The most important piece of code is the creation of dask workers:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dask_kubernetes import KubeCluster
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dask_kubernetes import KubeCluster
 cluster = KubeCluster(n_workers=2)
 cluster
 </code></pre></div></div>
 
-<p>If we execute this cell <code class="highlighter-rouge">dask_kubernetes</code> contacts the Kubernetes API using the <a href="https://github.com/pangeo-data/helm-chart/blob/master/pangeo/templates/dask-kubernetes-rbac.yaml">serviceaccount <code class="highlighter-rouge">daskkubernetes</code></a> mounted on the pods by the Helm chart and requests new pods to be launched.
+<p>If we execute this cell <code class="language-plaintext highlighter-rouge">dask_kubernetes</code> contacts the Kubernetes API using the <a href="https://github.com/pangeo-data/helm-chart/blob/master/pangeo/templates/dask-kubernetes-rbac.yaml">serviceaccount <code class="language-plaintext highlighter-rouge">daskkubernetes</code></a> mounted on the pods by the Helm chart and requests new pods to be launched.
 In fact we can check on the terminal again with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl -n pangeo get pods
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl -n pangeo get pods
 </code></pre></div></div>
 
 <p>that new pods should be about to run.
 It also provides buttons to change the number of running workers, either manually or adaptively based on the required resources.</p>
 
-<p>This also runs the <code class="highlighter-rouge">dask</code> scheduler on the pod that is running the Jupyter Notebook and we can connect to it with:</p>
+<p>This also runs the <code class="language-plaintext highlighter-rouge">dask</code> scheduler on the pod that is running the Jupyter Notebook and we can connect to it with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dask.distributed import Client
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dask.distributed import Client
 client = Client(cluster)
 client
 </code></pre></div></div>
 
-<p>From now on all <code class="highlighter-rouge">dask</code> commands will automatically execute commands on the <code class="highlighter-rouge">dask</code> cluster.</p>
+<p>From now on all <code class="language-plaintext highlighter-rouge">dask</code> commands will automatically execute commands on the <code class="language-plaintext highlighter-rouge">dask</code> cluster.</p>
 
 <h2 id="customize-the-jupyterhub-deployment">Customize the JupyterHub deployment</h2>
 
 <p>We can then customize the JupyterHub deployment for example to add authentication or permanent storage.
-Notice that all configuration options inside the <code class="highlighter-rouge">config_pangeo_no_storage.yaml</code> are inside the <code class="highlighter-rouge">jupyterhub:</code> tag, this is due to the fact that <code class="highlighter-rouge">jupyterhub</code> is another Helm package which we are configuring through the <code class="highlighter-rouge">pangeo</code> Helm package.
+Notice that all configuration options inside the <code class="language-plaintext highlighter-rouge">config_pangeo_no_storage.yaml</code> are inside the <code class="language-plaintext highlighter-rouge">jupyterhub:</code> tag, this is due to the fact that <code class="language-plaintext highlighter-rouge">jupyterhub</code> is another Helm package which we are configuring through the <code class="language-plaintext highlighter-rouge">pangeo</code> Helm package.
 Therefore make sure that any configuration option found in my previous tutorials or on the <a href="https://zero-to-jupyterhub.readthedocs.io/en/latest/">Zero-to-Jupyterhub</a> documentation needs to be indented accordingly.</p>
 
 <p>Then we can either run:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm delete --purge pangeo
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm delete --purge pangeo
 </code></pre></div></div>
 
 <p>and then install it from scratch again or just update the running cluster with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm upgrade pangeo -f config_pangeo_no_storage.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm upgrade pangeo -f config_pangeo_no_storage.yaml
 </code></pre></div></div>
 
   </div><a class="u-url" href="/2018/06/private-dask-kubernetes-jetstream.html" hidden></a>

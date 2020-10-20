@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Jupyterhub Docker Spawner with GPU support | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Jupyterhub Docker Spawner with GPU support" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Docker Spawner allows users of Jupyterhub to run Jupyter Notebook inside isolated Docker Containers. Access to the host NVIDIA GPU was not allowed until NVIDIA release the NVIDIA-docker plugin." />
@@ -15,30 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2016-10-12T12:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Jupyterhub Docker Spawner with GPU support","dateModified":"2016-10-12T12:00:00-05:00","datePublished":"2016-10-12T12:00:00-05:00","description":"Docker Spawner allows users of Jupyterhub to run Jupyter Notebook inside isolated Docker Containers. Access to the host NVIDIA GPU was not allowed until NVIDIA release the NVIDIA-docker plugin.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2016/10/dockerspawner-cuda.html"},"@type":"BlogPosting","url":"https://zonca.dev/2016/10/dockerspawner-cuda.html","@context":"https://schema.org"}</script>
+{"headline":"Jupyterhub Docker Spawner with GPU support","dateModified":"2016-10-12T12:00:00-05:00","url":"https://zonca.dev/2016/10/dockerspawner-cuda.html","datePublished":"2016-10-12T12:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2016/10/dockerspawner-cuda.html"},"description":"Docker Spawner allows users of Jupyterhub to run Jupyter Notebook inside isolated Docker Containers. Access to the host NVIDIA GPU was not allowed until NVIDIA release the NVIDIA-docker plugin.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Jupyterhub Docker Spawner with GPU support | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Jupyterhub Docker Spawner with GPU support" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Docker Spawner allows users of Jupyterhub to run Jupyter Notebook inside isolated Docker Containers. Access to the host NVIDIA GPU was not allowed until NVIDIA release the NVIDIA-docker plugin." />
-<meta property="og:description" content="Docker Spawner allows users of Jupyterhub to run Jupyter Notebook inside isolated Docker Containers. Access to the host NVIDIA GPU was not allowed until NVIDIA release the NVIDIA-docker plugin." />
-<link rel="canonical" href="https://zonca.dev/2016/10/dockerspawner-cuda.html" />
-<meta property="og:url" content="https://zonca.dev/2016/10/dockerspawner-cuda.html" />
-<meta property="og:site_name" content="Andrea Zonca" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2016-10-12T12:00:00-05:00" />
-<script type="application/ld+json">
-{"headline":"Jupyterhub Docker Spawner with GPU support","dateModified":"2016-10-12T12:00:00-05:00","datePublished":"2016-10-12T12:00:00-05:00","description":"Docker Spawner allows users of Jupyterhub to run Jupyter Notebook inside isolated Docker Containers. Access to the host NVIDIA GPU was not allowed until NVIDIA release the NVIDIA-docker plugin.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2016/10/dockerspawner-cuda.html"},"@type":"BlogPosting","url":"https://zonca.dev/2016/10/dockerspawner-cuda.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -57,7 +42,7 @@ function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
         var elements = document.querySelectorAll(".post img");
         Array.prototype.forEach.call(elements, function(el, i) {
-            if (el.getAttribute("title")) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
                 const caption = document.createElement('figcaption');
                 var node = document.createTextNode(el.getAttribute("title"));
                 caption.appendChild(node);
@@ -81,7 +66,8 @@ window.onload = wrap_img;
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
     });
 </script>
-</head><body><header class="site-header">
+</head>
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -134,48 +120,48 @@ Access to the host NVIDIA GPU was not allowed until NVIDIA release the <a href="
 
 <h2 id="build-the-docker-image">Build the Docker image</h2>
 
-<p>In order to make Jupyerhub work with NVIDIA-docker we need to build a Jupyterhub docker image for <code class="highlighter-rouge">dockerspawner</code> that includes both the <code class="highlighter-rouge">dockerspawner</code> <code class="highlighter-rouge">singleuser</code> or <code class="highlighter-rouge">systemuser</code> images and the <code class="highlighter-rouge">nvidia-docker</code> image.</p>
+<p>In order to make Jupyerhub work with NVIDIA-docker we need to build a Jupyterhub docker image for <code class="language-plaintext highlighter-rouge">dockerspawner</code> that includes both the <code class="language-plaintext highlighter-rouge">dockerspawner</code> <code class="language-plaintext highlighter-rouge">singleuser</code> or <code class="language-plaintext highlighter-rouge">systemuser</code> images and the <code class="language-plaintext highlighter-rouge">nvidia-docker</code> image.</p>
 
-<p>The Jupyter <code class="highlighter-rouge">systemuser</code> images are built in several steps so let’s use them as a starting point, it is good that both image start from Ubuntu 14.04.</p>
+<p>The Jupyter <code class="language-plaintext highlighter-rouge">systemuser</code> images are built in several steps so let’s use them as a starting point, it is good that both image start from Ubuntu 14.04.</p>
 
 <ul>
-  <li>Download the <code class="highlighter-rouge">nvidia-docker</code> repository</li>
-  <li>In <code class="highlighter-rouge">ubuntu-14.04/cuda/8.0/runtime/Dockerfile</code>, replace <code class="highlighter-rouge">FROM ubuntu:14.04</code> with <code class="highlighter-rouge">FROM jupyterhub/systemuser</code></li>
-  <li>Build this image <code class="highlighter-rouge">sudo docker build -t systemuser-cuda-runtime runtime</code></li>
-  <li>In <code class="highlighter-rouge">ubuntu-14.04/cuda/8.0/devel/Dockerfile</code>, replace <code class="highlighter-rouge">FROM cuda:8.0-runtime</code> with <code class="highlighter-rouge">FROM systemuser-cuda-runtime</code></li>
-  <li>Build this image <code class="highlighter-rouge">sudo docker build -t systemuser-cuda-devel devel</code></li>
+  <li>Download the <code class="language-plaintext highlighter-rouge">nvidia-docker</code> repository</li>
+  <li>In <code class="language-plaintext highlighter-rouge">ubuntu-14.04/cuda/8.0/runtime/Dockerfile</code>, replace <code class="language-plaintext highlighter-rouge">FROM ubuntu:14.04</code> with <code class="language-plaintext highlighter-rouge">FROM jupyterhub/systemuser</code></li>
+  <li>Build this image <code class="language-plaintext highlighter-rouge">sudo docker build -t systemuser-cuda-runtime runtime</code></li>
+  <li>In <code class="language-plaintext highlighter-rouge">ubuntu-14.04/cuda/8.0/devel/Dockerfile</code>, replace <code class="language-plaintext highlighter-rouge">FROM cuda:8.0-runtime</code> with <code class="language-plaintext highlighter-rouge">FROM systemuser-cuda-runtime</code></li>
+  <li>Build this image <code class="language-plaintext highlighter-rouge">sudo docker build -t systemuser-cuda-devel devel</code></li>
 </ul>
 
-<p>Now we have 2 images, either just CUDA 8.0 runtime or also the compiler <code class="highlighter-rouge">nvcc</code> and other development tools.</p>
+<p>Now we have 2 images, either just CUDA 8.0 runtime or also the compiler <code class="language-plaintext highlighter-rouge">nvcc</code> and other development tools.</p>
 
 <p>Make sure the image itself runs from the command line on the host:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nvidia-docker run --rm systemuser-cuda-devel nvidia-smi 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo nvidia-docker run --rm systemuser-cuda-devel nvidia-smi 
 </code></pre></div></div>
 
 <h2 id="configure-jupyterhub">Configure Jupyterhub</h2>
 
-<p>In <code class="highlighter-rouge">jupyterhub_config.py</code>, first of all set the right image:</p>
+<p>In <code class="language-plaintext highlighter-rouge">jupyterhub_config.py</code>, first of all set the right image:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.DockerSpawner.container_image = "systemuser-cuda-devel"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.DockerSpawner.container_image = "systemuser-cuda-devel"
 </code></pre></div></div>
 
-<p>However this is not enough, <code class="highlighter-rouge">nvidia-docker</code> images need special flags to work properly and mount the host GPU into the containers, this is usually performed calling <code class="highlighter-rouge">nvidia-docker</code> instead of <code class="highlighter-rouge">docker</code> from the command line.
-In <code class="highlighter-rouge">dockerspawner</code> however, we are directly using the docker library, so we need to properly configure the environment there.</p>
+<p>However this is not enough, <code class="language-plaintext highlighter-rouge">nvidia-docker</code> images need special flags to work properly and mount the host GPU into the containers, this is usually performed calling <code class="language-plaintext highlighter-rouge">nvidia-docker</code> instead of <code class="language-plaintext highlighter-rouge">docker</code> from the command line.
+In <code class="language-plaintext highlighter-rouge">dockerspawner</code> however, we are directly using the docker library, so we need to properly configure the environment there.</p>
 
 <p>First of all, we can get the correct flags by calling from the host machine:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -s localhost:3476/docker/cli
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -s localhost:3476/docker/cli
 </code></pre></div></div>
 
 <p>The result for my machine is:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--volume-driver=nvidia-docker --volume=nvidia_driver_361.93.02:/usr/local/nvidia:ro --device=/dev/nvidiactl --device=/dev/nvidia-uvm --device=/dev/nvidia-uvm-tools --device=/dev/nvidia0 --device=/dev/nvidia1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>--volume-driver=nvidia-docker --volume=nvidia_driver_361.93.02:/usr/local/nvidia:ro --device=/dev/nvidiactl --device=/dev/nvidia-uvm --device=/dev/nvidia-uvm-tools --device=/dev/nvidia0 --device=/dev/nvidia1
 </code></pre></div></div>
 
-<p>Now we can configure <code class="highlighter-rouge">dockerspawner</code> using those values, in my case:</p>
+<p>Now we can configure <code class="language-plaintext highlighter-rouge">dockerspawner</code> using those values, in my case:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.DockerSpawner.read_only_volumes = {"nvidia_driver_361.93.02":"/usr/local/nvidia"}
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>c.DockerSpawner.read_only_volumes = {"nvidia_driver_361.93.02":"/usr/local/nvidia"}
 c.DockerSpawner.extra_create_kwargs = {"volume_driver":"nvidia-docker"}
 c.DockerSpawner.extra_host_config = { "devices":["/dev/nvidiactl","/dev/nvidia-uvm","/dev/nvidia-uvm-tools","/dev/nvidia0","/dev/nvidia1"] }
 </code></pre></div></div>
@@ -187,8 +173,8 @@ c.DockerSpawner.extra_host_config = { "devices":["/dev/nvidiactl","/dev/nvidia-u
 <h2 id="current-issues">Current issues</h2>
 
 <ul>
-  <li>Environment on the Jupyterhub kernel is missing <code class="highlighter-rouge">LD_LIBRARY_PATH</code>, running directly on the image instead is fine</li>
-  <li>I’d like to test using <code class="highlighter-rouge">numba</code> in Jupyterhub, but that requires <code class="highlighter-rouge">cudatoolkit</code> 8.0 which is not available yet in Anaconda</li>
+  <li>Environment on the Jupyterhub kernel is missing <code class="language-plaintext highlighter-rouge">LD_LIBRARY_PATH</code>, running directly on the image instead is fine</li>
+  <li>I’d like to test using <code class="language-plaintext highlighter-rouge">numba</code> in Jupyterhub, but that requires <code class="language-plaintext highlighter-rouge">cudatoolkit</code> 8.0 which is not available yet in Anaconda</li>
 </ul>
 
   </div><a class="u-url" href="/2016/10/dockerspawner-cuda.html" hidden></a>

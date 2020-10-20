@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Deploy scalable Jupyterhub with Kubernetes on Jetstream | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Deploy scalable Jupyterhub with Kubernetes on Jetstream" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Tested in June 2018 with Ubuntu 18.04 and Kubernetes 1.10 Updated in February 2018 with newer version of kubeadm-bootstrap, Kubernetes 1.9.2" />
@@ -15,30 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2017-12-05T18:00:00-06:00" />
 <script type="application/ld+json">
-{"headline":"Deploy scalable Jupyterhub with Kubernetes on Jetstream","dateModified":"2017-12-05T18:00:00-06:00","datePublished":"2017-12-05T18:00:00-06:00","description":"Tested in June 2018 with Ubuntu 18.04 and Kubernetes 1.10 Updated in February 2018 with newer version of kubeadm-bootstrap, Kubernetes 1.9.2","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html"},"@type":"BlogPosting","url":"https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html","@context":"https://schema.org"}</script>
+{"headline":"Deploy scalable Jupyterhub with Kubernetes on Jetstream","dateModified":"2017-12-05T18:00:00-06:00","url":"https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html","datePublished":"2017-12-05T18:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html"},"description":"Tested in June 2018 with Ubuntu 18.04 and Kubernetes 1.10 Updated in February 2018 with newer version of kubeadm-bootstrap, Kubernetes 1.9.2","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Deploy scalable Jupyterhub with Kubernetes on Jetstream | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Deploy scalable Jupyterhub with Kubernetes on Jetstream" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Tested in June 2018 with Ubuntu 18.04 and Kubernetes 1.10 Updated in February 2018 with newer version of kubeadm-bootstrap, Kubernetes 1.9.2" />
-<meta property="og:description" content="Tested in June 2018 with Ubuntu 18.04 and Kubernetes 1.10 Updated in February 2018 with newer version of kubeadm-bootstrap, Kubernetes 1.9.2" />
-<link rel="canonical" href="https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html" />
-<meta property="og:url" content="https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html" />
-<meta property="og:site_name" content="Andrea Zonca" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2017-12-05T18:00:00-06:00" />
-<script type="application/ld+json">
-{"headline":"Deploy scalable Jupyterhub with Kubernetes on Jetstream","dateModified":"2017-12-05T18:00:00-06:00","datePublished":"2017-12-05T18:00:00-06:00","description":"Tested in June 2018 with Ubuntu 18.04 and Kubernetes 1.10 Updated in February 2018 with newer version of kubeadm-bootstrap, Kubernetes 1.9.2","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html"},"@type":"BlogPosting","url":"https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -57,7 +42,7 @@ function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
         var elements = document.querySelectorAll(".post img");
         Array.prototype.forEach.call(elements, function(el, i) {
-            if (el.getAttribute("title")) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
                 const caption = document.createElement('figcaption');
                 var node = document.createTextNode(el.getAttribute("title"));
                 caption.appendChild(node);
@@ -81,7 +66,8 @@ window.onload = wrap_img;
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
     });
 </script>
-</head><body><header class="site-header">
+</head>
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -131,7 +117,7 @@ window.onload = wrap_img;
   <div class="post-content e-content" itemprop="articleBody">
     <ul>
   <li><strong>Tested in June 2018 with Ubuntu 18.04 and Kubernetes 1.10</strong></li>
-  <li><strong>Updated in February 2018 with newer version of <code class="highlighter-rouge">kubeadm-bootstrap</code>, Kubernetes 1.9.2</strong></li>
+  <li><strong>Updated in February 2018 with newer version of <code class="language-plaintext highlighter-rouge">kubeadm-bootstrap</code>, Kubernetes 1.9.2</strong></li>
 </ul>
 
 <h2 id="introduction">Introduction</h2>
@@ -146,23 +132,23 @@ window.onload = wrap_img;
 
 <h2 id="setup-two-virtual-machines">Setup two virtual machines</h2>
 
-<p>First of all we need to create two Virtual Machines from the <a href="https://use.jetstream-cloud.org">Jetstream Atmosphere admin panel</a>I tested this on XSEDE Jetstream Ubuntu 16.04 image (with Docker pre-installed), for testing purposes “small” instances work, then they can be scaled up for production. You can name them <code class="highlighter-rouge">master_node</code> and <code class="highlighter-rouge">node_1</code> for example.
+<p>First of all we need to create two Virtual Machines from the <a href="https://use.jetstream-cloud.org">Jetstream Atmosphere admin panel</a>I tested this on XSEDE Jetstream Ubuntu 16.04 image (with Docker pre-installed), for testing purposes “small” instances work, then they can be scaled up for production. You can name them <code class="language-plaintext highlighter-rouge">master_node</code> and <code class="language-plaintext highlighter-rouge">node_1</code> for example.
 Make sure that port 80 and 443 are open to outside connections.</p>
 
-<p>Then you can SSH into the first machine with your XSEDE username with <code class="highlighter-rouge">sudo</code> privileges.</p>
+<p>Then you can SSH into the first machine with your XSEDE username with <code class="language-plaintext highlighter-rouge">sudo</code> privileges.</p>
 
 <h2 id="install-kubernetes">Install Kubernetes</h2>
 
-<p>The “Zero to Jupyterhub” recipe targets an already existing Kubernetes cluster, for example on Google Cloud. However the Berkeley Data Science Education Program team, which administers one of the largest Jupyterhub deployments to date, released a set of scripts based on the <code class="highlighter-rouge">kubeadm</code> tool to setup Kubernetes from scratch.</p>
+<p>The “Zero to Jupyterhub” recipe targets an already existing Kubernetes cluster, for example on Google Cloud. However the Berkeley Data Science Education Program team, which administers one of the largest Jupyterhub deployments to date, released a set of scripts based on the <code class="language-plaintext highlighter-rouge">kubeadm</code> tool to setup Kubernetes from scratch.</p>
 
-<p>This will install all the Kubernetes services and configure the <code class="highlighter-rouge">kubectl</code> command line tool for administering and monitoring the cluster and the <code class="highlighter-rouge">helm</code> package manager to install pre-packaged services.</p>
+<p>This will install all the Kubernetes services and configure the <code class="language-plaintext highlighter-rouge">kubectl</code> command line tool for administering and monitoring the cluster and the <code class="language-plaintext highlighter-rouge">helm</code> package manager to install pre-packaged services.</p>
 
 <p>SSH into the first server and follow the instructions at <a href="https://github.com/data-8/kubeadm-bootstrap">https://github.com/data-8/kubeadm-bootstrap</a> to “Setup a Master Node”
 this will install a more recent version of Docker.</p>
 
 <p>Once the initialization of the master node is completed, you should be able to check that several containers (pods in Kubernetes) are running:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-xxx-xxx:~/kubeadm-bootstrap$ sudo kubectl get pods --all-namespaces
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-xxx-xxx:~/kubeadm-bootstrap$ sudo kubectl get pods --all-namespaces
 NAMESPACE     NAME                                                    READY     STATUS    RESTARTS   AGE
 kube-system   etcd-js-169-xx.jetstream-cloud.org                      1/1       Running   0          1m
 kube-system   kube-apiserver-js-169-xx.jetstream-cloud.org            1/1       Running   0          1m
@@ -176,13 +162,13 @@ support       support-nginx-ingress-controller-k4swb                  1/1       
 support       support-nginx-ingress-default-backend-cb84895fb-qs9pp   1/1       Running   0          36s
 </code></pre></div></div>
 
-<p>Make also sure routing is working by accessing with your web browser the address of the Virtual Machine <code class="highlighter-rouge">js-169-xx.jetstream-cloud.org</code> and verify you are getting the error message <code class="highlighter-rouge">default backend - 404</code>.</p>
+<p>Make also sure routing is working by accessing with your web browser the address of the Virtual Machine <code class="language-plaintext highlighter-rouge">js-169-xx.jetstream-cloud.org</code> and verify you are getting the error message <code class="language-plaintext highlighter-rouge">default backend - 404</code>.</p>
 
 <p>Then SSH to the other server and set it up as a worker following the instructions in “Setup a Worker Node” at <a href="https://github.com/data-8/kubeadm-bootstrap">https://github.com/data-8/kubeadm-bootstrap</a>,</p>
 
 <p>Once the setup is complete on the worker, log back in to the master and check that the worker joined Kubernetes:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-169-xx:~/kubeadm-bootstrap$ sudo kubectl get nodes
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-169-xx:~/kubeadm-bootstrap$ sudo kubectl get nodes
 NAME                             STATUS    ROLES     AGE       VERSION
 js-168-yyy.jetstream-cloud.org   Ready     &lt;none&gt;    1m        v1.9.2
 js-169-xx.jetstream-cloud.org    Ready     master    2h        v1.9.2
@@ -193,43 +179,43 @@ js-169-xx.jetstream-cloud.org    Ready     master    2h        v1.9.2
 <p>The cluster we just setup has no permament storage, so user data would disappear every time a container is killed.
 We woud like to provide users with a permament home that would be available across all of the Kubernetes cluster, so that even if a user container spawns again on a different server, the data are available.</p>
 
-<p>First we want to login again to Jetstream web interface and create 2 Volumes (for example 10 GB) and attach them one each to the master and to the first node, these will be automatically mounted on <code class="highlighter-rouge">/vol_b</code>, with no need of rebooting the servers.</p>
+<p>First we want to login again to Jetstream web interface and create 2 Volumes (for example 10 GB) and attach them one each to the master and to the first node, these will be automatically mounted on <code class="language-plaintext highlighter-rouge">/vol_b</code>, with no need of rebooting the servers.</p>
 
 <p>Kubernetes has capability to provide Permanent Volumes but it needs a backend distributed file system. In this tutorial we will be using <a href="https://rook.io/">Rook</a> which sets up the Ceph distributed filesystem across the nodes.</p>
 
-<p>We can first use Helm to install the Rook services (I ran my tests with <code class="highlighter-rouge">v0.6.1</code>):</p>
+<p>We can first use Helm to install the Rook services (I ran my tests with <code class="language-plaintext highlighter-rouge">v0.6.1</code>):</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm repo add rook-alpha https://charts.rook.io/alpha
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm repo add rook-alpha https://charts.rook.io/alpha
 sudo helm install rook-alpha/rook
 </code></pre></div></div>
 
 <p>Then check that the pods have started:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-xxx-xxx:~/kubeadm-bootstrap$ sudo kubectl get pods
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-xxx-xxx:~/kubeadm-bootstrap$ sudo kubectl get pods
 NAME                            READY     STATUS    RESTARTS   AGE
 rook-agent-2v86r                1/1       Running   0          1h
 rook-agent-7dfl9                1/1       Running   0          1h
 rook-operator-88fb8f6f5-tss5t   1/1       Running   0          1h
 </code></pre></div></div>
 
-<p>Once the pods have started we can actually configure the storage, copy this <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/storage_rook/rook-cluster.yaml"><code class="highlighter-rouge">rook-cluster.yaml</code> file</a> to the master node. Better clone all of the repository as we will be using other files later.</p>
+<p>Once the pods have started we can actually configure the storage, copy this <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/storage_rook/rook-cluster.yaml"><code class="language-plaintext highlighter-rouge">rook-cluster.yaml</code> file</a> to the master node. Better clone all of the repository as we will be using other files later.</p>
 
 <p>The most important bits are:</p>
 
 <ul>
-  <li><code class="highlighter-rouge">dataDirHostPath</code>: this is a folder to save the Rook configuration, we can set it to <code class="highlighter-rouge">/var/lib/rook</code></li>
-  <li><code class="highlighter-rouge">storage: directories</code>: this is were data is stored, we can set this to <code class="highlighter-rouge">/vol_b</code> which is the default mount point of Volumes on Jetstream. This way we can more easily back those up or increase their size.</li>
-  <li><code class="highlighter-rouge">versionTag</code>: make sure this is the same as your <code class="highlighter-rouge">rook</code> version (you can find it with <code class="highlighter-rouge">sudo helm ls</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">dataDirHostPath</code>: this is a folder to save the Rook configuration, we can set it to <code class="language-plaintext highlighter-rouge">/var/lib/rook</code></li>
+  <li><code class="language-plaintext highlighter-rouge">storage: directories</code>: this is were data is stored, we can set this to <code class="language-plaintext highlighter-rouge">/vol_b</code> which is the default mount point of Volumes on Jetstream. This way we can more easily back those up or increase their size.</li>
+  <li><code class="language-plaintext highlighter-rouge">versionTag</code>: make sure this is the same as your <code class="language-plaintext highlighter-rouge">rook</code> version (you can find it with <code class="language-plaintext highlighter-rouge">sudo helm ls</code>)</li>
 </ul>
 
 <p>Then run it with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create -f rook-cluster.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create -f rook-cluster.yaml
 </code></pre></div></div>
 
 <p>And wait for the services to launch:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-xxx-xxx:~/kubeadm-bootstrap$ sudo kubectl -n rook get pods
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>zonca@js-xxx-xxx:~/kubeadm-bootstrap$ sudo kubectl -n rook get pods
 NAME                              READY     STATUS    RESTARTS   AGE
 rook-api-68b87d48d5-xmkpv         1/1       Running   0          6m
 rook-ceph-mgr0-5ddd685b65-kw9bz   1/1       Running   0          6m
@@ -243,14 +229,14 @@ rook-ceph-osd-cpln8               1/1       Running   0          6m
 
 <p>This step launches the distributed file system Ceph on all nodes.</p>
 
-<p>Finally we can create a new StorageClass which provides block storage for the pods to store data persistently, get <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/storage_rook/rook-storageclass.yaml"><code class="highlighter-rouge">rook-storageclass.yaml</code> from the same repository we used before</a> and execute with:</p>
+<p>Finally we can create a new StorageClass which provides block storage for the pods to store data persistently, get <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/storage_rook/rook-storageclass.yaml"><code class="language-plaintext highlighter-rouge">rook-storageclass.yaml</code> from the same repository we used before</a> and execute with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create -f rook-storageclass.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create -f rook-storageclass.yaml
 </code></pre></div></div>
 
 <p>You should now have the rook storageclass available:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get storageclass
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get storageclass
 NAME         PROVISIONER
 rook-block   rook.io/block
 </code></pre></div></div>
@@ -259,62 +245,62 @@ rook-block   rook.io/block
 
 <p>Optionally, we can deploy a simple pod to verify that the storage system is working properly.</p>
 
-<p>You can copy <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/storage_rook/alpine-rook.yaml"><code class="highlighter-rouge">alpine-rook.yaml</code> from Github</a>
+<p>You can copy <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/storage_rook/alpine-rook.yaml"><code class="language-plaintext highlighter-rouge">alpine-rook.yaml</code> from Github</a>
 and launch it with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create -f alpine-rook.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create -f alpine-rook.yaml
 </code></pre></div></div>
 
-<p>It is a very small pod with Alpine Linux that creates a 2 GB volume from Rook and mounts it on <code class="highlighter-rouge">/data</code>.</p>
+<p>It is a very small pod with Alpine Linux that creates a 2 GB volume from Rook and mounts it on <code class="language-plaintext highlighter-rouge">/data</code>.</p>
 
-<p>This creates a Pod with Alpine Linux that requests a Persistent Volume Claim to be mounted under <code class="highlighter-rouge">/data</code>. The Persistent Volume Claim specified the type of storage and its size. Once the Pod is created, it asks the Persistent Volume Claim to actually request Rook to prepare a Persistent Volume that is then mounted into the Pod.</p>
+<p>This creates a Pod with Alpine Linux that requests a Persistent Volume Claim to be mounted under <code class="language-plaintext highlighter-rouge">/data</code>. The Persistent Volume Claim specified the type of storage and its size. Once the Pod is created, it asks the Persistent Volume Claim to actually request Rook to prepare a Persistent Volume that is then mounted into the Pod.</p>
 
 <p>We can verify the Persistent Volumes are created and associated with the pod, check:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get pv
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get pv
 sudo kubectl get pvc
 sudo kubectl get logs alpine
 </code></pre></div></div>
 
 <p>We can get a shell in the pod with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl exec -it alpine  -- /bin/sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl exec -it alpine  -- /bin/sh
 </code></pre></div></div>
 
-<p>access <code class="highlighter-rouge">/data/</code> and make sure we can write some files.</p>
+<p>access <code class="language-plaintext highlighter-rouge">/data/</code> and make sure we can write some files.</p>
 
 <p>Once you have completed testing, you can delete the pod and the Persistent Volume Claim with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl delete -f alpine-rook.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl delete -f alpine-rook.yaml
 </code></pre></div></div>
 
 <p>The Persistent Volume will be automatically deleted by Kubernetes after a few minutes.</p>
 
 <h2 id="setup-https-with-letsencrypt">Setup HTTPS with letsencrypt</h2>
 
-<p>We need <code class="highlighter-rouge">kube-lego</code> to automatically get a HTTPS certificate from Letsencrypt,
+<p>We need <code class="language-plaintext highlighter-rouge">kube-lego</code> to automatically get a HTTPS certificate from Letsencrypt,
 For more information see the Ingress section on the <a href="http://zero-to-jupyterhub.readthedocs.io/en/latest/advanced.html">Zero to Jupyterhub Advanced topics</a>.</p>
 
-<p>First we need to customize the Kube Lego configuration, edit the <code class="highlighter-rouge">config_kube-lego_helm.yaml</code> file from the repository and set your email address, then:</p>
+<p>First we need to customize the Kube Lego configuration, edit the <code class="language-plaintext highlighter-rouge">config_kube-lego_helm.yaml</code> file from the repository and set your email address, then:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install stable/kube-lego --namespace=support --name=lego -f config_kube-lego_helm.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install stable/kube-lego --namespace=support --name=lego -f config_kube-lego_helm.yaml
 </code></pre></div></div>
 
 <p>Then after you deploy Jupyterhub if you have some HTTPS trouble, you should check the logs of the kube-lego pod. First find the name of the pod with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get pods -n support
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get pods -n support
 </code></pre></div></div>
 
 <p>Then check its logs:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl logs -n support lego-kube-lego-xxxxx-xxx
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl logs -n support lego-kube-lego-xxxxx-xxx
 </code></pre></div></div>
 
 <h2 id="install-jupyterhub">Install Jupyterhub</h2>
 
-<p>Read all of the documentation of “Zero to Jupyterhub”, then download <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/config_jupyterhub_helm.yaml"><code class="highlighter-rouge">config_jupyterhub_helm.yaml</code> from the repository</a> and customize it with the URL of the master node (for Jetstream <code class="highlighter-rouge">js-xxx-xxx.jetstream-cloud.org</code>) and generate the random strings for security, finally run the Helm chart:</p>
+<p>Read all of the documentation of “Zero to Jupyterhub”, then download <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/blob/master/config_jupyterhub_helm.yaml"><code class="language-plaintext highlighter-rouge">config_jupyterhub_helm.yaml</code> from the repository</a> and customize it with the URL of the master node (for Jetstream <code class="language-plaintext highlighter-rouge">js-xxx-xxx.jetstream-cloud.org</code>) and generate the random strings for security, finally run the Helm chart:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm repo add jupyterhub https://jupyterhub.github.io/helm-chart/
 sudo helm repo update
 sudo helm install jupyterhub/jupyterhub --version=v0.6 --name=jup \
     --namespace=jup -f config_jupyterhub_helm.yaml
@@ -322,7 +308,7 @@ sudo helm install jupyterhub/jupyterhub --version=v0.6 --name=jup \
 
 <p>Once you modify the configuration you can update the deployment with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm upgrade jup jupyterhub/jupyterhub -f config_jupyterhub_helm.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm upgrade jup jupyterhub/jupyterhub -f config_jupyterhub_helm.yaml
 </code></pre></div></div>
 
 <h3 id="test-jupyterhub">Test Jupyterhub</h3>
@@ -333,17 +319,17 @@ sudo helm install jupyterhub/jupyterhub --version=v0.6 --name=jup \
 
 <p>If something is wrong, check:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl --namespace=jup get pods
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl --namespace=jup get pods
 </code></pre></div></div>
 
-<p>Get the name of the <code class="highlighter-rouge">hub</code> pod and check the logs:</p>
+<p>Get the name of the <code class="language-plaintext highlighter-rouge">hub</code> pod and check the logs:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl --namespace=jup logs hub-xxxx-xxxxxxx
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl --namespace=jup logs hub-xxxx-xxxxxxx
 </code></pre></div></div>
 
 <p>Check that Rook is working properly:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl --namespace=jup get pv
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl --namespace=jup get pv
 sudo kubectl --namespace=jup get pvc
 sudo kubectl --namespace=jup describe pvc claim-YOURXSEDEUSERNAME
 </code></pre></div></div>
@@ -357,9 +343,9 @@ Once the node joins Kubernetes, it will be automatically used as a node for the 
 
 <h3 id="remove-a-server-from-kubernetes">Remove a server from Kubernetes</h3>
 
-<p>Launch first the <code class="highlighter-rouge">kubectl drain</code> command to move the currently active pods to other nodes:</p>
+<p>Launch first the <code class="language-plaintext highlighter-rouge">kubectl drain</code> command to move the currently active pods to other nodes:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get nodes
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get nodes
 sudo kubectl drain &lt;node name&gt;
 </code></pre></div></div>
 
@@ -376,7 +362,7 @@ sudo kubectl drain &lt;node name&gt;
   <li>Google</li>
 </ul>
 
-<p>See <a href="https://zero-to-jupyterhub.readthedocs.io/en/latest/extending-jupyterhub.html#authenticating-with-oauth2">the documentation</a> and modify <code class="highlighter-rouge">config_jupyterhub_helm_v0.5.0.yaml</code> accordingly.</p>
+<p>See <a href="https://zero-to-jupyterhub.readthedocs.io/en/latest/extending-jupyterhub.html#authenticating-with-oauth2">the documentation</a> and modify <code class="language-plaintext highlighter-rouge">config_jupyterhub_helm_v0.5.0.yaml</code> accordingly.</p>
 
 <h2 id="acknowledgements">Acknowledgements</h2>
 

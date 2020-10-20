@@ -2,9 +2,10 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Launch a shared dask cluster in Kubernetes alongside JupyterHub on Jetstream | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
+<meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Launch a shared dask cluster in Kubernetes alongside JupyterHub on Jetstream" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Let’s assume we have already a Kubernetes deployment and have installed JupyterHub, see for example my previous tutorial on Jetstream. Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through dask, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once." />
@@ -15,30 +16,14 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2018-05-04T18:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Launch a shared dask cluster in Kubernetes alongside JupyterHub on Jetstream","dateModified":"2018-05-04T18:00:00-05:00","datePublished":"2018-05-04T18:00:00-05:00","description":"Let’s assume we have already a Kubernetes deployment and have installed JupyterHub, see for example my previous tutorial on Jetstream. Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through dask, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html"},"@type":"BlogPosting","url":"https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html","@context":"https://schema.org"}</script>
+{"headline":"Launch a shared dask cluster in Kubernetes alongside JupyterHub on Jetstream","dateModified":"2018-05-04T18:00:00-05:00","url":"https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html","datePublished":"2018-05-04T18:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html"},"description":"Let’s assume we have already a Kubernetes deployment and have installed JupyterHub, see for example my previous tutorial on Jetstream. Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through dask, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
-<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Launch a shared dask cluster in Kubernetes alongside JupyterHub on Jetstream | Andrea Zonca</title>
-<meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Launch a shared dask cluster in Kubernetes alongside JupyterHub on Jetstream" />
-<meta property="og:locale" content="en_US" />
-<meta name="description" content="Let’s assume we have already a Kubernetes deployment and have installed JupyterHub, see for example my previous tutorial on Jetstream. Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through dask, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once." />
-<meta property="og:description" content="Let’s assume we have already a Kubernetes deployment and have installed JupyterHub, see for example my previous tutorial on Jetstream. Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through dask, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once." />
-<link rel="canonical" href="https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html" />
-<meta property="og:url" content="https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html" />
-<meta property="og:site_name" content="Andrea Zonca" />
-<meta property="og:type" content="article" />
-<meta property="article:published_time" content="2018-05-04T18:00:00-05:00" />
-<script type="application/ld+json">
-{"headline":"Launch a shared dask cluster in Kubernetes alongside JupyterHub on Jetstream","dateModified":"2018-05-04T18:00:00-05:00","datePublished":"2018-05-04T18:00:00-05:00","description":"Let’s assume we have already a Kubernetes deployment and have installed JupyterHub, see for example my previous tutorial on Jetstream. Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through dask, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once.","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html"},"@type":"BlogPosting","url":"https://zonca.dev/2018/05/shared-dask-kubernetes-jetstream.html","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
-<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         renderMathInElement( document.body, {
@@ -57,7 +42,7 @@ function wrap_img(fn) {
     if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
         var elements = document.querySelectorAll(".post img");
         Array.prototype.forEach.call(elements, function(el, i) {
-            if (el.getAttribute("title")) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
                 const caption = document.createElement('figcaption');
                 var node = document.createTextNode(el.getAttribute("title"));
                 caption.appendChild(node);
@@ -81,7 +66,8 @@ window.onload = wrap_img;
     elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
     });
 </script>
-</head><body><header class="site-header">
+</head>
+<body><header class="site-header">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
@@ -130,7 +116,7 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <p>Let’s assume we have already a Kubernetes deployment and have installed JupyterHub, see for example my <a href="https://zonca.github.io/2017/12/scalable-jupyterhub-kubernetes-jetstream.html">previous tutorial on Jetstream</a>.
-Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through <a href="https://dask.pydata.org"><code class="highlighter-rouge">dask</code></a>, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once.</p>
+Now that users can login and access a Jupyter Notebook, we would also like to provide them more computing power for their interactive data exploration. The easiest way is through <a href="https://dask.pydata.org"><code class="language-plaintext highlighter-rouge">dask</code></a>, we can launch a scheduler and any number of workers as containers inside Kubernetes so that users can leverage the computing power of many Jetstream instances at once.</p>
 
 <p>There are 2 main strategies, we can give each user their own dask cluster with exclusive access and this would be more performant but cause quick spike of usage of the Kubernetes cluster, or just launch a shared cluster and give all users access to that.</p>
 
@@ -146,20 +132,20 @@ Now that users can login and access a Jupyter Notebook, we would also like to pr
 
 <p>Optionally, for testing purposes, we can simplify the deployment by skipping permanent storage, if this is an option, see the relevant section below.</p>
 
-<p>We want to install Jupyterhub in the <code class="highlighter-rouge">pangeo</code> namespace with the name <code class="highlighter-rouge">jupyter</code>, replace the <code class="highlighter-rouge">helm install</code> line in the tutorial with:</p>
+<p>We want to install Jupyterhub in the <code class="language-plaintext highlighter-rouge">pangeo</code> namespace with the name <code class="language-plaintext highlighter-rouge">jupyter</code>, replace the <code class="language-plaintext highlighter-rouge">helm install</code> line in the tutorial with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install --name jupyter jupyterhub/jupyterhub -f config_jupyterhub_pangeo_helm.yaml --namespace pangeo
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install --name jupyter jupyterhub/jupyterhub -f config_jupyterhub_pangeo_helm.yaml --namespace pangeo
 </code></pre></div></div>
 
-<p>The <code class="highlighter-rouge">pangeo</code> configuration file is using a different single user image which has the right version of <code class="highlighter-rouge">dask</code> for this tutorial.</p>
+<p>The <code class="language-plaintext highlighter-rouge">pangeo</code> configuration file is using a different single user image which has the right version of <code class="language-plaintext highlighter-rouge">dask</code> for this tutorial.</p>
 
 <h2 id="optional-simplify-deployment-using-ephemeral-storage">(Optional) Simplify deployment using ephemeral storage</h2>
 
 <p>Instead of installing and configuring rook, we can temporarily disable permanent storage to make the setup quicker and easier to maintain.</p>
 
-<p>In the JupyterHub configuration <code class="highlighter-rouge">yaml</code> set:</p>
+<p>In the JupyterHub configuration <code class="language-plaintext highlighter-rouge">yaml</code> set:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hub:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>hub:
    db:
      type: sqlite-memory
 
@@ -174,7 +160,7 @@ singleuser:
 
 <p>Follow the instructions on the Zero-to-Jupyterhub documentation, at the end you should have in the YAML:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auth:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>auth:
   type: github
   admin:
     access: true
@@ -187,12 +173,12 @@ singleuser:
 
 <h2 id="test-jupyterhub">Test Jupyterhub</h2>
 
-<p>Connect to the master node with your browser at: <code class="highlighter-rouge">https://js-xxx-xxx.jetstream-cloud.org</code>
+<p>Connect to the master node with your browser at: <code class="language-plaintext highlighter-rouge">https://js-xxx-xxx.jetstream-cloud.org</code>
 Login with your Github credentials, you should get a Jupyter Notebook.</p>
 
 <p>You can also check that your pod is running:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get pods -n pangeo
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl get pods -n pangeo
 NAME                                  READY     STATUS    RESTARTS   AGE
 jupyter-zonca                         1/1       Running   0          2m
 ......other pods
@@ -202,16 +188,16 @@ jupyter-zonca                         1/1       Running   0          2m
 
 <p>We want to deploy a single dask cluster that all the users can submit jobs to.</p>
 
-<p>Customize the <code class="highlighter-rouge">dask_shared/dask_config.yaml</code> file available in the repository,
+<p>Customize the <code class="language-plaintext highlighter-rouge">dask_shared/dask_config.yaml</code> file available in the repository,
 for testing purposes I set just 1 GB RAM and 1 CPU limits on each of 3 workers.
-We can change <code class="highlighter-rouge">replicas</code> of the workers to add more.</p>
+We can change <code class="language-plaintext highlighter-rouge">replicas</code> of the workers to add more.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install stable/dask --name=dask --namespace=pangeo -f dask_config.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo helm install stable/dask --name=dask --namespace=pangeo -f dask_config.yaml
 </code></pre></div></div>
 
-<p>Then check that the <code class="highlighter-rouge">dask</code> instances are running:</p>
+<p>Then check that the <code class="language-plaintext highlighter-rouge">dask</code> instances are running:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo kubectl get pods --namespace pangeo
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ sudo kubectl get pods --namespace pangeo
 NAME                              READY     STATUS    RESTARTS   AGE
 dask-jupyter-647bdc8c6d-mqhr4     1/1       Running   0          22m
 dask-scheduler-5d98cbf54c-4rtdr   1/1       Running   0          22m
@@ -225,15 +211,15 @@ proxy-6bbf67f6bd-swt7f            2/2       Running   0          6d
 
 <h3 id="access-the-scheduler-and-launch-a-distributed-job">Access the scheduler and launch a distributed job</h3>
 
-<p><code class="highlighter-rouge">kube-dns</code> gives a name to each service and automatically propagates it to each pod, so we can connect by name</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dask.distributed import Client
+<p><code class="language-plaintext highlighter-rouge">kube-dns</code> gives a name to each service and automatically propagates it to each pod, so we can connect by name</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dask.distributed import Client
 client = Client("dask-scheduler:8786")
 client
 </code></pre></div></div>
 
 <p>Now we can access the 3 workers that we launched before:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Client
 Scheduler: tcp://dask-scheduler:8786
 Dashboard: http://dask-scheduler:8787/status
 Cluster
@@ -244,7 +230,7 @@ Memory: 12.43 GB
 
 <p>We can run an example computation with dask array:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import dask.array as da
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import dask.array as da
 x = da.random.random((20000, 20000), chunks=(2000, 2000)).persist()
 x.sum().compute()
 </code></pre></div></div>
@@ -253,12 +239,12 @@ x.sum().compute()
 
 <p>We need to setup ingress so that a path points to the Dask dashboard instead of Jupyterhub,</p>
 
-<p>Checkout the file <code class="highlighter-rouge">dask_shared/dask_webui_ingress.yaml</code> in the repository, it routes the path <code class="highlighter-rouge">/dask</code>
-to the <code class="highlighter-rouge">dask-scheduler</code> service.</p>
+<p>Checkout the file <code class="language-plaintext highlighter-rouge">dask_shared/dask_webui_ingress.yaml</code> in the repository, it routes the path <code class="language-plaintext highlighter-rouge">/dask</code>
+to the <code class="language-plaintext highlighter-rouge">dask-scheduler</code> service.</p>
 
 <p>Create the ingress resource with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create ingress -n pangeo -f dask_webui_ingress.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl create ingress -n pangeo -f dask_webui_ingress.yaml
 </code></pre></div></div>
 
 <p>All users can now access the dashboard at:</p>
@@ -267,12 +253,12 @@ to the <code class="highlighter-rouge">dask-scheduler</code> service.</p>
   <li><a href="https://js-xxx-xxx.jetstream-cloud.org/dask/status">https://js-xxx-xxx.jetstream-cloud.org/dask/status</a></li>
 </ul>
 
-<p>Make sure to use <code class="highlighter-rouge">/dask/status/</code> and not only <code class="highlighter-rouge">/dask</code>.
+<p>Make sure to use <code class="language-plaintext highlighter-rouge">/dask/status/</code> and not only <code class="language-plaintext highlighter-rouge">/dask</code>.
 Currently this is not authenticated, so this address is publicly available.
-A simple way to hide it is to choose a custom name instead of <code class="highlighter-rouge">/dask</code> and edit
+A simple way to hide it is to choose a custom name instead of <code class="language-plaintext highlighter-rouge">/dask</code> and edit
 the ingress accordingly with:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl edit ingress dask -n pangeo
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo kubectl edit ingress dask -n pangeo
 </code></pre></div></div>
 
   </div><a class="u-url" href="/2018/05/shared-dask-kubernetes-jetstream.html" hidden></a>

@@ -1,49 +1,49 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.0">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-15T16:39:45-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-20T12:49:45-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
 with some details about doing it at NERSC, but most of the tutorial is independent of that.&lt;/p&gt;
 
 &lt;h2 id=&quot;setup-the-conda-environment-and-the-compilers&quot;&gt;Setup the conda environment and the compilers&lt;/h2&gt;
 
 &lt;p&gt;I assume here we are installing it into a custom conda environement
-the possibly contains all other cosmology packages, like &lt;code class=&quot;highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
+the possibly contains all other cosmology packages, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;For example created with:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module load python
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module load python
 conda create -n pycmb python==3.7 healpy matplotlib ipykernel
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;When you activate the conda environment, the variable &lt;code class=&quot;highlighter-rouge&quot;&gt;$CONDA_PREFIX&lt;/code&gt; is
+&lt;p&gt;When you activate the conda environment, the variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$CONDA_PREFIX&lt;/code&gt; is
 automatically set to the base folder of the environment,
 something like:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/anaconda/envs/pycmb
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;~/anaconda/envs/pycmb
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;To make it simpler, I am using &lt;code class=&quot;highlighter-rouge&quot;&gt;gcc&lt;/code&gt; and &lt;code class=&quot;highlighter-rouge&quot;&gt;gfortran&lt;/code&gt;, if at NERSC run:&lt;/p&gt;
+&lt;p&gt;To make it simpler, I am using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gcc&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gfortran&lt;/code&gt;, if at NERSC run:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module load PrgEnv-gnu
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module load PrgEnv-gnu
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;if that fails, probably you need first to unload the Intel environment:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module unload PrgEnv-intel
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module unload PrgEnv-intel
 module load PrgEnv-gnu
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h2 id=&quot;install-cfitsio&quot;&gt;Install cfitsio&lt;/h2&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;cfitsio&lt;/code&gt; is quite easy, better download the version included in
-&lt;code class=&quot;highlighter-rouge&quot;&gt;healpy&lt;/code&gt; because it has a couple of fixes:&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cfitsio&lt;/code&gt; is quite easy, better download the version included in
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; because it has a couple of fixes:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/healpy/cfitsio
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/healpy/cfitsio
 cd cfitsio
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;We want to install it into a dedicated folder, not the same &lt;code class=&quot;highlighter-rouge&quot;&gt;lib&lt;/code&gt; folder
+&lt;p&gt;We want to install it into a dedicated folder, not the same &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib&lt;/code&gt; folder
 of the conda environment, so that we don’t risk to have conflicts
 with the compiler libraries during the build process:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./configure --prefix=$CONDA_PREFIX/cfitsio
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;./configure --prefix=$CONDA_PREFIX/cfitsio
 make -j8 shared install
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -53,62 +53,62 @@ make -j8 shared install
 profile to make things work.
 As we want to keep things isolated, let’s unpack the Healpix package into the conda environment folder, so it will be something like:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$CONDA_PREFIX/Healpix_3.70
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$CONDA_PREFIX/Healpix_3.70
 
 ./configure
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;configure the C, the Fortran packages, the Fortran package requires &lt;code class=&quot;highlighter-rouge&quot;&gt;libsharp&lt;/code&gt;,
-set everything to default except location of &lt;code class=&quot;highlighter-rouge&quot;&gt;cfitsio&lt;/code&gt; where you need (notice &lt;code class=&quot;highlighter-rouge&quot;&gt;lib&lt;/code&gt; at the end):&lt;/p&gt;
+&lt;p&gt;configure the C, the Fortran packages, the Fortran package requires &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libsharp&lt;/code&gt;,
+set everything to default except location of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cfitsio&lt;/code&gt; where you need (notice &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lib&lt;/code&gt; at the end):&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$CONDA_PREFIX/cfitsio/lib
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$CONDA_PREFIX/cfitsio/lib
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;When the installer asks whether to modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; respond no.
-Now the installer will create some scripts in the &lt;code class=&quot;highlighter-rouge&quot;&gt;~/.healpix&lt;/code&gt; folder and modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt;, we want to only activate HEALPix in our conda environment so we should modify &lt;code class=&quot;highlighter-rouge&quot;&gt;.profile&lt;/code&gt; and remove the lines added by HEALPix.&lt;/p&gt;
+&lt;p&gt;When the installer asks whether to modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.profile&lt;/code&gt; respond no.
+Now the installer will create some scripts in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.healpix&lt;/code&gt; folder and modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.profile&lt;/code&gt;, we want to only activate HEALPix in our conda environment so we should modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.profile&lt;/code&gt; and remove the lines added by HEALPix.&lt;/p&gt;
 
-&lt;p&gt;Finally we can have HEALPix automatically activated when the conda environment is initialized (notice we need the script to end in &lt;code class=&quot;highlighter-rouge&quot;&gt;.sh&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;Finally we can have HEALPix automatically activated when the conda environment is initialized (notice we need the script to end in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.sh&lt;/code&gt;):&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir -p ${CONDA_PREFIX}/etc/conda/activate.d
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;mkdir -p ${CONDA_PREFIX}/etc/conda/activate.d
 ln -s ~/.healpix/3_70_Linux/config ${CONDA_PREFIX}/etc/conda/activate.d/config.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Restart the conda environment, and try to run &lt;code class=&quot;highlighter-rouge&quot;&gt;anafast&lt;/code&gt; to check that it works.
+&lt;p&gt;Restart the conda environment, and try to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anafast&lt;/code&gt; to check that it works.
 If you are at NERSC, make sure that you are always loading the GNU programming environment by having:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module swap PrgEnv-intel PrgEnv-gnu
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;module swap PrgEnv-intel PrgEnv-gnu
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;in &lt;code class=&quot;highlighter-rouge&quot;&gt;.bashrc.ext&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc.ext&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;install-polspice&quot;&gt;Install PolSpice&lt;/h2&gt;
 
-&lt;p&gt;Create a &lt;code class=&quot;highlighter-rouge&quot;&gt;build&lt;/code&gt; folder inside the source folder and create a &lt;code class=&quot;highlighter-rouge&quot;&gt;run.sh&lt;/code&gt; file with this content:&lt;/p&gt;
+&lt;p&gt;Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;build&lt;/code&gt; folder inside the source folder and create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;run.sh&lt;/code&gt; file with this content:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cmake .. -DCFITSIO=${CONDA_PREFIX}/cfitsio/lib -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_C_COMPILER=gcc
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cmake .. -DCFITSIO=${CONDA_PREFIX}/cfitsio/lib -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_C_COMPILER=gcc
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Then:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash run.sh
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash run.sh
 make -j8
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This will put the &lt;code class=&quot;highlighter-rouge&quot;&gt;spice&lt;/code&gt; executable into the &lt;code class=&quot;highlighter-rouge&quot;&gt;../bin&lt;/code&gt; folder, just copy it to the conda environment bin folder:&lt;/p&gt;
+&lt;p&gt;This will put the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spice&lt;/code&gt; executable into the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;../bin&lt;/code&gt; folder, just copy it to the conda environment bin folder:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ..
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ..
 ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;We can also copy the 2 python modules into the environment:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Check it works:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;spice -usage
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Some notes on how to install HEALPix and PolSpice inside a conda environment, with some details about doing it at NERSC, but most of the tutorial is independent of that.</summary></entry><entry><title type="html">Example of the `healpy` query disc function</title><link href="https://zonca.dev/2020/10/example-healpy-query_disc.html" rel="alternate" type="text/html" title="Example of the `healpy` query disc function" /><published>2020-10-02T00:00:00-05:00</published><updated>2020-10-02T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/example-healpy-query_disc</id><content type="html" xml:base="https://zonca.dev/2020/10/example-healpy-query_disc.html">&lt;!--
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;spice -usage
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="conda" /><category term="healpy" /><category term="nersc" /><summary type="html">Some notes on how to install HEALPix and PolSpice inside a conda environment, with some details about doing it at NERSC, but most of the tutorial is independent of that.</summary></entry><entry><title type="html">Example of the `healpy` query disc function</title><link href="https://zonca.dev/2020/10/example-healpy-query_disc.html" rel="alternate" type="text/html" title="Example of the `healpy` query disc function" /><published>2020-10-02T00:00:00-05:00</published><updated>2020-10-02T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/example-healpy-query_disc</id><content type="html" xml:base="https://zonca.dev/2020/10/example-healpy-query_disc.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -117,13 +117,6 @@ ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
 
 &lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
         
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;/div&gt;
-    
-
     
     
 &lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
@@ -156,8 +149,7 @@ ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
 
 &lt;div class=&quot;inner_cell&quot;&gt;
     &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# in degrees&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;lon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;
+&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lon&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;60&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;30&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;vec&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;hp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ang2vec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lonlat&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -325,13 +317,6 @@ The interval between meridians is 30 deg -0.00&amp;#39;.
 
 &lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
         
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;/div&gt;
-    
-
 &lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
 &lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
 &lt;p&gt;In this tutorial we will load CMB power spectra generated by the cosmological parameters measured by Planck, we will create a realization of the Spherical Harmonics coefficients $a_{\ell m}$, save it to disk, and use them to create maps at different resolutions.&lt;/p&gt;
@@ -367,8 +352,7 @@ The interval between meridians is 30 deg -0.00&amp;#39;.
 
 &lt;div class=&quot;inner_cell&quot;&gt;
     &lt;div class=&quot;input_area&quot;&gt;
-&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;# filter out all warnings&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;warnings&lt;/span&gt;
+&lt;div class=&quot; highlight hl-ipython3&quot;&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;warnings&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;warnings&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;filterwarnings&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;ignore&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 
@@ -2500,11 +2484,11 @@ Planck_bestfit_alm_seed_583_lmax_95_K_CMB.fits
     
 
 &lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Edit video recordings with ffmpeg</title><link href="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html" rel="alternate" type="text/html" title="Edit video recordings with ffmpeg" /><published>2020-09-25T00:00:00-05:00</published><updated>2020-09-25T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/ffmpeg-edit-recordings</id><content type="html" xml:base="https://zonca.dev/2020/09/ffmpeg-edit-recordings.html">&lt;p&gt;A few scripts to speedup, concatenate and possibly
-other operations using &lt;code class=&quot;highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; on linux (also works on Chromebooks) from the command line:&lt;/p&gt;
+other operations using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ffmpeg&lt;/code&gt; on linux (also works on Chromebooks) from the command line:&lt;/p&gt;
 
 &lt;script src=&quot;https://gist.github.com/zonca/c13da23155e3451329746772187a2016.js&quot;&gt;&lt;/script&gt;
 
-&lt;p&gt;I used those to pre-record videos for a conference (after recording with &lt;a href=&quot;https://loom.com&quot;&gt;Loom&lt;/a&gt;)&lt;/p&gt;</content><author><name></name></author><summary type="html">A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:</summary></entry><entry><title type="html">How to share Jupyter Notebooks</title><link href="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html" rel="alternate" type="text/html" title="How to share Jupyter Notebooks" /><published>2020-09-15T00:00:00-05:00</published><updated>2020-09-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/how-to-share-jupyter-notebooks</id><content type="html" xml:base="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html">&lt;p&gt;I tend to preserve and post online all the work I do for later reference and sharing.
+&lt;p&gt;I used those to pre-record videos for a conference (after recording with &lt;a href=&quot;https://loom.com&quot;&gt;Loom&lt;/a&gt;)&lt;/p&gt;</content><author><name></name></author><category term="jupyterhub" /><category term="jetstream" /><category term="gateways" /><summary type="html">A few scripts to speedup, concatenate and possibly other operations using ffmpeg on linux (also works on Chromebooks) from the command line:</summary></entry><entry><title type="html">How to share Jupyter Notebooks</title><link href="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html" rel="alternate" type="text/html" title="How to share Jupyter Notebooks" /><published>2020-09-15T00:00:00-05:00</published><updated>2020-09-15T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/how-to-share-jupyter-notebooks</id><content type="html" xml:base="https://zonca.dev/2020/09/how-to-share-jupyter-notebooks.html">&lt;p&gt;I tend to preserve and post online all the work I do for later reference and sharing.
 Jupyter Notebooks are a bit more complex than standard source code because they
 are natively in a format (JSON) that needs to be rendered to be readable.&lt;/p&gt;
 
@@ -2513,27 +2497,27 @@ all the generated plots and outputs.&lt;/p&gt;
 
 &lt;h2 id=&quot;share-on-gist-through-the-browser&quot;&gt;Share on gist through the browser&lt;/h2&gt;
 
-&lt;p&gt;The easiest way to share a Jupyter Notebook is to use a &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt;, which is
+&lt;p&gt;The easiest way to share a Jupyter Notebook is to use a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt;, which is
 quick sharing service provided by Github based on copy-paste.&lt;/p&gt;
 
 &lt;p&gt;Navigate to &lt;a href=&quot;https://gist.github.com/&quot;&gt;https://gist.github.com/&lt;/a&gt;, it shows a text-area for copy-pasting
-content, you can drag your &lt;code class=&quot;highlighter-rouge&quot;&gt;ipynb&lt;/code&gt; file from your File Manager into the text-area
+content, you can drag your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ipynb&lt;/code&gt; file from your File Manager into the text-area
 and it will paste its content into the area, then you can click on
 “Create a public gist” button and it will be uploaded and rendered automatically.
-If you don’t want the &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt; to appear under &lt;code class=&quot;highlighter-rouge&quot;&gt;gist.github.com/yourusername&lt;/code&gt; and
+If you don’t want the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt; to appear under &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist.github.com/yourusername&lt;/code&gt; and
 not be findable on Google, select “Create a private gist” instead.
-You can also upload multiple notebooks to the same &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt;.&lt;/p&gt;
+You can also upload multiple notebooks to the same &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;The good thing is that behind this interface there is an actual &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt; repository,
-so you can later clone and update it using &lt;code class=&quot;highlighter-rouge&quot;&gt;git&lt;/code&gt;. Or you can even
+&lt;p&gt;The good thing is that behind this interface there is an actual &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; repository,
+so you can later clone and update it using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;. Or you can even
 use the web interface to copy-paste a newer version of your Notebook.&lt;/p&gt;
 
 &lt;h2 id=&quot;share-on-gist-from-the-command-line&quot;&gt;Share on gist from the command line&lt;/h2&gt;
 
-&lt;p&gt;If you are working on a remote machine (e.g. HPC), it is way better to setup the &lt;a href=&quot;https://cli.github.com/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;gh&lt;/code&gt;
+&lt;p&gt;If you are working on a remote machine (e.g. HPC), it is way better to setup the &lt;a href=&quot;https://cli.github.com/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh&lt;/code&gt;
 client for Github&lt;/a&gt;, then you can directly create a gist from the command line:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gh gist create --public -d &quot;My description&quot; *.ipynb
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gh gist create --public -d &quot;My description&quot; *.ipynb
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;and it will print to stdout the gist URL.&lt;/p&gt;
@@ -2541,38 +2525,38 @@ client for Github&lt;/a&gt;, then you can directly create a gist from the comman
 &lt;h2 id=&quot;render-larger-notebooks-via-nbviewer&quot;&gt;Render larger Notebooks via nbviewer&lt;/h2&gt;
 
 &lt;p&gt;The Github rendering engine is not the most reliable: it fails for larger notebooks,
-it doesn’t work on mobile and it doesn’t support some JavaScript based libraries, like &lt;code class=&quot;highlighter-rouge&quot;&gt;altair&lt;/code&gt;.&lt;/p&gt;
+it doesn’t work on mobile and it doesn’t support some JavaScript based libraries, like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;altair&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Then after having uploaded your Notebook to &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt;, you can go to &lt;a href=&quot;https://nbviewer.jupyter.org/&quot;&gt;https://nbviewer.jupyter.org/&lt;/a&gt;,
-paste the full link to your &lt;code class=&quot;highlighter-rouge&quot;&gt;gist&lt;/code&gt; and share the &lt;code class=&quot;highlighter-rouge&quot;&gt;nbviewer&lt;/code&gt; rendering instead.&lt;/p&gt;
+&lt;p&gt;Then after having uploaded your Notebook to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt;, you can go to &lt;a href=&quot;https://nbviewer.jupyter.org/&quot;&gt;https://nbviewer.jupyter.org/&lt;/a&gt;,
+paste the full link to your &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gist&lt;/code&gt; and share the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbviewer&lt;/code&gt; rendering instead.&lt;/p&gt;
 
 &lt;h2 id=&quot;save-clean-notebooks-in-github-repositories&quot;&gt;Save clean Notebooks in Github repositories&lt;/h2&gt;
 
 &lt;p&gt;I also recommend to save a copy of notebooks without any outputs (either doing “Clear all outputs” from
-the interface or using &lt;code class=&quot;highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt;) into a related Github repository, this makes it easier to reference
+the interface or using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt;) into a related Github repository, this makes it easier to reference
 it later on. However don’t save executed notebooks inside Github repositories, they are too large
-and cause ugly &lt;code class=&quot;highlighter-rouge&quot;&gt;diff&lt;/code&gt; between versions (also use &lt;code class=&quot;highlighter-rouge&quot;&gt;nbdime&lt;/code&gt; to help manage notebooks inside repos).&lt;/p&gt;
+and cause ugly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;diff&lt;/code&gt; between versions (also use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbdime&lt;/code&gt; to help manage notebooks inside repos).&lt;/p&gt;
 
 &lt;h2 id=&quot;share-related-group-of-notebooks&quot;&gt;Share related group of notebooks&lt;/h2&gt;
 
 &lt;p&gt;For teaching it is often useful to share a number of related notebooks, in this case you can
-create a repository full of notebooks and then point &lt;code class=&quot;highlighter-rouge&quot;&gt;nbviewer&lt;/code&gt; to the address of that repository,
+create a repository full of notebooks and then point &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbviewer&lt;/code&gt; to the address of that repository,
 it will automatically create an index where people can navigate through notebooks.
 See for example &lt;a href=&quot;https://nbviewer.jupyter.org/github/zonca/mapsims_tutorials/tree/master/&quot;&gt;https://nbviewer.jupyter.org/github/zonca/mapsims_tutorials/tree/master/&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;For teaching it is often useful to have the main repository which contains clean versions of the
 notebooks and then have a Github fork with a version of the notebooks all executed. This is useful
 for later reference and for people that have trouble executing the notebooks. Better use a fork
-because if we used a &lt;code class=&quot;highlighter-rouge&quot;&gt;branch&lt;/code&gt;, we would make the main repository un-necessarily heavier to download.&lt;/p&gt;
+because if we used a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;branch&lt;/code&gt;, we would make the main repository un-necessarily heavier to download.&lt;/p&gt;
 
 &lt;h2 id=&quot;make-notebooks-executable-in-the-browser&quot;&gt;Make notebooks executable in the browser&lt;/h2&gt;
 
 &lt;p&gt;Once you have notebooks in a repository, you can also plug them into &lt;a href=&quot;https://mybinder.org/&quot;&gt;https://mybinder.org/&lt;/a&gt; to allow
 people to spin a Virtual Machine on Google Cloud automatically and for free and execute them
-in their browser. You can also provide a &lt;code class=&quot;highlighter-rouge&quot;&gt;environment.yml&lt;/code&gt; file to setup the requirements.&lt;/p&gt;
+in their browser. You can also provide a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;environment.yml&lt;/code&gt; file to setup the requirements.&lt;/p&gt;
 
-&lt;p&gt;See for example &lt;a href=&quot;https://gist.github.com/zonca/9c114608e0903a3b8ea0bfe41c96f255&quot;&gt;the &lt;code class=&quot;highlighter-rouge&quot;&gt;healpy&lt;/code&gt; tutorial gist&lt;/a&gt;,
-which can be executed on Binder clicking on the following Icon: &lt;a href=&quot;https://mybinder.org/v2/gist/zonca/9c114608e0903a3b8ea0bfe41c96f255/master&quot;&gt;&lt;img src=&quot;https://mybinder.org/badge_logo.svg&quot; alt=&quot;Binder logo&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">I tend to preserve and post online all the work I do for later reference and sharing. Jupyter Notebooks are a bit more complex than standard source code because they are natively in a format (JSON) that needs to be rendered to be readable.</summary></entry><entry><title type="html">Simple WCS with astropy modeling and gwcs</title><link href="https://zonca.dev/2020/09/wcs-astropy.html" rel="alternate" type="text/html" title="Simple WCS with astropy modeling and gwcs" /><published>2020-09-10T00:00:00-05:00</published><updated>2020-09-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/wcs-astropy</id><content type="html" xml:base="https://zonca.dev/2020/09/wcs-astropy.html">&lt;!--
+&lt;p&gt;See for example &lt;a href=&quot;https://gist.github.com/zonca/9c114608e0903a3b8ea0bfe41c96f255&quot;&gt;the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; tutorial gist&lt;/a&gt;,
+which can be executed on Binder clicking on the following Icon: &lt;a href=&quot;https://mybinder.org/v2/gist/zonca/9c114608e0903a3b8ea0bfe41c96f255/master&quot;&gt;&lt;img src=&quot;https://mybinder.org/badge_logo.svg&quot; alt=&quot;Binder logo&quot; /&gt;&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="jupyter" /><category term="notebook" /><category term="github" /><summary type="html">I tend to preserve and post online all the work I do for later reference and sharing. Jupyter Notebooks are a bit more complex than standard source code because they are natively in a format (JSON) that needs to be rendered to be readable.</summary></entry><entry><title type="html">Simple WCS with astropy modeling and gwcs</title><link href="https://zonca.dev/2020/09/wcs-astropy.html" rel="alternate" type="text/html" title="Simple WCS with astropy modeling and gwcs" /><published>2020-09-10T00:00:00-05:00</published><updated>2020-09-10T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/wcs-astropy</id><content type="html" xml:base="https://zonca.dev/2020/09/wcs-astropy.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -2581,13 +2565,6 @@ which can be executed on Binder clicking on the following Icon: &lt;a href=&quot
 
 &lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
         
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;/div&gt;
-    
-
 &lt;div class=&quot;cell border-box-sizing text_cell rendered&quot;&gt;&lt;div class=&quot;inner_cell&quot;&gt;
 &lt;div class=&quot;text_cell_render border-box-sizing rendered_html&quot;&gt;
 &lt;p&gt;Some notes on how to convert a FITS WCS to a WCS from &lt;code&gt;gwcs&lt;/code&gt; (Generalized WCS) to be used within the JWST pipeline&lt;/p&gt;
@@ -3324,13 +3301,6 @@ Parameters:
 
 &lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
         
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;/div&gt;
-    
-
     
     
 &lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
@@ -4215,7 +4185,7 @@ $6.9730181 \; \mathrm{mK_{{CMB}}}$
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Unit conversion with broadband detectors looking at the CMB</title><link href="https://zonca.dev/2020/09/unit-conversion-broadband-cmb.html" rel="alternate" type="text/html" title="Unit conversion with broadband detectors looking at the CMB" /><published>2020-09-04T00:00:00-05:00</published><updated>2020-09-04T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/unit-conversion-broadband-cmb</id><content type="html" xml:base="https://zonca.dev/2020/09/unit-conversion-broadband-cmb.html">&lt;!--
+&lt;/div&gt;</content><author><name></name></author><category term="pysm" /><summary type="html"></summary></entry><entry><title type="html">Unit conversion with broadband detectors looking at the CMB</title><link href="https://zonca.dev/2020/09/unit-conversion-broadband-cmb.html" rel="alternate" type="text/html" title="Unit conversion with broadband detectors looking at the CMB" /><published>2020-09-04T00:00:00-05:00</published><updated>2020-09-04T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/unit-conversion-broadband-cmb</id><content type="html" xml:base="https://zonca.dev/2020/09/unit-conversion-broadband-cmb.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -4224,13 +4194,6 @@ $6.9730181 \; \mathrm{mK_{{CMB}}}$
 
 &lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
         
-    
-    
-&lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
-
-&lt;/div&gt;
-    
-
     
     
 &lt;div class=&quot;cell border-box-sizing code_cell rendered&quot;&gt;
@@ -5138,7 +5101,7 @@ $2.5357578 \; \mathrm{\frac{mK_{{CMB}}\,sr}{MJy}}$
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Gateways 2020 paper about Kubernetes and JupyterHub on Jetstream</title><link href="https://zonca.dev/2020/09/gateways-2020-paper.html" rel="alternate" type="text/html" title="Gateways 2020 paper about Kubernetes and JupyterHub on Jetstream" /><published>2020-09-04T00:00:00-05:00</published><updated>2020-09-04T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/gateways-2020-paper</id><content type="html" xml:base="https://zonca.dev/2020/09/gateways-2020-paper.html">&lt;p&gt;My paper in collaboration with Richard Signell (USGS), Julien Chastang (UCAR), John Michael Lowe (IU/Jetstream), Jeremy Fischer (IU/Jetstream) and Robert Sinkovits (SDSC) was accepted at &lt;a href=&quot;https://sciencegateways.org/web/gateways2020&quot;&gt;Gateways 2020&lt;/a&gt; (October 12–23, 2020).&lt;/p&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="cmbs4" /><category term="pysm" /><category term="simonsobs" /><summary type="html"></summary></entry><entry><title type="html">Gateways 2020 paper about Kubernetes and JupyterHub on Jetstream</title><link href="https://zonca.dev/2020/09/gateways-2020-paper.html" rel="alternate" type="text/html" title="Gateways 2020 paper about Kubernetes and JupyterHub on Jetstream" /><published>2020-09-04T00:00:00-05:00</published><updated>2020-09-04T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/gateways-2020-paper</id><content type="html" xml:base="https://zonca.dev/2020/09/gateways-2020-paper.html">&lt;p&gt;My paper in collaboration with Richard Signell (USGS), Julien Chastang (UCAR), John Michael Lowe (IU/Jetstream), Jeremy Fischer (IU/Jetstream) and Robert Sinkovits (SDSC) was accepted at &lt;a href=&quot;https://sciencegateways.org/web/gateways2020&quot;&gt;Gateways 2020&lt;/a&gt; (October 12–23, 2020).&lt;/p&gt;
 
 &lt;p&gt;It gives an overview of the architecture of the deployments of the container orchestration engine Kubernetes
 on the NSF-funded Jetstream Openstack cloud deployment at Indiana University.
@@ -5147,38 +5110,38 @@ the 2 most important tutorials explain the 2 strategies for deploying Kubernetes
 
 &lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/05/kubernetes-jupyterhub-jetstream-magnum.html&quot;&gt;Using Magnum, the Openstack functionality to provide a ready-made Kubernetes cluster&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html&quot;&gt;Using Terraform and Ansible via &lt;code class=&quot;highlighter-rouge&quot;&gt;kubespray&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html&quot;&gt;Using Terraform and Ansible via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubespray&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Once Kubernetes is available, it is quite easy to deploy &lt;code class=&quot;highlighter-rouge&quot;&gt;JupyterHub&lt;/code&gt; configuring properly &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/en/latest/&quot;&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;zero-to-jupyterhub&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Once Kubernetes is available, it is quite easy to deploy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;JupyterHub&lt;/code&gt; configuring properly &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/en/latest/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zero-to-jupyterhub&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;See the &lt;a href=&quot;https://osf.io/zyhwt/&quot;&gt;Gateways 2020 paper (open-access) on OSF&lt;/a&gt;, (&lt;a href=&quot;https://osf.io/gkz9v/download&quot;&gt;direct link to PDF&lt;/a&gt;)&lt;/p&gt;
 
-&lt;p&gt;On the same topic I also gave a 1-hour webinar focused on introducing how to use Openstack and Kubernetes for people with no previous experience, &lt;a href=&quot;https://www.youtube.com/watch?v=jiYw4g4RX-w&quot;&gt;the video (April 2020 ECSS Symposium) is available on Youtube&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><summary type="html">My paper in collaboration with Richard Signell (USGS), Julien Chastang (UCAR), John Michael Lowe (IU/Jetstream), Jeremy Fischer (IU/Jetstream) and Robert Sinkovits (SDSC) was accepted at Gateways 2020 (October 12–23, 2020).</summary></entry><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
+&lt;p&gt;On the same topic I also gave a 1-hour webinar focused on introducing how to use Openstack and Kubernetes for people with no previous experience, &lt;a href=&quot;https://www.youtube.com/watch?v=jiYw4g4RX-w&quot;&gt;the video (April 2020 ECSS Symposium) is available on Youtube&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="jupyterhub" /><category term="jetstream" /><category term="gateways" /><category term="kubernetes" /><summary type="html">My paper in collaboration with Richard Signell (USGS), Julien Chastang (UCAR), John Michael Lowe (IU/Jetstream), Jeremy Fischer (IU/Jetstream) and Robert Sinkovits (SDSC) was accepted at Gateways 2020 (October 12–23, 2020).</summary></entry><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
 
-&lt;p&gt;We want to be able to redirect from &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; keeping the relative url.&lt;/p&gt;
+&lt;p&gt;We want to be able to redirect from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; keeping the relative url.&lt;/p&gt;
 
-&lt;p&gt;First we can setup user-defined redirects from the admin page on &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt;,
+&lt;p&gt;First we can setup user-defined redirects from the admin page on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt;,
 see the &lt;a href=&quot;https://docs.readthedocs.io/en/stable/user-defined-redirects.html#exact-redirects&quot;&gt;full documentation&lt;/a&gt;,
-you can choose “Exact redirect”, I only care about redirecting the &lt;code class=&quot;highlighter-rouge&quot;&gt;latest&lt;/code&gt; version, so:&lt;/p&gt;
+you can choose “Exact redirect”, I only care about redirecting the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;latest&lt;/code&gt; version, so:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/en/latest/$rest -&amp;gt; https://myorganization.github.io/myrepo/master/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/en/latest/$rest -&amp;gt; https://myorganization.github.io/myrepo/master/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;$rest&lt;/code&gt; is a special variable which redirects also all the other pages correctly.&lt;/p&gt;
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$rest&lt;/code&gt; is a special variable which redirects also all the other pages correctly.&lt;/p&gt;
 
 &lt;p&gt;The only issue now is that this redirect only works when the documentation is not found,
-therefore I made a temporary commit to &lt;code class=&quot;highlighter-rouge&quot;&gt;master&lt;/code&gt; which deletes all of the Sphinx pages
-of the documentation and replaces &lt;code class=&quot;highlighter-rouge&quot;&gt;index.rst&lt;/code&gt; with:&lt;/p&gt;
+therefore I made a temporary commit to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; which deletes all of the Sphinx pages
+of the documentation and replaces &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index.rst&lt;/code&gt; with:&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.. raw:: html
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.. raw:: html
 
     &amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
         window.location.replace('https://myorganization.github.io/myrepo/master/');
     &amp;lt;/script&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;After &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; builds this version, go to &lt;a href=&quot;https://github.com/myorganization/myrepo/settings/hooks&quot;&gt;https://github.com/myorganization/myrepo/settings/hooks&lt;/a&gt; and disable
-the &lt;code class=&quot;highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; web hook.&lt;/p&gt;
+&lt;p&gt;After &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; builds this version, go to &lt;a href=&quot;https://github.com/myorganization/myrepo/settings/hooks&quot;&gt;https://github.com/myorganization/myrepo/settings/hooks&lt;/a&gt; and disable
+the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; web hook.&lt;/p&gt;
 
-&lt;p&gt;Finally restore the documentation on your master branch and push.&lt;/p&gt;</content><author><name></name></author><summary type="html">This is useful if you switch to hosting your own documentation, for example using Sphinx Multiversion on Github pages, tutorial coming soon.</summary></entry></feed>
+&lt;p&gt;Finally restore the documentation on your master branch and push.&lt;/p&gt;</content><author><name></name></author><category term="python" /><category term="docs" /><summary type="html">This is useful if you switch to hosting your own documentation, for example using Sphinx Multiversion on Github pages, tutorial coming soon.</summary></entry></feed>
