@@ -91,12 +91,16 @@ Then:
 This will put the `spice` executable into the `../bin` folder, just copy it to the conda environment bin folder:
 
     cd ..
-    ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
+    cp bin/spice ${CONDA_PREFIX}/bin/
 
 We can also copy the 2 python modules into the environment:
 
-    ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
+    cp bin/bin_llcl.py bin/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
 
 Check it works:
 
     spice -usage
+
+### Uninstall PolSpice
+
+    rm ${CONDA_PREFIX}/bin/spice ${CONDA_PREFIX}/lib/python3.*/site-packages/bin_llcl.py ${CONDA_PREFIX}/lib/python3.*/site-packages/ispice.py
