@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-20T12:49:45-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-10-22T13:13:54-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
 with some details about doing it at NERSC, but most of the tutorial is independent of that.&lt;/p&gt;
 
 &lt;h2 id=&quot;setup-the-conda-environment-and-the-compilers&quot;&gt;Setup the conda environment and the compilers&lt;/h2&gt;
@@ -97,17 +97,22 @@ make -j8
 &lt;p&gt;This will put the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;spice&lt;/code&gt; executable into the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;../bin&lt;/code&gt; folder, just copy it to the conda environment bin folder:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cd ..
-ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
+cp bin/spice ${CONDA_PREFIX}/bin/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;We can also copy the 2 python modules into the environment:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;cp bin/bin_llcl.py bin/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Check it works:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;spice -usage
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;uninstall-polspice&quot;&gt;Uninstall PolSpice&lt;/h3&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rm ${CONDA_PREFIX}/bin/spice ${CONDA_PREFIX}/lib/python3.*/site-packages/bin_llcl.py ${CONDA_PREFIX}/lib/python3.*/site-packages/ispice.py
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="conda" /><category term="healpy" /><category term="nersc" /><summary type="html">Some notes on how to install HEALPix and PolSpice inside a conda environment, with some details about doing it at NERSC, but most of the tutorial is independent of that.</summary></entry><entry><title type="html">Example of the `healpy` query disc function</title><link href="https://zonca.dev/2020/10/example-healpy-query_disc.html" rel="alternate" type="text/html" title="Example of the `healpy` query disc function" /><published>2020-10-02T00:00:00-05:00</published><updated>2020-10-02T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/example-healpy-query_disc</id><content type="html" xml:base="https://zonca.dev/2020/10/example-healpy-query_disc.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###

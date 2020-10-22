@@ -214,17 +214,22 @@ make -j8
 <p>This will put the <code class="language-plaintext highlighter-rouge">spice</code> executable into the <code class="language-plaintext highlighter-rouge">../bin</code> folder, just copy it to the conda environment bin folder:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd ..
-ln -s $(pwd)/bin/spice ${CONDA_PREFIX}/bin/
+cp bin/spice ${CONDA_PREFIX}/bin/
 </code></pre></div></div>
 
 <p>We can also copy the 2 python modules into the environment:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ln -s $(pwd)/bin_llcl.py $(pwd)/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cp bin/bin_llcl.py bin/ispice.py ${CONDA_PREFIX}/lib/python3.*/site-packages/
 </code></pre></div></div>
 
 <p>Check it works:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>spice -usage
+</code></pre></div></div>
+
+<h3 id="uninstall-polspice">Uninstall PolSpice</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>rm ${CONDA_PREFIX}/bin/spice ${CONDA_PREFIX}/lib/python3.*/site-packages/bin_llcl.py ${CONDA_PREFIX}/lib/python3.*/site-packages/ispice.py
 </code></pre></div></div>
 
   </div><a class="u-url" href="/2020/10/install-healpix-polspice-conda-nersc.html" hidden></a>
