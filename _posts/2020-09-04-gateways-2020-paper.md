@@ -18,4 +18,15 @@ Once Kubernetes is available, it is quite easy to deploy `JupyterHub` configurin
 
 See the [Gateways 2020 paper (open-access) on OSF](https://osf.io/zyhwt/), ([direct link to PDF](https://osf.io/gkz9v/download))
 
+Here is the recording of the presentation and the questions:
+
+> youtube: https://www.youtube.com/watch?v=D5ZrbB2KtXw
+
+or [here just the video recording (better quality, no questions/answers)](https://www.youtube.com/watch?v=1ECTVNpvaoo&feature=youtu.be)
+
+
 On the same topic I also gave a 1-hour webinar focused on introducing how to use Openstack and Kubernetes for people with no previous experience, [the video (April 2020 ECSS Symposium) is available on Youtube](https://www.youtube.com/watch?v=jiYw4g4RX-w)
+
+If you have any question/feedback, reply to this tweet:
+
+> twitter: https://twitter.com/andreazonca/status/1319145344089767936
