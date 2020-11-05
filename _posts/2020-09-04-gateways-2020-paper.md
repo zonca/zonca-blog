@@ -20,7 +20,7 @@ See the [Gateways 2020 paper (open-access) on OSF](https://osf.io/zyhwt/), ([dir
 
 Here is the recording of the presentation and the questions:
 
-> youtube: https://www.youtube.com/watch?v=D5ZrbB2KtXw
+<iframe width="560" height="315" src="https://www.youtube.com/embed/D5ZrbB2KtXw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 or [here just the video recording (better quality, no questions/answers)](https://www.youtube.com/watch?v=1ECTVNpvaoo&feature=youtu.be)
 
