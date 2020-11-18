@@ -1,4 +1,67 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-11-04T20:39:21-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2020-11-18T14:13:54-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Paper review workflow with Overleaf, git and Google Docs</title><link href="https://zonca.dev/2020/11/paper-review-overleaf-git-googledocs.html" rel="alternate" type="text/html" title="Paper review workflow with Overleaf, git and Google Docs" /><published>2020-11-18T00:00:00-06:00</published><updated>2020-11-18T00:00:00-06:00</updated><id>https://zonca.dev/2020/11/paper-review-overleaf-git-googledocs</id><content type="html" xml:base="https://zonca.dev/2020/11/paper-review-overleaf-git-googledocs.html">&lt;p&gt;In this blog post I propose a workflow to use the collaborative features of Google Docs
+to review a paper being written in Overleaf (unless you have Overleaf Pro which has
+change tracking embedded).
+The key point is that we paste the Latex source to a Google Document (see an &lt;a href=&quot;https://docs.google.com/document/d/1rOksxkZUOdNW1alA6lqXg1xre4Q7bV6oyCVoIGGh0Z8/edit?usp=sharing&quot;&gt;example here&lt;/a&gt; so we can
+suggest changes and then push it back to Overleaf programmatically using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;workflow&quot;&gt;Workflow&lt;/h2&gt;
+
+&lt;p&gt;Create first the paper in Overleaf&lt;/p&gt;
+
+&lt;p&gt;Next we can configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; access, see more details &lt;a href=&quot;https://www.overleaf.com/learn/how-to/Using_Git_and_GitHub&quot;&gt;on Overleaf&lt;/a&gt;:&lt;/p&gt;
+
+&lt;p&gt;Linking Github requires too much permissions, so better just activate plain Git access,
+this will provide a link to clone it:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://git.overleaf.com/xxxxxxxxxxxxxxxxxxxxxxxx overleaf-paper
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Here we can make local changes and push them back to Overleaf (you can configure the git credential
+helper to store the username and password).&lt;/p&gt;
+
+&lt;p&gt;Now the main authors can develop the paper using a mix of local editing and git push or online editing in Overleaf,
+optionally they could also push to Github.&lt;/p&gt;
+
+&lt;h2 id=&quot;review-round-on-google-docs&quot;&gt;Review round on Google Docs&lt;/h2&gt;
+
+&lt;p&gt;When the paper is ready for a round of review with co-authors or other reviewers, the main authors can
+circulate the PDF and copy-paste the Latex source into a Google Doc. It can also be useful to paste
+the images, but not strictly necessary, the reviewers can look into the PDF.&lt;/p&gt;
+
+&lt;p&gt;Now the reviewers can read the PDF source and make suggested edits and comments on Google Doc,
+“Review changes” is also available on Overleaf, but just for paid accounts.&lt;/p&gt;
+
+&lt;h3 id=&quot;synchronization-from-google-docs-to-overleaf&quot;&gt;Synchronization from Google Docs to Overleaf&lt;/h3&gt;
+
+&lt;p&gt;As the review progresses, some changes are merged using the Google Docs review functionality,
+they can be programmatically be merged into Overleaf going through &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;download_google_doc.sh&lt;/code&gt; script (Linux, but could work on Mac as well):&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+wget -O - https://docs.google.com/document/d/$KEY/export?format=txt | dos2unix | cat -s &amp;gt; main.tex
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;it downloads a text version of the Google Doc document, fixes line endings and spurious repeated blank lines
+and overwrites &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.tex&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is executed with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bash download_google_doc.sh&lt;/code&gt; and then reviewed and merged with the standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt; workflow.
+Finally pushed back to Overleaf with:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git push
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is useful for example while the review progresses, we can create updated PDF versions.&lt;/p&gt;
+
+&lt;h3 id=&quot;synchronization-from-overleafgit-to-google-docs&quot;&gt;Synchronization from Overleaf/git to Google Docs&lt;/h3&gt;
+
+&lt;p&gt;This is not doable, because writing into Google Docs erases the comments.
+Therefore it would be better to organize review into rounds, 1 Google doc per round.
+So we never need to update Google Doc with changes made on Overleaf.&lt;/p&gt;
+
+&lt;p&gt;However, while the review is progressing in Google Doc, the main authors could keep working in Overleaf/git
+and then merge the changes from Google Doc as they come in relying on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git&lt;/code&gt;.
+The issue is that it is not easy to propagate their changes to the current round of review on Google Doc.&lt;/p&gt;</content><author><name></name></author><category term="latex" /><category term="git" /><summary type="html">In this blog post I propose a workflow to use the collaborative features of Google Docs to review a paper being written in Overleaf (unless you have Overleaf Pro which has change tracking embedded). The key point is that we paste the Latex source to a Google Document (see an example here so we can suggest changes and then push it back to Overleaf programmatically using wget and git.</summary></entry><entry><title type="html">Install HEALPix and PolSpice in a conda environment</title><link href="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html" rel="alternate" type="text/html" title="Install HEALPix and PolSpice in a conda environment" /><published>2020-10-14T00:00:00-05:00</published><updated>2020-10-14T00:00:00-05:00</updated><id>https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc</id><content type="html" xml:base="https://zonca.dev/2020/10/install-healpix-polspice-conda-nersc.html">&lt;p&gt;Some notes on how to install HEALPix and PolSpice inside a conda environment,
 with some details about doing it at NERSC, but most of the tutorial is independent of that.&lt;/p&gt;
 
 &lt;h2 id=&quot;setup-the-conda-environment-and-the-compilers&quot;&gt;Setup the conda environment and the compilers&lt;/h2&gt;
@@ -5134,31 +5197,4 @@ the 2 most important tutorials explain the 2 strategies for deploying Kubernetes
 
 &lt;blockquote&gt;
   &lt;p&gt;twitter: https://twitter.com/andreazonca/status/1319145344089767936&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name></name></author><category term="jupyterhub" /><category term="jetstream" /><category term="gateways" /><category term="kubernetes" /><summary type="html">My paper in collaboration with Richard Signell (USGS), Julien Chastang (UCAR), John Michael Lowe (IU/Jetstream), Jeremy Fischer (IU/Jetstream) and Robert Sinkovits (SDSC) was accepted at Gateways 2020 (October 12–23, 2020).</summary></entry><entry><title type="html">Redirect readthedocs documentation to another website</title><link href="https://zonca.dev/2020/09/redirect-readthedocs.html" rel="alternate" type="text/html" title="Redirect readthedocs documentation to another website" /><published>2020-09-01T00:00:00-05:00</published><updated>2020-09-01T00:00:00-05:00</updated><id>https://zonca.dev/2020/09/redirect-readthedocs</id><content type="html" xml:base="https://zonca.dev/2020/09/redirect-readthedocs.html">&lt;p&gt;This is useful if you switch to hosting your own documentation, for example using &lt;a href=&quot;https://pypi.org/project/sphinx-multiversion/&quot;&gt;Sphinx Multiversion&lt;/a&gt; on Github pages, tutorial coming soon.&lt;/p&gt;
-
-&lt;p&gt;We want to be able to redirect from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; keeping the relative url.&lt;/p&gt;
-
-&lt;p&gt;First we can setup user-defined redirects from the admin page on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt;,
-see the &lt;a href=&quot;https://docs.readthedocs.io/en/stable/user-defined-redirects.html#exact-redirects&quot;&gt;full documentation&lt;/a&gt;,
-you can choose “Exact redirect”, I only care about redirecting the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;latest&lt;/code&gt; version, so:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/en/latest/$rest -&amp;gt; https://myorganization.github.io/myrepo/master/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$rest&lt;/code&gt; is a special variable which redirects also all the other pages correctly.&lt;/p&gt;
-
-&lt;p&gt;The only issue now is that this redirect only works when the documentation is not found,
-therefore I made a temporary commit to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; which deletes all of the Sphinx pages
-of the documentation and replaces &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index.rst&lt;/code&gt; with:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.. raw:: html
-
-    &amp;lt;script type=&quot;text/javascript&quot;&amp;gt;
-        window.location.replace('https://myorganization.github.io/myrepo/master/');
-    &amp;lt;/script&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;After &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; builds this version, go to &lt;a href=&quot;https://github.com/myorganization/myrepo/settings/hooks&quot;&gt;https://github.com/myorganization/myrepo/settings/hooks&lt;/a&gt; and disable
-the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;readthedocs&lt;/code&gt; web hook.&lt;/p&gt;
-
-&lt;p&gt;Finally restore the documentation on your master branch and push.&lt;/p&gt;</content><author><name></name></author><category term="python" /><category term="docs" /><summary type="html">This is useful if you switch to hosting your own documentation, for example using Sphinx Multiversion on Github pages, tutorial coming soon.</summary></entry></feed>
+&lt;/blockquote&gt;</content><author><name></name></author><category term="jupyterhub" /><category term="jetstream" /><category term="gateways" /><category term="kubernetes" /><summary type="html">My paper in collaboration with Richard Signell (USGS), Julien Chastang (UCAR), John Michael Lowe (IU/Jetstream), Jeremy Fischer (IU/Jetstream) and Robert Sinkovits (SDSC) was accepted at Gateways 2020 (October 12–23, 2020).</summary></entry></feed>
