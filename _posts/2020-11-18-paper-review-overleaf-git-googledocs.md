@@ -7,7 +7,7 @@ categories: [latex,git]
 In this blog post I propose a workflow to use the collaborative features of Google Docs
 to review a paper being written in Overleaf (unless you have Overleaf Pro which has
 change tracking embedded).
-The key point is that we paste the Latex source to a Google Document (see an [example here](https://docs.google.com/document/d/1rOksxkZUOdNW1alA6lqXg1xre4Q7bV6oyCVoIGGh0Z8/edit?usp=sharing) so we can
+The key point is that we paste the Latex source to a Google Document (see an [example here](https://docs.google.com/document/d/1rOksxkZUOdNW1alA6lqXg1xre4Q7bV6oyCVoIGGh0Z8/edit?usp=sharing)) so we can
 suggest changes and then push it back to Overleaf programmatically using `wget` and `git`.
 
 ## Workflow
@@ -43,11 +43,13 @@ they can be programmatically be merged into Overleaf going through `git`.
 
 Create a `download_google_doc.sh` script (Linux, but could work on Mac as well):
 
-    KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+    KEY=1rOksxkZUOdNW1alA6lqXg1xre4Q7bV6oyCVoIGGh0Z8
     wget -O - https://docs.google.com/document/d/$KEY/export?format=txt | dos2unix | cat -s > main.tex
 
 it downloads a text version of the Google Doc document, fixes line endings and spurious repeated blank lines
-and overwrites `main.tex`.
+and overwrites `main.tex`. KEY is the key to my document for testing purposes, replace it with
+yours, it is the long hash in the Google Document URL i.e. `https://docs.google.com/document/d/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/edit`,
+the document needs to be public.
 
 This is executed with `bash download_google_doc.sh` and then reviewed and merged with the standard `git` workflow.
 Finally pushed back to Overleaf with:
