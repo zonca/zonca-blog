@@ -29,8 +29,8 @@ slug: healpix-map-of-earth-using-healpy
  <br/>
 </p>
 <div class="separator" style="clear: both; text-align: center;">
- <a href="|filename|/images/healpix-map-of-earth-using-healpy_s1600_download.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
-  <img border="0" height="230" src="|filename|/images/healpix-map-of-earth-using-healpy_s400_download.png" width="400"/>
+ <a href="/images/healpix-map-of-earth-using-healpy_s1600_download.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
+  <img border="0" height="230" src="/images/healpix-map-of-earth-using-healpy_s400_download.png" width="400"/>
  </a>
 </div>
 <br/>

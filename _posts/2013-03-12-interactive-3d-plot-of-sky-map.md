@@ -15,8 +15,8 @@ is a Python package from Enthought for 3D visualization, here a simple example o
  <br/>
  <div>
   <div class="separator" style="clear: both; text-align: center;">
-   <a href="|filename|/images/interactive-3d-plot-of-sky-map_s1600_snapshot.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
-    <img border="0" height="271" src="|filename|/images/interactive-3d-plot-of-sky-map_s400_snapshot.png" width="400"/>
+   <a href="/images/interactive-3d-plot-of-sky-map_s1600_snapshot.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
+    <img border="0" height="271" src="/images/interactive-3d-plot-of-sky-map_s400_snapshot.png" width="400"/>
    </a>
   </div>
   <div class="separator" style="clear: both; text-align: center;">

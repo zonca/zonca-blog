@@ -11,6 +11,6 @@ slug: pink-noise-1f-noise-simulations-in-numpy
 </a>
 <br/>
 <br/>
-<a href="|filename|/images/pink-noise-1f-noise-simulations-in-numpy_05_oneoverf1.png">
- <img alt="" class="alignnone size-medium wp-image-128" height="225" src="|filename|/images/pink-noise-1f-noise-simulations-in-numpy_05_oneoverf1.png" title="oneoverf" width="300"/>
+<a href="/images/pink-noise-1f-noise-simulations-in-numpy_05_oneoverf1.png">
+ <img alt="" class="alignnone size-medium wp-image-128" height="225" src="/images/pink-noise-1f-noise-simulations-in-numpy_05_oneoverf1.png" title="oneoverf" width="300"/>
 </a>

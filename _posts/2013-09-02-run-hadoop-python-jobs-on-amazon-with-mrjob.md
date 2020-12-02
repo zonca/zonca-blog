@@ -166,8 +166,8 @@ With MrJob instead the interface is a little different, we implement the mapper 
  <br/>
  <br/>
  <div class="separator" style="clear: both; text-align: center;">
-  <a href="|filename|/images/run-hadoop-python-jobs-on-amazon-with-mrjob_s1600_awsjobdetails.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
-   <img border="0" height="588" src="|filename|/images/run-hadoop-python-jobs-on-amazon-with-mrjob_s640_awsjobdetails.png" width="640"/>
+  <a href="/images/run-hadoop-python-jobs-on-amazon-with-mrjob_s1600_awsjobdetails.png" imageanchor="1" style="margin-left: 1em; margin-right: 1em;">
+   <img border="0" height="588" src="/images/run-hadoop-python-jobs-on-amazon-with-mrjob_s640_awsjobdetails.png" width="640"/>
   </a>
  </div>
  <br/>
