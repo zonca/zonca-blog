@@ -12,7 +12,7 @@ The map is a PNG at a resolution of 17469x8796 pixels, which is suitable for pri
 
 *Update*: now with Planck color scale
 
-*Update*: previous version had grayed out pixels in the galactic plane represents the fraction of the sky that is not possible to reconstruct due to bright galactic sources. The last version uses inpainting to create a constrained CMB realization with the same statistics as the observed CMB to fill the unobserved pixels, more details in the [Planck Explanatory Supplement](http://www.sciops.esa.int/wikiSI/planckpla/index.php?title=CMB_and_astrophysical_component_maps&instance=Planck_Public_PLA). 
+*Update*: previous version had grayed out pixels in the galactic plane represents the fraction of the sky that is not possible to reconstruct due to bright galactic sources. The last version uses inpainting to create a constrained CMB realization with the same statistics as the observed CMB to fill the unobserved pixels, more details in the [Planck Explanatory Supplement](https://wiki.cosmos.esa.int/planckpla/index.php/CMB_and_astrophysical_component_maps). 
 
 * [High Resolution image on FigShare](http://dx.doi.org/10.6084/m9.figshare.795296)
 

@@ -77,8 +77,8 @@ With MrJob instead the interface is a little different, we implement the mapper 
  Setup MrJob with Amazon:
  <br/>
  <br/>
- <a href="http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup">
-  http://pythonhosted.org/mrjob/guides/emr-quickstart.html#amazon-setup
+ <a href="https://mrjob.readthedocs.io/en/latest/guides/emr-quickstart.html">
+https://mrjob.readthedocs.io/en/latest/guides/emr-quickstart.html
  </a>
  <br/>
  <br/>

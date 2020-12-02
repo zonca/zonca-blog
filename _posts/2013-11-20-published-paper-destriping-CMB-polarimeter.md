@@ -25,7 +25,7 @@ radiometer.
 
 I implemented a fully parallel `python` implementation of the algorithm based on:
 
-* [`PyTrilinos`](http://trilinos.sandia.gov/packages/pytrilinos/) for Distributed Linear Algebra via MPI
+* [`PyTrilinos`](https://trilinos.github.io/pytrilinos.html) for Distributed Linear Algebra via MPI
 * `HDF5` for I/O
 * `cython` for improving the performance of the inner loops
 
