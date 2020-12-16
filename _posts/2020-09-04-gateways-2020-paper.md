@@ -27,6 +27,6 @@ or [here just the video recording (better quality, no questions/answers)](https:
 
 On the same topic I also gave a 1-hour webinar focused on introducing how to use Openstack and Kubernetes for people with no previous experience, [the video (April 2020 ECSS Symposium) is available on Youtube](https://www.youtube.com/watch?v=jiYw4g4RX-w)
 
-If you have any question/feedback, reply to this tweet:
+If you have any question/feedback, reply to [this tweet](https://twitter.com/andreazonca/status/1319145344089767936):
 
-> twitter: https://twitter.com/andreazonca/status/1319145344089767936
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Tomorrow (Thursday 22nd), I&#39;ll be presenting a paper about:<br><br>&quot;Deployment of <a href="https://twitter.com/hashtag/Kubernetes?src=hash&amp;ref_src=twsrc%5Etfw">#Kubernetes</a> and <a href="https://twitter.com/ProjectJupyter?ref_src=twsrc%5Etfw">@ProjectJupyter</a> Hub on <a href="https://twitter.com/xsede?ref_src=twsrc%5Etfw">@XSEDE</a> <a href="https://twitter.com/jetstream_cloud?ref_src=twsrc%5Etfw">@jetstream_cloud</a>&quot;<br><br>at <a href="https://twitter.com/hashtag/gateways2020?src=hash&amp;ref_src=twsrc%5Etfw">#gateways2020</a> by <a href="https://twitter.com/sciencegateways?ref_src=twsrc%5Etfw">@sciencegateways</a>, 11:45am PDT, see <a href="https://t.co/myaNoUe3s0">https://t.co/myaNoUe3s0</a> <a href="https://t.co/t06kzt1CEe">pic.twitter.com/t06kzt1CEe</a></p>&mdash; Andrea Zonca (@andreazonca) <a href="https://twitter.com/andreazonca/status/1319145344089767936?ref_src=twsrc%5Etfw">October 22, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
