@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Edit video recordings with ffmpeg
-categories: [jupyterhub, jetstream, gateways]
 ---
 
 A few scripts to speedup, concatenate and possibly
