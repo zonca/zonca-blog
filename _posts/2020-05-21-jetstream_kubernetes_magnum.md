@@ -15,7 +15,7 @@ If you need a newer version of Kubernetes, you can install Kubernetes with Kubes
 
 First install the OpenStack client, please use these exact versions, also please run at Indiana, the TACC deployment has an older release of Openstack.
 
-    pip install python-openstackclient==3.18 python-magnumclient==3.10
+    pip install python-openstackclient==3.18 python-magnumclient==2.10
 
 Load your API credentials from `openrc.sh`, check [documentation of the Jetstream wiki for details](https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682064/Setting+up+openrc.sh).
 
