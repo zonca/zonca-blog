@@ -115,16 +115,28 @@ window.onload = wrap_img;
       </p>
     
 
+      
         <div class="pb-5 d-flex flex-wrap flex-justify-end">
-<div class="px-2">
+          <div class="px-2">
 
     <a href="https://github.com/zonca/zonca-blog/tree/master/_posts/2017-02-26-sample-deployment-jupyterhub-hpc.md" role="button" target="_blank">
 <img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
     </a>
 </div>
 
-    </div>
-  </header>
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/zonca/zonca-blog/master?filepath=" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/zonca/zonca-blog/blob/master/" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
 
   <div class="post-content e-content" itemprop="articleBody">
     <p>I have deployed an experimental Jupyterhub service (ask me privately if you would like access) installed on a <a href="http://www.sdsc.edu/services/it/cloud.html">SDSC Cloud</a> virtual machine that spawns single user Jupyter notebooks on Comet computing nodes using <a href="https://github.com/jupyterhub/batchspawner"><code class="language-plaintext highlighter-rouge">batchspawner</code></a> and then proxies the Notebook back to the user using SSH-tunneling.</p>

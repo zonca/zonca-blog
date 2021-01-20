@@ -112,16 +112,28 @@ window.onload = wrap_img;
       </p>
     
 
+      
         <div class="pb-5 d-flex flex-wrap flex-justify-end">
-<div class="px-2">
+          <div class="px-2">
 
     <a href="https://github.com/zonca/zonca-blog/tree/master/_posts/2018-06-07-private-dask-kubernetes-jetstream.md" role="button" target="_blank">
 <img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
     </a>
 </div>
 
-    </div>
-  </header>
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/zonca/zonca-blog/master?filepath=" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/zonca/zonca-blog/blob/master/" target="_blank">
+        <img class="notebook-badge-image" src="/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
 
   <div class="post-content e-content" itemprop="articleBody">
     <p>In this post we will leverage software made available by the <a href="https://pangeo-data.github.io">Pangeo community</a> to allow each user of a <a href="https://zonca.github.io/2017/12/scalable-jupyterhub-kubernetes-jetstream.html">Jupyterhub instance deployed on Jetstream on top of Kubernetes</a> to launch a set of <a href="https://dask.pydata.org"><code class="language-plaintext highlighter-rouge">dask</code></a> workers as containers running inside Kubernetes itself and use them for distributed computing.</p>
