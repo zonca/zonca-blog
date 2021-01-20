@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Setup HTTPS on Kubernetes with Letsencrypt" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Updated in May 2020: changes for Kubernetes 1.15" />
-<meta property="og:description" content="Updated in May 2020: changes for Kubernetes 1.15" />
+<meta name="description" content="Updated in Jan 2021: changes for Kubernetes 1.19" />
+<meta property="og:description" content="Updated in Jan 2021: changes for Kubernetes 1.19" />
 <link rel="canonical" href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:url" content="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-13T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Setup HTTPS on Kubernetes with Letsencrypt","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"description":"Updated in May 2020: changes for Kubernetes 1.15","@context":"https://schema.org"}</script>
+{"headline":"Setup HTTPS on Kubernetes with Letsencrypt","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"description":"Updated in Jan 2021: changes for Kubernetes 1.19","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -128,21 +128,16 @@ window.onload = wrap_img;
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><strong>Updated in May 2020</strong>: changes for Kubernetes 1.15</p>
+    <p><strong>Updated in Jan 2021</strong>: changes for Kubernetes 1.19</p>
 
-<p>This is a follow-up to the Magnum-based deployment running on Jetstream,
-see <a href="https://zonca.github.io/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">my recent tutorial about that</a>, however it is not specific to that deployment strategy.</p>
+<p>In this tutorial we will deploy <code class="language-plaintext highlighter-rouge">cert-manager</code> in Kubernetes to automatically provide SSL certificates to JupyterHub (and other services).</p>
 
 <p>First make sure your payload, for example JupyterHub, is working without HTTPS, so that you check that the ports are open, Ingress is working, and JupyterHub itself can accept connections.</p>
 
 <p>Let’s follow the <a href="https://cert-manager.io/docs/installation/kubernetes/"><code class="language-plaintext highlighter-rouge">cert-manager</code> documentation</a>, for convenience I pasted the commands below:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create namespace cert-manager
-# Kubernetes 1.15+
-$ kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager.yaml
-
-# Kubernetes &lt;1.15
-$ kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.15.0/cert-manager-legacy.yaml
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Kubernetes 1.16+
+kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.yaml
 </code></pre></div></div>
 
 <p>Once we have <code class="language-plaintext highlighter-rouge">cert-manager</code> setup we can create a Issuer in the <code class="language-plaintext highlighter-rouge">jhub</code> workspace,
