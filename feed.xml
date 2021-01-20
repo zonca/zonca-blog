@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-01-20T11:19:45-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes on Jetstream with Kubespray 2.15.0</title><link href="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html" rel="alternate" type="text/html" title="Deploy Kubernetes on Jetstream with Kubespray 2.15.0" /><published>2021-01-20T00:00:00-06:00</published><updated>2021-01-20T00:00:00-06:00</updated><id>https://zonca.dev/2021/01/kubernetes-jetstream-kubespray</id><content type="html" xml:base="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html">&lt;p&gt;This is an update to previous tutorials, focused on deploying Kubernetes 1.19.7 (released in Jan 2021, based on 1.19.0 released in August 2020), compared to 1.17.6 of the previous version of the tutorial.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-01-20T11:34:53-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Kubernetes on Jetstream with Kubespray 2.15.0</title><link href="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html" rel="alternate" type="text/html" title="Deploy Kubernetes on Jetstream with Kubespray 2.15.0" /><published>2021-01-20T00:00:00-06:00</published><updated>2021-01-20T00:00:00-06:00</updated><id>https://zonca.dev/2021/01/kubernetes-jetstream-kubespray</id><content type="html" xml:base="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html">&lt;p&gt;This is an update to previous tutorials, focused on deploying Kubernetes 1.19.7 (released in Jan 2021, based on 1.19.0 released in August 2020), compared to 1.17.6 of the previous version of the tutorial.&lt;/p&gt;
 
 &lt;p&gt;For an overview of my work on deploying Kubernetes and JupyterHub on Jetstream, see &lt;a href=&quot;https://zonca.dev/2020/09/gateways-2020-paper.html&quot;&gt;my Gateways 2020 paper&lt;/a&gt;.&lt;/p&gt;
 
@@ -45,7 +45,7 @@ The requirement is a terraform version &lt;code class=&quot;language-plaintext h
 git checkout -b branch_v2.15.0 origin/branch_v2.15.0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;See an &lt;a href=&quot;https://github.com/zonca/jetstream_kubespray/pull/13&quot;&gt;overview of my changes compared to the standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubespray&lt;/code&gt; release 2.13.1&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;See an &lt;a href=&quot;https://github.com/zonca/jetstream_kubespray/pull/14&quot;&gt;overview of my changes compared to the standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubespray&lt;/code&gt; release 2.15.0&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h3 id=&quot;reserve-a-floating-ip&quot;&gt;Reserve a floating IP&lt;/h3&gt;
 
@@ -95,8 +95,7 @@ looking for the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash terraform_apply.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The last output log of Terraform should contain the IP of the master node &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k8s_master_fips&lt;/code&gt;, wait for it to boot then
-SSH in with:&lt;/p&gt;
+&lt;p&gt;The last output log of Terraform should contain the IP of the master node &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k8s_master_fips&lt;/code&gt;, wait for it to boot then SSH in with:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export IP=XXX.XXX.XXX.XXX
 ssh ubuntu@$IP
@@ -112,7 +111,7 @@ openstack network list
 
 &lt;p&gt;You can cleanup the virtual machines and all other Openstack resources (all data is lost) with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bash terraform_destroy.sh&lt;/code&gt;. The floating IP won’t be released so we can create a cluster again from scratch with the same IP address.&lt;/p&gt;
 
-&lt;h2 id=&quot;install-kubernetes-with-kubespray&quot;&gt;Install Kubernetes with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubespray&lt;/code&gt;&lt;/h2&gt;
+&lt;h2 id=&quot;install-and-test-ansible&quot;&gt;Install and test Ansible&lt;/h2&gt;
 
 &lt;p&gt;Change folder back to the root of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jetstream_kubespray&lt;/code&gt; repository,&lt;/p&gt;
 
@@ -122,7 +121,7 @@ so first run:&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pip install -r requirements.txt
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;This &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip&lt;/code&gt; script installs a predefined version of ansible, currently &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.9.16&lt;/code&gt;, so it isue is useful to create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt; or a conda environment and install packages inside that.&lt;/p&gt;
+&lt;p&gt;This &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip&lt;/code&gt; script installs a predefined version of ansible, currently &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2.9.16&lt;/code&gt;, so it is useful to create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;virtualenv&lt;/code&gt; or a conda environment and install packages inside that.&lt;/p&gt;
 
 &lt;p&gt;Then following the &lt;a href=&quot;https://github.com/kubernetes-incubator/kubespray/blob/master/contrib/terraform/openstack/README.md#ansible&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubespray&lt;/code&gt; documentation&lt;/a&gt;, we setup &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ssh-agent&lt;/code&gt; so that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ansible&lt;/code&gt; can SSH from the machine with public IP to the others:&lt;/p&gt;
 
@@ -142,11 +141,13 @@ ssh-add ~/.ssh/id_rsa
 
 &lt;p&gt;Or delete it and run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;terraform_apply.sh&lt;/code&gt; to create it again.&lt;/p&gt;
 
+&lt;h2 id=&quot;install-kubernetes-with-kubespray&quot;&gt;Install Kubernetes with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubespray&lt;/code&gt;&lt;/h2&gt;
+
 &lt;p&gt;check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inventory/$CLUSTER/group_vars/all.yml&lt;/code&gt;, in particular &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;bootstrap_os&lt;/code&gt;, I setup &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ubuntu&lt;/code&gt;, change it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;centos&lt;/code&gt; if you used the Centos 7 base image.&lt;/p&gt;
 
 &lt;p&gt;In &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inventory/$CLUSTER/group_vars/k8s-cluster/k8s-cluster.yml&lt;/code&gt;, set the public floating IP of the master instance in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;supplementary_addresses_in_ssl_keys&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Finally run the full playbook, it is going to take a good 10 minutes:&lt;/p&gt;
+&lt;p&gt;Finally run the full playbook, it is going to take a good 10 minutes, go make coffee:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash k8s_install.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

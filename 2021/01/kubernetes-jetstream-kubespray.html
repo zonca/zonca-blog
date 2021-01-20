@@ -162,7 +162,7 @@ The requirement is a terraform version <code class="language-plaintext highlight
 git checkout -b branch_v2.15.0 origin/branch_v2.15.0
 </code></pre></div></div>
 
-<p>See an <a href="https://github.com/zonca/jetstream_kubespray/pull/13">overview of my changes compared to the standard <code class="language-plaintext highlighter-rouge">kubespray</code> release 2.13.1</a>.</p>
+<p>See an <a href="https://github.com/zonca/jetstream_kubespray/pull/14">overview of my changes compared to the standard <code class="language-plaintext highlighter-rouge">kubespray</code> release 2.15.0</a>.</p>
 
 <h3 id="reserve-a-floating-ip">Reserve a floating IP</h3>
 
@@ -212,8 +212,7 @@ looking for the <code class="language-plaintext highlighter-rouge">public</code>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash terraform_apply.sh
 </code></pre></div></div>
 
-<p>The last output log of Terraform should contain the IP of the master node <code class="language-plaintext highlighter-rouge">k8s_master_fips</code>, wait for it to boot then
-SSH in with:</p>
+<p>The last output log of Terraform should contain the IP of the master node <code class="language-plaintext highlighter-rouge">k8s_master_fips</code>, wait for it to boot then SSH in with:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export IP=XXX.XXX.XXX.XXX
 ssh ubuntu@$IP
@@ -229,7 +228,7 @@ openstack network list
 
 <p>You can cleanup the virtual machines and all other Openstack resources (all data is lost) with <code class="language-plaintext highlighter-rouge">bash terraform_destroy.sh</code>. The floating IP won’t be released so we can create a cluster again from scratch with the same IP address.</p>
 
-<h2 id="install-kubernetes-with-kubespray">Install Kubernetes with <code class="language-plaintext highlighter-rouge">kubespray</code></h2>
+<h2 id="install-and-test-ansible">Install and test Ansible</h2>
 
 <p>Change folder back to the root of the <code class="language-plaintext highlighter-rouge">jetstream_kubespray</code> repository,</p>
 
@@ -239,7 +238,7 @@ so first run:</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install -r requirements.txt
 </code></pre></div></div>
 
-<p>This <code class="language-plaintext highlighter-rouge">pip</code> script installs a predefined version of ansible, currently <code class="language-plaintext highlighter-rouge">2.9.16</code>, so it isue is useful to create a <code class="language-plaintext highlighter-rouge">virtualenv</code> or a conda environment and install packages inside that.</p>
+<p>This <code class="language-plaintext highlighter-rouge">pip</code> script installs a predefined version of ansible, currently <code class="language-plaintext highlighter-rouge">2.9.16</code>, so it is useful to create a <code class="language-plaintext highlighter-rouge">virtualenv</code> or a conda environment and install packages inside that.</p>
 
 <p>Then following the <a href="https://github.com/kubernetes-incubator/kubespray/blob/master/contrib/terraform/openstack/README.md#ansible"><code class="language-plaintext highlighter-rouge">kubespray</code> documentation</a>, we setup <code class="language-plaintext highlighter-rouge">ssh-agent</code> so that <code class="language-plaintext highlighter-rouge">ansible</code> can SSH from the machine with public IP to the others:</p>
 
@@ -259,11 +258,13 @@ ssh-add ~/.ssh/id_rsa
 
 <p>Or delete it and run <code class="language-plaintext highlighter-rouge">terraform_apply.sh</code> to create it again.</p>
 
+<h2 id="install-kubernetes-with-kubespray">Install Kubernetes with <code class="language-plaintext highlighter-rouge">kubespray</code></h2>
+
 <p>check <code class="language-plaintext highlighter-rouge">inventory/$CLUSTER/group_vars/all.yml</code>, in particular <code class="language-plaintext highlighter-rouge">bootstrap_os</code>, I setup <code class="language-plaintext highlighter-rouge">ubuntu</code>, change it to <code class="language-plaintext highlighter-rouge">centos</code> if you used the Centos 7 base image.</p>
 
 <p>In <code class="language-plaintext highlighter-rouge">inventory/$CLUSTER/group_vars/k8s-cluster/k8s-cluster.yml</code>, set the public floating IP of the master instance in <code class="language-plaintext highlighter-rouge">supplementary_addresses_in_ssl_keys</code>.</p>
 
-<p>Finally run the full playbook, it is going to take a good 10 minutes:</p>
+<p>Finally run the full playbook, it is going to take a good 10 minutes, go make coffee:</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash k8s_install.sh
 </code></pre></div></div>
