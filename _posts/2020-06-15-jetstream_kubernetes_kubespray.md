@@ -5,6 +5,8 @@ categories: [kubernetes, kubespray, jetstream]
 slug: kubernetes-jetstream-kubespray
 ---
 
+**This tutorial is obsolete, check the [updated version of the tutorial](https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html)**
+
 This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).
 
 We will use Kubespray 2.13.1, which first runs `terraform` to create the Openstack resources,
