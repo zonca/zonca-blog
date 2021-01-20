@@ -6,6 +6,8 @@ categories: [kubernetes, openstack, jetstream, jupyterhub]
 slug: loadtest-jupyterhub
 ---
 
+**Updated January 2021**
+
 I currently have 2 different strategies to deploy JupyterHub on top of Kubernetes on Jetstream:
 
 * Using [Kubespray](https://zonca.github.io/2019/02/kubernetes-jupyterhub-jetstream-kubespray.html)
@@ -21,7 +23,8 @@ First go through the [`hubtraf` documentation](https://github.com/yuvipanda/hubt
 
 `hubtraf` also has a Helm recipe to run it within Kubernetes, but the simpler way is to test from your laptop, follow the [documentation of `hubtraf`] to install the package and then run:
 
-    hubtraf http://js-xxx-yyy.jetstream-cloud.org 2
+    URL=http://js-xxx-yyy.jetstream-cloud.org
+    hubtraf-simulate $URL 2
 
 To simulate 2 users connecting to the system, you can then check with:
 
