@@ -49,7 +49,7 @@ I needed to make a few modifications to `kubespray` to adapt it to Jetstream:
     git clone https://github.com/zonca/jetstream_kubespray
     git checkout -b branch_v2.15.0 origin/branch_v2.15.0
 
-See an [overview of my changes compared to the standard `kubespray` release 2.13.1](https://github.com/zonca/jetstream_kubespray/pull/13).
+See an [overview of my changes compared to the standard `kubespray` release 2.15.0](https://github.com/zonca/jetstream_kubespray/pull/14).
 
 ### Reserve a floating IP
 
@@ -92,8 +92,7 @@ Create the resources:
 
     bash terraform_apply.sh
 
-The last output log of Terraform should contain the IP of the master node `k8s_master_fips`, wait for it to boot then
-SSH in with:
+The last output log of Terraform should contain the IP of the master node `k8s_master_fips`, wait for it to boot then SSH in with:
 
     export IP=XXX.XXX.XXX.XXX
     ssh ubuntu@$IP
@@ -107,8 +106,7 @@ Inspect with Openstack the resources created:
 
 You can cleanup the virtual machines and all other Openstack resources (all data is lost) with `bash terraform_destroy.sh`. The floating IP won't be released so we can create a cluster again from scratch with the same IP address.
 
-## Install Kubernetes with `kubespray`
-
+## Install and test Ansible
 
 Change folder back to the root of the `jetstream_kubespray` repository,
 
@@ -117,7 +115,7 @@ so first run:
 
     pip install -r requirements.txt
 
-This `pip` script installs a predefined version of ansible, currently `2.9.16`, so it isue is useful to create a `virtualenv` or a conda environment and install packages inside that.
+This `pip` script installs a predefined version of ansible, currently `2.9.16`, so it is useful to create a `virtualenv` or a conda environment and install packages inside that.
 
 Then following the [`kubespray` documentation](https://github.com/kubernetes-incubator/kubespray/blob/master/contrib/terraform/openstack/README.md#ansible), we setup `ssh-agent` so that `ansible` can SSH from the machine with public IP to the others:
 
@@ -134,11 +132,13 @@ If a server is not answering to ping, first try to reboot it:
 
 Or delete it and run `terraform_apply.sh` to create it again.
 
+## Install Kubernetes with `kubespray`
+
 check `inventory/$CLUSTER/group_vars/all.yml`, in particular `bootstrap_os`, I setup `ubuntu`, change it to `centos` if you used the Centos 7 base image.
 
 In `inventory/$CLUSTER/group_vars/k8s-cluster/k8s-cluster.yml`, set the public floating IP of the master instance in `supplementary_addresses_in_ssl_keys`.
 
-Finally run the full playbook, it is going to take a good 10 minutes:
+Finally run the full playbook, it is going to take a good 10 minutes, go make coffee:
 
     bash k8s_install.sh
 
