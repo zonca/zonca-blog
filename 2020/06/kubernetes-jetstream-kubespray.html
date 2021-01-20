@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Deploy Kubernetes on Jetstream with Kubespray" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019)." />
-<meta property="og:description" content="This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019)." />
+<meta name="description" content="This tutorial is obsolete, check the updated version of the tutorial" />
+<meta property="og:description" content="This tutorial is obsolete, check the updated version of the tutorial" />
 <link rel="canonical" href="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html" />
 <meta property="og:url" content="https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-06-15T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Deploy Kubernetes on Jetstream with Kubespray","dateModified":"2020-06-15T00:00:00-05:00","datePublished":"2020-06-15T00:00:00-05:00","url":"https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html"},"description":"This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).","@context":"https://schema.org"}</script>
+{"headline":"Deploy Kubernetes on Jetstream with Kubespray","dateModified":"2020-06-15T00:00:00-05:00","datePublished":"2020-06-15T00:00:00-05:00","url":"https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/06/kubernetes-jetstream-kubespray.html"},"description":"This tutorial is obsolete, check the updated version of the tutorial","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -115,7 +115,9 @@ window.onload = wrap_img;
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).</p>
+    <p><strong>This tutorial is obsolete, check the <a href="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html">updated version of the tutorial</a></strong></p>
+
+<p>This is an update to previous tutorials, focused on deploying Kubernetes 1.17.6 (released in May 2020, based on 1.17.0 released in December 2019).</p>
 
 <p>We will use Kubespray 2.13.1, which first runs <code class="language-plaintext highlighter-rouge">terraform</code> to create the Openstack resources,
 then <code class="language-plaintext highlighter-rouge">ansible</code> to configure the servers to run all the Kubernetes services.</p>
