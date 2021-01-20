@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Deploy Kubernetes on Jetstream with Kubespray 2.15.0 | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Deploy Kubernetes on Jetstream with Kubespray 2.15.0" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is an update to previous tutorials, focused on deploying Kubernetes 1.19.7 (released in Jan 2021, based on 1.19.0 released in August 2020), compared to 1.17.6 of the previous version of the tutorial." />
+<meta property="og:description" content="This is an update to previous tutorials, focused on deploying Kubernetes 1.19.7 (released in Jan 2021, based on 1.19.0 released in August 2020), compared to 1.17.6 of the previous version of the tutorial." />
+<link rel="canonical" href="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html" />
+<meta property="og:url" content="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-20T00:00:00-06:00" />
+<script type="application/ld+json">
+{"headline":"Deploy Kubernetes on Jetstream with Kubespray 2.15.0","dateModified":"2021-01-20T00:00:00-06:00","url":"https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html","datePublished":"2021-01-20T00:00:00-06:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html"},"description":"This is an update to previous tutorials, focused on deploying Kubernetes 1.19.7 (released in Jan 2021, based on 1.19.0 released in August 2020), compared to 1.17.6 of the previous version of the tutorial.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Deploy Kubernetes on Jetstream with Kubespray 2.15.0</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-01-20T00:00:00-06:00" itemprop="datePublished">
+        Jan 20, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      8 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#kubernetes">kubernetes</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#kubespray">kubespray</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#jetstream">jetstream</a>
+        
+      
+      </p>
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This is an update to previous tutorials, focused on deploying Kubernetes 1.19.7 (released in Jan 2021, based on 1.19.0 released in August 2020), compared to 1.17.6 of the previous version of the tutorial.</p>
+
+<p>For an overview of my work on deploying Kubernetes and JupyterHub on Jetstream, see <a href="https://zonca.dev/2020/09/gateways-2020-paper.html">my Gateways 2020 paper</a>.</p>
+
+<p>We will use Kubespray 2.15.0, which first runs <code class="language-plaintext highlighter-rouge">terraform</code> to create the Openstack resources,
+then <code class="language-plaintext highlighter-rouge">ansible</code> to configure the servers to run all the Kubernetes services.</p>
+
+<h2 id="create-jetstream-virtual-machines-with-terraform">Create Jetstream Virtual machines with Terraform</h2>
+
+<p>Terraform allows to execute recipes that describe a set of OpenStack resources and their relationship. In the context of this tutorial, we do not need to learn much about Terraform, we will configure and execute the recipe provided by <code class="language-plaintext highlighter-rouge">kubespray</code>.</p>
+
+<h3 id="requirements">Requirements</h3>
+
+<p>On a Ubuntu 18.04 install <code class="language-plaintext highlighter-rouge">python3-openstackclient</code> with APT, I tested with <code class="language-plaintext highlighter-rouge">3.18</code>.
+Any other platform works as well, also install <code class="language-plaintext highlighter-rouge">terraform</code> by copying the correct binary to <code class="language-plaintext highlighter-rouge">/usr/local/bin/</code>, see <a href="https://www.terraform.io/intro/getting-started/install.html">https://www.terraform.io/intro/getting-started/install.html</a>.
+The requirement is a terraform version <code class="language-plaintext highlighter-rouge">&gt; 0.12</code>, I tested with <code class="language-plaintext highlighter-rouge">0.14.4</code>.</p>
+
+<h3 id="request-api-access">Request API access</h3>
+
+<p>In order to make sure your XSEDE account can access the Jetstream API, you need to contact the Helpdesk, see the <a href="https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682057/Using+the+Jetstream+API">instructions on the Jetstream Wiki</a>. You will also receive your <strong>TACC</strong> password, which could be different than your XSEDE one (username is generally the same).</p>
+
+<p>Login to the TACC Horizon panel at <a href="https://tacc.jetstream-cloud.org/dashboard">https://tacc.jetstream-cloud.org/dashboard</a>, this is basically the low level web interface to OpenStack, a lot more complex and powerful than Atmosphere available at <a href="https://use.jetstream-cloud.org/application">https://use.jetstream-cloud.org/application</a>. Use <code class="language-plaintext highlighter-rouge">tacc</code> as domain, your TACC username (generally the same as your XSEDE username) and your TACC password.</p>
+
+<p>First choose the right project you would like to charge to in the top dropdown menu (see the XSEDE website if you don’t recognize the grant code).</p>
+
+<p>Click on Compute / API Access and download the OpenRC V3 authentication file to your machine. Source it typing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source XX-XXXXXXXX-openrc.sh
+</code></pre></div></div>
+
+<p>it should ask for your TACC password. This configures all the environment variables needed by the <code class="language-plaintext highlighter-rouge">openstack</code> command line tool to interface with the Openstack API.</p>
+
+<p>Test with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack flavor list
+</code></pre></div></div>
+
+<p>This should return the list of available “sizes” of the Virtual Machines.</p>
+
+<h3 id="clone-kubespray">Clone kubespray</h3>
+
+<p>I needed to make a few modifications to <code class="language-plaintext highlighter-rouge">kubespray</code> to adapt it to Jetstream:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jetstream_kubespray
+git checkout -b branch_v2.15.0 origin/branch_v2.15.0
+</code></pre></div></div>
+
+<p>See an <a href="https://github.com/zonca/jetstream_kubespray/pull/13">overview of my changes compared to the standard <code class="language-plaintext highlighter-rouge">kubespray</code> release 2.13.1</a>.</p>
+
+<h3 id="reserve-a-floating-ip">Reserve a floating IP</h3>
+
+<p>We prefer not to have a floating IP handled by Terraform, otherwise it would be released every time we need
+to redeploy the cluster, better create it beforehand:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack floating ip create public
+</code></pre></div></div>
+
+<p>This will return a public floating IP address, it can also be accessed with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack floating ip list
+</code></pre></div></div>
+
+<h3 id="run-terraform">Run Terraform</h3>
+
+<p>Inside <code class="language-plaintext highlighter-rouge">jetstream_kubespray</code>, copy from my template:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export CLUSTER=kubejetstream
+cd inventory/$CLUSTER
+</code></pre></div></div>
+
+<p>Open and modify <code class="language-plaintext highlighter-rouge">cluster.tfvars</code>, choose your image and number of nodes.</p>
+
+<p>You can find suitable images (they need to be JS-API-Featured, you cannot use the same instances used in Atmosphere):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack image list | grep "JS-API"
+</code></pre></div></div>
+
+<p>The default is <code class="language-plaintext highlighter-rouge">JS-API-Featured-Ubuntu20-Latest</code>.</p>
+
+<p>Paste the floating ip created previously into <code class="language-plaintext highlighter-rouge">k8s_master_fips</code>.</p>
+
+<p>I already preconfigured the network UUID both for IU and TACC, but you can crosscheck
+looking for the <code class="language-plaintext highlighter-rouge">public</code> network in:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack network list
+</code></pre></div></div>
+
+<p>Initialize Terraform:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash terraform_init.sh
+</code></pre></div></div>
+
+<p>Create the resources:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash terraform_apply.sh
+</code></pre></div></div>
+
+<p>The last output log of Terraform should contain the IP of the master node <code class="language-plaintext highlighter-rouge">k8s_master_fips</code>, wait for it to boot then
+SSH in with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export IP=XXX.XXX.XXX.XXX
+ssh ubuntu@$IP
+</code></pre></div></div>
+
+<p>or <code class="language-plaintext highlighter-rouge">centos@$IP</code> for CentOS images.</p>
+
+<p>Inspect with Openstack the resources created:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack server list
+openstack network list
+</code></pre></div></div>
+
+<p>You can cleanup the virtual machines and all other Openstack resources (all data is lost) with <code class="language-plaintext highlighter-rouge">bash terraform_destroy.sh</code>. The floating IP won’t be released so we can create a cluster again from scratch with the same IP address.</p>
+
+<h2 id="install-kubernetes-with-kubespray">Install Kubernetes with <code class="language-plaintext highlighter-rouge">kubespray</code></h2>
+
+<p>Change folder back to the root of the <code class="language-plaintext highlighter-rouge">jetstream_kubespray</code> repository,</p>
+
+<p>First make sure you have a recent version of <code class="language-plaintext highlighter-rouge">ansible</code> installed, you also need additional modules,
+so first run:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install -r requirements.txt
+</code></pre></div></div>
+
+<p>This <code class="language-plaintext highlighter-rouge">pip</code> script installs a predefined version of ansible, currently <code class="language-plaintext highlighter-rouge">2.9.16</code>, so it isue is useful to create a <code class="language-plaintext highlighter-rouge">virtualenv</code> or a conda environment and install packages inside that.</p>
+
+<p>Then following the <a href="https://github.com/kubernetes-incubator/kubespray/blob/master/contrib/terraform/openstack/README.md#ansible"><code class="language-plaintext highlighter-rouge">kubespray</code> documentation</a>, we setup <code class="language-plaintext highlighter-rouge">ssh-agent</code> so that <code class="language-plaintext highlighter-rouge">ansible</code> can SSH from the machine with public IP to the others:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_rsa
+</code></pre></div></div>
+
+<p>Test the connection through ansible:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ansible -i inventory/$CLUSTER/hosts -m ping all
+</code></pre></div></div>
+
+<p>If a server is not answering to ping, first try to reboot it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack server reboot $CLUSTER-k8s-node-nf-1
+</code></pre></div></div>
+
+<p>Or delete it and run <code class="language-plaintext highlighter-rouge">terraform_apply.sh</code> to create it again.</p>
+
+<p>check <code class="language-plaintext highlighter-rouge">inventory/$CLUSTER/group_vars/all.yml</code>, in particular <code class="language-plaintext highlighter-rouge">bootstrap_os</code>, I setup <code class="language-plaintext highlighter-rouge">ubuntu</code>, change it to <code class="language-plaintext highlighter-rouge">centos</code> if you used the Centos 7 base image.</p>
+
+<p>In <code class="language-plaintext highlighter-rouge">inventory/$CLUSTER/group_vars/k8s-cluster/k8s-cluster.yml</code>, set the public floating IP of the master instance in <code class="language-plaintext highlighter-rouge">supplementary_addresses_in_ssl_keys</code>.</p>
+
+<p>Finally run the full playbook, it is going to take a good 10 minutes:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash k8s_install.sh
+</code></pre></div></div>
+
+<p>If the playbook fails with “cannot lock the administrative directory”, it is due to the fact that the Virtual Machine is automatically updating so it has locked the APT directory. Just wait a minute and launch it again. It is always safe to run <code class="language-plaintext highlighter-rouge">ansible</code> multiple times.</p>
+
+<p>If the playbook gives any error, try to retry the above command, sometimes there are temporary failed tasks, Ansible is designed to be executed multiple times with consistent results.</p>
+
+<p>You should have now a Kubernetes cluster running, test it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ssh ubuntu@$IP
+$ sudo su
+$ kubectl get pods --all-namespaces
+ingress-nginx   ingress-nginx-controller-7tqsr                       1/1     Running   0          3h21m
+kube-system     coredns-85967d65-qczgr                               1/1     Running   0          117m
+kube-system     coredns-85967d65-wp9vm                               1/1     Running   0          117m
+kube-system     dns-autoscaler-5b7b5c9b6f-vh4vv                      1/1     Running   0          3h21m
+kube-system     kube-apiserver-kubejetstream-k8s-master-1            1/1     Running   1          3h24m
+kube-system     kube-controller-manager-kubejetstream-k8s-master-1   1/1     Running   0          3h24m
+kube-system     kube-flannel-5qzxn                                   1/1     Running   0          3h22m
+kube-system     kube-flannel-mrlkz                                   1/1     Running   0          3h22m
+kube-system     kube-proxy-9qpmz                                     1/1     Running   0          118m
+kube-system     kube-proxy-rzqv6                                     1/1     Running   0          118m
+kube-system     kube-scheduler-kubejetstream-k8s-master-1            1/1     Running   0          3h24m
+kube-system     nginx-proxy-kubejetstream-k8s-node-1                 1/1     Running   0          3h22m
+kube-system     nodelocaldns-d7r2c                                   1/1     Running   0          3h21m
+kube-system     nodelocaldns-jx2st                                   1/1     Running   0          3h21m
+</code></pre></div></div>
+
+<p>Compare that you have all those services running also in your cluster.
+We have also configured NGINX to proxy any service that we will later deploy on Kubernetes,
+test it with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ wget localhost
+--2018-09-24 03:01:14--  http://localhost/
+Resolving localhost (localhost)... 127.0.0.1
+Connecting to localhost (localhost)|127.0.0.1|:80... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2018-09-24 03:01:14 ERROR 404: Not Found.
+</code></pre></div></div>
+
+<p>Error 404 is a good sign, the service is up and serving requests, currently there is nothing to deliver.
+Finally test that the routing through the Jetstream instance is working correctly by opening your browser
+and test that if you access <code class="language-plaintext highlighter-rouge">js-XX-XXX.jetstream-cloud.org</code> you also get a <code class="language-plaintext highlighter-rouge">default backend - 404</code> message.
+If any of the tests hangs or cannot connect, there is probably a networking issue.</p>
+
+<h2 id="optional-setup-kubectl-locally">(Optional) Setup kubectl locally</h2>
+
+<p>Install <code class="language-plaintext highlighter-rouge">kubectl</code> locally, I am currently using <code class="language-plaintext highlighter-rouge">1.20</code>.</p>
+
+<p>We also set <code class="language-plaintext highlighter-rouge">kubeconfig_localhost: true</code>, which copies the <code class="language-plaintext highlighter-rouge">kubectl</code> configuration  <code class="language-plaintext highlighter-rouge">admin.conf</code> to:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>inventory/$CLUSTER/artifacts
+</code></pre></div></div>
+
+<p>I have a script to copy that to <code class="language-plaintext highlighter-rouge">.config/kube</code> and to replace the IP with the floating IP of the master node, for this script to work make sure you have exported the variable IP:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash k8s_configure_kubectl_locally.sh
+</code></pre></div></div>
+
+<p>Then make a SSH tunnel (lasts 3 hours):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash k8s_tunnel.sh
+</code></pre></div></div>
+
+<h2 id="optional-setup-helm-locally">(Optional) Setup helm locally</h2>
+
+<p>Install helm 3 from <a href="https://github.com/helm/helm/releases">the release page on Github</a></p>
+
+<p>I tested with <code class="language-plaintext highlighter-rouge">v3.5.0</code>.</p>
+
+<h2 id="install-jupyterhub">Install Jupyterhub</h2>
+
+<p>Now checkout the JupyterHub configuration files repository on the local machine (if you have setup kubectl and helm locally,
+otherwise on the master node).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream
+</code></pre></div></div>
+
+<p>Inside that, first run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_secrets.sh
+</code></pre></div></div>
+
+<p>to create the secret strings needed by JupyterHub then edit its output
+<code class="language-plaintext highlighter-rouge">secrets.yaml</code> to make sure it is consistent, edit the <code class="language-plaintext highlighter-rouge">hosts</code> lines if needed. For example, supply the Jetstream DNS name of the master node <code class="language-plaintext highlighter-rouge">js-XXX-YYY.jetstream-cloud.org</code> (XXX and YYY are the last 2 groups of the floating IP of the instance AAA.BBB.XXX.YYY).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash configure_helm_jupyterhub.sh
+kubectl create namespace jhub
+</code></pre></div></div>
+
+<p>It is preferable to run the Hub and the Proxy on the master node, just in case we
+want to downsize the cluster to only one node to save resources.
+This is already configured in <code class="language-plaintext highlighter-rouge">config_standard_storage.yaml</code> with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>nodeSelector:
+    node-role.kubernetes.io/master: ""
+</code></pre></div></div>
+
+<p>Delete those lines if instead you’d rather have Hub and Proxy run also on other nodes.</p>
+
+<p>Finally run <code class="language-plaintext highlighter-rouge">helm</code> to install JupyterHub:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_jhub.sh
+</code></pre></div></div>
+
+<p>This is installing <code class="language-plaintext highlighter-rouge">zero-to-jupyterhub</code> <code class="language-plaintext highlighter-rouge">0.11.1</code>, you can check <a href="https://github.com/jupyterhub/zero-to-jupyterhub-k8s/releases">on the zero-to-jupyterhub release page</a> if a newer version is available, generally transitioning to new releases is painless, they document any breaking changes very well.</p>
+
+<p>Check pods running with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pods -n jhub
+</code></pre></div></div>
+
+<p>Once the <code class="language-plaintext highlighter-rouge">proxy</code> is running, even if <code class="language-plaintext highlighter-rouge">hub</code> is still in preparation, you can check
+in browser, you should get “Service Unavailable” which is a good sign that
+the proxy is working.</p>
+
+<p>You can finally connect with your browser to <code class="language-plaintext highlighter-rouge">js-XXX-YYY.jetstream-cloud.org</code> and
+check if the Hub is working fine, after that, the pods running using:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl get pods -n jhub
+</code></pre></div></div>
+
+<p>shoud be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>continuous-image-puller-77bb9     1/1     Running   0          7m23s
+hub-75d787584d-bhhgc              1/1     Running   0          7m23s
+jupyter-zonca                     1/1     Running   0          4m34s
+proxy-78b8c47d7b-92fjf            1/1     Running   0          7m23s
+user-scheduler-6c4d6f7f57-mqwmh   1/1     Running   0          7m23s
+user-scheduler-6c4d6f7f57-sp5sh   1/1     Running   0          7m23s
+</code></pre></div></div>
+
+<h2 id="customize-jupyterhub">Customize JupyterHub</h2>
+
+<p>After JupyterHub is deployed and integrated with Cinder for persistent volumes,
+for any other customizations, first authentication, you are in good hands as the
+<a href="https://zero-to-jupyterhub.readthedocs.io/en/stable/extending-jupyterhub.html">Zero-to-Jupyterhub documentation</a> is great.</p>
+
+<h2 id="setup-https-with-letsencrypt">Setup HTTPS with letsencrypt</h2>
+
+<p>Kubespray has the option of deploying also <code class="language-plaintext highlighter-rouge">cert-manager</code>, but I had trouble deploying an issuer,
+it was easier to just deploy it afterwards following <a href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html">my previous tutorial</a></p>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>Feedback on this is very welcome, please open an issue on the <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream">Github repository</a> or email me at <code class="language-plaintext highlighter-rouge">zonca</code> on the domain of the San Diego Supercomputer Center (sdsc.edu).</p>
+
+  </div><a class="u-url" href="/2021/01/kubernetes-jetstream-kubespray.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
