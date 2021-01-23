@@ -28,7 +28,7 @@ Let's proceed now to show an overview on how to deploy first Kubernetes and then
 
 ## Jetstream
 
-Jetstream (and the upcoming [Jetstream 2](https://news.iu.edu/stories/2020/06/iub/releases/01-jetstream-cloud-computing-awarded-nsf-grant.html) is a cloud deployment part of XSEDE, the sciency equivalent of Amazon Elastic Compute Cloud (EC2) or Google Cloud Platform. Many Science Gateways already run on Jetstream.
+Jetstream (and the upcoming [Jetstream 2](https://news.iu.edu/stories/2020/06/iub/releases/01-jetstream-cloud-computing-awarded-nsf-grant.html)) is a cloud deployment part of XSEDE, the sciency equivalent of Amazon Elastic Compute Cloud (EC2) or Google Cloud Platform. Many Science Gateways already run on Jetstream.
 
 Jetstream allows each user to programmatically launch Virtual Machines with the desired amount of CPU/RAM resources, a pre-configured OS (Ubuntu, CentOS...), connect them together on a internal network and expose them to the Internet with public IPs. Users have then full administrative access to the machines to install any software package.
 
@@ -53,7 +53,7 @@ After Kubernetes is deployed, we have now a programmatic interface where we can 
 
 Finally, we can leverage the [Zero to JupyterHub project](https://zero-to-jupyterhub.readthedocs.io/) and customize their recipe to automatically deploy all the components needed for a distributed JupyterHub deployment on Kubernetes.
 
-We can configure authentication with Github/Google/XSEDE/CILogon, choose a Docker container with all the packages needed by the users, configure a public URL and setup HTTPS.
+We can configure authentication with Github/Google/XSEDE/CILogon, choose a Docker container with all the packages needed by the users, decide how much RAM/CPU/disk each user has access to, configure a public URL and setup HTTPS.
 
 Once the deployment is complete, the users can point their browser to the master node of the deployment, authenticate and have a Jupyter Notebook be spawned for them across the cluster of Jetstream instances with a dedicated amount of computing resources.
 
