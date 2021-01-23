@@ -9,6 +9,8 @@ slug: sgci-tech-blog
 
 This is a guest post by [Andrea Zonca](https://zonca.dev/about/), computational scientist at the [San Diego Supercomputer Center](https://www.sdsc.edu/) and consultant for XSEDE through the [Extended Collaborative Support Services](https://www.xsede.org/for-users/ecss) for Science Gateways.
 
+## Introduction
+
 JupyterHub handles authentication and routing for any number of users to each have access to an interactive computational environment via their browser.
 
 The most impactful application of JupyterHub in the context of Science Gateways is to deploy it as a companion application for the Science Gateway to allow users to access a pre-configured computing environment to allow them to use the Gateway programmatically and apply custom processing of the gateway input or outputs.
