@@ -24,7 +24,7 @@ For example, the Gateway users could use their login credentials and have access
 * load the output data from disk
 * post-process and plot the results
 
-Let's process now to show an overview on how to deploy first Kubernetes and then JupyterHub on Jetstream.
+Let's proceed now to show an overview on how to deploy first Kubernetes and then JupyterHub on Jetstream.
 
 ## Jetstream
 
