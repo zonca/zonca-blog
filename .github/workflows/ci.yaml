@@ -65,7 +65,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-       pip install fastlinkcheck
+       pip install https://github.com/zonca/fastlinkcheck/archive/high_timeout.zip
        link_check "./_site" --host "zonca.dev" 2> err || true
        if [[ (-z $(gh issue list -l "broken-link")) && (-s err) ]]; then
            gh issue create -t "Broken links found" -b "$(< err)" -l "broken-link" -R "zonca/zonca-blog"
