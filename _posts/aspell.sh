@@ -1,0 +1,1 @@
+aspell check $1
