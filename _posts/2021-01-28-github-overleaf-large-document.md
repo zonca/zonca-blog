@@ -42,6 +42,8 @@ I have configured Github Actions to run at every commit just in the main reposit
 * Whenever you create a `tag` in the repository, for example `1.0` or `2021.01.28`, Github creates a release with the PDF attached (named after the release), see [an example](https://github.com/zonca/overleaf_largedoc_main/releases/tag/2021.01.28)
 * In the main repository, I prepared a script to update all the sections to their latest commit, see [`update_sections.sh`](https://github.com/zonca/overleaf_largedoc_main/blob/master/update_sections.sh). This can be also triggered via web by manually running the ["Update all sections" workflow](https://github.com/zonca/overleaf_largedoc_main/actions?query=workflow%3A%22Update+all+sections%22) (click on the "Run workflow" button and choose the `master` branch). This creates a new commit therefore triggers creation of the PDF. It is also configured to run every morning at 7am PT.
 
+This should work also for private repositories, both Free and Team (academic) organization on Github have 2000+ Github action minutes a month. You will need to switch plan if you have a Legacy account which doesn't offer Github Actions on private repositories.
+
 ## Integration with Overleaf
 
 Main issue the Github integration with Overleaf is they require write access to all your repositories (!! crazy, I know).
