@@ -165,6 +165,8 @@ content of that section.</p>
   <li>In the main repository, I prepared a script to update all the sections to their latest commit, see <a href="https://github.com/zonca/overleaf_largedoc_main/blob/master/update_sections.sh"><code class="language-plaintext highlighter-rouge">update_sections.sh</code></a>. This can be also triggered via web by manually running the <a href="https://github.com/zonca/overleaf_largedoc_main/actions?query=workflow%3A%22Update+all+sections%22">“Update all sections” workflow</a> (click on the “Run workflow” button and choose the <code class="language-plaintext highlighter-rouge">master</code> branch). This creates a new commit therefore triggers creation of the PDF. It is also configured to run every morning at 7am PT.</li>
 </ul>
 
+<p>This should work also for private repositories, both Free and Team (academic) organization on Github have 2000+ Github action minutes a month. You will need to switch plan if you have a Legacy account which doesn’t offer Github Actions on private repositories.</p>
+
 <h2 id="integration-with-overleaf">Integration with Overleaf</h2>
 
 <p>Main issue the Github integration with Overleaf is they require write access to all your repositories (!! crazy, I know).</p>
