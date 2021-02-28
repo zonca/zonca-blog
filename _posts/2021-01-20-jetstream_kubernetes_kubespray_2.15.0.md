@@ -198,10 +198,6 @@ I have a script to copy that to `.config/kube` and to replace the IP with the fl
 
     bash k8s_configure_kubectl_locally.sh
 
-Then make a SSH tunnel (lasts 3 hours):
-
-    bash k8s_tunnel.sh
-
 ## (Optional) Setup helm locally
 
 Install helm 3 from [the release page on Github](https://github.com/helm/helm/releases)
