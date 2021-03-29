@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Science Gateways Tech blog - Kubernetes and JupyterHub on Jetstream | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Science Gateways Tech blog - Kubernetes and JupyterHub on Jetstream" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This is cross-posted from the Science Gateways Community institute tech blog, thanks to Marlon Pierce and Katherine Lawrence for their feeback." />
+<meta property="og:description" content="This is cross-posted from the Science Gateways Community institute tech blog, thanks to Marlon Pierce and Katherine Lawrence for their feeback." />
+<link rel="canonical" href="https://zonca.dev/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream.html" />
+<meta property="og:url" content="https://zonca.dev/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-28T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Science Gateways Tech blog - Kubernetes and JupyterHub on Jetstream","dateModified":"2021-03-28T00:00:00-05:00","datePublished":"2021-03-28T00:00:00-05:00","url":"https://zonca.dev/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream.html","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream.html"},"description":"This is cross-posted from the Science Gateways Community institute tech blog, thanks to Marlon Pierce and Katherine Lawrence for their feeback.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Science Gateways Tech blog - Kubernetes and JupyterHub on Jetstream</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-28T00:00:00-05:00" itemprop="datePublished">
+        Mar 28, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      5 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#kubernetes">kubernetes</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#kubespray">kubespray</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#jetstream">jetstream</a>
+        
+      
+      </p>
+    
+
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/zonca/zonca-blog/tree/master/_posts/2021-03-28-sgci-tech-blog.md" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+    </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>This is cross-posted from the <a href="https://sciencegateways.org/-/tech-blog-kubernetes-and-jupyterhub-on-jetstream">Science Gateways Community institute tech blog</a>, thanks to Marlon Pierce and Katherine Lawrence for their feeback.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>JupyterHub handles authentication and routing for any number of users that have access to an interactive computational environment, the Jupyter Notebook, via their browser.</p>
+
+<p>The most high-impact application of JupyterHub in the context of Science Gateways is to deploy it as a companion application for the Science Gateway to enable users to access a pre-configured computing environment. This configuration allows them to use the Gateway programmatically and apply custom processing of the gateway input or outputs. For example, the Gateway users could use the same login credentials to also access a Jupyter Notebook environment with tutorial notebooks displaying example analysis pipelines that show how they can:</p>
+
+<ul>
+  <li>upload raw data</li>
+  <li>use packages installed in the Jupyter Notebook environment to pre-process raw data to transform them in the format suitable for the Science Gateway</li>
+  <li>submit the data for processing using remote execution APIs</li>
+  <li>check the job processing status</li>
+  <li>retrieve the results</li>
+  <li>load the output data from disk</li>
+  <li>post-process and plot the results</li>
+</ul>
+
+<p>Let’s proceed now to show an overview on how to deploy first Kubernetes and then JupyterHub on Jetstream.</p>
+
+<h2 id="jetstream">Jetstream</h2>
+
+<p>Jetstream (and the upcoming <a href="https://news.iu.edu/stories/2020/06/iub/releases/01-jetstream-cloud-computing-awarded-nsf-grant.html">Jetstream 2</a>) is a cloud deployment part of XSEDE, the science community’s equivalent of Amazon Elastic Compute Cloud (EC2) or Google Cloud Platform. Many Science Gateways already run on Jetstream.</p>
+
+<p>Jetstream allows each user to programmatically launch Virtual Machines with the desired amount of CPU/RAM resources, a pre-configured OS (Ubuntu, CentOS…), connect them together on an internal network and expose them to the Internet with public IPs. Users have then full administrative access to the machines to install any software package.</p>
+
+<p>Jetstream has extensive documentation and training available both focused on <a href="https://jetstream-cloud.org/support/training.php">using the simplified Atmosphere interface</a> and the <a href="https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682057/Using+the+Jetstream+API">programmatic access via web API</a>. Once developers decide to try Jetstream, they can <a href="https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/49184781/Jetstream+Allocations">request a trial or a startup allocation via XSEDE</a>.</p>
+
+<p>Deployment on Jetstream should begin with gateway developers identifying the scale of their deployment: few-user or test deployment vs. large-memory, many-user deployment.</p>
+
+<p><img src="/images/jupyterhub-jetstream.png" alt="" /></p>
+
+<p><em>Architecture of the deployment of JupyterHub on Jetstream: the users connect via their browser to the Jetstream master node virtual machine, they first are redirected to external services for authentication. Once authenticated, JupyterHub spawns a container running the Jupyter Notebook for them in one of the worker nodes managed by Kubernetes. Their own persistent data volume is also mounted there. Kubernetes handles the networking so that the interactive computing session is proxied back to the users’ browser.</em></p>
+
+<h2 id="single-server-deployment">Single server deployment</h2>
+
+<p>In the case of a test deployment with a small number of users, each with limited computational resources, we can avoid the complications of a distributed deployment.
+The most important requirement is memory, a reasonable estimate is to have available 128 MB of RAM for JupyterHub services and then multiply the number of concurrent users by the memory we want to allocate for each user. For example, if we give each user 10 GB of RAM, we could host 11 concurrent users on a Jetstream XXL instance with 128 GB of RAM and have significant margin for system services. </p>
+
+<p>In this case, we can just spawn a single, large-memory Virtual Machine on Jetstream and then follow the <a href="https://tljh.jupyter.org/en/latest/install/jetstream.html">“Littlest JupyterHub” documentation to install JupyterHub</a>.</p>
+
+<h2 id="kubernetes">Kubernetes</h2>
+
+<p>However, if the sum of the memory needed by all the users is higher than 120GB, we need to deploy JupyterHub across multiple Jetstream Virtual Machines. The recommended way of deploying a distributed instance of JupyterHub is on top of Kubernetes, which is able to provide networking, logging, reliability, and scalability.</p>
+
+<p>I have configured and adapted the Kubespray tool to deploy Kubernetes to Jetstream and have written a <a href="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html">step-by-step tutorial about it</a>, which includes all the necessary configuration files. A Jetstream user can launch this script to programmatically launch any number of Jetstream instances and deploy Kubernetes across them. Consider also that Kubernetes would be a good platform to deploy a Science Gateway itself, especially if it already has a distributed architecture (for example, the gateway website, a database, and worker processes that execute computations). However, Kubernetes itself is a complex system, which requires someone in the Gateway development team to invest significant effort in learning how to configure and administer it.</p>
+
+<p>After Kubernetes is deployed, we now have a programmatic interface where we can deploy applications packaged as Docker containers, monitor their execution, log their warnings or errors, and scale them based on load.</p>
+
+<h2 id="jupyterhub">JupyterHub</h2>
+
+<p>Finally, we can leverage the <a href="https://zero-to-jupyterhub.readthedocs.io/">Zero to JupyterHub project</a> and customize their recipe to automatically deploy all the components needed for a distributed JupyterHub deployment on Kubernetes.</p>
+
+<p>We can configure authentication with Github, Google, XSEDE, or CILogon, choose a Docker container with all the packages needed by the users, decide how much RAM, CPU, and disk each user has access to, configure a public URL, and setup HTTPS.</p>
+
+<p>Once the deployment is complete, the users can point their browser to the master node of the deployment, authenticate and have a Jupyter Notebook be spawned for them across the cluster of Jetstream instances with a dedicated amount of computing resources.</p>
+
+<p>We can also pre-populate the computational environment with tutorial notebooks that display example data analysis pipelines that jointly leverage JupyterHub and the Science Gateway. A few hours after a user disconnects, their container is decommissioned to free up resources for other users, but their data is saved as a permanent disk on Jetstream and is mounted again the next time they reconnect.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This is a basic overview of the different components involved in deploying a distributed instance of JupyterHub on Jetstream. To know more, check out the list of references below. If you have any feedback or would like to collaborate, please <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/new">open an issue in my jupyterhub-deploy-kubernetes-jetstream repository</a>.</p>
+
+<h2 id="references">References</h2>
+
+<ul>
+  <li><a href="https://zonca.dev/2020/09/gateways-2020-paper.html">“Gateways 2020” paper and video recording</a></li>
+  <li><a href="https://www.youtube.com/watch?v=jiYw4g4RX-w">Video tutorial on Openstack and Kubernetes for the ECSS Symposium</a></li>
+  <li><a href="https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html">Tutorial on how to deploy Kubernetes and JupyterHub on Jetstream via Kubespray</a></li>
+  <li><a href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html">Tutorial on how to setup SSL for HTTPS connection to JupyterHub</a></li>
+  <li><a href="https://zonca.dev/2020/08/dask-gateway-jupyterhub.html">Tutorial on how to deploy Dask for distributed computing</a></li>
+  <li><a href="https://zonca.dev/2021/01/autoscaling_script_kubespray_jupyterhub.html">Prototype autoscaler for JupyterHub on Jetstream</a></li>
+</ul>
+
+  </div><a class="u-url" href="/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
