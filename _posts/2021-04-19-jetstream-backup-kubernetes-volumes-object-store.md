@@ -166,8 +166,8 @@ We should create 1 `BackupConfiguration` object for each user, 10 minutes apart,
 
 ## Troubleshooting
 
-Issue: Volume available but also attached in Openstack, works fine on JupyterHub but backing up fails, this can happen while testing.
-Solution: Delete the PVC, the PV and the volume via Openstack, login through JupyterHub to get another volume assigned.
+* Issue: Volume available but also attached in Openstack, works fine on JupyterHub but backing up fails, this can happen while testing.
+* Solution: Delete the PVC, the PV and the volume via Openstack, login through JupyterHub to get another volume assigned.
 
-Issue: Volumes cannot be mounted because they are in "Reserved" state in Openstack
-Solution: Run `openstack volume set --state available <uuid>`, this is an [open issue affecting Jetstream](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40)
+* Issue: Volumes cannot be mounted because they are in "Reserved" state in Openstack
+* Solution: Run `openstack volume set --state available <uuid>`, this is an [open issue affecting Jetstream](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40)
