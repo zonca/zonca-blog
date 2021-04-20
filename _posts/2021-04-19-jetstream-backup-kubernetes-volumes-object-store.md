@@ -90,8 +90,6 @@ See the [relevant documentation](https://stash.run/docs/v2021.03.17/guides/lates
 
 Next we need to create a [BackupConfiguration](https://stash.run/docs/v2021.03.17/concepts/crds/backupconfiguration/)
 
-Before starting the backup service, make sure you stop the server from the JupyterHub dashboard because the volumes can only be mounted on a single pod.
-
 Edit `stash_backupconfiguration.yaml`, in particular you need to specify which `PersistentVolumeClaim` you want to backup, for JupyterHub user volumes, these will be `claim-username`. For testing better leave "each minute" for the schedule, if a backup job is running, the following are skipped.
 You can also customize excluded folders.
 
@@ -163,8 +161,8 @@ Then login back to JupyterHub and check that the files previously deleted.
 ## Setup for production in a small deployment
 
 In a small deployment with tens of users, we can individually identify which users we want to backup, and choose a schedule.
-The notebook should not be running while the backup is running, therefore a daily backup should be scheduled at 3am or 4am in the appropriate timezone.
-We should create 1 `BackupConfiguration` object for each user.
+The backup service works even the user is currently logged in, anyway, it is good practice to schedule a daily backup at 3am or 4am in the appropriate timezone.
+We should create 1 `BackupConfiguration` object for each user, 10 minutes apart, each targeting a different PersistentVolumeClaim.
 
 ## Troubleshooting
 
