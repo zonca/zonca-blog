@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Backup Kubernetes volumes to OpenStorageNetwork object store | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Backup Kubernetes volumes to OpenStorageNetwork object store" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="In my specific scenario, I have users running JupyterHub on top of Kubernetes on the Jetstream XSEDE Cloud resouce. Each user has a persistent volume as their home folder of a few GB. Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them." />
+<meta property="og:description" content="In my specific scenario, I have users running JupyterHub on top of Kubernetes on the Jetstream XSEDE Cloud resouce. Each user has a persistent volume as their home folder of a few GB. Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them." />
+<link rel="canonical" href="https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html" />
+<meta property="og:url" content="https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-19T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Backup Kubernetes volumes to OpenStorageNetwork object store","url":"https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html","dateModified":"2021-04-19T00:00:00-05:00","datePublished":"2021-04-19T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html"},"description":"In my specific scenario, I have users running JupyterHub on top of Kubernetes on the Jetstream XSEDE Cloud resouce. Each user has a persistent volume as their home folder of a few GB. Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Backup Kubernetes volumes to OpenStorageNetwork object store</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-04-19T00:00:00-05:00" itemprop="datePublished">
+        Apr 19, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      4 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#jetstream">jetstream</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#kubernetes">kubernetes</a>
+        
+      
+      </p>
+    
+
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/zonca/zonca-blog/tree/master/_posts/2021-04-19-jetstream-backup-kubernetes-volumes-object-store.md" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+    </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>In my specific scenario, I have users running JupyterHub on top of Kubernetes
+on the Jetstream XSEDE Cloud resouce.
+Each user has a persistent volume as their home folder of a few GB.
+Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them.</p>
+
+<p>In this tutorial I’ll show how to configure <a href="https://stash.run">Stash</a> for this task.
+Stash is has a lot of other functionality, so it is really easy to get lost in their
+documentation. This tutorial is for an advanced topic, it assumes good knowledge of Kubernetes.</p>
+
+<p>All the configuration files are available in the <code class="language-plaintext highlighter-rouge">backup_volumes</code> folder of <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/tree/master/backup_volumes">zonca/jupyterhub-deploy-kubernetes-jetstream</a></p>
+
+<h2 id="install-stash">Install Stash</h2>
+
+<p>First we need to request a free license for the community edition of the software,
+I tested with <code class="language-plaintext highlighter-rouge">2021.03.17</code>, replace as needed with a newer version:</p>
+
+<ul>
+  <li><a href="https://stash.run/docs/v2021.03.17/setup/install/community/">https://stash.run/docs/v2021.03.17/setup/install/community/</a></li>
+</ul>
+
+<p>Rename it to <code class="language-plaintext highlighter-rouge">license.txt</code>, then install Stash via Helm:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>helm repo add appscode https://charts.appscode.com/stable/
+helm repo update
+bash install_stash.sh
+</code></pre></div></div>
+
+<h2 id="test-object-store">Test object store</h2>
+
+<p>I have used object store from OpenStorageNetwork, which is nice as it is offsite, but
+also using the Jetstream object store is an option.
+Both support the AWS S3 protocol.</p>
+
+<p>It would be useful at this point to test the S3 credentials:</p>
+
+<p>Install the AWS cli <code class="language-plaintext highlighter-rouge">pip install awscli awscli-plugin-endpoint</code></p>
+
+<p>Then create a configuration profile at <code class="language-plaintext highlighter-rouge">~/.aws/config</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[plugins]
+endpoint = awscli_plugin_endpoint
+
+[profile osn]
+aws_access_key_id=
+aws_secret_access_key=
+s3 =
+    endpoint_url = https://xxxx.osn.xsede.org
+s3api =
+    endpoint_url = https://xxxx.osn.xsede.org
+</code></pre></div></div>
+
+<p>Then you can list the content of your bucket with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>aws s3 --profile osn ls s3://your-bucket-name --no-sign-request
+</code></pre></div></div>
+
+<h2 id="configure-the-s3-backend-for-stash">Configure the S3 backend for Stash</h2>
+
+<p>See the <a href="https://stash.run/docs/v2021.03.17/guides/latest/backends/s3/">Stash documentation about the S3 backend</a>. In summary, we should create 3 text files:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">RESTIC_PASSWORD</code> with a random password to encrypt the backups</li>
+  <li><code class="language-plaintext highlighter-rouge">AWS_ACCESS_KEY_ID</code> and <code class="language-plaintext highlighter-rouge">AWS_SECRET_ACCESS_KEY</code> with the S3 style credentials</li>
+</ul>
+
+<p>Then we can create a Secret in Kubernetes that holds the credentials:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_aws_secret.sh
+</code></pre></div></div>
+
+<p>Then, customize <code class="language-plaintext highlighter-rouge">stash_repository.yaml</code> and create the Stash repository with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl create -f stash_repository.yaml
+</code></pre></div></div>
+
+<p>Check it was created:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; kubectl -n jhub get repository
+NAME       INTEGRITY   SIZE   SNAPSHOT-COUNT   LAST-SUCCESSFUL-BACKUP   AGE
+osn-repo                                                                2d15h
+</code></pre></div></div>
+
+<h2 id="configuring-backup-for-a-standalone-volume">Configuring backup for a standalone volume</h2>
+
+<p>Automatic and batch backup require a commercial Stash license. With the community version, we can only use the “standalone volume” functionality, which is enough for our purposes.</p>
+
+<p>See the <a href="https://stash.run/docs/v2021.03.17/guides/latest/volumes/overview/">relevant documentation</a></p>
+
+<p>Next we need to create a <a href="https://stash.run/docs/v2021.03.17/concepts/crds/backupconfiguration/">BackupConfiguration</a></p>
+
+<p>Edit <code class="language-plaintext highlighter-rouge">stash_backupconfiguration.yaml</code>, in particular you need to specify which <code class="language-plaintext highlighter-rouge">PersistentVolumeClaim</code> you want to backup, for JupyterHub user volumes, these will be <code class="language-plaintext highlighter-rouge">claim-username</code>. For testing better leave “each minute” for the schedule, if a backup job is running, the following are skipped.
+You can also customize excluded folders.</p>
+
+<p>In order to pause backups, set <code class="language-plaintext highlighter-rouge">paused</code> to <code class="language-plaintext highlighter-rouge">true</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl -n jhub edit backupconfiguration test-backup
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">BackupConfiguration</code> should create a <code class="language-plaintext highlighter-rouge">CronJob</code> resource:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; kubectl -n jhub get cronjob
+NAME                       SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+stash-backup-test-backup   * * * * *   True      0        2d15h           2d15h
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">CronJob</code> then launches a <code class="language-plaintext highlighter-rouge">BackupSession</code> for each trigger of the backup:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; kubectl -n jhub get backupsession
+NAME                     INVOKER-TYPE          INVOKER-NAME   PHASE     AGE
+test-backup-1618875244   BackupConfiguration   test-backup    Succeeded   3m13s
+test-backup-1618875304   BackupConfiguration   test-backup    Succeeded   2m13s
+test-backup-1618875364   BackupConfiguration   test-backup    Succeeded   73s
+test-backup-1618875425   BackupConfiguration   test-backup    Running     12s
+</code></pre></div></div>
+
+<h2 id="monitor-and-debug-backups">Monitor and debug backups</h2>
+
+<p>You can check the logs of a backup with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; kubectl -n jhub describe backupsession test-backup-1618869996
+&gt; kubectl -n jhub describe pod stash-backup-test-backup-1618869996-0-rdcdq
+&gt; kubectl -n jhub logs stash-backup-test-backup-1618861992-0-kj2r6
+</code></pre></div></div>
+
+<p>Once backups succeed, they should appear on object store:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; aws s3 --profile osn ls s3://your-bucket-name/jetstream-backup/snapshots/
+2021-04-19 16:34:11        340 1753f4c15da9713daeb35a5425e7fbe663e550421ac3be82f79dc508c8cf5849
+2021-04-19 16:35:12        340 22bccac489a69b4cda1828f9777677bc7a83abb546eee486e06c8a8785ca8b2f
+2021-04-19 16:36:11        340 7ef1ba9c8afd0dcf7b89fa127ef14bff68090b5ac92cfe3f68c574df5fc360e3
+2021-04-19 16:37:12        339 da8f0a37c03ddbb6c9a0fcb5b4837e8862fd8e031bcfcfab563c9e59ea58854d
+2021-04-19 16:33:10        339 e2369d441df69bc2809b9c973e43284cde123f8885fe386a7403113f4946c6fa
+</code></pre></div></div>
+
+<h2 id="restore-from-backup">Restore from backup</h2>
+
+<p>Backups are encrypted, so it is not possible to access the data directly from object store. We need to restore it to a volume.</p>
+
+<p>For testing purposes, login to the volume via JupyterHub and delete some files.
+Then stop the single user server from the JupyterHub dashboard.</p>
+
+<p>Configure and launch the restoring operation:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl -n jhub create -f stash_restore.yaml
+</code></pre></div></div>
+
+<p>This overwrites the content of the target volume with the content of the backup. See the Stash documentation on how to restore to a different volume.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; kubectl -n jhub get restoresession
+NAME      REPOSITORY   PHASE       AGE
+restore   osn-repo     Succeeded   2m18s
+</code></pre></div></div>
+
+<p>Then login back to JupyterHub and check that the files previously deleted.</p>
+
+<h2 id="setup-for-production-in-a-small-deployment">Setup for production in a small deployment</h2>
+
+<p>In a small deployment with tens of users, we can individually identify which users we want to backup, and choose a schedule.
+The backup service works even the user is currently logged in, anyway, it is good practice to schedule a daily backup at 3am or 4am in the appropriate timezone.
+We should create 1 <code class="language-plaintext highlighter-rouge">BackupConfiguration</code> object for each user, 10 minutes apart, each targeting a different PersistentVolumeClaim.</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<p>Issue: Volume available but also attached in Openstack, works fine on JupyterHub but backing up fails, this can happen while testing.
+Solution: Delete the PVC, the PV and the volume via Openstack, login through JupyterHub to get another volume assigned.</p>
+
+<p>Issue: Volumes cannot be mounted because they are in “Reserved” state in Openstack
+Solution: Run <code class="language-plaintext highlighter-rouge">openstack volume set --state available &lt;uuid&gt;</code>, this is an <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40">open issue affecting Jetstream</a></p>
+
+  </div><a class="u-url" href="/2021/04/jetstream-backup-kubernetes-volumes-object-store.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
