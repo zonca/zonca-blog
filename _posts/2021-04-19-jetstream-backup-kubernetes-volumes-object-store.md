@@ -1,90 +1,175 @@
 ---
 layout: post
-title: Stream video from object store on Jetstream
-categories: [jetstream]
-slug: video-streaming-jetstream
+title: Backup Kubernetes volumes to OpenStorageNetwork object store
+categories: [jetstream, kubernetes]
 ---
 
-In this tutorial we will serve video stored in Jetstream's object store (like Amazon S3)
-as HTTP live streaming to a user' browser. This makes it difficult for the user to save
-the whole video as it is served in chunks.
+In my specific scenario, I have users running JupyterHub on top of Kubernetes
+on the Jetstream XSEDE Cloud resouce.
+Each user has a persistent volume as their home folder of a few GB.
+Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them.
 
-## Load a test video on object store
+In this tutorial I'll show how to configure [Stash](https://stash.run) for this task.
+Stash is has a lot of other functionality, so it is really easy to get lost in their
+documentation. This tutorial is for an advanced topic, it assumes good knowledge of Kubernetes.
 
-Login to [Horizon](https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/44826638/Using+the+OpenStack+Horizon+GUI+Interface)
+All the configuration files are available in the `backup_volumes` folder of [zonca/jupyterhub-deploy-kubernetes-jetstream](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/tree/master/backup_volumes)
 
-Go to Project > Object store
+## Install Stash
 
-Create a container, for example `videostream`, make it public
+First we need to request a free license for the community edition of the software,
+I tested with `2021.03.17`, replace as needed with a newer version:
 
-Upload a test video, for example:
+* <https://stash.run/docs/v2021.03.17/setup/install/community/>
 
-<https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_30MB.mp4>
+Rename it to `license.txt`, then install Stash via Helm:
 
-Wait 5 minutes then test you can access the video from your machine and note the base url.
+```
+helm repo add appscode https://charts.appscode.com/stable/
+helm repo update
+bash install_stash.sh
+```
 
-## Deploy the VM
+## Test object store
 
-Login to Atmosphere and launch the newest Ubuntu 20.04 image
+I have used object store from OpenStorageNetwork, which is nice as it is offsite, but
+also using the Jetstream object store is an option.
+Both support the AWS S3 protocol.
 
-### Configure SSL
+It would be useful at this point to test the S3 credentials:
 
-The streaming server will ask for the SSL certificates on setup.
+Install the AWS cli `pip install awscli awscli-plugin-endpoint`
 
-So, install certbot with:
+Then create a configuration profile at `~/.aws/config`:
 
-    sudo apt install certbot
+```
+[plugins]
+endpoint = awscli_plugin_endpoint
 
-and get certificates:
+[profile osn]
+aws_access_key_id=
+aws_secret_access_key=
+s3 =
+    endpoint_url = https://xxxx.osn.xsede.org
+s3api =
+    endpoint_url = https://xxxx.osn.xsede.org
+```
 
-    certbot certonly --standalone -d js-xxx-yyy.jetstream-cloud.org
+Then you can list the content of your bucket with:
 
-## Install the streaming server
+    aws s3 --profile osn ls s3://your-bucket-name --no-sign-request
 
-Kaltura maintains packages for Ubuntu, so it is easy to install it following <https://github.com/kaltura/nginx-vod-module#debianubuntu-deb-package>
+## Configure the S3 backend for Stash
 
-For the configuration interactive prompts (I might have set them out of order here):
+See the [Stash documentation about the S3 backend](https://stash.run/docs/v2021.03.17/guides/latest/backends/s3/). In summary, we should create 3 text files:
 
-* Use port 80 instead of 88 (unless you plan to have another NGINX instance on port 80)
-* Use port 443 instead of 8443
-* For the mode choose "Remote", we will load from object store
-* For the remote url set the base url of the object store (before `/swift`) and the port
-* Say "No" when it asks if you use the Kaltura media service
-* For SSL certificate set `/etc/letsencrypt/live/js-xxx-yyy.jetstream-cloud.org/fullchain.pem`
-* For SSL key set `/etc/letsencrypt/live/js-xxx-yyy.jetstream-cloud.org/privkey.pem`
+* `RESTIC_PASSWORD` with a random password to encrypt the backups
+* `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` with the S3 style credentials
 
-By default it sets the streaming from HTTP instead of HTTPS,
-so edit `/opt/kaltura/nginx/conf/vod-remote.conf`,
-modify:
+Then we can create a Secret in Kubernetes that holds the credentials:
 
-    proxy_pass http://media/$1;
+    bash create_aws_secret.sh
 
-into:
+Then, customize `stash_repository.yaml` and create the Stash repository with:
 
-    proxy_pass https://media/$1;
+    kubectl create -f stash_repository.yaml
 
-If anything goes wrong in the configuration, check the error log at:
+Check it was created:
 
-    /opt/kaltura/log/nginx/
+```
+> kubectl -n jhub get repository
+NAME       INTEGRITY   SIZE   SNAPSHOT-COUNT   LAST-SUCCESSFUL-BACKUP   AGE
+osn-repo                                                                2d15h
+```
 
-and reset it:
+## Configuring backup for a standalone volume
 
-    sudo apt purge kaltura-nginx
-    rm -fr /opt/kaltura
-    sudo apt install kaltura-nginx
+Automatic and batch backup require a commercial Stash license. With the community version, we can only use the "standalone volume" functionality, which is enough for our purposes.
 
-## Test the streaming
+See the [relevant documentation](https://stash.run/docs/v2021.03.17/guides/latest/volumes/overview/)
 
-First try to access the stream directly from your browser,
-browsers don't know how to display a HLS stream, but if you get to download a file named "index.m3u8" that is
-a good sign:
+Next we need to create a [BackupConfiguration](https://stash.run/docs/v2021.03.17/concepts/crds/backupconfiguration/)
 
-    https://js-xxx-yyy.jetstream-cloud.org/hls/swift/v1/videostream/Big_Buck_Bunny_720_10s_30MB/index.m3u8
+Before starting the backup service, make sure you stop the server from the JupyterHub dashboard because the volumes can only be mounted on a single pod.
 
-In the URL, `videostream` is the name of the bucket (container), then the filename, `index.m3u8` tells the server
-that we want to stream that into HLS format.
+Edit `stash_backupconfiguration.yaml`, in particular you need to specify which `PersistentVolumeClaim` you want to backup, for JupyterHub user volumes, these will be `claim-username`. For testing better leave "each minute" for the schedule, if a backup job is running, the following are skipped.
+You can also customize excluded folders.
 
-If you get an error message instead, check the Kaltura NGINX logs.
+In order to pause backups, set `paused` to `true`:
 
-Finally we can test it into a player, for example VideoJS, go to <https://videojs-http-streaming.netlify.app/>
-and paste the URL of your stream.
+    kubectl -n jhub edit backupconfiguration test-backup
+
+`BackupConfiguration` should create a `CronJob` resource:
+
+```
+> kubectl -n jhub get cronjob
+NAME                       SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE   AGE
+stash-backup-test-backup   * * * * *   True      0        2d15h           2d15h
+```
+
+`CronJob` then launches a `BackupSession` for each trigger of the backup:
+
+```
+> kubectl -n jhub get backupsession
+NAME                     INVOKER-TYPE          INVOKER-NAME   PHASE     AGE
+test-backup-1618875244   BackupConfiguration   test-backup    Succeeded   3m13s
+test-backup-1618875304   BackupConfiguration   test-backup    Succeeded   2m13s
+test-backup-1618875364   BackupConfiguration   test-backup    Succeeded   73s
+test-backup-1618875425   BackupConfiguration   test-backup    Running     12s
+```
+
+## Monitor and debug backups
+
+You can check the logs of a backup with:
+
+```
+> kubectl -n jhub describe backupsession test-backup-1618869996
+> kubectl -n jhub describe pod stash-backup-test-backup-1618869996-0-rdcdq
+> kubectl -n jhub logs stash-backup-test-backup-1618861992-0-kj2r6
+```
+
+Once backups succeed, they should appear on object store:
+
+```
+> aws s3 --profile osn ls s3://your-bucket-name/jetstream-backup/snapshots/
+2021-04-19 16:34:11        340 1753f4c15da9713daeb35a5425e7fbe663e550421ac3be82f79dc508c8cf5849
+2021-04-19 16:35:12        340 22bccac489a69b4cda1828f9777677bc7a83abb546eee486e06c8a8785ca8b2f
+2021-04-19 16:36:11        340 7ef1ba9c8afd0dcf7b89fa127ef14bff68090b5ac92cfe3f68c574df5fc360e3
+2021-04-19 16:37:12        339 da8f0a37c03ddbb6c9a0fcb5b4837e8862fd8e031bcfcfab563c9e59ea58854d
+2021-04-19 16:33:10        339 e2369d441df69bc2809b9c973e43284cde123f8885fe386a7403113f4946c6fa
+```
+
+## Restore from backup
+
+Backups are encrypted, so it is not possible to access the data directly from object store. We need to restore it to a volume.
+
+For testing purposes, login to the volume via JupyterHub and delete some files.
+Then stop the single user server from the JupyterHub dashboard.
+
+Configure and launch the restoring operation:
+
+    kubectl -n jhub create -f stash_restore.yaml
+
+This overwrites the content of the target volume with the content of the backup. See the Stash documentation on how to restore to a different volume.
+
+```
+> kubectl -n jhub get restoresession
+NAME      REPOSITORY   PHASE       AGE
+restore   osn-repo     Succeeded   2m18s
+```
+
+Then login back to JupyterHub and check that the files previously deleted.
+
+## Setup for production in a small deployment
+
+In a small deployment with tens of users, we can individually identify which users we want to backup, and choose a schedule.
+The notebook should not be running while the backup is running, therefore a daily backup should be scheduled at 3am or 4am in the appropriate timezone.
+We should create 1 `BackupConfiguration` object for each user.
+
+## Troubleshooting
+
+Issue: Volume available but also attached in Openstack, works fine on JupyterHub but backing up fails, this can happen while testing.
+Solution: Delete the PVC, the PV and the volume via Openstack, login through JupyterHub to get another volume assigned.
+
+Issue: Volumes cannot be mounted because they are in "Reserved" state in Openstack
+Solution: Run `openstack volume set --state available <uuid>`, this is an [open issue affecting Jetstream](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40)
