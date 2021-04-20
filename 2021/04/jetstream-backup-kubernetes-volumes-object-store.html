@@ -285,11 +285,14 @@ We should create 1 <code class="language-plaintext highlighter-rouge">BackupConf
 
 <h2 id="troubleshooting">Troubleshooting</h2>
 
-<p>Issue: Volume available but also attached in Openstack, works fine on JupyterHub but backing up fails, this can happen while testing.
-Solution: Delete the PVC, the PV and the volume via Openstack, login through JupyterHub to get another volume assigned.</p>
-
-<p>Issue: Volumes cannot be mounted because they are in “Reserved” state in Openstack
-Solution: Run <code class="language-plaintext highlighter-rouge">openstack volume set --state available &lt;uuid&gt;</code>, this is an <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40">open issue affecting Jetstream</a></p>
+<ul>
+  <li>Issue: Volume available but also attached in Openstack, works fine on JupyterHub but backing up fails, this can happen while testing.</li>
+  <li>
+    <p>Solution: Delete the PVC, the PV and the volume via Openstack, login through JupyterHub to get another volume assigned.</p>
+  </li>
+  <li>Issue: Volumes cannot be mounted because they are in “Reserved” state in Openstack</li>
+  <li>Solution: Run <code class="language-plaintext highlighter-rouge">openstack volume set --state available &lt;uuid&gt;</code>, this is an <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40">open issue affecting Jetstream</a></li>
+</ul>
 
   </div><a class="u-url" href="/2021/04/jetstream-backup-kubernetes-volumes-object-store.html" hidden></a>
 </article>
