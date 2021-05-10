@@ -13,6 +13,10 @@ In this tutorial I'll show how to configure [Stash](https://stash.run) for this 
 Stash is has a lot of other functionality, so it is really easy to get lost in their
 documentation. This tutorial is for an advanced topic, it assumes good knowledge of Kubernetes.
 
+Stash under the hood uses [`restic`](https://restic.net/) to backup the data, so that we can also manage the backups outside
+of Kubernetes, see further down the tutorial. It also automatically decuplicates the data, so if the same file is unchanged in
+multiple backups, as it is often the case, it is just stored once and referenced by multiple backups.
+
 All the configuration files are available in the `backup_volumes` folder of [zonca/jupyterhub-deploy-kubernetes-jetstream](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/tree/master/backup_volumes)
 
 ## Install Stash
@@ -163,6 +167,77 @@ Then login back to JupyterHub and check that the files previously deleted.
 In a small deployment with tens of users, we can individually identify which users we want to backup, and choose a schedule.
 The backup service works even the user is currently logged in, anyway, it is good practice to schedule a daily backup at 3am or 4am in the appropriate timezone.
 We should create 1 `BackupConfiguration` object for each user, 10 minutes apart, each targeting a different PersistentVolumeClaim.
+
+## Template backup configuration creation
+
+If you like danger, you can also automate the creation of the `BackupConfiguration` objects.
+You can create a text file named `users_to_backup.txt` with 1 username per line of the JupyterHub users you want to backup.
+
+Then customize the `stash_backupconfiguration_template.yaml` configuration file, make sure you decide a retention policy, for more information see the Stash or Restic documentation.
+
+Then you can launch it:
+
+    bash setup_backups.sh
+
+```
+******** Setup xxxxxxx at 8:0
+backupconfiguration.stash.appscode.com/backup-xxxxxxx created
+******** Setup xxxxxxx at 8:10
+backupconfiguration.stash.appscode.com/backup-xxxxxxx created
+******** Setup xxxxxxx at 8:20
+backupconfiguration.stash.appscode.com/backup-xxxxxxx created
+******** Setup xxxxxxx at 8:30
+backupconfiguration.stash.appscode.com/backup-xxxxxxx created
+******** Setup xxxxxxx at 8:40
+backupconfiguration.stash.appscode.com/backup-xxxxxxx created
+```
+
+There is no chance this will work the first time, so:
+
+    kubectl delete backupconfiguration --all
+
+## Manage backups outside of Kubernetes
+
+Stash manages backups with `restic`.
+It is also possible to access and manage the backups using `restic` on a machine outside of Kubernetes.
+
+Install `restic` [from the official website](https://restic.readthedocs.io/en/stable/020_installation.html#stable-releases)
+
+Export the AWS variables:
+
+```
+export AWS_ACCESS_KEY_ID=
+export AWS_SECRET_ACCESS_KEY=
+```
+
+Have the RESTIC password ready for the prompt:
+
+```
+restic -r s3:https://ncsa.oss-data/jetstream-backup/ snapshots
+enter password for repository: 
+repository 18a1c421 opened successfully, password is correct
+created new cache in /home/zonca/.cache/restic
+ID        Time                 Host        Tags        Paths
+------------------------------------------------------------------
+026bcce3  2021-05-10 13:17:17  host-0                  /stash-data
+4f71a384  2021-05-10 13:18:16  host-0                  /stash-data
+34ff4677  2021-05-10 13:19:18  host-0                  /stash-data
+9f7337fe  2021-05-10 13:20:08  host-0                  /stash-data
+c130e039  2021-05-10 13:21:08  host-0                  /stash-data
+------------------------------------------------------------------
+5 snapshots
+```
+
+You can even browse the backups without downloading the data:
+
+    sudo mkdir /mnt/temp
+    sudo chown $USER /mnt/temp
+    restic -r s3:https://ncsa.oss-data/jetstream-backup/ mount /mnt/temp
+
+```
+/mnt/temp/snapshots/latest/stash-data $ ls
+a  b  Healpix_3.70_2020Jul23.tar.gz  MosfireDRP-2018release.zip  plot_cl_TT.ipynb  Untitled1.ipynb  Untitled2.ipynb  Untitled.ipynb
+```
 
 ## Troubleshooting
 
