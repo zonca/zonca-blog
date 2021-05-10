@@ -64,9 +64,10 @@ This will return a public floating IP address, it can also be accessed with:
 
 ### Run Terraform
 
-Inside `jetstream_kubespray`, copy from my template:
+Inside `jetstream_kubespray`, choose a name for the cluster and copy from my template:
 
-    export CLUSTER=kubejetstream
+    export CLUSTER=yourclustername
+    cp -r inventory/kubejetstream inventory/$CLUSTER
     cd inventory/$CLUSTER
 
 Open and modify `cluster.tfvars`, choose your image and number of nodes.
