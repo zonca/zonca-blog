@@ -189,9 +189,10 @@ to redeploy the cluster, better create it beforehand:</p>
 
 <h3 id="run-terraform">Run Terraform</h3>
 
-<p>Inside <code class="language-plaintext highlighter-rouge">jetstream_kubespray</code>, copy from my template:</p>
+<p>Inside <code class="language-plaintext highlighter-rouge">jetstream_kubespray</code>, choose a name for the cluster and copy from my template:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export CLUSTER=kubejetstream
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export CLUSTER=yourclustername
+cp -r inventory/kubejetstream inventory/$CLUSTER
 cd inventory/$CLUSTER
 </code></pre></div></div>
 
