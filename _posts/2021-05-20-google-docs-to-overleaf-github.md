@@ -9,10 +9,10 @@ In particular we can support both Google Docs style editing via Overleaf and Pul
 
 ## Convert Google Docs document to Latex
 
-I was impressed about how https://docx2latex.com worked well,
+I was impressed about how well [docx2latex.com](https://docx2latex.com) worked,
 it correctly imported:
 
-* sectioning based on title styles in Google doc
+* sectioning based on title styles in Google Docs
 * all images
 * tables!
 * page header with image!
