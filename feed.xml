@@ -1,4 +1,50 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-05-10T16:41:36-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Correct a power spectrum by the instrument beam with healpy</title><link href="https://zonca.dev/2021/04/correct-beam-healpy.html" rel="alternate" type="text/html" title="Correct a power spectrum by the instrument beam with healpy" /><published>2021-04-27T00:00:00-05:00</published><updated>2021-04-27T00:00:00-05:00</updated><id>https://zonca.dev/2021/04/correct-beam-healpy</id><content type="html" xml:base="https://zonca.dev/2021/04/correct-beam-healpy.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-05-20T13:42:26-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Migrate from Google Docs to Overleaf and Github</title><link href="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html" rel="alternate" type="text/html" title="Migrate from Google Docs to Overleaf and Github" /><published>2021-05-20T00:00:00-05:00</published><updated>2021-05-20T00:00:00-05:00</updated><id>https://zonca.dev/2021/05/google-docs-to-overleaf-github</id><content type="html" xml:base="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html">&lt;p&gt;Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex.
+In particular we can support both Google Docs style editing via Overleaf and Pull Request reviewing via Github.&lt;/p&gt;
+
+&lt;h2 id=&quot;convert-google-docs-document-to-latex&quot;&gt;Convert Google Docs document to Latex&lt;/h2&gt;
+
+&lt;p&gt;I was impressed about how https://docx2latex.com worked well,
+it correctly imported:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;sectioning based on title styles in Google doc&lt;/li&gt;
+  &lt;li&gt;all images&lt;/li&gt;
+  &lt;li&gt;tables!&lt;/li&gt;
+  &lt;li&gt;page header with image!&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Just download the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docx&lt;/code&gt; from Google Docs and upload to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docx2latex&lt;/code&gt;,
+if needs to be &amp;lt; 10 MB, so remove large images before exporting from Google Docs if it is bigger.&lt;/p&gt;
+
+&lt;p&gt;Then you will be able to download a zip with the Latex source and images.&lt;/p&gt;
+
+&lt;h2 id=&quot;import-to-github&quot;&gt;Import to Github&lt;/h2&gt;
+
+&lt;p&gt;If you don’t need Github, you can directly upload the zip archive to Overleaf and be done.&lt;/p&gt;
+
+&lt;p&gt;However, it is nice to have a backup on Github, and support users that prefer editing latex outside of their browser…&lt;/p&gt;
+
+&lt;p&gt;So create a repository, even private and upload the content of the archive after having removed the PDF artifacts.&lt;/p&gt;
+
+&lt;h2 id=&quot;integration-with-overleaf&quot;&gt;Integration with Overleaf&lt;/h2&gt;
+
+&lt;p&gt;Main issue the Github integration with Overleaf is they require write access to all your repositories (!! crazy, I know).&lt;/p&gt;
+
+&lt;p&gt;So let’s create a new Github account, I called mine &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zoncaoverleafbot&lt;/code&gt; and invite the new user to be a Collaborator to the repository.&lt;/p&gt;
+
+&lt;p&gt;Then login to Overleaf with your real account, click on “Import from Github”, and when you are redirected to Github to link your account, link &lt;strong&gt;the overleafbot&lt;/strong&gt; account instead, which only has access to the Latex repositories.&lt;/p&gt;
+
+&lt;p&gt;Now on Overleaf click on “New project” and “Import from Github”.&lt;/p&gt;
+
+&lt;p&gt;If your repository doesn’t show in the list, it is probably because it belongs to an organization, in that case &lt;a href=&quot;https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/managing-your-membership-in-organizations/requesting-organization-approval-for-oauth-apps&quot;&gt;see the Github help to fix it&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;synchronization&quot;&gt;Synchronization&lt;/h2&gt;
+
+&lt;p&gt;Synchronization of Overleaf and Github is always done on Overleaf.&lt;/p&gt;
+
+&lt;p&gt;Once in a while, you can manually synchronize from/to Github using the Github button.
+If you share the project by sending someone the “Edit” link, they can also use the Github integration that the project owner has configured, so no need for them to link their Github account.
+Best would be for each Overleaf user, each time they login, to pull changes from Github before starting to work and push their changes with a commit message when they are done.&lt;/p&gt;</content><author><name></name></author><category term="latex" /><category term="git" /><summary type="html">Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex. In particular we can support both Google Docs style editing via Overleaf and Pull Request reviewing via Github.</summary></entry><entry><title type="html">Correct a power spectrum by the instrument beam with healpy</title><link href="https://zonca.dev/2021/04/correct-beam-healpy.html" rel="alternate" type="text/html" title="Correct a power spectrum by the instrument beam with healpy" /><published>2021-04-27T00:00:00-05:00</published><updated>2021-04-27T00:00:00-05:00</updated><id>https://zonca.dev/2021/04/correct-beam-healpy</id><content type="html" xml:base="https://zonca.dev/2021/04/correct-beam-healpy.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -2794,10 +2840,4 @@ every minute:&lt;/p&gt;
 
 &lt;p&gt;After this you should be able to see the logs of what the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hacktoscaler&lt;/code&gt; is doing.&lt;/p&gt;
 
-&lt;p&gt;If you weren’t already warned by the name of this script, &lt;strong&gt;USE AT YOUR OWN RISK&lt;/strong&gt;, and good luck.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="kubespray" /><category term="jetstream" /><summary type="html">I think the most reliable way of deploying Kubernetes on Openstack is Kubespray, see my latest tutorial about it focused on Jetstream.</summary></entry><entry><title type="html">CFITSIO file writing with checkpointing</title><link href="https://zonca.dev/2020/11/cfitsio-checkpoint-write.html" rel="alternate" type="text/html" title="CFITSIO file writing with checkpointing" /><published>2020-11-30T00:00:00-06:00</published><updated>2020-11-30T00:00:00-06:00</updated><id>https://zonca.dev/2020/11/cfitsio-checkpoint-write</id><content type="html" xml:base="https://zonca.dev/2020/11/cfitsio-checkpoint-write.html">&lt;p&gt;I wrote a prototype implementation of writing FITS files in C
-checkpointing using the FITS flush function so that if the code
-segfaults, the file is not corrupted, see:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/cfitsio_checkpoint_write&quot;&gt;https://github.com/zonca/cfitsio_checkpoint_write&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="astropy" /><summary type="html">I wrote a prototype implementation of writing FITS files in C checkpointing using the FITS flush function so that if the code segfaults, the file is not corrupted, see:</summary></entry></feed>
+&lt;p&gt;If you weren’t already warned by the name of this script, &lt;strong&gt;USE AT YOUR OWN RISK&lt;/strong&gt;, and good luck.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="kubespray" /><category term="jetstream" /><summary type="html">I think the most reliable way of deploying Kubernetes on Openstack is Kubespray, see my latest tutorial about it focused on Jetstream.</summary></entry></feed>
