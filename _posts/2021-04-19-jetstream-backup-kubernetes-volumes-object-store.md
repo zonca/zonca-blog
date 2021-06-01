@@ -174,6 +174,8 @@ If you like danger, you can also automate the creation of the `BackupConfigurati
 You can create a text file named `users_to_backup.txt` with 1 username per line of the JupyterHub users you want to backup.
 
 Then customize the `stash_backupconfiguration_template.yaml` configuration file, make sure you decide a retention policy, for more information see the Stash or Restic documentation.
+Unfortunately Stash considers all backups together under 1 retention policy, so if I set to keep 1 weekly backup, it will retain 1 weekly backup of just **one of the users** instead of all of them.
+I worked around this issue tagging myself the backups after the fact using the `restic` command line tool, see the next section.
 
 Then you can launch it:
 
@@ -195,6 +197,29 @@ backupconfiguration.stash.appscode.com/backup-xxxxxxx created
 There is no chance this will work the first time, so:
 
     kubectl delete backupconfiguration --all
+
+## Categorize the backups by username
+
+Unfortunately I couldn't find a way to tag the backups with the username which own the volume.
+So I added this line:
+
+    echo $JUPYTERHUB_USER > ~/.username;
+
+to the `zero-to-jupyterhub` configuration YAML under:
+
+```
+singleuser:
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+```
+
+So when the user logs in, we write their username into the volume.
+Then we can use `restic` outside of Kubernetes to tag the backups once in a while with the correct usernames,
+see the `restic_tag_usernames.sh` script.
+
+Once we have tags, we can handle pruning old backups manually using the `restic forget` command.
 
 ## Manage backups outside of Kubernetes
 
