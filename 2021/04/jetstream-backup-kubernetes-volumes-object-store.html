@@ -93,7 +93,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      6 min read
+      7 min read
     
 </span></p>
 
@@ -292,7 +292,9 @@ We should create 1 <code class="language-plaintext highlighter-rouge">BackupConf
 <p>If you like danger, you can also automate the creation of the <code class="language-plaintext highlighter-rouge">BackupConfiguration</code> objects.
 You can create a text file named <code class="language-plaintext highlighter-rouge">users_to_backup.txt</code> with 1 username per line of the JupyterHub users you want to backup.</p>
 
-<p>Then customize the <code class="language-plaintext highlighter-rouge">stash_backupconfiguration_template.yaml</code> configuration file, make sure you decide a retention policy, for more information see the Stash or Restic documentation.</p>
+<p>Then customize the <code class="language-plaintext highlighter-rouge">stash_backupconfiguration_template.yaml</code> configuration file, make sure you decide a retention policy, for more information see the Stash or Restic documentation.
+Unfortunately Stash considers all backups together under 1 retention policy, so if I set to keep 1 weekly backup, it will retain 1 weekly backup of just <strong>one of the users</strong> instead of all of them.
+I worked around this issue tagging myself the backups after the fact using the <code class="language-plaintext highlighter-rouge">restic</code> command line tool, see the next section.</p>
 
 <p>Then you can launch it:</p>
 
@@ -315,6 +317,29 @@ backupconfiguration.stash.appscode.com/backup-xxxxxxx created
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl delete backupconfiguration --all
 </code></pre></div></div>
+
+<h2 id="categorize-the-backups-by-username">Categorize the backups by username</h2>
+
+<p>Unfortunately I couldn’t find a way to tag the backups with the username which own the volume.
+So I added this line:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo $JUPYTERHUB_USER &gt; ~/.username;
+</code></pre></div></div>
+
+<p>to the <code class="language-plaintext highlighter-rouge">zero-to-jupyterhub</code> configuration YAML under:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>singleuser:
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+</code></pre></div></div>
+
+<p>So when the user logs in, we write their username into the volume.
+Then we can use <code class="language-plaintext highlighter-rouge">restic</code> outside of Kubernetes to tag the backups once in a while with the correct usernames,
+see the <code class="language-plaintext highlighter-rouge">restic_tag_usernames.sh</code> script.</p>
+
+<p>Once we have tags, we can handle pruning old backups manually using the <code class="language-plaintext highlighter-rouge">restic forget</code> command.</p>
 
 <h2 id="manage-backups-outside-of-kubernetes">Manage backups outside of Kubernetes</h2>
 

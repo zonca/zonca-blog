@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-06-01T15:17:25-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Migrate from Google Docs to Overleaf and Github</title><link href="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html" rel="alternate" type="text/html" title="Migrate from Google Docs to Overleaf and Github" /><published>2021-05-20T00:00:00-05:00</published><updated>2021-05-20T00:00:00-05:00</updated><id>https://zonca.dev/2021/05/google-docs-to-overleaf-github</id><content type="html" xml:base="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html">&lt;p&gt;Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-06-01T17:47:46-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Migrate from Google Docs to Overleaf and Github</title><link href="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html" rel="alternate" type="text/html" title="Migrate from Google Docs to Overleaf and Github" /><published>2021-05-20T00:00:00-05:00</published><updated>2021-05-20T00:00:00-05:00</updated><id>https://zonca.dev/2021/05/google-docs-to-overleaf-github</id><content type="html" xml:base="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html">&lt;p&gt;Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex.
 In particular we can support both Google Docs style editing via Overleaf and Pull Request reviewing via Github.&lt;/p&gt;
 
 &lt;h2 id=&quot;convert-google-docs-document-to-latex&quot;&gt;Convert Google Docs document to Latex&lt;/h2&gt;
@@ -544,7 +544,9 @@ We should create 1 &lt;code class=&quot;language-plaintext highlighter-rouge&quo
 &lt;p&gt;If you like danger, you can also automate the creation of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BackupConfiguration&lt;/code&gt; objects.
 You can create a text file named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users_to_backup.txt&lt;/code&gt; with 1 username per line of the JupyterHub users you want to backup.&lt;/p&gt;
 
-&lt;p&gt;Then customize the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stash_backupconfiguration_template.yaml&lt;/code&gt; configuration file, make sure you decide a retention policy, for more information see the Stash or Restic documentation.&lt;/p&gt;
+&lt;p&gt;Then customize the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stash_backupconfiguration_template.yaml&lt;/code&gt; configuration file, make sure you decide a retention policy, for more information see the Stash or Restic documentation.
+Unfortunately Stash considers all backups together under 1 retention policy, so if I set to keep 1 weekly backup, it will retain 1 weekly backup of just &lt;strong&gt;one of the users&lt;/strong&gt; instead of all of them.
+I worked around this issue tagging myself the backups after the fact using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt; command line tool, see the next section.&lt;/p&gt;
 
 &lt;p&gt;Then you can launch it:&lt;/p&gt;
 
@@ -567,6 +569,29 @@ backupconfiguration.stash.appscode.com/backup-xxxxxxx created
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl delete backupconfiguration --all
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;categorize-the-backups-by-username&quot;&gt;Categorize the backups by username&lt;/h2&gt;
+
+&lt;p&gt;Unfortunately I couldn’t find a way to tag the backups with the username which own the volume.
+So I added this line:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo $JUPYTERHUB_USER &amp;gt; ~/.username;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zero-to-jupyterhub&lt;/code&gt; configuration YAML under:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;singleuser:
+  lifecycleHooks:
+    postStart:
+      exec:
+        command:
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;So when the user logs in, we write their username into the volume.
+Then we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt; outside of Kubernetes to tag the backups once in a while with the correct usernames,
+see the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic_tag_usernames.sh&lt;/code&gt; script.&lt;/p&gt;
+
+&lt;p&gt;Once we have tags, we can handle pruning old backups manually using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic forget&lt;/code&gt; command.&lt;/p&gt;
 
 &lt;h2 id=&quot;manage-backups-outside-of-kubernetes&quot;&gt;Manage backups outside of Kubernetes&lt;/h2&gt;
 
