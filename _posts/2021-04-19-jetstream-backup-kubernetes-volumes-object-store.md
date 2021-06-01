@@ -232,7 +232,7 @@ You can even browse the backups without downloading the data:
 
     sudo mkdir /mnt/temp
     sudo chown $USER /mnt/temp
-    restic -r s3:https://ncsa.oss-data/jetstream-backup/ mount /mnt/temp
+    restic -r s3:https://ncsa.osn.xsede.org/xxxxxx/jetstream-backup/ mount /mnt/temp
 
 ```
 /mnt/temp/snapshots/latest/stash-data $ ls
