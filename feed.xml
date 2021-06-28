@@ -1,4 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-06-22T08:15:31-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">healpy 1.15.0 released</title><link href="https://zonca.dev/2021/06/healpy-1.15.0-release.html" rel="alternate" type="text/html" title="healpy 1.15.0 released" /><published>2021-06-22T00:00:00-05:00</published><updated>2021-06-22T00:00:00-05:00</updated><id>https://zonca.dev/2021/06/healpy-1.15.0-release</id><content type="html" xml:base="https://zonca.dev/2021/06/healpy-1.15.0-release.html">&lt;p&gt;Just released healpy 1.15.0, this is a large release with many important changes, please test and open issues at &lt;a href=&quot;https://github.com/healpy/healpy/issues&quot;&gt;https://github.com/healpy/healpy/issues&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-06-28T06:31:21-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Configure dreamhost email</title><link href="https://zonca.dev/2021/06/dreamhost-email.html" rel="alternate" type="text/html" title="Configure dreamhost email" /><published>2021-06-27T00:00:00-05:00</published><updated>2021-06-27T00:00:00-05:00</updated><id>https://zonca.dev/2021/06/dreamhost-email</id><content type="html" xml:base="https://zonca.dev/2021/06/dreamhost-email.html">&lt;p&gt;Configuration to read Dreamhost email from Gmail:&lt;/p&gt;
+
+&lt;h2 id=&quot;receive&quot;&gt;Receive&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Server &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop.dreamhost.com&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Always use SSL&lt;/li&gt;
+  &lt;li&gt;Port 995&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;send&quot;&gt;Send&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Server &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;smtp.dreamhost.com&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Use SSL&lt;/li&gt;
+  &lt;li&gt;Port 465&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="dreamhost" /><summary type="html">Configuration to read Dreamhost email from Gmail:</summary></entry><entry><title type="html">healpy 1.15.0 released</title><link href="https://zonca.dev/2021/06/healpy-1.15.0-release.html" rel="alternate" type="text/html" title="healpy 1.15.0 released" /><published>2021-06-22T00:00:00-05:00</published><updated>2021-06-22T00:00:00-05:00</updated><id>https://zonca.dev/2021/06/healpy-1.15.0-release</id><content type="html" xml:base="https://zonca.dev/2021/06/healpy-1.15.0-release.html">&lt;p&gt;Just released healpy 1.15.0, this is a large release with many important changes, please test and open issues at &lt;a href=&quot;https://github.com/healpy/healpy/issues&quot;&gt;https://github.com/healpy/healpy/issues&lt;/a&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;New viz function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;projview&lt;/code&gt; based on plain matplotlib, with lon/lat labels and more &lt;a href=&quot;https://healpy.readthedocs.io/en/latest/newvisufunc_example.html&quot;&gt;https://healpy.readthedocs.io/en/latest/newvisufunc_example.html&lt;/a&gt;&lt;/li&gt;
@@ -2957,67 +2973,4 @@ so we need to apply that factor to the $C_\ell$ calculated from the map.&lt;/p&g
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Coordinate a large Latex document with multiple Overleaf projects and Github</title><link href="https://zonca.dev/2021/01/github-overleaf-large-document.html" rel="alternate" type="text/html" title="Coordinate a large Latex document with multiple Overleaf projects and Github" /><published>2021-01-28T00:00:00-06:00</published><updated>2021-01-28T00:00:00-06:00</updated><id>https://zonca.dev/2021/01/github-overleaf-large-document</id><content type="html" xml:base="https://zonca.dev/2021/01/github-overleaf-large-document.html">&lt;p&gt;In case we need to build a large document (~hundreds of pages) and we have a large number of collaborators (more than 50), it is convenient to have each section of the document be a
-different Overleaf project. Also, we don’t want to rely on Overleaf only, we prefer backup of everything to Github.&lt;/p&gt;
-
-&lt;p&gt;Then have a Github repository that includes all of those as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git submodules&lt;/code&gt; and can build the whole document together automatically using Github Actions and provides the PDF. We cannot use Overleaf here because it doesn’t support &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;submodules&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;The setup is based on the &lt;a href=&quot;https://www.overleaf.com/learn/latex/Multi-file_LaTeX_projects#The_standalone_package&quot;&gt;Overleaf tutorial on multi-page Latex&lt;/a&gt; using the “Standalone package” setup, and then splitting it into separate repositories.&lt;/p&gt;
-
-&lt;p&gt;See &lt;a href=&quot;https://www.overleaf.com/read/xfcwyzncxhjh&quot;&gt;this Overleaf project&lt;/a&gt; for the project configuration before being split into separate projects.&lt;/p&gt;
-
-&lt;h2 id=&quot;configuration-of-the-github-repository&quot;&gt;Configuration of the Github repository&lt;/h2&gt;
-
-&lt;p&gt;Here you can use your official Github account.&lt;/p&gt;
-
-&lt;p&gt;Create a repository on Github for the main document and for each of the subsections&lt;/p&gt;
-
-&lt;p&gt;See for example:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_main&quot;&gt;https://github.com/zonca/overleaf_largedoc_main&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_intro&quot;&gt;https://github.com/zonca/overleaf_largedoc_intro&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_section_1&quot;&gt;https://github.com/zonca/overleaf_largedoc_section_1&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Each repository has a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.tex&lt;/code&gt; file in the root folder which contains the
-content of that section.&lt;/p&gt;
-
-&lt;p&gt;In the main repository, we configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git submodules&lt;/code&gt; for each section, e.g.:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git submodule add git@github.com:zonca/overleaf_largedoc_intro.git 0_introduction
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Now you should double-check you can compile locally the document with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pdflatex&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;automation-with-github-actions&quot;&gt;Automation with Github Actions&lt;/h2&gt;
-
-&lt;p&gt;I have configured Github Actions to run at every commit just in the main repository, see &lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_main/blob/master/.github/workflows/build_latex.yml&quot;&gt;the details&lt;/a&gt;:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;At each commit, Github runs &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;latexmk&lt;/code&gt; to build the full PDF, then attaches it to that run, they can be downloaded from the Github Actions tab, see &lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_main/actions/runs/519568514&quot;&gt;the artifacts tab at the end of this run&lt;/a&gt;.&lt;/li&gt;
-  &lt;li&gt;Whenever you create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;tag&lt;/code&gt; in the repository, for example &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;1.0&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2021.01.28&lt;/code&gt;, Github creates a release with the PDF attached (named after the release), see &lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_main/releases/tag/2021.01.28&quot;&gt;an example&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;In the main repository, I prepared a script to update all the sections to their latest commit, see &lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_main/blob/master/update_sections.sh&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;update_sections.sh&lt;/code&gt;&lt;/a&gt;. This can be also triggered via web by manually running the &lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_main/actions?query=workflow%3A%22Update+all+sections%22&quot;&gt;“Update all sections” workflow&lt;/a&gt; (click on the “Run workflow” button and choose the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;master&lt;/code&gt; branch). This creates a new commit therefore triggers creation of the PDF. It is also configured to run every morning at 7am PT.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;This should work also for private repositories, both Free and Team (academic) organization on Github have 2000+ Github action minutes a month. You will need to switch plan if you have a Legacy account which doesn’t offer Github Actions on private repositories.&lt;/p&gt;
-
-&lt;h2 id=&quot;integration-with-overleaf&quot;&gt;Integration with Overleaf&lt;/h2&gt;
-
-&lt;p&gt;Main issue the Github integration with Overleaf is they require write access to all your repositories (!! crazy, I know).&lt;/p&gt;
-
-&lt;p&gt;So let’s create a new Github account, I called mine &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zoncaoverleafbot&lt;/code&gt; and invite the new user to be a Collaborator to each of the sections repositories.&lt;/p&gt;
-
-&lt;p&gt;Then login to Overleaf with your real account, click on “Import from Github”, and when you are redirected to Github to link your account, link &lt;strong&gt;the overleafbot&lt;/strong&gt; account instead, which only has access to the sections repositories.&lt;/p&gt;
-
-&lt;p&gt;Now create a Overleaf project for each document section, Overleaf can build independent PDF for each of the subsection.&lt;/p&gt;
-
-&lt;p&gt;Once in a while, you can manually synchronize from/to Github using the Github button.
-If you share the project by sending someone the “Edit” link, they can also use the Github integration that the project owner has configured, so no need for them to link their Github account.
-Best would be for each Overleaf user, each time they login, to pull changes from Github before starting to work and push their changes with a commit message when they are done.&lt;/p&gt;
-
-&lt;p&gt;Moreover, Overleaf also has the standard Git interface, so if there is any complex merging issue, an expert user can rely on that to resolve and then switch back to the automatic interface.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;This is just a prototype implementation, I’d be interested in ideas for improvements, please &lt;a href=&quot;https://github.com/zonca/overleaf_largedoc_main/issues&quot;&gt;open an issue on Github&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="latex" /><category term="git" /><summary type="html">In case we need to build a large document (~hundreds of pages) and we have a large number of collaborators (more than 50), it is convenient to have each section of the document be a different Overleaf project. Also, we don’t want to rely on Overleaf only, we prefer backup of everything to Github.</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>
