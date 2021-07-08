@@ -162,6 +162,9 @@ restore   osn-repo     Succeeded   2m18s
 
 Then login back to JupyterHub and check that the files previously deleted.
 
+In the default configuration `stash_restore.yaml` restores the last backup, independently of username, so if you are backing up volumes of different users, you should tag by usernames, see below, and then restore a specific id (just replace `latest` in the YAML file with the first 10 or so characters of the ID).
+See an example of the full restore workflow with screenshots at the end of [this Github issue](https://github.com/det-lab/jupyterhub-deploy-kubernetes-jetstream/issues/44).
+
 ## Setup for production in a small deployment
 
 In a small deployment with tens of users, we can individually identify which users we want to backup, and choose a schedule.
