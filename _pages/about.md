@@ -17,7 +17,7 @@ or [Arxiv](https://arxiv.org/search/?searchtype=author&query=Zonca%2C+A).
 Currently I also work on cloud deployments of interactive computing platforms based on
 JupyterHub on top of Kubernetes.
 
-I am available for consulting, code-review, software infrastructure design.
+I am available for [consulting, code-review, software infrastructure design](/consult).
 
 Contact me via [Twitter](https://twitter.com/andreazonca) or email (`andrea` on the domain
 andreazonca.com).
