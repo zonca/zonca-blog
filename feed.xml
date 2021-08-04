@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-08-04T03:14:39-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">New paper about PySM 3</title><link href="https://zonca.dev/2021/08/pysm3-paper.html" rel="alternate" type="text/html" title="New paper about PySM 3" /><published>2021-08-04T00:00:00-05:00</published><updated>2021-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/08/pysm3-paper</id><content type="html" xml:base="https://zonca.dev/2021/08/pysm3-paper.html">&lt;ul&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-08-04T11:33:39-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">New paper about PySM 3</title><link href="https://zonca.dev/2021/08/pysm3-paper.html" rel="alternate" type="text/html" title="New paper about PySM 3" /><published>2021-08-04T00:00:00-05:00</published><updated>2021-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/08/pysm3-paper</id><content type="html" xml:base="https://zonca.dev/2021/08/pysm3-paper.html">&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2108.01444&quot;&gt;“The Python Sky Model 3 software” on the Arxiv&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/openjournals/joss-reviews/issues/3534&quot;&gt;Submission to JOSS&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -525,7 +525,13 @@ Mismatched elements: 1 / 3072 (0.0326%)
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Migrate from Google Docs to Overleaf and Github</title><link href="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html" rel="alternate" type="text/html" title="Migrate from Google Docs to Overleaf and Github" /><published>2021-05-20T00:00:00-05:00</published><updated>2021-05-20T00:00:00-05:00</updated><id>https://zonca.dev/2021/05/google-docs-to-overleaf-github</id><content type="html" xml:base="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html">&lt;p&gt;Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex.
+&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Learn Italian in San Diego</title><link href="https://zonca.dev/2021/06/learn-italian-in-san-diego.html" rel="alternate" type="text/html" title="Learn Italian in San Diego" /><published>2021-06-17T00:00:00-05:00</published><updated>2021-06-17T00:00:00-05:00</updated><id>https://zonca.dev/2021/06/learn-italian-in-san-diego</id><content type="html" xml:base="https://zonca.dev/2021/06/learn-italian-in-san-diego.html">&lt;p&gt;My wife Maura D’Andrea recently opened a new &lt;a href=&quot;https://www.italianschoolsd.com/about/&quot;&gt;Italian language school in San Diego&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;All instructors are mother-tongue Italian, they teach to kids and adults.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://www.italianschoolsd.com/classes&quot;&gt;available Italian in-person classes in San Diego&lt;/a&gt;, they are split in 2 tracks, one for people looking to learn Italian, one for kids that have Italian heritage and want to follow the same program taught in Italy’s public school system.&lt;/p&gt;
+
+&lt;p&gt;Classes are online and in-person in University City, San Diego.&lt;/p&gt;</content><author><name></name></author><category term="italian" /><summary type="html">My wife Maura D’Andrea recently opened a new Italian language school in San Diego.</summary></entry><entry><title type="html">Migrate from Google Docs to Overleaf and Github</title><link href="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html" rel="alternate" type="text/html" title="Migrate from Google Docs to Overleaf and Github" /><published>2021-05-20T00:00:00-05:00</published><updated>2021-05-20T00:00:00-05:00</updated><id>https://zonca.dev/2021/05/google-docs-to-overleaf-github</id><content type="html" xml:base="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html">&lt;p&gt;Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex.
 In particular we can support both Google Docs style editing via Overleaf and Pull Request reviewing via Github.&lt;/p&gt;
 
 &lt;h2 id=&quot;convert-google-docs-document-to-latex&quot;&gt;Convert Google Docs document to Latex&lt;/h2&gt;
@@ -1245,95 +1251,4 @@ The most important requirement is memory, a reasonable estimate is to have avail
   &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html&quot;&gt;Tutorial on how to setup SSL for HTTPS connection to JupyterHub&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/08/dask-gateway-jupyterhub.html&quot;&gt;Tutorial on how to deploy Dask for distributed computing&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2021/01/autoscaling_script_kubespray_jupyterhub.html&quot;&gt;Prototype autoscaler for JupyterHub on Jetstream&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="kubernetes" /><category term="kubespray" /><category term="jetstream" /><summary type="html">This is cross-posted from the Science Gateways Community institute tech blog, thanks to Marlon Pierce and Katherine Lawrence for their feeback.</summary></entry><entry><title type="html">Stream video from object store on Jetstream</title><link href="https://zonca.dev/2021/03/video-streaming-jetstream.html" rel="alternate" type="text/html" title="Stream video from object store on Jetstream" /><published>2021-03-25T00:00:00-05:00</published><updated>2021-03-25T00:00:00-05:00</updated><id>https://zonca.dev/2021/03/video-streaming-jetstream</id><content type="html" xml:base="https://zonca.dev/2021/03/video-streaming-jetstream.html">&lt;p&gt;In this tutorial we will serve video stored in Jetstream’s object store (like Amazon S3)
-as HTTP live streaming to a user’ browser. This makes it difficult for the user to save
-the whole video as it is served in chunks.&lt;/p&gt;
-
-&lt;h2 id=&quot;load-a-test-video-on-object-store&quot;&gt;Load a test video on object store&lt;/h2&gt;
-
-&lt;p&gt;Login to &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/44826638/Using+the+OpenStack+Horizon+GUI+Interface&quot;&gt;Horizon&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Go to Project &amp;gt; Object store&lt;/p&gt;
-
-&lt;p&gt;Create a container, for example &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;videostream&lt;/code&gt;, make it public&lt;/p&gt;
-
-&lt;p&gt;Upload a test video, for example:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_30MB.mp4&quot;&gt;https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_30MB.mp4&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Wait 5 minutes then test you can access the video from your machine and note the base url.&lt;/p&gt;
-
-&lt;h2 id=&quot;deploy-the-vm&quot;&gt;Deploy the VM&lt;/h2&gt;
-
-&lt;p&gt;Login to Atmosphere and launch the newest Ubuntu 20.04 image&lt;/p&gt;
-
-&lt;h3 id=&quot;configure-ssl&quot;&gt;Configure SSL&lt;/h3&gt;
-
-&lt;p&gt;The streaming server will ask for the SSL certificates on setup.&lt;/p&gt;
-
-&lt;p&gt;So, install certbot with:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt install certbot
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and get certificates:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;certbot certonly --standalone -d js-xxx-yyy.jetstream-cloud.org
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;install-the-streaming-server&quot;&gt;Install the streaming server&lt;/h2&gt;
-
-&lt;p&gt;Kaltura maintains packages for Ubuntu, so it is easy to install it following &lt;a href=&quot;https://github.com/kaltura/nginx-vod-module#debianubuntu-deb-package&quot;&gt;https://github.com/kaltura/nginx-vod-module#debianubuntu-deb-package&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;For the configuration interactive prompts (I might have set them out of order here):&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Use port 80 instead of 88 (unless you plan to have another NGINX instance on port 80)&lt;/li&gt;
-  &lt;li&gt;Use port 443 instead of 8443&lt;/li&gt;
-  &lt;li&gt;For the mode choose “Remote”, we will load from object store&lt;/li&gt;
-  &lt;li&gt;For the remote url set the base url of the object store (before &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/swift&lt;/code&gt;) and the port&lt;/li&gt;
-  &lt;li&gt;Say “No” when it asks if you use the Kaltura media service&lt;/li&gt;
-  &lt;li&gt;For SSL certificate set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/letsencrypt/live/js-xxx-yyy.jetstream-cloud.org/fullchain.pem&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;For SSL key set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/etc/letsencrypt/live/js-xxx-yyy.jetstream-cloud.org/privkey.pem&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;By default it sets the streaming from HTTP instead of HTTPS,
-so edit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;/opt/kaltura/nginx/conf/vod-remote.conf&lt;/code&gt;,
-modify:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;proxy_pass http://media/$1;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;into:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;proxy_pass https://media/$1;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If anything goes wrong in the configuration, check the error log at:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/opt/kaltura/log/nginx/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;and reset it:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo apt purge kaltura-nginx
-rm -fr /opt/kaltura
-sudo apt install kaltura-nginx
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;test-the-streaming&quot;&gt;Test the streaming&lt;/h2&gt;
-
-&lt;p&gt;First try to access the stream directly from your browser,
-browsers don’t know how to display a HLS stream, but if you get to download a file named “index.m3u8” that is
-a good sign:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;https://js-xxx-yyy.jetstream-cloud.org/hls/swift/v1/videostream/Big_Buck_Bunny_720_10s_30MB/index.m3u8
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;In the URL, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;videostream&lt;/code&gt; is the name of the bucket (container), then the filename, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index.m3u8&lt;/code&gt; tells the server
-that we want to stream that into HLS format.&lt;/p&gt;
-
-&lt;p&gt;If you get an error message instead, check the Kaltura NGINX logs.&lt;/p&gt;
-
-&lt;p&gt;Finally we can test it into a player, for example VideoJS, go to &lt;a href=&quot;https://videojs-http-streaming.netlify.app/&quot;&gt;https://videojs-http-streaming.netlify.app/&lt;/a&gt;
-and paste the URL of your stream.&lt;/p&gt;</content><author><name></name></author><category term="jetstream" /><summary type="html">In this tutorial we will serve video stored in Jetstream’s object store (like Amazon S3) as HTTP live streaming to a user’ browser. This makes it difficult for the user to save the whole video as it is served in chunks.</summary></entry></feed>
+&lt;/ul&gt;</content><author><name></name></author><category term="kubernetes" /><category term="kubespray" /><category term="jetstream" /><summary type="html">This is cross-posted from the Science Gateways Community institute tech blog, thanks to Marlon Pierce and Katherine Lawrence for their feeback.</summary></entry></feed>
