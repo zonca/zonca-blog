@@ -1,4 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-09-24T20:25:57-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">New paper about PySM 3</title><link href="https://zonca.dev/2021/08/pysm3-paper.html" rel="alternate" type="text/html" title="New paper about PySM 3" /><published>2021-08-04T00:00:00-05:00</published><updated>2021-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/08/pysm3-paper</id><content type="html" xml:base="https://zonca.dev/2021/08/pysm3-paper.html">&lt;ul&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-09-24T20:28:45-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Manage Globus groups with the Python SDK</title><link href="https://zonca.dev/2021/09/globus-groups-python-sdk.html" rel="alternate" type="text/html" title="Manage Globus groups with the Python SDK" /><published>2021-09-24T00:00:00-05:00</published><updated>2021-09-24T00:00:00-05:00</updated><id>https://zonca.dev/2021/09/globus-groups-python-sdk</id><content type="html" xml:base="https://zonca.dev/2021/09/globus-groups-python-sdk.html">&lt;p&gt;&lt;a href=&quot;https://globus.org&quot;&gt;Globus&lt;/a&gt; is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).&lt;/p&gt;
+
+&lt;p&gt;If you want to share a folder with collaborators, you can create a Globus endpoint and give them access, see &lt;a href=&quot;https://docs.nersc.gov/services/globus/#sharing-data-with-globus&quot;&gt;how to do that at NERSC&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Now, it’s handy to create a group and share the endpoint directly with the group instead if individual users.&lt;/p&gt;
+
+&lt;p&gt;The web interface of Globus allows you to create groups, but you have to add people one at a time, and this is where the Globus Python SDK comes handy.&lt;/p&gt;
+
+&lt;p&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;globus_sdk&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip&lt;/code&gt; and &lt;a href=&quot;https://globus-sdk-python.readthedocs.io/en/stable/tutorial.html&quot;&gt;follow the tutorial to have it configured&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Clone my repository of scripts, assuming you use &lt;a href=&quot;https://cli.github.com/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gh repo clone zonca/globus-sdk-scripts
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Create a file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;globus_config.toml&lt;/code&gt; with your client ID and the name of the group you already created with the web interface:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;CLIENT_ID = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+GROUP_NAME = &quot;My group name&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;create-the-tokens&quot;&gt;Create the tokens&lt;/h2&gt;
+
+&lt;p&gt;Run the authentication script:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python get_access_tokens.py
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This will ask to open a link and paste back a string.&lt;/p&gt;
+
+&lt;p&gt;This will save the authentication tokens in 3 TOML files, those are sensitive, DO NOT COMMIT to public repositories.&lt;/p&gt;
+
+&lt;h2 id=&quot;batch-add-members-to-group&quot;&gt;Batch add members to group&lt;/h2&gt;
+
+&lt;p&gt;I assume you have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users.csv&lt;/code&gt; file with a column named “Email Address”.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;python add_users_to_group.csv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;is going to read that CSV, then grab 50 emails at a time, contact the Globus API to get the members ID if they have one, otherwise they are just skipped.
+Then it batch-adds them to the group.&lt;/p&gt;
+
+&lt;h2 id=&quot;contribute&quot;&gt;Contribute&lt;/h2&gt;
+
+&lt;p&gt;Please leave feedback to the &lt;a href=&quot;https://github.com/zonca/globus-sdk-scripts&quot;&gt;https://github.com/zonca/globus-sdk-scripts&lt;/a&gt; repository via issues or contribute improvements via Pull Requests.&lt;/p&gt;</content><author><name></name></author><category term="python" /><category term="globus" /><summary type="html">Globus is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).</summary></entry><entry><title type="html">New paper about PySM 3</title><link href="https://zonca.dev/2021/08/pysm3-paper.html" rel="alternate" type="text/html" title="New paper about PySM 3" /><published>2021-08-04T00:00:00-05:00</published><updated>2021-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/08/pysm3-paper</id><content type="html" xml:base="https://zonca.dev/2021/08/pysm3-paper.html">&lt;ul&gt;
   &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2108.01444&quot;&gt;“The Python Sky Model 3 software” on the Arxiv&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://github.com/openjournals/joss-reviews/issues/3534&quot;&gt;Submission to JOSS&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -1179,76 +1223,4 @@ a  b  Healpix_3.70_2020Jul23.tar.gz  MosfireDRP-2018release.zip  plot_cl_TT.ipyn
   &lt;/li&gt;
   &lt;li&gt;Issue: Volumes cannot be mounted because they are in “Reserved” state in Openstack&lt;/li&gt;
   &lt;li&gt;Solution: Run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openstack volume set --state available &amp;lt;uuid&amp;gt;&lt;/code&gt;, this is an &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40&quot;&gt;open issue affecting Jetstream&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="jetstream" /><category term="kubernetes" /><summary type="html">In my specific scenario, I have users running JupyterHub on top of Kubernetes on the Jetstream XSEDE Cloud resouce. Each user has a persistent volume as their home folder of a few GB. Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them.</summary></entry><entry><title type="html">Science Gateways Tech blog - Kubernetes and JupyterHub on Jetstream</title><link href="https://zonca.dev/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream.html" rel="alternate" type="text/html" title="Science Gateways Tech blog - Kubernetes and JupyterHub on Jetstream" /><published>2021-03-28T00:00:00-05:00</published><updated>2021-03-28T00:00:00-05:00</updated><id>https://zonca.dev/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream</id><content type="html" xml:base="https://zonca.dev/2021/03/sgci-tech-blog-kubernetes-jupyterhub-jetstream.html">&lt;p&gt;This is cross-posted from the &lt;a href=&quot;https://sciencegateways.org/-/tech-blog-kubernetes-and-jupyterhub-on-jetstream&quot;&gt;Science Gateways Community institute tech blog&lt;/a&gt;, thanks to Marlon Pierce and Katherine Lawrence for their feeback.&lt;/p&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;JupyterHub handles authentication and routing for any number of users that have access to an interactive computational environment, the Jupyter Notebook, via their browser.&lt;/p&gt;
-
-&lt;p&gt;The most high-impact application of JupyterHub in the context of Science Gateways is to deploy it as a companion application for the Science Gateway to enable users to access a pre-configured computing environment. This configuration allows them to use the Gateway programmatically and apply custom processing of the gateway input or outputs. For example, the Gateway users could use the same login credentials to also access a Jupyter Notebook environment with tutorial notebooks displaying example analysis pipelines that show how they can:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;upload raw data&lt;/li&gt;
-  &lt;li&gt;use packages installed in the Jupyter Notebook environment to pre-process raw data to transform them in the format suitable for the Science Gateway&lt;/li&gt;
-  &lt;li&gt;submit the data for processing using remote execution APIs&lt;/li&gt;
-  &lt;li&gt;check the job processing status&lt;/li&gt;
-  &lt;li&gt;retrieve the results&lt;/li&gt;
-  &lt;li&gt;load the output data from disk&lt;/li&gt;
-  &lt;li&gt;post-process and plot the results&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Let’s proceed now to show an overview on how to deploy first Kubernetes and then JupyterHub on Jetstream.&lt;/p&gt;
-
-&lt;h2 id=&quot;jetstream&quot;&gt;Jetstream&lt;/h2&gt;
-
-&lt;p&gt;Jetstream (and the upcoming &lt;a href=&quot;https://news.iu.edu/stories/2020/06/iub/releases/01-jetstream-cloud-computing-awarded-nsf-grant.html&quot;&gt;Jetstream 2&lt;/a&gt;) is a cloud deployment part of XSEDE, the science community’s equivalent of Amazon Elastic Compute Cloud (EC2) or Google Cloud Platform. Many Science Gateways already run on Jetstream.&lt;/p&gt;
-
-&lt;p&gt;Jetstream allows each user to programmatically launch Virtual Machines with the desired amount of CPU/RAM resources, a pre-configured OS (Ubuntu, CentOS…), connect them together on an internal network and expose them to the Internet with public IPs. Users have then full administrative access to the machines to install any software package.&lt;/p&gt;
-
-&lt;p&gt;Jetstream has extensive documentation and training available both focused on &lt;a href=&quot;https://jetstream-cloud.org/support/training.php&quot;&gt;using the simplified Atmosphere interface&lt;/a&gt; and the &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/39682057/Using+the+Jetstream+API&quot;&gt;programmatic access via web API&lt;/a&gt;. Once developers decide to try Jetstream, they can &lt;a href=&quot;https://iujetstream.atlassian.net/wiki/spaces/JWT/pages/49184781/Jetstream+Allocations&quot;&gt;request a trial or a startup allocation via XSEDE&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Deployment on Jetstream should begin with gateway developers identifying the scale of their deployment: few-user or test deployment vs. large-memory, many-user deployment.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/jupyterhub-jetstream.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Architecture of the deployment of JupyterHub on Jetstream: the users connect via their browser to the Jetstream master node virtual machine, they first are redirected to external services for authentication. Once authenticated, JupyterHub spawns a container running the Jupyter Notebook for them in one of the worker nodes managed by Kubernetes. Their own persistent data volume is also mounted there. Kubernetes handles the networking so that the interactive computing session is proxied back to the users’ browser.&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;single-server-deployment&quot;&gt;Single server deployment&lt;/h2&gt;
-
-&lt;p&gt;In the case of a test deployment with a small number of users, each with limited computational resources, we can avoid the complications of a distributed deployment.
-The most important requirement is memory, a reasonable estimate is to have available 128 MB of RAM for JupyterHub services and then multiply the number of concurrent users by the memory we want to allocate for each user. For example, if we give each user 10 GB of RAM, we could host 11 concurrent users on a Jetstream XXL instance with 128 GB of RAM and have significant margin for system services. &lt;/p&gt;
-
-&lt;p&gt;In this case, we can just spawn a single, large-memory Virtual Machine on Jetstream and then follow the &lt;a href=&quot;https://tljh.jupyter.org/en/latest/install/jetstream.html&quot;&gt;“Littlest JupyterHub” documentation to install JupyterHub&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;kubernetes&quot;&gt;Kubernetes&lt;/h2&gt;
-
-&lt;p&gt;However, if the sum of the memory needed by all the users is higher than 120GB, we need to deploy JupyterHub across multiple Jetstream Virtual Machines. The recommended way of deploying a distributed instance of JupyterHub is on top of Kubernetes, which is able to provide networking, logging, reliability, and scalability.&lt;/p&gt;
-
-&lt;p&gt;I have configured and adapted the Kubespray tool to deploy Kubernetes to Jetstream and have written a &lt;a href=&quot;https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html&quot;&gt;step-by-step tutorial about it&lt;/a&gt;, which includes all the necessary configuration files. A Jetstream user can launch this script to programmatically launch any number of Jetstream instances and deploy Kubernetes across them. Consider also that Kubernetes would be a good platform to deploy a Science Gateway itself, especially if it already has a distributed architecture (for example, the gateway website, a database, and worker processes that execute computations). However, Kubernetes itself is a complex system, which requires someone in the Gateway development team to invest significant effort in learning how to configure and administer it.&lt;/p&gt;
-
-&lt;p&gt;After Kubernetes is deployed, we now have a programmatic interface where we can deploy applications packaged as Docker containers, monitor their execution, log their warnings or errors, and scale them based on load.&lt;/p&gt;
-
-&lt;h2 id=&quot;jupyterhub&quot;&gt;JupyterHub&lt;/h2&gt;
-
-&lt;p&gt;Finally, we can leverage the &lt;a href=&quot;https://zero-to-jupyterhub.readthedocs.io/&quot;&gt;Zero to JupyterHub project&lt;/a&gt; and customize their recipe to automatically deploy all the components needed for a distributed JupyterHub deployment on Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;We can configure authentication with Github, Google, XSEDE, or CILogon, choose a Docker container with all the packages needed by the users, decide how much RAM, CPU, and disk each user has access to, configure a public URL, and setup HTTPS.&lt;/p&gt;
-
-&lt;p&gt;Once the deployment is complete, the users can point their browser to the master node of the deployment, authenticate and have a Jupyter Notebook be spawned for them across the cluster of Jetstream instances with a dedicated amount of computing resources.&lt;/p&gt;
-
-&lt;p&gt;We can also pre-populate the computational environment with tutorial notebooks that display example data analysis pipelines that jointly leverage JupyterHub and the Science Gateway. A few hours after a user disconnects, their container is decommissioned to free up resources for other users, but their data is saved as a permanent disk on Jetstream and is mounted again the next time they reconnect.&lt;/p&gt;
-
-&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
-
-&lt;p&gt;This is a basic overview of the different components involved in deploying a distributed instance of JupyterHub on Jetstream. To know more, check out the list of references below. If you have any feedback or would like to collaborate, please &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/new&quot;&gt;open an issue in my jupyterhub-deploy-kubernetes-jetstream repository&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/09/gateways-2020-paper.html&quot;&gt;“Gateways 2020” paper and video recording&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.youtube.com/watch?v=jiYw4g4RX-w&quot;&gt;Video tutorial on Openstack and Kubernetes for the ECSS Symposium&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html&quot;&gt;Tutorial on how to deploy Kubernetes and JupyterHub on Jetstream via Kubespray&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html&quot;&gt;Tutorial on how to setup SSL for HTTPS connection to JupyterHub&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/08/dask-gateway-jupyterhub.html&quot;&gt;Tutorial on how to deploy Dask for distributed computing&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2021/01/autoscaling_script_kubespray_jupyterhub.html&quot;&gt;Prototype autoscaler for JupyterHub on Jetstream&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="kubernetes" /><category term="kubespray" /><category term="jetstream" /><summary type="html">This is cross-posted from the Science Gateways Community institute tech blog, thanks to Marlon Pierce and Katherine Lawrence for their feeback.</summary></entry></feed>
+&lt;/ul&gt;</content><author><name></name></author><category term="jetstream" /><category term="kubernetes" /><summary type="html">In my specific scenario, I have users running JupyterHub on top of Kubernetes on the Jetstream XSEDE Cloud resouce. Each user has a persistent volume as their home folder of a few GB. Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them.</summary></entry></feed>

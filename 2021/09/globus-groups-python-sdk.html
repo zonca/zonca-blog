@@ -4,19 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Page 13 of 20 for Andrea Zonca | Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</title>
+<title>Manage Globus groups with the Python SDK | Andrea Zonca</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Andrea Zonca" />
+<meta property="og:title" content="Manage Globus groups with the Python SDK" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<link rel="canonical" href="https://zonca.dev/page13/" />
-<meta property="og:url" content="https://zonca.dev/page13/" />
+<meta name="description" content="Globus is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much)." />
+<meta property="og:description" content="Globus is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much)." />
+<link rel="canonical" href="https://zonca.dev/2021/09/globus-groups-python-sdk.html" />
+<meta property="og:url" content="https://zonca.dev/2021/09/globus-groups-python-sdk.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
-<link rel="prev" href="https://zonca.dev/page12/" />
-<link rel="next" href="https://zonca.dev/page14/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-09-24T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Andrea Zonca","url":"https://zonca.dev/page13/","@type":"WebPage","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@context":"https://schema.org"}</script>
+{"headline":"Manage Globus groups with the Python SDK","url":"https://zonca.dev/2021/09/globus-groups-python-sdk.html","dateModified":"2021-09-24T00:00:00-05:00","datePublished":"2021-09-24T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2021/09/globus-groups-python-sdk.html"},"description":"Globus is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -84,86 +84,93 @@ window.onload = wrap_img;
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-
-
-  
-
-  <!-- Hide posts if front matter flag hide:true -->
-  
-  
-
-  <!-- Sort posts by rank, then date -->
-  
-  
-  
-
- 
-  
-
-   <!-- Assemble final sorted posts array -->
-  
-  <ul class="post-list"><li><h3>
-    <a class="post-link" href="/2014/01/wget-file-from-google-drive.html">
-    wget file from google drive
-    </a>
-</h3><p class="post-meta">Jan 31, 2014</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/12/run-ipython-notebook-on-HPC-cluster-via-PBS.html">
-    Run IPython Notebook on a HPC Cluster via PBS
-    </a>
-</h3><p class="post-meta">Dec 18, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/12/joining-sandiego-supercomputer-center.html">
-    Joining San Diego Supercomputer Center
-    </a>
-</h3><p class="post-meta">Dec 10, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/11/published-paper-destriping-CMB-polarimeter.html">
-    Published paper on Destriping Cosmic Microwave Background Polarimeter data
-    </a>
-</h3><p class="post-meta">Nov 20, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/10/jiffylab-multiuser-ipython-notebooks.html">
-    Jiffylab multiuser IPython notebooks
-    </a>
-</h3><p class="post-meta">Oct 14, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/10/how-to-log-exceptions-in-python.html">
-    How to log exceptions in Python
-    </a>
-</h3><p class="post-meta">Oct 1, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/09/google-plus-comments-plugin-for-pelican.html">
-    Google Plus comments plugin for Pelican
-    </a>
-</h3><p class="post-meta">Sep 27, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/09/automatically-build-pelican-and-publish-to-github-pages.html">
-    How to automatically build your Pelican blog and publish it to Github Pages
-    </a>
-</h3><p class="post-meta">Sep 26, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/09/clviewer-interactive-plot-of-CMB-spectra.html">
-    clviewer, interactive plot of CMB spectra
-    </a>
-</h3><p class="post-meta">Sep 17, 2013</p>
-</li><li><h3>
-    <a class="post-link" href="/2013/09/Planck-CMB-map-at-high-resolution.html">
-    Planck CMB map at high resolution
-    </a>
-</h3><p class="post-meta">Sep 10, 2013</p>
-</li></ul>
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Manage Globus groups with the Python SDK</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-09-24T00:00:00-05:00" itemprop="datePublished">
+        Sep 24, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      1 min read
+    
+</span></p>
 
     
-      <div class="pager">
-        <ul class="pagination">
-          <li><a href="/page12/" class="previous-page">12</a></li>
-          <li><div class="current-page">13</div></li>
-          <li><a href="/page14/" class="next-page">14</a></li>
-        </ul>
-      </div></div>
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#python">python</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#globus">globus</a>
+        
+      
+      </p>
+    
+
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/zonca/zonca-blog/tree/master/_posts/2021-09-24-globus-groups-python-sdk.md" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+    </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><a href="https://globus.org">Globus</a> is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).</p>
+
+<p>If you want to share a folder with collaborators, you can create a Globus endpoint and give them access, see <a href="https://docs.nersc.gov/services/globus/#sharing-data-with-globus">how to do that at NERSC</a>.</p>
+
+<p>Now, it’s handy to create a group and share the endpoint directly with the group instead if individual users.</p>
+
+<p>The web interface of Globus allows you to create groups, but you have to add people one at a time, and this is where the Globus Python SDK comes handy.</p>
+
+<p>Install <code class="language-plaintext highlighter-rouge">globus_sdk</code> with <code class="language-plaintext highlighter-rouge">pip</code> and <a href="https://globus-sdk-python.readthedocs.io/en/stable/tutorial.html">follow the tutorial to have it configured</a>.</p>
+
+<p>Clone my repository of scripts, assuming you use <a href="https://cli.github.com/"><code class="language-plaintext highlighter-rouge">gh</code></a>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gh repo clone zonca/globus-sdk-scripts
+</code></pre></div></div>
+
+<p>Create a file <code class="language-plaintext highlighter-rouge">globus_config.toml</code> with your client ID and the name of the group you already created with the web interface:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>CLIENT_ID = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+GROUP_NAME = "My group name"
+</code></pre></div></div>
+
+<h2 id="create-the-tokens">Create the tokens</h2>
+
+<p>Run the authentication script:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python get_access_tokens.py
+</code></pre></div></div>
+
+<p>This will ask to open a link and paste back a string.</p>
+
+<p>This will save the authentication tokens in 3 TOML files, those are sensitive, DO NOT COMMIT to public repositories.</p>
+
+<h2 id="batch-add-members-to-group">Batch add members to group</h2>
+
+<p>I assume you have a <code class="language-plaintext highlighter-rouge">users.csv</code> file with a column named “Email Address”.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python add_users_to_group.csv
+</code></pre></div></div>
+
+<p>is going to read that CSV, then grab 50 emails at a time, contact the Globus API to get the members ID if they have one, otherwise they are just skipped.
+Then it batch-adds them to the group.</p>
+
+<h2 id="contribute">Contribute</h2>
+
+<p>Please leave feedback to the <a href="https://github.com/zonca/globus-sdk-scripts">https://github.com/zonca/globus-sdk-scripts</a> repository via issues or contribute improvements via Pull Requests.</p>
+
+  </div><a class="u-url" href="/2021/09/globus-groups-python-sdk.html" hidden></a>
+</article>
+
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/"></data>
