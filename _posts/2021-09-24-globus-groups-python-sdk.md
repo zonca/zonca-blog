@@ -8,7 +8,7 @@ categories: [python, globus]
 
 If you want to share a folder with collaborators, you can create a Globus endpoint and give them access, see [how to do that at NERSC](https://docs.nersc.gov/services/globus/#sharing-data-with-globus).
 
-Now, it's handy to create a group and share the endpoint directly with the group instead if individual users.
+Now, it's handy to create a group and share the endpoint directly with the group instead of individual users.
 
 The web interface of Globus allows you to create groups, but you have to add people one at a time, and this is where the Globus Python SDK comes handy.
 
