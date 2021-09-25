@@ -14,7 +14,7 @@ The web interface of Globus allows you to create groups, but you have to add peo
 
 Install `globus_sdk` with `pip` and [follow the tutorial to have it configured](https://globus-sdk-python.readthedocs.io/en/stable/tutorial.html).
 
-Clone my repository of scripts, assuming you use [`gh`](https://cli.github.com/):
+Clone [my repository of scripts](https://github.com/zonca/globus-sdk-scripts), assuming you use [`gh`](https://cli.github.com/):
 
     gh repo clone zonca/globus-sdk-scripts
 
