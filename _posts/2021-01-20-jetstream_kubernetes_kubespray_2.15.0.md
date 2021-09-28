@@ -6,6 +6,7 @@ slug: kubernetes-jetstream-kubespray
 ---
 
 This is an update to previous tutorials, focused on deploying Kubernetes 1.19.7 (released in Jan 2021, based on 1.19.0 released in August 2020), compared to 1.17.6 of the previous version of the tutorial.
+Last executed in September 2021.
 
 For an overview of my work on deploying Kubernetes and JupyterHub on Jetstream, see [my Gateways 2020 paper](https://zonca.dev/2020/09/gateways-2020-paper.html).
 
