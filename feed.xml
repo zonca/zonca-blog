@@ -1,4 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-09-27T20:51:53-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Manage Globus groups with the Python SDK</title><link href="https://zonca.dev/2021/09/globus-groups-python-sdk.html" rel="alternate" type="text/html" title="Manage Globus groups with the Python SDK" /><published>2021-09-24T00:00:00-05:00</published><updated>2021-09-24T00:00:00-05:00</updated><id>https://zonca.dev/2021/09/globus-groups-python-sdk</id><content type="html" xml:base="https://zonca.dev/2021/09/globus-groups-python-sdk.html">&lt;p&gt;&lt;a href=&quot;https://globus.org&quot;&gt;Globus&lt;/a&gt; is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-10-01T21:27:02-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Monitor traffic on Github repositories</title><link href="https://zonca.dev/2021/10/monitor-github-traffic.html" rel="alternate" type="text/html" title="Monitor traffic on Github repositories" /><published>2021-10-01T00:00:00-05:00</published><updated>2021-10-01T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/monitor-github-traffic</id><content type="html" xml:base="https://zonca.dev/2021/10/monitor-github-traffic.html">&lt;p&gt;Github only shows traffic data for the last 2 weeks.
+Through the API is possible to gather those data every 2 weeks and save them for later collection and reduction.&lt;/p&gt;
+
+&lt;h2 id=&quot;available-data&quot;&gt;Available data&lt;/h2&gt;
+
+&lt;p&gt;It’s 3 different stats:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;clone: number of clones and unique clones per day&lt;/li&gt;
+  &lt;li&gt;referrer: websites that linked to the repository in the last 2 weeks&lt;/li&gt;
+  &lt;li&gt;traffic: views and unique visitors&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;scripts&quot;&gt;Scripts&lt;/h2&gt;
+
+&lt;p&gt;I have created a set of scripts based on &lt;a href=&quot;https://github.com/nchah/github-traffic-stats&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;github-traffic-stats&lt;/code&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Follow the instructions in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;README.md&lt;/code&gt;:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/zonca/save-github-traffic-stats&quot;&gt;https://github.com/zonca/save-github-traffic-stats&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="github" /><summary type="html">Github only shows traffic data for the last 2 weeks. Through the API is possible to gather those data every 2 weeks and save them for later collection and reduction.</summary></entry><entry><title type="html">Manage Globus groups with the Python SDK</title><link href="https://zonca.dev/2021/09/globus-groups-python-sdk.html" rel="alternate" type="text/html" title="Manage Globus groups with the Python SDK" /><published>2021-09-24T00:00:00-05:00</published><updated>2021-09-24T00:00:00-05:00</updated><id>https://zonca.dev/2021/09/globus-groups-python-sdk</id><content type="html" xml:base="https://zonca.dev/2021/09/globus-groups-python-sdk.html">&lt;p&gt;&lt;a href=&quot;https://globus.org&quot;&gt;Globus&lt;/a&gt; is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).&lt;/p&gt;
 
 &lt;p&gt;If you want to share a folder with collaborators, you can create a Globus endpoint and give them access, see &lt;a href=&quot;https://docs.nersc.gov/services/globus/#sharing-data-with-globus&quot;&gt;how to do that at NERSC&lt;/a&gt;.&lt;/p&gt;
 
@@ -951,276 +972,4 @@ Best would be for each Overleaf user, each time they login, to pull changes from
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Backup Kubernetes volumes to OpenStorageNetwork object store</title><link href="https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html" rel="alternate" type="text/html" title="Backup Kubernetes volumes to OpenStorageNetwork object store" /><published>2021-04-19T00:00:00-05:00</published><updated>2021-04-19T00:00:00-05:00</updated><id>https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store</id><content type="html" xml:base="https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html">&lt;p&gt;In my specific scenario, I have users running JupyterHub on top of Kubernetes
-on the Jetstream XSEDE Cloud resouce.
-Each user has a persistent volume as their home folder of a few GB.
-Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them.&lt;/p&gt;
-
-&lt;p&gt;In this tutorial I’ll show how to configure &lt;a href=&quot;https://stash.run&quot;&gt;Stash&lt;/a&gt; for this task.
-Stash is has a lot of other functionality, so it is really easy to get lost in their
-documentation. This tutorial is for an advanced topic, it assumes good knowledge of Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;Stash under the hood uses &lt;a href=&quot;https://restic.net/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt;&lt;/a&gt; to backup the data, so that we can also manage the backups outside
-of Kubernetes, see further down the tutorial. It also automatically decuplicates the data, so if the same file is unchanged in
-multiple backups, as it is often the case, it is just stored once and referenced by multiple backups.&lt;/p&gt;
-
-&lt;p&gt;All the configuration files are available in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;backup_volumes&lt;/code&gt; folder of &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/tree/master/backup_volumes&quot;&gt;zonca/jupyterhub-deploy-kubernetes-jetstream&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;install-stash&quot;&gt;Install Stash&lt;/h2&gt;
-
-&lt;p&gt;First we need to request a free license for the community edition of the software,
-I tested with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;2021.03.17&lt;/code&gt;, replace as needed with a newer version:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://stash.run/docs/v2021.03.17/setup/install/community/&quot;&gt;https://stash.run/docs/v2021.03.17/setup/install/community/&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Rename it to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;license.txt&lt;/code&gt;, then install Stash via Helm:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;helm repo add appscode https://charts.appscode.com/stable/
-helm repo update
-bash install_stash.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;test-object-store&quot;&gt;Test object store&lt;/h2&gt;
-
-&lt;p&gt;I have used object store from OpenStorageNetwork, which is nice as it is offsite, but
-also using the Jetstream object store is an option.
-Both support the AWS S3 protocol.&lt;/p&gt;
-
-&lt;p&gt;It would be useful at this point to test the S3 credentials:&lt;/p&gt;
-
-&lt;p&gt;Install the AWS cli &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip install awscli awscli-plugin-endpoint&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;Then create a configuration profile at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.aws/config&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[plugins]
-endpoint = awscli_plugin_endpoint
-
-[profile osn]
-aws_access_key_id=
-aws_secret_access_key=
-s3 =
-    endpoint_url = https://xxxx.osn.xsede.org
-s3api =
-    endpoint_url = https://xxxx.osn.xsede.org
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then you can list the content of your bucket with:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aws s3 --profile osn ls s3://your-bucket-name --no-sign-request
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;configure-the-s3-backend-for-stash&quot;&gt;Configure the S3 backend for Stash&lt;/h2&gt;
-
-&lt;p&gt;See the &lt;a href=&quot;https://stash.run/docs/v2021.03.17/guides/latest/backends/s3/&quot;&gt;Stash documentation about the S3 backend&lt;/a&gt;. In summary, we should create 3 text files:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RESTIC_PASSWORD&lt;/code&gt; with a random password to encrypt the backups&lt;/li&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AWS_ACCESS_KEY_ID&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;AWS_SECRET_ACCESS_KEY&lt;/code&gt; with the S3 style credentials&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Then we can create a Secret in Kubernetes that holds the credentials:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_aws_secret.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then, customize &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stash_repository.yaml&lt;/code&gt; and create the Stash repository with:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl create -f stash_repository.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Check it was created:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl -n jhub get repository
-NAME       INTEGRITY   SIZE   SNAPSHOT-COUNT   LAST-SUCCESSFUL-BACKUP   AGE
-osn-repo                                                                2d15h
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;configuring-backup-for-a-standalone-volume&quot;&gt;Configuring backup for a standalone volume&lt;/h2&gt;
-
-&lt;p&gt;Automatic and batch backup require a commercial Stash license. With the community version, we can only use the “standalone volume” functionality, which is enough for our purposes.&lt;/p&gt;
-
-&lt;p&gt;See the &lt;a href=&quot;https://stash.run/docs/v2021.03.17/guides/latest/volumes/overview/&quot;&gt;relevant documentation&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Next we need to create a &lt;a href=&quot;https://stash.run/docs/v2021.03.17/concepts/crds/backupconfiguration/&quot;&gt;BackupConfiguration&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Edit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stash_backupconfiguration.yaml&lt;/code&gt;, in particular you need to specify which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;PersistentVolumeClaim&lt;/code&gt; you want to backup, for JupyterHub user volumes, these will be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;claim-username&lt;/code&gt;. For testing better leave “each minute” for the schedule, if a backup job is running, the following are skipped.
-You can also customize excluded folders.&lt;/p&gt;
-
-&lt;p&gt;In order to pause backups, set &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paused&lt;/code&gt; to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl -n jhub edit backupconfiguration test-backup
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BackupConfiguration&lt;/code&gt; should create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CronJob&lt;/code&gt; resource:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl -n jhub get cronjob
-NAME                       SCHEDULE    SUSPEND   ACTIVE   LAST SCHEDULE   AGE
-stash-backup-test-backup   * * * * *   True      0        2d15h           2d15h
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CronJob&lt;/code&gt; then launches a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BackupSession&lt;/code&gt; for each trigger of the backup:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl -n jhub get backupsession
-NAME                     INVOKER-TYPE          INVOKER-NAME   PHASE     AGE
-test-backup-1618875244   BackupConfiguration   test-backup    Succeeded   3m13s
-test-backup-1618875304   BackupConfiguration   test-backup    Succeeded   2m13s
-test-backup-1618875364   BackupConfiguration   test-backup    Succeeded   73s
-test-backup-1618875425   BackupConfiguration   test-backup    Running     12s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;monitor-and-debug-backups&quot;&gt;Monitor and debug backups&lt;/h2&gt;
-
-&lt;p&gt;You can check the logs of a backup with:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl -n jhub describe backupsession test-backup-1618869996
-&amp;gt; kubectl -n jhub describe pod stash-backup-test-backup-1618869996-0-rdcdq
-&amp;gt; kubectl -n jhub logs stash-backup-test-backup-1618861992-0-kj2r6
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Once backups succeed, they should appear on object store:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; aws s3 --profile osn ls s3://your-bucket-name/jetstream-backup/snapshots/
-2021-04-19 16:34:11        340 1753f4c15da9713daeb35a5425e7fbe663e550421ac3be82f79dc508c8cf5849
-2021-04-19 16:35:12        340 22bccac489a69b4cda1828f9777677bc7a83abb546eee486e06c8a8785ca8b2f
-2021-04-19 16:36:11        340 7ef1ba9c8afd0dcf7b89fa127ef14bff68090b5ac92cfe3f68c574df5fc360e3
-2021-04-19 16:37:12        339 da8f0a37c03ddbb6c9a0fcb5b4837e8862fd8e031bcfcfab563c9e59ea58854d
-2021-04-19 16:33:10        339 e2369d441df69bc2809b9c973e43284cde123f8885fe386a7403113f4946c6fa
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;restore-from-backup&quot;&gt;Restore from backup&lt;/h2&gt;
-
-&lt;p&gt;Backups are encrypted, so it is not possible to access the data directly from object store. We need to restore it to a volume.&lt;/p&gt;
-
-&lt;p&gt;For testing purposes, login to the volume via JupyterHub and delete some files.
-Then stop the single user server from the JupyterHub dashboard.&lt;/p&gt;
-
-&lt;p&gt;Configure and launch the restoring operation:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl -n jhub create -f stash_restore.yaml
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;This overwrites the content of the target volume with the content of the backup. See the Stash documentation on how to restore to a different volume.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl -n jhub get restoresession
-NAME      REPOSITORY   PHASE       AGE
-restore   osn-repo     Succeeded   2m18s
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then login back to JupyterHub and check that the files previously deleted.&lt;/p&gt;
-
-&lt;p&gt;In the default configuration &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stash_restore.yaml&lt;/code&gt; restores the last backup, independently of username, so if you are backing up volumes of different users, you should tag by usernames, see below, and then restore a specific id (just replace &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;latest&lt;/code&gt; in the YAML file with the first 10 or so characters of the ID).
-See an example of the full restore workflow with screenshots at the end of &lt;a href=&quot;https://github.com/det-lab/jupyterhub-deploy-kubernetes-jetstream/issues/44&quot;&gt;this Github issue&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;setup-for-production-in-a-small-deployment&quot;&gt;Setup for production in a small deployment&lt;/h2&gt;
-
-&lt;p&gt;In a small deployment with tens of users, we can individually identify which users we want to backup, and choose a schedule.
-The backup service works even the user is currently logged in, anyway, it is good practice to schedule a daily backup at 3am or 4am in the appropriate timezone.
-We should create 1 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BackupConfiguration&lt;/code&gt; object for each user, 10 minutes apart, each targeting a different PersistentVolumeClaim.&lt;/p&gt;
-
-&lt;h2 id=&quot;template-backup-configuration-creation&quot;&gt;Template backup configuration creation&lt;/h2&gt;
-
-&lt;p&gt;If you like danger, you can also automate the creation of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;BackupConfiguration&lt;/code&gt; objects.
-You can create a text file named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;users_to_backup.txt&lt;/code&gt; with 1 username per line of the JupyterHub users you want to backup.&lt;/p&gt;
-
-&lt;p&gt;Then customize the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stash_backupconfiguration_template.yaml&lt;/code&gt; configuration file, make sure you decide a retention policy, for more information see the Stash or Restic documentation.
-Unfortunately Stash considers all backups together under 1 retention policy, so if I set to keep 1 weekly backup, it will retain 1 weekly backup of just &lt;strong&gt;one of the users&lt;/strong&gt; instead of all of them.
-I worked around this issue tagging myself the backups after the fact using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt; command line tool, see the next section.&lt;/p&gt;
-
-&lt;p&gt;Then you can launch it:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash setup_backups.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;******** Setup xxxxxxx at 8:0
-backupconfiguration.stash.appscode.com/backup-xxxxxxx created
-******** Setup xxxxxxx at 8:10
-backupconfiguration.stash.appscode.com/backup-xxxxxxx created
-******** Setup xxxxxxx at 8:20
-backupconfiguration.stash.appscode.com/backup-xxxxxxx created
-******** Setup xxxxxxx at 8:30
-backupconfiguration.stash.appscode.com/backup-xxxxxxx created
-******** Setup xxxxxxx at 8:40
-backupconfiguration.stash.appscode.com/backup-xxxxxxx created
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;There is no chance this will work the first time, so:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;kubectl delete backupconfiguration --all
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;categorize-the-backups-by-username&quot;&gt;Categorize the backups by username&lt;/h2&gt;
-
-&lt;p&gt;Unfortunately I couldn’t find a way to tag the backups with the username which own the volume.
-So I added this line:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;echo $JUPYTERHUB_USER &amp;gt; ~/.username;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zero-to-jupyterhub&lt;/code&gt; configuration YAML under:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;singleuser:
-  lifecycleHooks:
-    postStart:
-      exec:
-        command:
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;So when the user logs in, we write their username into the volume.
-Then we can use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt; outside of Kubernetes to tag the backups once in a while with the correct usernames,
-see the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic_tag_usernames.sh&lt;/code&gt; script.&lt;/p&gt;
-
-&lt;p&gt;Once we have tags, we can handle pruning old backups manually using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic forget&lt;/code&gt; command.&lt;/p&gt;
-
-&lt;h2 id=&quot;manage-backups-outside-of-kubernetes&quot;&gt;Manage backups outside of Kubernetes&lt;/h2&gt;
-
-&lt;p&gt;Stash manages backups with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt;.
-It is also possible to access and manage the backups using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt; on a machine outside of Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;Install &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;restic&lt;/code&gt; &lt;a href=&quot;https://restic.readthedocs.io/en/stable/020_installation.html#stable-releases&quot;&gt;from the official website&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Export the AWS variables:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export AWS_ACCESS_KEY_ID=
-export AWS_SECRET_ACCESS_KEY=
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Have the RESTIC password ready for the prompt:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;restic -r s3:https://ncsa.oss-data/jetstream-backup/ snapshots
-enter password for repository: 
-repository 18a1c421 opened successfully, password is correct
-created new cache in /home/zonca/.cache/restic
-ID        Time                 Host        Tags        Paths
-------------------------------------------------------------------
-026bcce3  2021-05-10 13:17:17  host-0                  /stash-data
-4f71a384  2021-05-10 13:18:16  host-0                  /stash-data
-34ff4677  2021-05-10 13:19:18  host-0                  /stash-data
-9f7337fe  2021-05-10 13:20:08  host-0                  /stash-data
-c130e039  2021-05-10 13:21:08  host-0                  /stash-data
-------------------------------------------------------------------
-5 snapshots
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You can even browse the backups without downloading the data:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo mkdir /mnt/temp
-sudo chown $USER /mnt/temp
-restic -r s3:https://ncsa.osn.xsede.org/xxxxxx/jetstream-backup/ mount /mnt/temp
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;/mnt/temp/snapshots/latest/stash-data $ ls
-a  b  Healpix_3.70_2020Jul23.tar.gz  MosfireDRP-2018release.zip  plot_cl_TT.ipynb  Untitled1.ipynb  Untitled2.ipynb  Untitled.ipynb
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;troubleshooting&quot;&gt;Troubleshooting&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Issue: Volume available but also attached in Openstack, works fine on JupyterHub but backing up fails, this can happen while testing.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Solution: Delete the PVC, the PV and the volume via Openstack, login through JupyterHub to get another volume assigned.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Issue: Volumes cannot be mounted because they are in “Reserved” state in Openstack&lt;/li&gt;
-  &lt;li&gt;Solution: Run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;openstack volume set --state available &amp;lt;uuid&amp;gt;&lt;/code&gt;, this is an &lt;a href=&quot;https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40&quot;&gt;open issue affecting Jetstream&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="jetstream" /><category term="kubernetes" /><summary type="html">In my specific scenario, I have users running JupyterHub on top of Kubernetes on the Jetstream XSEDE Cloud resouce. Each user has a persistent volume as their home folder of a few GB. Instead of snapshotting the entire volume, I would like to only backup the data offsite to OpenStorageNetwork and being able to restore them.</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><summary type="html"></summary></entry></feed>
