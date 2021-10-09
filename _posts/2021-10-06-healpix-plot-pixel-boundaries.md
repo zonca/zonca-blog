@@ -14,6 +14,6 @@ See below the outputs ranging from Nside 1 to 8:
 
 ![Nside 2](/images/healpix_nside_2.png)
 
-![Nside 3](/images/healpix_nside_3.png)
-
 ![Nside 4](/images/healpix_nside_4.png)
+
+![Nside 8](/images/healpix_nside_8.png)
