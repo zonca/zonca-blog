@@ -1,4 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-10-09T12:31:56-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Plot HEALPix pixel boundaries</title><link href="https://zonca.dev/2021/10/healpix-plot-pixel-boundaries.html" rel="alternate" type="text/html" title="Plot HEALPix pixel boundaries" /><published>2021-10-06T00:00:00-05:00</published><updated>2021-10-06T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/healpix-plot-pixel-boundaries</id><content type="html" xml:base="https://zonca.dev/2021/10/healpix-plot-pixel-boundaries.html">&lt;p&gt;Some time ago I created a Jupyter Notebook based on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plotly&lt;/code&gt; to create a 3D visualization of the boundaries of HEALPix pixels on the sphere.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-10-12T20:03:27-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Hadoop on Kubernetes on Jetstream</title><link href="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy Hadoop on Kubernetes on Jetstream" /><published>2021-10-12T00:00:00-05:00</published><updated>2021-10-12T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/hadoop-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html">&lt;p&gt;We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.&lt;/p&gt;
+
+&lt;p&gt;As usual we start with a full-fledged Kubernetes deployment on Jetstream (1) &lt;a href=&quot;https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html&quot;&gt;deployed via Kubespray&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;deploy-hadoop-via-helm&quot;&gt;Deploy Hadoop via helm&lt;/h2&gt;
+
+&lt;p&gt;Fortunately we have a Helm chart which deploys all the Hadoop components.
+It is deprecated since November 2020, but it still works fine on Kubernetes 1.19.7.&lt;/p&gt;
+
+&lt;p&gt;Clone the usual repository with &lt;a href=&quot;https://cli.github.com/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gh repo clone zonca/jupyterhub-deploy-kubernetes-jetstream
+cd hadoop/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Verify the configuration in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stable_hadoop_values.yaml&lt;/code&gt;, I’m currently keeping it simple,
+so no persistence.&lt;/p&gt;
+
+&lt;p&gt;Install Hadoop via Helm:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_hadoop.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Once the pods are running, you should see:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl get pods
+NAME                      READY   STATUS    RESTARTS   AGE
+hadoop-hadoop-hdfs-dn-0   1/1     Running   0          144m
+hadoop-hadoop-hdfs-nn-0   1/1     Running   0          144m
+hadoop-hadoop-yarn-nm-0   1/1     Running   0          144m
+hadoop-hadoop-yarn-rm-0   1/1     Running   0          144m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;launch-a-test-job&quot;&gt;Launch a test job&lt;/h2&gt;
+
+&lt;p&gt;Get a terminal on the YARN node manager:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash login_yarn.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You have now access to the Hadoop 2.9.0 cluster.
+Launch a test MapReduce job to compute pi:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/yarn jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.0.jar pi 16 1000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;access-the-yarn-dashboard&quot;&gt;Access the YARN Dashboard&lt;/h2&gt;
+
+&lt;p&gt;You can also export the YARN dashboard from the cluster to your local machine.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash expose_yarn.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Connect locally to port 8088 to check the status of the jobs.&lt;/p&gt;
+
+&lt;p&gt;Make sure this port is never exposed publicly. I learned the hard way that there are botnets scanning the internet and compromising the YARN service for crypto-mining, see &lt;a href=&quot;https://tolisec.com/yarn-botnet/&quot;&gt;this article for details&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="jetstream" /><summary type="html">We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.</summary></entry><entry><title type="html">Plot HEALPix pixel boundaries</title><link href="https://zonca.dev/2021/10/healpix-plot-pixel-boundaries.html" rel="alternate" type="text/html" title="Plot HEALPix pixel boundaries" /><published>2021-10-06T00:00:00-05:00</published><updated>2021-10-06T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/healpix-plot-pixel-boundaries</id><content type="html" xml:base="https://zonca.dev/2021/10/healpix-plot-pixel-boundaries.html">&lt;p&gt;Some time ago I created a Jupyter Notebook based on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plotly&lt;/code&gt; to create a 3D visualization of the boundaries of HEALPix pixels on the sphere.&lt;/p&gt;
 
 &lt;p&gt;The notebook is available on Gist at &lt;a href=&quot;https://gist.github.com/zonca/b3045651cbc90fe699d2e56df490b005&quot;&gt;https://gist.github.com/zonca/b3045651cbc90fe699d2e56df490b005&lt;/a&gt;.&lt;/p&gt;
 
@@ -608,50 +663,4 @@ Mismatched elements: 1 / 3072 (0.0326%)
 
 &lt;p&gt;See the &lt;a href=&quot;https://www.italianschoolsd.com/classes&quot;&gt;available Italian in-person classes in San Diego&lt;/a&gt;, they are split in 2 tracks, one for people looking to learn Italian, one for kids that have Italian heritage and want to follow the same program taught in Italy’s public school system.&lt;/p&gt;
 
-&lt;p&gt;Classes are online and in-person in University City, San Diego.&lt;/p&gt;</content><author><name></name></author><category term="italian" /><summary type="html">My wife Maura D’Andrea recently opened a new Italian language school in San Diego.</summary></entry><entry><title type="html">Migrate from Google Docs to Overleaf and Github</title><link href="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html" rel="alternate" type="text/html" title="Migrate from Google Docs to Overleaf and Github" /><published>2021-05-20T00:00:00-05:00</published><updated>2021-05-20T00:00:00-05:00</updated><id>https://zonca.dev/2021/05/google-docs-to-overleaf-github</id><content type="html" xml:base="https://zonca.dev/2021/05/google-docs-to-overleaf-github.html">&lt;p&gt;Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex.
-In particular we can support both Google Docs style editing via Overleaf and Pull Request reviewing via Github.&lt;/p&gt;
-
-&lt;h2 id=&quot;convert-google-docs-document-to-latex&quot;&gt;Convert Google Docs document to Latex&lt;/h2&gt;
-
-&lt;p&gt;I was impressed about how well &lt;a href=&quot;https://docx2latex.com&quot;&gt;docx2latex.com&lt;/a&gt; worked,
-it correctly imported:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;sectioning based on title styles in Google Docs&lt;/li&gt;
-  &lt;li&gt;all images&lt;/li&gt;
-  &lt;li&gt;tables!&lt;/li&gt;
-  &lt;li&gt;page header with image!&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Just download the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docx&lt;/code&gt; from Google Docs and upload to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;docx2latex&lt;/code&gt;,
-if needs to be &amp;lt; 10 MB, so remove large images before exporting from Google Docs if it is bigger.&lt;/p&gt;
-
-&lt;p&gt;Then you will be able to download a zip with the Latex source and images.&lt;/p&gt;
-
-&lt;h2 id=&quot;import-to-github&quot;&gt;Import to Github&lt;/h2&gt;
-
-&lt;p&gt;If you don’t need Github, you can directly upload the zip archive to Overleaf and be done.&lt;/p&gt;
-
-&lt;p&gt;However, it is nice to have a backup on Github, and support users that prefer editing latex outside of their browser…&lt;/p&gt;
-
-&lt;p&gt;So create a repository, even private and upload the content of the archive after having removed the PDF artifacts.&lt;/p&gt;
-
-&lt;h2 id=&quot;integration-with-overleaf&quot;&gt;Integration with Overleaf&lt;/h2&gt;
-
-&lt;p&gt;Main issue the Github integration with Overleaf is they require write access to all your repositories (!! crazy, I know).&lt;/p&gt;
-
-&lt;p&gt;So let’s create a new Github account, I called mine &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zoncaoverleafbot&lt;/code&gt; and invite the new user to be a Collaborator to the repository.&lt;/p&gt;
-
-&lt;p&gt;Then login to Overleaf with your real account, click on “Import from Github”, and when you are redirected to Github to link your account, link &lt;strong&gt;the overleafbot&lt;/strong&gt; account instead, which only has access to the Latex repositories.&lt;/p&gt;
-
-&lt;p&gt;Now on Overleaf click on “New project” and “Import from Github”.&lt;/p&gt;
-
-&lt;p&gt;If your repository doesn’t show in the list, it is probably because it belongs to an organization, in that case &lt;a href=&quot;https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/managing-your-membership-in-organizations/requesting-organization-approval-for-oauth-apps&quot;&gt;see the Github help to fix it&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;synchronization&quot;&gt;Synchronization&lt;/h2&gt;
-
-&lt;p&gt;Synchronization of Overleaf and Github is always done on Overleaf.&lt;/p&gt;
-
-&lt;p&gt;Once in a while, you can manually synchronize from/to Github using the Github button.
-If you share the project by sending someone the “Edit” link, they can also use the Github integration that the project owner has configured, so no need for them to link their Github account.
-Best would be for each Overleaf user, each time they login, to pull changes from Github before starting to work and push their changes with a commit message when they are done.&lt;/p&gt;</content><author><name></name></author><category term="latex" /><category term="git" /><summary type="html">Once a document on Google Docs becomes too big and complicated to make sure it is consistent, it is a good idea to migrate it to Latex. In particular we can support both Google Docs style editing via Overleaf and Pull Request reviewing via Github.</summary></entry></feed>
+&lt;p&gt;Classes are online and in-person in University City, San Diego.&lt;/p&gt;</content><author><name></name></author><category term="italian" /><summary type="html">My wife Maura D’Andrea recently opened a new Italian language school in San Diego.</summary></entry></feed>
