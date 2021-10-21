@@ -22,6 +22,8 @@ I am available for [consulting, code-review, software infrastructure design](/co
 Contact me via [Twitter](https://twitter.com/andreazonca) or email (`andrea` on the domain
 andreazonca.com).
 
+<a href="https://stackoverflow.com/users/597609/andrea-zonca"><img src="https://stackoverflow.com/users/flair/597609.png?theme=clean" width="208" height="58" alt="profile for Andrea Zonca at Stack Overflow" title="profile for Andrea Zonca at Stack Overflow"></a>
+
 This website is powered by **[fastpages](https://github.com/fastai/fastpages)** [^1].
 
 [^1]:a blogging platform that natively supports Jupyter notebooks in addition to other formats.
