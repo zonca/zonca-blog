@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Kubernetes certifications CKA and CKAD | Andrea Zonca</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Kubernetes certifications CKA and CKAD" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="I recently pursued 2 Kubernetes certifications by Linux Foundation:" />
+<meta property="og:description" content="I recently pursued 2 Kubernetes certifications by Linux Foundation:" />
+<link rel="canonical" href="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html" />
+<meta property="og:url" content="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html" />
+<meta property="og:site_name" content="Andrea Zonca" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-11-04T00:00:00-05:00" />
+<script type="application/ld+json">
+{"headline":"Kubernetes certifications CKA and CKAD","url":"https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html","dateModified":"2021-11-04T00:00:00-05:00","datePublished":"2021-11-04T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html"},"description":"I recently pursued 2 Kubernetes certifications by Linux Foundation:","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Andrea Zonca</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About Me</a><a class="page-link" href="/consult/">Consulting</a><a class="page-link" href="/search/">Search</a><a class="page-link" href="/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Kubernetes certifications CKA and CKAD</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-11-04T00:00:00-05:00" itemprop="datePublished">
+        Nov 4, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#kubernetes">kubernetes</a>
+        
+      
+      </p>
+    
+
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/zonca/zonca-blog/tree/master/_posts/2021-11-04-cka-ckad-kubernetes-certification.md" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+    </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I recently pursued 2 Kubernetes certifications by Linux Foundation:</p>
+
+<ul>
+  <li>Certified Kubernetes Administrator (CKA)</li>
+  <li>Certified Kubernetes Application Developer (CKAD)</li>
+</ul>
+
+<p>I have been deploying, managing and using Kubernetes on Jetstream for more than 4 years
+(<a href="https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html">my first tutorial back in 2017</a>).</p>
+
+<p>However I never did any formal training so my knowledge was sparse.
+I was extremely useful to follow the 2 classes by Linux Foundation related to the certifications, they gave
+me a more systematic view of all parts of Kubernetes.</p>
+
+<p>I decided to follow both, but there is a lot of overlap, so better choose one of the 2,
+if you are more interested in using Kubernetes to deploy applications, do only CKAD and the related class,
+if you need to administer Kubernetes deployments, take only CKA.</p>
+
+<p>The most important part of the training is the “test session” on Killer.sh, this is a simulation of the real
+certification exam and gives you a lot of experience in being fast in navigating the docs and using <code class="language-plaintext highlighter-rouge">kubectl</code>.
+The exam itself also teaches a lot, you are logging into Kubernetes clusters, solving issues and performing real-world tasks.</p>
+
+<p>The certification exam is done via proctoring, but the process is quite painless.
+For the exam you really need to be fast and know how to create resources with <code class="language-plaintext highlighter-rouge">kubectl create</code> instead of writing
+YAML every time, go for YAML just for the more complicated resources. I got to the end of both exams with 15 minutes to spare on the total of 2 hours, that I used to debug the questions I couldn’t do in the first pass.</p>
+
+<h2 id="suggestions-for-the-tests">Suggestions for the tests</h2>
+
+<p>Have bookmarks ready, I found a set on the web and added a few of my own, see <a href="https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5">https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5</a>, you can also copy the links to the YAML files and do <code class="language-plaintext highlighter-rouge">wget</code> from the terminal.</p>
+
+<h3 id="bash">Bash</h3>
+
+<p>You need to memorize these variables and aliases to type into <code class="language-plaintext highlighter-rouge">.bashrc</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export do="--dry-run=client -o yaml"
+export now="--force --grace-period 0"
+alias  kr="kubectl --replace $now -f"
+export VISUAL=vim
+export EDITOR=vim
+</code></pre></div></div>
+
+<p>The variables about <code class="language-plaintext highlighter-rouge">vim</code> are needed to have <code class="language-plaintext highlighter-rouge">vim</code> keybindings in TMUX.
+<code class="language-plaintext highlighter-rouge">kr</code> is very useful because you can use it instead of <code class="language-plaintext highlighter-rouge">k apply -f</code> and you have it ready if you need to modify the YAML and replace the resource.</p>
+
+<p><code class="language-plaintext highlighter-rouge">$do</code> is necessary to create the YAML for a resource with <code class="language-plaintext highlighter-rouge">k create</code> and then go from there.
+<code class="language-plaintext highlighter-rouge">$now</code> just to quickly delete resources.</p>
+
+<h3 id="vim">Vim</h3>
+
+<p>Minimal <code class="language-plaintext highlighter-rouge">.vimrc</code> for editing YAML files:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set expandtab
+set shiftwidth=2
+set tabstop=2
+</code></pre></div></div>
+
+<h3 id="tmux">TMux</h3>
+
+<p>You already use TMux, so it is useful to have 2 windows, the first one for <code class="language-plaintext highlighter-rouge">kubectl</code> and the second for <code class="language-plaintext highlighter-rouge">vim</code>, it is important not to confuse them, you only go configure the environment in the first window, so you can run <code class="language-plaintext highlighter-rouge">kubectl</code> only there.</p>
+
+<p>In case you use the <code class="language-plaintext highlighter-rouge">screen</code> mode with <code class="language-plaintext highlighter-rouge">CTRL-A</code> as I do, no need to memorize the spell, just open <code class="language-plaintext highlighter-rouge">man tmux</code>, search for <code class="language-plaintext highlighter-rouge">default prefix</code> and copy paste into <code class="language-plaintext highlighter-rouge">.tmux.conf</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>set-option -g prefix C-a
+unbind-key C-b
+bind-key C-a send-prefix
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/2021/11/cka-ckad-kubernetes-certification.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/zonca" title="zonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/andreazonca" title="andreazonca"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
