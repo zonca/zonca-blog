@@ -40,7 +40,7 @@ Github has launched the Github Sponsors program specifically to fund open-source
 Funds will cover extra hours on top of my work week that I will dedicate exclusively to `healpy`, in particular:
 
 * fix bugs
-* review Pull Requests with code contribution
+* review Pull Requests with code contributions
 * work on the re-factoring from a HEALPix C++ to a `ducc` backend
 * [write tutorials on how to use `healpy` for CMB data analysis](https://zonca.dev/categories/#healpy)
 * [answer `healpy`-related questions on Stack Overflow](https://stackoverflow.com/users/597609/andrea-zonca?tab=answers)
