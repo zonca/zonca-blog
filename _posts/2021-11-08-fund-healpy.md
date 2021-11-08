@@ -15,8 +15,8 @@ categories: [healpy]
 
 ## Current status of `healpy`
 
-I have been the lead maintainer of `healpy` since 2010, when I was working as a PostDoc at University of California Santa Barbara.
-The package is now close to a large refactoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, [`ducc0`](https://pypi.org/project/ducc0/), which includes all the low-level functionality needed by `healpy`.
+I have been the lead maintainer of `healpy` since 2010, when I was working as a Postdoc at University of California Santa Barbara.
+The package is now close to a large re-factoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, [`ducc0`](https://pypi.org/project/ducc0/), which includes all the low-level functionality needed by `healpy`.
 The plan is to create a major rewrite of `healpy`, changing the interface, and provide a higher level interface to `ducc0` as a pure Python package which has all the features of the current `healpy` versions, i.e. file I/O, plotting, interface to spherical harmonics transforms.
 
 ## Funding for `healpy`
@@ -28,8 +28,8 @@ We recently applied for a NASA grant that would fund `healpy` work at 20% Full T
 
 ## Using Github Sponsors
 
-So my idea for long-term susteinability of `healpy` is to ask projects using `healpy` on a daily bases to support the maintenance of the package on their grants.
-Afterall, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maitenance of `healpy`, we could have a healthier sustainability plan for `healpy`.
+So my idea for long-term sustainability of `healpy` is to ask projects using `healpy` on a daily basis to support the maintenance of the package on their grants.
+After all, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maintenance of `healpy`, we could have a healthier sustainability plan for `healpy`.
 
 Github has launched the Github Sponsors program specifically to fund open-source software. People can make a recurring or one-time contribution to a project or to a developer.
 
@@ -41,7 +41,7 @@ Funds will cover extra hours on top of my work week that I will dedicate exclusi
 
 * fix bugs
 * review Pull Requests with code contribution
-* work on the refactoring from a HEALPix C++ to a `ducc` backend
+* work on the re-factoring from a HEALPix C++ to a `ducc` backend
 * [write tutorials on how to use `healpy` for CMB data analysis](https://zonca.dev/categories/#healpy)
 * [answer `healpy`-related questions on Stack Overflow](https://stackoverflow.com/users/597609/andrea-zonca?tab=answers)
 
