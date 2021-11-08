@@ -13,6 +13,11 @@ categories: [healpy]
 * Consider using grants to fund `healpy` through [Github Sponsors](https://github.com/sponsors/zonca?frequency=recurring&sponsor=zonca)
 * This will fund extra working hours for Andrea Zonca to work on the project
 
+## Preamble
+
+In ~2007 I was a Graduate Student at the Italian Istitute of Astrophysics, I was using `numpy`, just created a couple of years prior.
+I remember that Travis Oliphant, the developer of `numpy`, was asking for a contribution to get a PDF version of the manual. I realized I could have helped development of this key Python package and I was able to purchase it on our funding for the [Planck mission](https://www.esa.int/Science_Exploration/Space_Science/Planck).
+
 ## Current status of `healpy`
 
 I have been the lead maintainer of `healpy` since 2010, when I was working as a Postdoc at University of California Santa Barbara.
