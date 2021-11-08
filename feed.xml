@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-11-08T15:37:38-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Fund healpy via Github Sponsors</title><link href="https://zonca.dev/2021/11/fund-healpy.html" rel="alternate" type="text/html" title="Fund healpy via Github Sponsors" /><published>2021-11-08T00:00:00-06:00</published><updated>2021-11-08T00:00:00-06:00</updated><id>https://zonca.dev/2021/11/fund-healpy</id><content type="html" xml:base="https://zonca.dev/2021/11/fund-healpy.html">&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-11-08T16:24:33-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Fund healpy via Github Sponsors</title><link href="https://zonca.dev/2021/11/fund-healpy.html" rel="alternate" type="text/html" title="Fund healpy via Github Sponsors" /><published>2021-11-08T00:00:00-06:00</published><updated>2021-11-08T00:00:00-06:00</updated><id>https://zonca.dev/2021/11/fund-healpy</id><content type="html" xml:base="https://zonca.dev/2021/11/fund-healpy.html">&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
 
@@ -9,10 +9,15 @@
   &lt;li&gt;This will fund extra working hours for Andrea Zonca to work on the project&lt;/li&gt;
 &lt;/ul&gt;
 
+&lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
+
+&lt;p&gt;In ~2007 I was a Graduate Student at the Italian Istitute of Astrophysics, I was using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, just created a couple of years prior.
+I remember that Travis Oliphant, the developer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, was asking for a contribution to get a PDF version of the manual. I realized I could have helped development of this key Python package and I was able to purchase it on our funding for the &lt;a href=&quot;https://www.esa.int/Science_Exploration/Space_Science/Planck&quot;&gt;Planck mission&lt;/a&gt;.&lt;/p&gt;
+
 &lt;h2 id=&quot;current-status-of-healpy&quot;&gt;Current status of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
 
-&lt;p&gt;I have been the lead maintainer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; since 2010, when I was working as a PostDoc at University of California Santa Barbara.
-The package is now close to a large refactoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, &lt;a href=&quot;https://pypi.org/project/ducc0/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt;&lt;/a&gt;, which includes all the low-level functionality needed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.
+&lt;p&gt;I have been the lead maintainer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; since 2010, when I was working as a Postdoc at University of California Santa Barbara.
+The package is now close to a large re-factoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, &lt;a href=&quot;https://pypi.org/project/ducc0/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt;&lt;/a&gt;, which includes all the low-level functionality needed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.
 The plan is to create a major rewrite of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, changing the interface, and provide a higher level interface to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt; as a pure Python package which has all the features of the current &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; versions, i.e. file I/O, plotting, interface to spherical harmonics transforms.&lt;/p&gt;
 
 &lt;h2 id=&quot;funding-for-healpy&quot;&gt;Funding for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
@@ -24,8 +29,8 @@ This is getting more and more complicated as I advance my career and get more re
 
 &lt;h2 id=&quot;using-github-sponsors&quot;&gt;Using Github Sponsors&lt;/h2&gt;
 
-&lt;p&gt;So my idea for long-term susteinability of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is to ask projects using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; on a daily bases to support the maintenance of the package on their grants.
-Afterall, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maitenance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, we could have a healthier sustainability plan for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;So my idea for long-term sustainability of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is to ask projects using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; on a daily basis to support the maintenance of the package on their grants.
+After all, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maintenance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, we could have a healthier sustainability plan for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
 
 &lt;p&gt;Github has launched the Github Sponsors program specifically to fund open-source software. People can make a recurring or one-time contribution to a project or to a developer.&lt;/p&gt;
 
@@ -37,8 +42,8 @@ Afterall, back in the day, everybody was paying for IDL licenses. Now, if Princi
 
 &lt;ul&gt;
   &lt;li&gt;fix bugs&lt;/li&gt;
-  &lt;li&gt;review Pull Requests with code contribution&lt;/li&gt;
-  &lt;li&gt;work on the refactoring from a HEALPix C++ to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc&lt;/code&gt; backend&lt;/li&gt;
+  &lt;li&gt;review Pull Requests with code contributions&lt;/li&gt;
+  &lt;li&gt;work on the re-factoring from a HEALPix C++ to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc&lt;/code&gt; backend&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://zonca.dev/categories/#healpy&quot;&gt;write tutorials on how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; for CMB data analysis&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/users/597609/andrea-zonca?tab=answers&quot;&gt;answer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;-related questions on Stack Overflow&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
