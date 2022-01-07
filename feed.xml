@@ -1,56 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2021-11-08T16:24:33-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Fund healpy via Github Sponsors</title><link href="https://zonca.dev/2021/11/fund-healpy.html" rel="alternate" type="text/html" title="Fund healpy via Github Sponsors" /><published>2021-11-08T00:00:00-06:00</published><updated>2021-11-08T00:00:00-06:00</updated><id>https://zonca.dev/2021/11/fund-healpy</id><content type="html" xml:base="https://zonca.dev/2021/11/fund-healpy.html">&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-01-07T11:15:16-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Make for repeated commands</title><link href="https://zonca.dev/2022/01/make.html" rel="alternate" type="text/html" title="Make for repeated commands" /><published>2022-01-07T00:00:00-06:00</published><updated>2022-01-07T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/make</id><content type="html" xml:base="https://zonca.dev/2022/01/make.html">&lt;p&gt;I often find myself repeat the same commands in a project,
+for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).&lt;/p&gt;
 
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+&lt;p&gt;Instead of relying on bash history or writing a few bash scripts, it is just easier
+to write a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Makefile&lt;/code&gt;, even if you do not use the Make dependencies and you just use
+it as a collection of useful commands.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is low-level necessary tooling for working with cosmology data&lt;/li&gt;
-  &lt;li&gt;There is never funding for maintaining &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Consider using grants to fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; through &lt;a href=&quot;https://github.com/sponsors/zonca?frequency=recurring&amp;amp;sponsor=zonca&quot;&gt;Github Sponsors&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;This will fund extra working hours for Andrea Zonca to work on the project&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Here is a template to start from, which supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make list&lt;/code&gt; to show available targets
+and shows how to pass arguments to a command:&lt;/p&gt;
 
-&lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
-
-&lt;p&gt;In ~2007 I was a Graduate Student at the Italian Istitute of Astrophysics, I was using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, just created a couple of years prior.
-I remember that Travis Oliphant, the developer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, was asking for a contribution to get a PDF version of the manual. I realized I could have helped development of this key Python package and I was able to purchase it on our funding for the &lt;a href=&quot;https://www.esa.int/Science_Exploration/Space_Science/Planck&quot;&gt;Planck mission&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;current-status-of-healpy&quot;&gt;Current status of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;I have been the lead maintainer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; since 2010, when I was working as a Postdoc at University of California Santa Barbara.
-The package is now close to a large re-factoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, &lt;a href=&quot;https://pypi.org/project/ducc0/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt;&lt;/a&gt;, which includes all the low-level functionality needed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.
-The plan is to create a major rewrite of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, changing the interface, and provide a higher level interface to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt; as a pure Python package which has all the features of the current &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; versions, i.e. file I/O, plotting, interface to spherical harmonics transforms.&lt;/p&gt;
-
-&lt;h2 id=&quot;funding-for-healpy&quot;&gt;Funding for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;There have never been funding specifically focused on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, I have generally took time out of my working week to maintain the package, instead of working on the project I was funded for.
-This is getting more and more complicated as I advance my career and get more responsibilities.&lt;/p&gt;
-
-&lt;p&gt;We recently applied for a NASA grant that would fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; work at 20% Full Time Equivalent for 3 years, it got “very good” reviews, but was not funded.&lt;/p&gt;
-
-&lt;h2 id=&quot;using-github-sponsors&quot;&gt;Using Github Sponsors&lt;/h2&gt;
-
-&lt;p&gt;So my idea for long-term sustainability of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is to ask projects using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; on a daily basis to support the maintenance of the package on their grants.
-After all, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maintenance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, we could have a healthier sustainability plan for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Github has launched the Github Sponsors program specifically to fund open-source software. People can make a recurring or one-time contribution to a project or to a developer.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;how-funds-will-be-used&quot;&gt;How funds will be used&lt;/h2&gt;
-
-&lt;p&gt;Funds will cover extra hours on top of my work week that I will dedicate exclusively to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, in particular:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;fix bugs&lt;/li&gt;
-  &lt;li&gt;review Pull Requests with code contributions&lt;/li&gt;
-  &lt;li&gt;work on the re-factoring from a HEALPix C++ to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc&lt;/code&gt; backend&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/categories/#healpy&quot;&gt;write tutorials on how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; for CMB data analysis&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/users/597609/andrea-zonca?tab=answers&quot;&gt;answer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;-related questions on Stack Overflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
-
-&lt;p&gt;If you have any feedback, please &lt;a href=&quot;https://twitter.com/andreazonca&quot;&gt;tweet &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@andreazonca&lt;/code&gt;&lt;/a&gt; or email &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdsc.edu&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><category term="healpy" /><summary type="html">Github Sponsor page</summary></entry><entry><title type="html">Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling</title><link href="https://zonca.dev/2021/11/healpix-gauss-legendre-pysm.html" rel="alternate" type="text/html" title="Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling" /><published>2021-11-07T00:00:00-05:00</published><updated>2021-11-07T00:00:00-05:00</updated><id>https://zonca.dev/2021/11/healpix-gauss-legendre-pysm</id><content type="html" xml:base="https://zonca.dev/2021/11/healpix-gauss-legendre-pysm.html">&lt;!--
+&lt;script src=&quot;https://gist.github.com/zonca/fd1980c1aeac394bfc854fce24b9b0df.js&quot;&gt;&lt;/script&gt;</content><author><name></name></author><category term="make" /><summary type="html">I often find myself repeat the same commands in a project, for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).</summary></entry><entry><title type="html">Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling</title><link href="https://zonca.dev/2022/01/healpix-gauss-legendre-pysm.html" rel="alternate" type="text/html" title="Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling" /><published>2022-01-06T00:00:00-06:00</published><updated>2022-01-06T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/healpix-gauss-legendre-pysm</id><content type="html" xml:base="https://zonca.dev/2022/01/healpix-gauss-legendre-pysm.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -892,7 +850,59 @@ $1.6106127 \; \mathrm{Gbyte}$
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><category term="healpy" /><category term="pysm" /><category term="cmb" /><category term="cosmology" /><summary type="html"></summary></entry><entry><title type="html">Kubernetes certifications CKA and CKAD</title><link href="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html" rel="alternate" type="text/html" title="Kubernetes certifications CKA and CKAD" /><published>2021-11-04T00:00:00-05:00</published><updated>2021-11-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/11/cka-ckad-kubernetes-certification</id><content type="html" xml:base="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html">&lt;p&gt;I recently pursued 2 Kubernetes certifications by Linux Foundation:&lt;/p&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="healpy" /><category term="pysm" /><category term="cmb" /><category term="cosmology" /><summary type="html"></summary></entry><entry><title type="html">Fund healpy via Github Sponsors</title><link href="https://zonca.dev/2021/11/fund-healpy.html" rel="alternate" type="text/html" title="Fund healpy via Github Sponsors" /><published>2021-11-08T00:00:00-06:00</published><updated>2021-11-08T00:00:00-06:00</updated><id>https://zonca.dev/2021/11/fund-healpy</id><content type="html" xml:base="https://zonca.dev/2021/11/fund-healpy.html">&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is low-level necessary tooling for working with cosmology data&lt;/li&gt;
+  &lt;li&gt;There is never funding for maintaining &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Consider using grants to fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; through &lt;a href=&quot;https://github.com/sponsors/zonca?frequency=recurring&amp;amp;sponsor=zonca&quot;&gt;Github Sponsors&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;This will fund extra working hours for Andrea Zonca to work on the project&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
+
+&lt;p&gt;In ~2007 I was a Graduate Student at the Italian Istitute of Astrophysics, I was using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, just created a couple of years prior.
+I remember that Travis Oliphant, the developer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, was asking for a contribution to get a PDF version of the manual. I realized I could have helped development of this key Python package and I was able to purchase it on our funding for the &lt;a href=&quot;https://www.esa.int/Science_Exploration/Space_Science/Planck&quot;&gt;Planck mission&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;current-status-of-healpy&quot;&gt;Current status of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;I have been the lead maintainer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; since 2010, when I was working as a Postdoc at University of California Santa Barbara.
+The package is now close to a large re-factoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, &lt;a href=&quot;https://pypi.org/project/ducc0/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt;&lt;/a&gt;, which includes all the low-level functionality needed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.
+The plan is to create a major rewrite of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, changing the interface, and provide a higher level interface to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt; as a pure Python package which has all the features of the current &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; versions, i.e. file I/O, plotting, interface to spherical harmonics transforms.&lt;/p&gt;
+
+&lt;h2 id=&quot;funding-for-healpy&quot;&gt;Funding for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;There have never been funding specifically focused on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, I have generally took time out of my working week to maintain the package, instead of working on the project I was funded for.
+This is getting more and more complicated as I advance my career and get more responsibilities.&lt;/p&gt;
+
+&lt;p&gt;We recently applied for a NASA grant that would fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; work at 20% Full Time Equivalent for 3 years, it got “very good” reviews, but was not funded.&lt;/p&gt;
+
+&lt;h2 id=&quot;using-github-sponsors&quot;&gt;Using Github Sponsors&lt;/h2&gt;
+
+&lt;p&gt;So my idea for long-term sustainability of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is to ask projects using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; on a daily basis to support the maintenance of the package on their grants.
+After all, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maintenance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, we could have a healthier sustainability plan for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Github has launched the Github Sponsors program specifically to fund open-source software. People can make a recurring or one-time contribution to a project or to a developer.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;how-funds-will-be-used&quot;&gt;How funds will be used&lt;/h2&gt;
+
+&lt;p&gt;Funds will cover extra hours on top of my work week that I will dedicate exclusively to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, in particular:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;fix bugs&lt;/li&gt;
+  &lt;li&gt;review Pull Requests with code contributions&lt;/li&gt;
+  &lt;li&gt;work on the re-factoring from a HEALPix C++ to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc&lt;/code&gt; backend&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/categories/#healpy&quot;&gt;write tutorials on how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; for CMB data analysis&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/users/597609/andrea-zonca?tab=answers&quot;&gt;answer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;-related questions on Stack Overflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
+
+&lt;p&gt;If you have any feedback, please &lt;a href=&quot;https://twitter.com/andreazonca&quot;&gt;tweet &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@andreazonca&lt;/code&gt;&lt;/a&gt; or email &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdsc.edu&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><category term="healpy" /><summary type="html">Github Sponsor page</summary></entry><entry><title type="html">Kubernetes certifications CKA and CKAD</title><link href="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html" rel="alternate" type="text/html" title="Kubernetes certifications CKA and CKAD" /><published>2021-11-04T00:00:00-05:00</published><updated>2021-11-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/11/cka-ckad-kubernetes-certification</id><content type="html" xml:base="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html">&lt;p&gt;I recently pursued 2 Kubernetes certifications by Linux Foundation:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Certified Kubernetes Administrator (CKA)&lt;/li&gt;
@@ -1120,20 +1130,4 @@ I started from the suggestions discussed &lt;a href=&quot;https://github.com/ope
   &lt;li&gt;uploaded &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paper.tex&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paper.bib&lt;/code&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logo.png&lt;/code&gt; to Overleaf&lt;/li&gt;
   &lt;li&gt;downloaded &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;output.bbl&lt;/code&gt; from Overleaf, renamed to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paper.bbl&lt;/code&gt;&lt;/li&gt;
   &lt;li&gt;uploaded &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paper.tex&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;logo.png&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;paper.bbl&lt;/code&gt; to arxiv&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="writing" /><summary type="html">If you are in Astrophysics, you probably want to have your JOSS paper published to the Arxiv.</summary></entry><entry><title type="html">Configure dreamhost email</title><link href="https://zonca.dev/2021/06/dreamhost-email.html" rel="alternate" type="text/html" title="Configure dreamhost email" /><published>2021-06-27T00:00:00-05:00</published><updated>2021-06-27T00:00:00-05:00</updated><id>https://zonca.dev/2021/06/dreamhost-email</id><content type="html" xml:base="https://zonca.dev/2021/06/dreamhost-email.html">&lt;p&gt;Configuration to read Dreamhost email from Gmail:&lt;/p&gt;
-
-&lt;h2 id=&quot;receive&quot;&gt;Receive&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Server &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pop.dreamhost.com&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Always use SSL&lt;/li&gt;
-  &lt;li&gt;Port 995&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;send&quot;&gt;Send&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Server &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;smtp.dreamhost.com&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Use SSL&lt;/li&gt;
-  &lt;li&gt;Port 465&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="dreamhost" /><summary type="html">Configuration to read Dreamhost email from Gmail:</summary></entry></feed>
+&lt;/ul&gt;</content><author><name></name></author><category term="writing" /><summary type="html">If you are in Astrophysics, you probably want to have your JOSS paper published to the Arxiv.</summary></entry></feed>
