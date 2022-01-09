@@ -272,7 +272,7 @@ ssh-add ~/.ssh/id_rsa
 
 <h2 id="install-kubernetes-with-kubespray">Install Kubernetes with <code class="language-plaintext highlighter-rouge">kubespray</code></h2>
 
-<p>check <code class="language-plaintext highlighter-rouge">inventory/$CLUSTER/group_vars/all.yml</code>, in particular <code class="language-plaintext highlighter-rouge">bootstrap_os</code>, I setup <code class="language-plaintext highlighter-rouge">ubuntu</code>, change it to <code class="language-plaintext highlighter-rouge">centos</code> if you used the Centos 7 base image.</p>
+<p>check <code class="language-plaintext highlighter-rouge">inventory/$CLUSTER/group_vars/all/all.yml</code>, in particular <code class="language-plaintext highlighter-rouge">bootstrap_os</code>, I setup <code class="language-plaintext highlighter-rouge">ubuntu</code>, change it to <code class="language-plaintext highlighter-rouge">centos</code> if you used the Centos 7 base image.</p>
 
 <p>In <code class="language-plaintext highlighter-rouge">inventory/$CLUSTER/group_vars/k8s-cluster/k8s-cluster.yml</code>, set the public floating IP of the master instance in <code class="language-plaintext highlighter-rouge">supplementary_addresses_in_ssl_keys</code>.</p>
 
