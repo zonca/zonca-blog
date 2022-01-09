@@ -136,7 +136,7 @@ Or delete it and run `terraform_apply.sh` to create it again.
 
 ## Install Kubernetes with `kubespray`
 
-check `inventory/$CLUSTER/group_vars/all.yml`, in particular `bootstrap_os`, I setup `ubuntu`, change it to `centos` if you used the Centos 7 base image.
+check `inventory/$CLUSTER/group_vars/all/all.yml`, in particular `bootstrap_os`, I setup `ubuntu`, change it to `centos` if you used the Centos 7 base image.
 
 In `inventory/$CLUSTER/group_vars/k8s-cluster/k8s-cluster.yml`, set the public floating IP of the master instance in `supplementary_addresses_in_ssl_keys`.
 
