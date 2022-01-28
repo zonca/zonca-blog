@@ -4,8 +4,6 @@ title: Deploy Dask Gateway with JupyterHub on Kubernetes
 categories: [kubernetes, openstack, jetstream, jupyterhub, dask]
 ---
 
-**This tutorial is obsolete, please follow <https://zonca.dev/2022/01/dask-gateway-jupyterhub.html>**
-
 This tutorial follows the work by the Pangeo collaboration,
 the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
 in 2 separate `Helm` recipes.
@@ -61,7 +59,7 @@ you can modify it and add another `values` option at the end, `--values dask_gat
 
 You can modify the image you are using for Jupyterhub in `dask_gateway/config_jupyterhub.yaml`.
 
-To assure that there are not compatibility issues, the "Client" (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of `dask`, `distributed` and `dask_gateway`. If this is not possible, you can test different combinations and they might work. For example I tested a "Client" on Python 3.6 and everything else with Python 3.7 and seems to be working fine.
+To assure that there are not compatibility issues, the "Client" (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of `dask`, `distributed` and `dask_gateway`. If this is not possible, you can test different combinations and they might work. The Pangeo notebook image I am using has a `dask` version too new compared to Dask Gateway 0.9.0, so I downgrade it directly in the example Notebook.
 
 Then redeploy JupyterHub:
 
@@ -97,13 +95,15 @@ gateway.list_clusters()
 Then create a cluster and use it:
 
 ```python
-cluster = gateway.new_cluster(public_address = gateway._public_address)
+cluster = gateway.new_cluster()
 cluster.scale(2)
 client = cluster.get_client()
 ```
 
 Client is a standard `distributed` client and all subsequent calls to dask will go
 through the cluster.
+
+Printing the `cluster` object gives the link to the Dask dashboard.
 
 For a full example and screenshots of the widgets and of the dashboard see:
 
