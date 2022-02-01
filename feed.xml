@@ -1,8 +1,250 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-01-28T00:22:04-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling</title><link href="https://zonca.dev/2022/01/healpix-gauss-legendre-pysm.html" rel="alternate" type="text/html" title="Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/healpix-gauss-legendre-pysm</id><content type="html" xml:base="https://zonca.dev/2022/01/healpix-gauss-legendre-pysm.html">&lt;!--
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-02-01T01:34:01-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
+the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
+in 2 separate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Helm&lt;/code&gt; recipes.&lt;/p&gt;
+
+&lt;p&gt;I assume to start from a Kubernetes cluster already running and
+JupyterHub deployed on top of it via Helm. And SSL encryption also activated (it isn’t probably necessary, but I haven’t tested that).
+I tested on Jetstream, but this is agnostic of that.&lt;/p&gt;
+
+&lt;h2 id=&quot;preparation&quot;&gt;Preparation&lt;/h2&gt;
+
+&lt;p&gt;Clone on the machine you use to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helm&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; the repository
+with the configuration files and scripts:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you need to setup one API token, create it with:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl rand -hex 32
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then paste it both in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_dask-gateway.yaml&lt;/code&gt;,
+look for the string &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TOKEN&lt;/code&gt; and replace it.&lt;/p&gt;
+
+&lt;h2 id=&quot;launch-dask-gateway&quot;&gt;Launch dask gateway&lt;/h2&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://gateway.dask.org/install-kube.html&quot;&gt;dask gateway documentation&lt;/a&gt; for reference:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ helm repo add daskgateway https://dask.org/dask-gateway-helm-repo/
+$ helm repo update
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;enter the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt; folder and run:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash install_dask-gateway.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You might want to check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config_dask-gateway.yaml&lt;/code&gt; for extra configuration options, but for initial setup and testing it shouldn’t be necessary.&lt;/p&gt;
+
+&lt;p&gt;After this you should see the 3 dask gateway pods running, e.g.:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl -n jhub get pods
+NAME                                       READY   STATUS    RESTARTS   AGE
+api-dask-gateway-64bf5db96c-4xfd6          1/1     Running   2          23m
+controller-dask-gateway-7674bd545d-cwfnx   1/1     Running   0          23m
+traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;modify-the-jupyterhub-configuration&quot;&gt;Modify the JupyterHub configuration&lt;/h2&gt;
+
+&lt;p&gt;Only 2 options need to be changed in JupyterHub:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We need to run a image which has the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; we installed on Kubernetes (currently &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.8.0&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;We need to proxy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; through JupyterHub so the users can access the Dask dashboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are using my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; script to deploy JupyterHub,
+you can modify it and add another &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;values&lt;/code&gt; option at the end, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--values dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can modify the image you are using for Jupyterhub in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt;. If this is not possible, you can test different combinations and they might work. The Pangeo notebook image I am using has a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt; version too new compared to Dask Gateway 0.9.0, so I downgrade it directly in the example Notebook.&lt;/p&gt;
+
+&lt;p&gt;Then redeploy JupyterHub:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check that the service is working correctly,
+if open a browser tab and access &lt;a href=&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&quot;&gt;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&lt;/a&gt;, you should see:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If this is not working, you can open login to JupyterHub, get a terminal and first check if the service is working:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;  curl http://traefik-dask-gateway/services/dask-gateway/api/health
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Should give:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;create-a-dask-cluster&quot;&gt;Create a dask cluster&lt;/h2&gt;
+
+&lt;p&gt;You can now login to JupyterHub and check you can connect properly to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dask_gateway&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://traefik-dask-gateway/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jupyterhub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_clusters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then create a cluster and use it:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Client is a standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; client and all subsequent calls to dask will go
+through the cluster.&lt;/p&gt;
+
+&lt;p&gt;Printing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cluster&lt;/code&gt; object gives the link to the Dask dashboard.&lt;/p&gt;
+
+&lt;p&gt;For a full example and screenshots of the widgets and of the dashboard see:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><category term="dask" /><summary type="html">This tutorial follows the work by the Pangeo collaboration, the main difference is that I prefer to keep JupyterHub and the Dask infrastructure in 2 separate Helm recipes.</summary></entry><entry><title type="html">Make for repeated commands</title><link href="https://zonca.dev/2022/01/make.html" rel="alternate" type="text/html" title="Make for repeated commands" /><published>2022-01-07T00:00:00-06:00</published><updated>2022-01-07T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/make</id><content type="html" xml:base="https://zonca.dev/2022/01/make.html">&lt;p&gt;I often find myself repeat the same commands in a project,
+for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).&lt;/p&gt;
+
+&lt;p&gt;Instead of relying on bash history or writing a few bash scripts, it is just easier
+to write a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Makefile&lt;/code&gt;, even if you do not use the Make dependencies and you just use
+it as a collection of useful commands.&lt;/p&gt;
+
+&lt;p&gt;Here is a template to start from, which supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make list&lt;/code&gt; to show available targets
+and shows how to pass arguments to a command:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/zonca/fd1980c1aeac394bfc854fce24b9b0df&quot;&gt;https://gist.github.com/zonca/fd1980c1aeac394bfc854fce24b9b0df&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="make" /><summary type="html">I often find myself repeat the same commands in a project, for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).</summary></entry><entry><title type="html">Fund healpy via Github Sponsors</title><link href="https://zonca.dev/2021/11/fund-healpy.html" rel="alternate" type="text/html" title="Fund healpy via Github Sponsors" /><published>2021-11-08T00:00:00-06:00</published><updated>2021-11-08T00:00:00-06:00</updated><id>https://zonca.dev/2021/11/fund-healpy</id><content type="html" xml:base="https://zonca.dev/2021/11/fund-healpy.html">&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is low-level necessary tooling for working with cosmology data&lt;/li&gt;
+  &lt;li&gt;There is never funding for maintaining &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Consider using grants to fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; through &lt;a href=&quot;https://github.com/sponsors/zonca?frequency=recurring&amp;amp;sponsor=zonca&quot;&gt;Github Sponsors&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;This will fund extra working hours for Andrea Zonca to work on the project&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
+
+&lt;p&gt;In ~2007 I was a Graduate Student at the Italian Istitute of Astrophysics, I was using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, just created a couple of years prior.
+I remember that Travis Oliphant, the developer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, was asking for a contribution to get a PDF version of the manual. I realized I could have helped development of this key Python package and I was able to purchase it on our funding for the &lt;a href=&quot;https://www.esa.int/Science_Exploration/Space_Science/Planck&quot;&gt;Planck mission&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;current-status-of-healpy&quot;&gt;Current status of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;I have been the lead maintainer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; since 2010, when I was working as a Postdoc at University of California Santa Barbara.
+The package is now close to a large re-factoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, &lt;a href=&quot;https://pypi.org/project/ducc0/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt;&lt;/a&gt;, which includes all the low-level functionality needed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.
+The plan is to create a major rewrite of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, changing the interface, and provide a higher level interface to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt; as a pure Python package which has all the features of the current &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; versions, i.e. file I/O, plotting, interface to spherical harmonics transforms.&lt;/p&gt;
+
+&lt;h2 id=&quot;funding-for-healpy&quot;&gt;Funding for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
+
+&lt;p&gt;There have never been funding specifically focused on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, I have generally took time out of my working week to maintain the package, instead of working on the project I was funded for.
+This is getting more and more complicated as I advance my career and get more responsibilities.&lt;/p&gt;
+
+&lt;p&gt;We recently applied for a NASA grant that would fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; work at 20% Full Time Equivalent for 3 years, it got “very good” reviews, but was not funded.&lt;/p&gt;
+
+&lt;h2 id=&quot;using-github-sponsors&quot;&gt;Using Github Sponsors&lt;/h2&gt;
+
+&lt;p&gt;So my idea for long-term sustainability of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is to ask projects using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; on a daily basis to support the maintenance of the package on their grants.
+After all, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maintenance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, we could have a healthier sustainability plan for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Github has launched the Github Sponsors program specifically to fund open-source software. People can make a recurring or one-time contribution to a project or to a developer.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;how-funds-will-be-used&quot;&gt;How funds will be used&lt;/h2&gt;
+
+&lt;p&gt;Funds will cover extra hours on top of my work week that I will dedicate exclusively to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, in particular:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;fix bugs&lt;/li&gt;
+  &lt;li&gt;review Pull Requests with code contributions&lt;/li&gt;
+  &lt;li&gt;work on the re-factoring from a HEALPix C++ to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc&lt;/code&gt; backend&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/categories/#healpy&quot;&gt;write tutorials on how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; for CMB data analysis&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/users/597609/andrea-zonca?tab=answers&quot;&gt;answer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;-related questions on Stack Overflow&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
+
+&lt;p&gt;If you have any feedback, please &lt;a href=&quot;https://twitter.com/andreazonca&quot;&gt;tweet &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@andreazonca&lt;/code&gt;&lt;/a&gt; or email &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdsc.edu&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><category term="healpy" /><summary type="html">Github Sponsor page</summary></entry><entry><title type="html">Kubernetes certifications CKA and CKAD</title><link href="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html" rel="alternate" type="text/html" title="Kubernetes certifications CKA and CKAD" /><published>2021-11-04T00:00:00-05:00</published><updated>2021-11-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/11/cka-ckad-kubernetes-certification</id><content type="html" xml:base="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html">&lt;p&gt;I recently pursued 2 Kubernetes certifications by Linux Foundation:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Certified Kubernetes Administrator (CKA)&lt;/li&gt;
+  &lt;li&gt;Certified Kubernetes Application Developer (CKAD)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;I have been deploying, managing and using Kubernetes on Jetstream for more than 4 years
+(&lt;a href=&quot;https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html&quot;&gt;my first tutorial back in 2017&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;However I never did any formal training so my knowledge was sparse.
+I was extremely useful to follow the 2 classes by Linux Foundation related to the certifications, they gave
+me a more systematic view of all parts of Kubernetes.&lt;/p&gt;
+
+&lt;p&gt;I decided to follow both, but there is a lot of overlap, so better choose one of the 2,
+if you are more interested in using Kubernetes to deploy applications, do only CKAD and the related class,
+if you need to administer Kubernetes deployments, take only CKA.&lt;/p&gt;
+
+&lt;p&gt;The most important part of the training is the “test session” on Killer.sh, this is a simulation of the real
+certification exam and gives you a lot of experience in being fast in navigating the docs and using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt;.
+The exam itself also teaches a lot, you are logging into Kubernetes clusters, solving issues and performing real-world tasks.&lt;/p&gt;
+
+&lt;p&gt;The certification exam is done via proctoring, but the process is quite painless.
+For the exam you really need to be fast and know how to create resources with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl create&lt;/code&gt; instead of writing
+YAML every time, go for YAML just for the more complicated resources. I got to the end of both exams with 15 minutes to spare on the total of 2 hours, that I used to debug the questions I couldn’t do in the first pass.&lt;/p&gt;
+
+&lt;h2 id=&quot;suggestions-for-the-tests&quot;&gt;Suggestions for the tests&lt;/h2&gt;
+
+&lt;p&gt;Have bookmarks ready, I found a set on the web and added a few of my own, see &lt;a href=&quot;https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5&quot;&gt;https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5&lt;/a&gt;, you can also copy the links to the YAML files and do &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt; from the terminal.&lt;/p&gt;
+
+&lt;h3 id=&quot;bash&quot;&gt;Bash&lt;/h3&gt;
+
+&lt;p&gt;You need to memorize these variables and aliases to type into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export do=&quot;--dry-run=client -o yaml&quot;
+export now=&quot;--force --grace-period 0&quot;
+alias  kr=&quot;kubectl --replace $now -f&quot;
+export VISUAL=vim
+export EDITOR=vim
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The variables about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; are needed to have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; keybindings in TMUX.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kr&lt;/code&gt; is very useful because you can use it instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k apply -f&lt;/code&gt; and you have it ready if you need to modify the YAML and replace the resource.&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$do&lt;/code&gt; is necessary to create the YAML for a resource with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k create&lt;/code&gt; and then go from there.
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$now&lt;/code&gt; just to quickly delete resources.&lt;/p&gt;
+
+&lt;h3 id=&quot;vim&quot;&gt;Vim&lt;/h3&gt;
+
+&lt;p&gt;Minimal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.vimrc&lt;/code&gt; for editing YAML files:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set expandtab
+set shiftwidth=2
+set tabstop=2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;tmux&quot;&gt;TMux&lt;/h3&gt;
+
+&lt;p&gt;You already use TMux, so it is useful to have 2 windows, the first one for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; and the second for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;, it is important not to confuse them, you only go configure the environment in the first window, so you can run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; only there.&lt;/p&gt;
+
+&lt;p&gt;In case you use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;screen&lt;/code&gt; mode with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CTRL-A&lt;/code&gt; as I do, no need to memorize the spell, just open &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;man tmux&lt;/code&gt;, search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default prefix&lt;/code&gt; and copy paste into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.tmux.conf&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set-option -g prefix C-a
+unbind-key C-b
+bind-key C-a send-prefix
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="kubernetes" /><summary type="html">I recently pursued 2 Kubernetes certifications by Linux Foundation:</summary></entry><entry><title type="html">Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling</title><link href="https://zonca.dev/2021/11/healpix-gauss-legendre-pysm.html" rel="alternate" type="text/html" title="Compare HEALPix and Gauss-Legendre pixelizations for sky emission modelling" /><published>2021-11-02T00:00:00-05:00</published><updated>2021-11-02T00:00:00-05:00</updated><id>https://zonca.dev/2021/11/healpix-gauss-legendre-pysm</id><content type="html" xml:base="https://zonca.dev/2021/11/healpix-gauss-legendre-pysm.html">&lt;!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
-# file to edit: _notebooks/healpix-gauss-legendre-pysm.ipynb
+# file to edit: _notebooks/2021-11-02-healpix-gauss-legendre-pysm.ipynb
 --&gt;
 
 &lt;div class=&quot;container&quot; id=&quot;notebook-container&quot;&gt;
@@ -840,249 +1082,7 @@ $1.6106127 \; \mathrm{Gbyte}$
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><category term="healpy" /><category term="pysm" /><category term="cmb" /><category term="cosmology" /><summary type="html"></summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
-the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
-in 2 separate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Helm&lt;/code&gt; recipes.&lt;/p&gt;
-
-&lt;p&gt;I assume to start from a Kubernetes cluster already running and
-JupyterHub deployed on top of it via Helm. And SSL encryption also activated (it isn’t probably necessary, but I haven’t tested that).
-I tested on Jetstream, but this is agnostic of that.&lt;/p&gt;
-
-&lt;h2 id=&quot;preparation&quot;&gt;Preparation&lt;/h2&gt;
-
-&lt;p&gt;Clone on the machine you use to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helm&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; the repository
-with the configuration files and scripts:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then you need to setup one API token, create it with:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl rand -hex 32
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then paste it both in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_dask-gateway.yaml&lt;/code&gt;,
-look for the string &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TOKEN&lt;/code&gt; and replace it.&lt;/p&gt;
-
-&lt;h2 id=&quot;launch-dask-gateway&quot;&gt;Launch dask gateway&lt;/h2&gt;
-
-&lt;p&gt;See the &lt;a href=&quot;https://gateway.dask.org/install-kube.html&quot;&gt;dask gateway documentation&lt;/a&gt; for reference:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ helm repo add daskgateway https://dask.org/dask-gateway-helm-repo/
-$ helm repo update
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;enter the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt; folder and run:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash install_dask-gateway.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You might want to check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config_dask-gateway.yaml&lt;/code&gt; for extra configuration options, but for initial setup and testing it shouldn’t be necessary.&lt;/p&gt;
-
-&lt;p&gt;After this you should see the 3 dask gateway pods running, e.g.:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl -n jhub get pods
-NAME                                       READY   STATUS    RESTARTS   AGE
-api-dask-gateway-64bf5db96c-4xfd6          1/1     Running   2          23m
-controller-dask-gateway-7674bd545d-cwfnx   1/1     Running   0          23m
-traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;modify-the-jupyterhub-configuration&quot;&gt;Modify the JupyterHub configuration&lt;/h2&gt;
-
-&lt;p&gt;Only 2 options need to be changed in JupyterHub:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;We need to run a image which has the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; we installed on Kubernetes (currently &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.8.0&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;We need to proxy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; through JupyterHub so the users can access the Dask dashboard&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;If you are using my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; script to deploy JupyterHub,
-you can modify it and add another &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;values&lt;/code&gt; option at the end, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--values dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;You can modify the image you are using for Jupyterhub in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt;. If this is not possible, you can test different combinations and they might work. The Pangeo notebook image I am using has a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt; version too new compared to Dask Gateway 0.9.0, so I downgrade it directly in the example Notebook.&lt;/p&gt;
-
-&lt;p&gt;Then redeploy JupyterHub:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Check that the service is working correctly,
-if open a browser tab and access &lt;a href=&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&quot;&gt;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&lt;/a&gt;, you should see:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;If this is not working, you can open login to JupyterHub, get a terminal and first check if the service is working:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;  curl http://traefik-dask-gateway/services/dask-gateway/api/health
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Should give:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;create-a-dask-cluster&quot;&gt;Create a dask cluster&lt;/h2&gt;
-
-&lt;p&gt;You can now login to JupyterHub and check you can connect properly to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dask_gateway&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://traefik-dask-gateway/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jupyterhub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_clusters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Then create a cluster and use it:&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Client is a standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; client and all subsequent calls to dask will go
-through the cluster.&lt;/p&gt;
-
-&lt;p&gt;Printing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cluster&lt;/code&gt; object gives the link to the Dask dashboard.&lt;/p&gt;
-
-&lt;p&gt;For a full example and screenshots of the widgets and of the dashboard see:&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><category term="dask" /><summary type="html">This tutorial follows the work by the Pangeo collaboration, the main difference is that I prefer to keep JupyterHub and the Dask infrastructure in 2 separate Helm recipes.</summary></entry><entry><title type="html">Make for repeated commands</title><link href="https://zonca.dev/2022/01/make.html" rel="alternate" type="text/html" title="Make for repeated commands" /><published>2022-01-07T00:00:00-06:00</published><updated>2022-01-07T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/make</id><content type="html" xml:base="https://zonca.dev/2022/01/make.html">&lt;p&gt;I often find myself repeat the same commands in a project,
-for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).&lt;/p&gt;
-
-&lt;p&gt;Instead of relying on bash history or writing a few bash scripts, it is just easier
-to write a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Makefile&lt;/code&gt;, even if you do not use the Make dependencies and you just use
-it as a collection of useful commands.&lt;/p&gt;
-
-&lt;p&gt;Here is a template to start from, which supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make list&lt;/code&gt; to show available targets
-and shows how to pass arguments to a command:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/zonca/fd1980c1aeac394bfc854fce24b9b0df&quot;&gt;https://gist.github.com/zonca/fd1980c1aeac394bfc854fce24b9b0df&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="make" /><summary type="html">I often find myself repeat the same commands in a project, for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).</summary></entry><entry><title type="html">Fund healpy via Github Sponsors</title><link href="https://zonca.dev/2021/11/fund-healpy.html" rel="alternate" type="text/html" title="Fund healpy via Github Sponsors" /><published>2021-11-08T00:00:00-06:00</published><updated>2021-11-08T00:00:00-06:00</updated><id>https://zonca.dev/2021/11/fund-healpy</id><content type="html" xml:base="https://zonca.dev/2021/11/fund-healpy.html">&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;summary&quot;&gt;Summary&lt;/h2&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is low-level necessary tooling for working with cosmology data&lt;/li&gt;
-  &lt;li&gt;There is never funding for maintaining &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Consider using grants to fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; through &lt;a href=&quot;https://github.com/sponsors/zonca?frequency=recurring&amp;amp;sponsor=zonca&quot;&gt;Github Sponsors&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;This will fund extra working hours for Andrea Zonca to work on the project&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;preamble&quot;&gt;Preamble&lt;/h2&gt;
-
-&lt;p&gt;In ~2007 I was a Graduate Student at the Italian Istitute of Astrophysics, I was using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, just created a couple of years prior.
-I remember that Travis Oliphant, the developer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;, was asking for a contribution to get a PDF version of the manual. I realized I could have helped development of this key Python package and I was able to purchase it on our funding for the &lt;a href=&quot;https://www.esa.int/Science_Exploration/Space_Science/Planck&quot;&gt;Planck mission&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;current-status-of-healpy&quot;&gt;Current status of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;I have been the lead maintainer of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; since 2010, when I was working as a Postdoc at University of California Santa Barbara.
-The package is now close to a large re-factoring. Martin Reinecke, the developer of HEALPix C++, released a Python package, &lt;a href=&quot;https://pypi.org/project/ducc0/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt;&lt;/a&gt;, which includes all the low-level functionality needed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.
-The plan is to create a major rewrite of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, changing the interface, and provide a higher level interface to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc0&lt;/code&gt; as a pure Python package which has all the features of the current &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; versions, i.e. file I/O, plotting, interface to spherical harmonics transforms.&lt;/p&gt;
-
-&lt;h2 id=&quot;funding-for-healpy&quot;&gt;Funding for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;&lt;/h2&gt;
-
-&lt;p&gt;There have never been funding specifically focused on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, I have generally took time out of my working week to maintain the package, instead of working on the project I was funded for.
-This is getting more and more complicated as I advance my career and get more responsibilities.&lt;/p&gt;
-
-&lt;p&gt;We recently applied for a NASA grant that would fund &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; work at 20% Full Time Equivalent for 3 years, it got “very good” reviews, but was not funded.&lt;/p&gt;
-
-&lt;h2 id=&quot;using-github-sponsors&quot;&gt;Using Github Sponsors&lt;/h2&gt;
-
-&lt;p&gt;So my idea for long-term sustainability of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; is to ask projects using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; on a daily basis to support the maintenance of the package on their grants.
-After all, back in the day, everybody was paying for IDL licenses. Now, if Principal Investigators, possibly prompted by PostDocs/Grad or Undergrad students, could spend a bit of software money from their grants into funding maintenance of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, we could have a healthier sustainability plan for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;.&lt;/p&gt;
-
-&lt;p&gt;Github has launched the Github Sponsors program specifically to fund open-source software. People can make a recurring or one-time contribution to a project or to a developer.&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/sponsors/zonca&quot;&gt;&lt;strong&gt;Github Sponsor page&lt;/strong&gt;&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;how-funds-will-be-used&quot;&gt;How funds will be used&lt;/h2&gt;
-
-&lt;p&gt;Funds will cover extra hours on top of my work week that I will dedicate exclusively to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;, in particular:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;fix bugs&lt;/li&gt;
-  &lt;li&gt;review Pull Requests with code contributions&lt;/li&gt;
-  &lt;li&gt;work on the re-factoring from a HEALPix C++ to a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ducc&lt;/code&gt; backend&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/categories/#healpy&quot;&gt;write tutorials on how to use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt; for CMB data analysis&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/users/597609/andrea-zonca?tab=answers&quot;&gt;answer &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;healpy&lt;/code&gt;-related questions on Stack Overflow&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
-
-&lt;p&gt;If you have any feedback, please &lt;a href=&quot;https://twitter.com/andreazonca&quot;&gt;tweet &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@andreazonca&lt;/code&gt;&lt;/a&gt; or email &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdsc.edu&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><category term="healpy" /><summary type="html">Github Sponsor page</summary></entry><entry><title type="html">Kubernetes certifications CKA and CKAD</title><link href="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html" rel="alternate" type="text/html" title="Kubernetes certifications CKA and CKAD" /><published>2021-11-04T00:00:00-05:00</published><updated>2021-11-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/11/cka-ckad-kubernetes-certification</id><content type="html" xml:base="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html">&lt;p&gt;I recently pursued 2 Kubernetes certifications by Linux Foundation:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Certified Kubernetes Administrator (CKA)&lt;/li&gt;
-  &lt;li&gt;Certified Kubernetes Application Developer (CKAD)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I have been deploying, managing and using Kubernetes on Jetstream for more than 4 years
-(&lt;a href=&quot;https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html&quot;&gt;my first tutorial back in 2017&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;However I never did any formal training so my knowledge was sparse.
-I was extremely useful to follow the 2 classes by Linux Foundation related to the certifications, they gave
-me a more systematic view of all parts of Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;I decided to follow both, but there is a lot of overlap, so better choose one of the 2,
-if you are more interested in using Kubernetes to deploy applications, do only CKAD and the related class,
-if you need to administer Kubernetes deployments, take only CKA.&lt;/p&gt;
-
-&lt;p&gt;The most important part of the training is the “test session” on Killer.sh, this is a simulation of the real
-certification exam and gives you a lot of experience in being fast in navigating the docs and using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt;.
-The exam itself also teaches a lot, you are logging into Kubernetes clusters, solving issues and performing real-world tasks.&lt;/p&gt;
-
-&lt;p&gt;The certification exam is done via proctoring, but the process is quite painless.
-For the exam you really need to be fast and know how to create resources with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl create&lt;/code&gt; instead of writing
-YAML every time, go for YAML just for the more complicated resources. I got to the end of both exams with 15 minutes to spare on the total of 2 hours, that I used to debug the questions I couldn’t do in the first pass.&lt;/p&gt;
-
-&lt;h2 id=&quot;suggestions-for-the-tests&quot;&gt;Suggestions for the tests&lt;/h2&gt;
-
-&lt;p&gt;Have bookmarks ready, I found a set on the web and added a few of my own, see &lt;a href=&quot;https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5&quot;&gt;https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5&lt;/a&gt;, you can also copy the links to the YAML files and do &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt; from the terminal.&lt;/p&gt;
-
-&lt;h3 id=&quot;bash&quot;&gt;Bash&lt;/h3&gt;
-
-&lt;p&gt;You need to memorize these variables and aliases to type into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export do=&quot;--dry-run=client -o yaml&quot;
-export now=&quot;--force --grace-period 0&quot;
-alias  kr=&quot;kubectl --replace $now -f&quot;
-export VISUAL=vim
-export EDITOR=vim
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The variables about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; are needed to have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; keybindings in TMUX.
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kr&lt;/code&gt; is very useful because you can use it instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k apply -f&lt;/code&gt; and you have it ready if you need to modify the YAML and replace the resource.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$do&lt;/code&gt; is necessary to create the YAML for a resource with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k create&lt;/code&gt; and then go from there.
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$now&lt;/code&gt; just to quickly delete resources.&lt;/p&gt;
-
-&lt;h3 id=&quot;vim&quot;&gt;Vim&lt;/h3&gt;
-
-&lt;p&gt;Minimal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.vimrc&lt;/code&gt; for editing YAML files:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set expandtab
-set shiftwidth=2
-set tabstop=2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;tmux&quot;&gt;TMux&lt;/h3&gt;
-
-&lt;p&gt;You already use TMux, so it is useful to have 2 windows, the first one for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; and the second for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;, it is important not to confuse them, you only go configure the environment in the first window, so you can run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; only there.&lt;/p&gt;
-
-&lt;p&gt;In case you use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;screen&lt;/code&gt; mode with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CTRL-A&lt;/code&gt; as I do, no need to memorize the spell, just open &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;man tmux&lt;/code&gt;, search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default prefix&lt;/code&gt; and copy paste into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.tmux.conf&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set-option -g prefix C-a
-unbind-key C-b
-bind-key C-a send-prefix
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="kubernetes" /><summary type="html">I recently pursued 2 Kubernetes certifications by Linux Foundation:</summary></entry><entry><title type="html">Deploy Hadoop on Kubernetes on Jetstream</title><link href="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy Hadoop on Kubernetes on Jetstream" /><published>2021-10-12T00:00:00-05:00</published><updated>2021-10-12T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/hadoop-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html">&lt;p&gt;We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.&lt;/p&gt;
+&lt;/div&gt;</content><author><name></name></author><category term="healpy" /><category term="pysm" /><category term="cmb" /><category term="cosmology" /><summary type="html"></summary></entry><entry><title type="html">Deploy Hadoop on Kubernetes on Jetstream</title><link href="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy Hadoop on Kubernetes on Jetstream" /><published>2021-10-12T00:00:00-05:00</published><updated>2021-10-12T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/hadoop-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html">&lt;p&gt;We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.&lt;/p&gt;
 
 &lt;p&gt;As usual we start with a full-fledged Kubernetes deployment on Jetstream (1) &lt;a href=&quot;https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html&quot;&gt;deployed via Kubespray&lt;/a&gt;&lt;/p&gt;
 
