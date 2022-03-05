@@ -51,7 +51,7 @@ After this you should see the 3 dask gateway pods running, e.g.:
 
 Only 2 options need to be changed in JupyterHub:
 
-* We need to run a image which has the same version of `dask-gateway` we installed on Kubernetes (currently `0.8.0`)
+* We need to run a image which has the same version of `dask-gateway` we installed on Kubernetes (currently `0.9.0`)
 * We need to proxy `dask-gateway` through JupyterHub so the users can access the Dask dashboard
 
 If you are using my `install_jhub.sh` script to deploy JupyterHub,
@@ -63,7 +63,7 @@ To assure that there are not compatibility issues, the "Client" (JupyterHub sess
 
 Then redeploy JupyterHub:
 
-	bash install_jhub.sh
+	bash install_jhub.sh && cd dask_gateway && bash install_dask-gateway.sh
 
 Check that the service is working correctly,
 if open a browser tab and access <https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health>, you should see:
