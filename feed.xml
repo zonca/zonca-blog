@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-02-01T01:34:01-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-03-05T16:11:14-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
 the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
 in 2 separate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Helm&lt;/code&gt; recipes.&lt;/p&gt;
 
@@ -51,7 +51,7 @@ traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
 &lt;p&gt;Only 2 options need to be changed in JupyterHub:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;We need to run a image which has the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; we installed on Kubernetes (currently &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.8.0&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;We need to run a image which has the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; we installed on Kubernetes (currently &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.9.0&lt;/code&gt;)&lt;/li&gt;
   &lt;li&gt;We need to proxy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; through JupyterHub so the users can access the Dask dashboard&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -64,7 +64,7 @@ you can modify it and add another &lt;code class=&quot;language-plaintext highli
 
 &lt;p&gt;Then redeploy JupyterHub:&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh &amp;amp;&amp;amp; cd dask_gateway &amp;amp;&amp;amp; bash install_dask-gateway.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Check that the service is working correctly,

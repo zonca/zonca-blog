@@ -184,7 +184,7 @@ traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
 <p>Only 2 options need to be changed in JupyterHub:</p>
 
 <ul>
-  <li>We need to run a image which has the same version of <code class="language-plaintext highlighter-rouge">dask-gateway</code> we installed on Kubernetes (currently <code class="language-plaintext highlighter-rouge">0.8.0</code>)</li>
+  <li>We need to run a image which has the same version of <code class="language-plaintext highlighter-rouge">dask-gateway</code> we installed on Kubernetes (currently <code class="language-plaintext highlighter-rouge">0.9.0</code>)</li>
   <li>We need to proxy <code class="language-plaintext highlighter-rouge">dask-gateway</code> through JupyterHub so the users can access the Dask dashboard</li>
 </ul>
 
@@ -197,7 +197,7 @@ you can modify it and add another <code class="language-plaintext highlighter-ro
 
 <p>Then redeploy JupyterHub:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_jhub.sh
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash install_jhub.sh &amp;&amp; cd dask_gateway &amp;&amp; bash install_dask-gateway.sh
 </code></pre></div></div>
 
 <p>Check that the service is working correctly,
