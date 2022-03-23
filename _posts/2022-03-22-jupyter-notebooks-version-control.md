@@ -53,6 +53,8 @@ So I disable `nbstripout` with:
 
 Then I add just the last executed state of the Notebook to the repository, so that Sphinx/Readthedocs can compile it into the documentation, including all plots.
 
+See [an example of a Notebook compiled into HTML by Sphinx](https://pysm3.readthedocs.io/en/latest/preprocess-templates/gnilc_dust_logpoltens_templates.html)
+
 ## Automation script
 
 I have created a bash script that automates the process:
