@@ -1,4 +1,70 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-03-05T16:11:14-06:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-03-22T21:02:53-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Workflow for Jupyter Notebooks under version control</title><link href="https://zonca.dev/2022/03/jupyter-notebooks-version-control.html" rel="alternate" type="text/html" title="Workflow for Jupyter Notebooks under version control" /><published>2022-03-22T00:00:00-05:00</published><updated>2022-03-22T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jupyter-notebooks-version-control</id><content type="html" xml:base="https://zonca.dev/2022/03/jupyter-notebooks-version-control.html">&lt;p&gt;I’ll present here my strategy for keeping Jupyter Notebooks under version control.&lt;/p&gt;
+
+&lt;p&gt;TLDR:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt; to only commit input cells&lt;/li&gt;
+  &lt;li&gt;Snapshot executed Notebooks to a Gist with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh gist create&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Save link to Gist in commit message&lt;/li&gt;
+  &lt;li&gt;see below for script to automate&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Github handles ipynb pretty well, so I prefer not to use &lt;a href=&quot;https://github.com/mwouts/jupytext&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;jupytext&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;I want small repositories, so only commit the input cells&lt;/li&gt;
+  &lt;li&gt;I want to save the executed notebooks, not in the repo, but where I can easily reference them if needed&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;workflow&quot;&gt;Workflow&lt;/h2&gt;
+
+&lt;h3 id=&quot;notebooks-and-git&quot;&gt;Notebooks and git&lt;/h3&gt;
+
+&lt;p&gt;I work on Notebooks as I work with normal Python files, so I always run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;black&lt;/code&gt; on them to fix formatting, use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git add -p&lt;/code&gt; to add snippet by snippet. I don’t mind the little extra escaping the Notebook introduces.&lt;/p&gt;
+
+&lt;p&gt;I have the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt; filters activated (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbstripout --install&lt;/code&gt;) so that even if the notebook is partially executed, when I run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git add -p&lt;/code&gt; I only get the patches on the input cells.&lt;/p&gt;
+
+&lt;p&gt;Moreover, I configure &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt; &lt;a href=&quot;https://github.com/kynan/nbstripout#stripping-metadata&quot;&gt;to remove metadata&lt;/a&gt; like the kernelspec or the Python version, which doesn’t do by default&lt;/p&gt;
+
+&lt;h3 id=&quot;snapshot-executed-notebooks&quot;&gt;Snapshot executed Notebooks&lt;/h3&gt;
+
+&lt;p&gt;The Jupyter Notebook inside the repository has only the inputs, but I would like to save executed Notebooks for tracking purposes without increasing the size of the repository.&lt;/p&gt;
+
+&lt;p&gt;First I do a clean execution of the Notebook (with Restart &amp;amp; Run All), then I save the changes to the input cells to the repository. I don’t need to clear the outputs from the Notebook, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt; does it on th e fly before submitting changes to git.&lt;/p&gt;
+
+&lt;p&gt;Then I post the executed Notebook with all outputs to a Gist from the command line with the Github CLI:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gh gist create my_notebook.ipynb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Optionally with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--public&lt;/code&gt; to make it show on my Gist profile.&lt;/p&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh&lt;/code&gt; tool returns the link to the Gist, that I can add to the commit message or post in a Pull Request or an Issue.&lt;/p&gt;
+
+&lt;h3 id=&quot;add-executed-notebooks-to-the-documentation&quot;&gt;Add executed Notebooks to the documentation&lt;/h3&gt;
+
+&lt;p&gt;Once I have the final version of a Notebook, I often use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbsphinx&lt;/code&gt; to add it to the documentation.&lt;/p&gt;
+
+&lt;p&gt;So I disable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nbstripout&lt;/code&gt; with:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;nbstripout --uninstall
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then I add just the last executed state of the Notebook to the repository, so that Sphinx/Readthedocs can compile it into the documentation, including all plots.&lt;/p&gt;
+
+&lt;h2 id=&quot;automation-script&quot;&gt;Automation script&lt;/h2&gt;
+
+&lt;p&gt;I have created a bash script that automates the process:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;call with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;snapshot_nb your_notebook.ipynb&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;creates a Gist with the Notebook&lt;/li&gt;
+  &lt;li&gt;amends the last commit to add a link to it&lt;/li&gt;
+  &lt;li&gt;it actually works with any text file, even multiple files, so it could be used for log outputs for example&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;See &lt;a href=&quot;https://gist.github.com/2f2eba4f0288ca4079f7f83efa6b9048&quot;&gt;https://gist.github.com/2f2eba4f0288ca4079f7f83efa6b9048&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="jupyter-notebook" /><category term="git" /><summary type="html">I’ll present here my strategy for keeping Jupyter Notebooks under version control.</summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
 the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
 in 2 separate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Helm&lt;/code&gt; recipes.&lt;/p&gt;
 
@@ -1214,19 +1280,4 @@ Then it batch-adds them to the group.&lt;/p&gt;
 
 &lt;h2 id=&quot;contribute&quot;&gt;Contribute&lt;/h2&gt;
 
-&lt;p&gt;Please leave feedback to the &lt;a href=&quot;https://github.com/zonca/globus-sdk-scripts&quot;&gt;https://github.com/zonca/globus-sdk-scripts&lt;/a&gt; repository via issues or contribute improvements via Pull Requests.&lt;/p&gt;</content><author><name></name></author><category term="python" /><category term="globus" /><summary type="html">Globus is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).</summary></entry><entry><title type="html">New paper about PySM 3</title><link href="https://zonca.dev/2021/08/pysm3-paper.html" rel="alternate" type="text/html" title="New paper about PySM 3" /><published>2021-08-04T00:00:00-05:00</published><updated>2021-08-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/08/pysm3-paper</id><content type="html" xml:base="https://zonca.dev/2021/08/pysm3-paper.html">&lt;p&gt;&lt;strong&gt;Update November 2021&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Paper was published on JOSS:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;a href=&quot;https://joss.theoj.org/papers/10.21105/joss.03783&quot;&gt;“The Python Sky Model 3 software” on JOSS&lt;/a&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/2108.01444&quot;&gt;“The Python Sky Model 3 software” on the Arxiv&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;https://github.com/openjournals/joss-reviews/issues/3534&quot;&gt;Submission to JOSS&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;submitted to JOSS, see also this &lt;a href=&quot;https://zonca.dev/2021/08/joss-to-arxiv.html&quot;&gt;tutorial on how to publish a JOSS paper to Arxiv&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;It is about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pysm3&lt;/code&gt; a #Python package (heavily optimized through numba) to simulate sky maps of the Cosmic Microwave Background (CMB) and galactic emission as observed by instruments. Relies on Planck
- &amp;amp; WMAP data.&lt;/p&gt;</content><author><name></name></author><category term="pysm3" /><category term="cosmology" /><summary type="html">Update November 2021</summary></entry></feed>
+&lt;p&gt;Please leave feedback to the &lt;a href=&quot;https://github.com/zonca/globus-sdk-scripts&quot;&gt;https://github.com/zonca/globus-sdk-scripts&lt;/a&gt; repository via issues or contribute improvements via Pull Requests.&lt;/p&gt;</content><author><name></name></author><category term="python" /><category term="globus" /><summary type="html">Globus is the best tool to transfer quickly Terabytes data between Supercomputers because it automatically parallelizes the transfer to saturate the network (yeah I know I always simplify too much).</summary></entry></feed>
