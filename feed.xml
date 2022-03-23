@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-03-22T21:02:53-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Workflow for Jupyter Notebooks under version control</title><link href="https://zonca.dev/2022/03/jupyter-notebooks-version-control.html" rel="alternate" type="text/html" title="Workflow for Jupyter Notebooks under version control" /><published>2022-03-22T00:00:00-05:00</published><updated>2022-03-22T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jupyter-notebooks-version-control</id><content type="html" xml:base="https://zonca.dev/2022/03/jupyter-notebooks-version-control.html">&lt;p&gt;I’ll present here my strategy for keeping Jupyter Notebooks under version control.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-03-22T21:06:43-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Workflow for Jupyter Notebooks under version control</title><link href="https://zonca.dev/2022/03/jupyter-notebooks-version-control.html" rel="alternate" type="text/html" title="Workflow for Jupyter Notebooks under version control" /><published>2022-03-22T00:00:00-05:00</published><updated>2022-03-22T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jupyter-notebooks-version-control</id><content type="html" xml:base="https://zonca.dev/2022/03/jupyter-notebooks-version-control.html">&lt;p&gt;I’ll present here my strategy for keeping Jupyter Notebooks under version control.&lt;/p&gt;
 
 &lt;p&gt;TLDR:&lt;/p&gt;
 
@@ -52,6 +52,8 @@
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;Then I add just the last executed state of the Notebook to the repository, so that Sphinx/Readthedocs can compile it into the documentation, including all plots.&lt;/p&gt;
+
+&lt;p&gt;See &lt;a href=&quot;https://pysm3.readthedocs.io/en/latest/preprocess-templates/gnilc_dust_logpoltens_templates.html&quot;&gt;an example of a Notebook compiled into HTML by Sphinx&lt;/a&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;automation-script&quot;&gt;Automation script&lt;/h2&gt;
 
