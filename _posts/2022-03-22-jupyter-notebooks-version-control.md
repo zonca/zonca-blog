@@ -62,7 +62,7 @@ I have created a bash script that automates the process:
 * call with `snapshot_nb your_notebook.ipynb`
 * creates a Gist with the Notebook
 * amends the last commit to add a link to it
-* it also creates a new Markdown cell with the tag `snapshotlog` and the title "Execution log" and appends a link to the gist with date and time of execution (Thanks [`@cosmic_mar`](https://twitter.com/cosmic_mar) for the suggestion)
+* it also creates a new Markdown cell with the tag `snapshotlog` and the title "Execution log" and appends a link to the gist with date and time of execution (Thanks [`@cosmic_mar`](https://twitter.com/cosmic_mar) for the suggestion), see [how the Execution log looks like](https://gist.github.com/zonca/0fd8770877a1c90c5a7f22d4a391471d)
 * it actually works with any text file, even multiple files, so it could be used for log outputs for example
 
 See <https://gist.github.com/2f2eba4f0288ca4079f7f83efa6b9048>
