@@ -10,7 +10,7 @@ TLDR:
 
 * Use `nbstripout` to only commit input cells
 * Snapshot executed Notebooks to a Gist with `gh gist create`
-* Save link to Gist in commit message
+* Save link to Gist in commit message and in Notebook cell
 * see below for script to automate
 
 ## Requirements
@@ -62,6 +62,13 @@ I have created a bash script that automates the process:
 * call with `snapshot_nb your_notebook.ipynb`
 * creates a Gist with the Notebook
 * amends the last commit to add a link to it
+* it also creates a new Markdown cell with the tag `snapshotlog` and the title "Execution log" and appends a link to the gist with date and time of execution (Thanks [`@cosmic_mar`](https://twitter.com/cosmic_mar) for the suggestion)
 * it actually works with any text file, even multiple files, so it could be used for log outputs for example
 
 See <https://gist.github.com/2f2eba4f0288ca4079f7f83efa6b9048>
+
+Install it by symlinking the 2 scripts to an executable folder, for example `~/bin`, also useful if you fork my Gist.
+
+## Feedback
+
+See [this thread on Twitter](https://twitter.com/andreazonca/status/1506458567456411649)
