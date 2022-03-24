@@ -129,7 +129,7 @@ window.onload = wrap_img;
 <ul>
   <li>Use <code class="language-plaintext highlighter-rouge">nbstripout</code> to only commit input cells</li>
   <li>Snapshot executed Notebooks to a Gist with <code class="language-plaintext highlighter-rouge">gh gist create</code></li>
-  <li>Save link to Gist in commit message</li>
+  <li>Save link to Gist in commit message and in Notebook cell</li>
   <li>see below for script to automate</li>
 </ul>
 
@@ -187,10 +187,17 @@ window.onload = wrap_img;
   <li>call with <code class="language-plaintext highlighter-rouge">snapshot_nb your_notebook.ipynb</code></li>
   <li>creates a Gist with the Notebook</li>
   <li>amends the last commit to add a link to it</li>
+  <li>it also creates a new Markdown cell with the tag <code class="language-plaintext highlighter-rouge">snapshotlog</code> and the title “Execution log” and appends a link to the gist with date and time of execution (Thanks <a href="https://twitter.com/cosmic_mar"><code class="language-plaintext highlighter-rouge">@cosmic_mar</code></a> for the suggestion), see <a href="https://gist.github.com/zonca/0fd8770877a1c90c5a7f22d4a391471d">how the Execution log looks like</a></li>
   <li>it actually works with any text file, even multiple files, so it could be used for log outputs for example</li>
 </ul>
 
 <p>See <a href="https://gist.github.com/2f2eba4f0288ca4079f7f83efa6b9048">https://gist.github.com/2f2eba4f0288ca4079f7f83efa6b9048</a></p>
+
+<p>Install it by symlinking the 2 scripts to an executable folder, for example <code class="language-plaintext highlighter-rouge">~/bin</code>, also useful if you fork my Gist.</p>
+
+<h2 id="feedback">Feedback</h2>
+
+<p>See <a href="https://twitter.com/andreazonca/status/1506458567456411649">this thread on Twitter</a></p>
 
   </div><a class="u-url" href="/2022/03/jupyter-notebooks-version-control.html" hidden></a>
 </article>
