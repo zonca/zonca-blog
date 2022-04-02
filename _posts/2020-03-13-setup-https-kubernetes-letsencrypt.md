@@ -4,7 +4,7 @@ title: Setup HTTPS on Kubernetes with Letsencrypt
 categories: [kubernetes, openstack, jetstream, jupyterhub]
 ---
 
-**Updated in Jan 2021**: changes for Kubernetes 1.19
+**Updated in March 2022**: changes for Kubernetes 1.22, I am now creating a Cluster Issuer, which works on all namespaces, notice the related change in the configuration of JupyterHub.
 
 In this tutorial we will deploy `cert-manager` in Kubernetes to automatically provide SSL certificates to JupyterHub (and other services).
 
@@ -12,14 +12,13 @@ First make sure your payload, for example JupyterHub, is working without HTTPS, 
 
 Let's follow the [`cert-manager` documentation](https://cert-manager.io/docs/installation/kubernetes/), for convenience I pasted the commands below:
 
-    # Kubernetes 1.16+
-    kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.1.0/cert-manager.yaml
+    kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.7.2/cert-manager.yaml
 
 
 Once we have `cert-manager` setup we can create a Issuer in the `jhub` workspace,
 (first edit the `yml` and add your email address):
 
-    kubectl create -f setup_https/https_issuer.yml
+    kubectl create -f setup_https/https_cluster_issuer.yml
 
 After this, we can display all the resources in the `cert-manager` namespace to
 check that the services and pods are running:
@@ -57,7 +56,7 @@ ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: "nginx"
-    cert-manager.io/issuer: "letsencrypt"
+    cert-manager.io/cluster-issuer: "letsencrypt"
   hosts:
       - js-XXX-YYY.jetstream-cloud.org
   tls:
