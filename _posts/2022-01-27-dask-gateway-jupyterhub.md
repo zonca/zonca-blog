@@ -4,6 +4,8 @@ title: Deploy Dask Gateway with JupyterHub on Kubernetes
 categories: [kubernetes, openstack, jetstream, jupyterhub, dask]
 ---
 
+**Tutorial OBSOLETE** Please check [the updated version of this tutorial]({{< relref "2022-04-04-dask-gateway-jupyterhub.md" >}}).
+
 This tutorial follows the work by the Pangeo collaboration,
 the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
 in 2 separate `Helm` recipes.
