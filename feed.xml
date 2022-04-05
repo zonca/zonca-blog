@@ -1,4 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-02T01:17:28-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Deploy JupyterHub on Jetstream 2 on top of Kubernetes</title><link href="https://zonca.dev/2022/03/jetstream2-jupyterhub.html" rel="alternate" type="text/html" title="Deploy JupyterHub on Jetstream 2 on top of Kubernetes" /><published>2022-03-31T00:00:00-05:00</published><updated>2022-03-31T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jetstream2-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/03/jetstream2-jupyterhub.html">&lt;p&gt;This tutorial is a followup to: &lt;a href=&quot;&quot;&gt;Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0&lt;/a&gt;, so I’ll assume Kubernetes is already deployed with a default storageclass.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-05T00:44:50-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Use the distributed file format Zarr on Jetstream 2 object storage</title><link href="https://zonca.dev/2022/04/zarr-jetstream2.html" rel="alternate" type="text/html" title="Use the distributed file format Zarr on Jetstream 2 object storage" /><published>2022-04-04T18:00:00-05:00</published><updated>2022-04-04T18:00:00-05:00</updated><id>https://zonca.dev/2022/04/zarr-jetstream2</id><content type="html" xml:base="https://zonca.dev/2022/04/zarr-jetstream2.html">&lt;h2 id=&quot;zarr&quot;&gt;Zarr&lt;/h2&gt;
+
+&lt;p&gt;Zarr is a file format designed for cloud computing, see &lt;a href=&quot;http://zarr.readthedocs.io&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Zarr is also supported by &lt;a href=&quot;http://dask.pydata.org&quot;&gt;dask&lt;/a&gt;, the parallel computing framework for Python,
+and the Dask team implemented storage backends for &lt;a href=&quot;https://github.com/dask/gcsfs&quot;&gt;Google Cloud Storage&lt;/a&gt; and
+&lt;a href=&quot;https://github.com/dask/s3fs&quot;&gt;Amazon S3&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;use-openstack-swift-on-jetstream-for-object-storage&quot;&gt;Use OpenStack swift on Jetstream for object storage&lt;/h2&gt;
+
+&lt;p&gt;Jetstream 2, like Jetstream 1, offers access to object storage via OpenStack Swift.
+This is a separate service from the Jetstream Virtual Machines, so you do not need to spin
+any Virtual Machine dedicated to storing the data but just use the object storage already
+provided by Jetstream. When you ask for an allocation, you can ask for volume storage and object store storage.&lt;/p&gt;
+
+&lt;h2 id=&quot;read-zarr-files-from-object-store&quot;&gt;Read Zarr files from object store&lt;/h2&gt;
+
+&lt;p&gt;If somebody else has already made available some files on object store and set their visibility
+to “public”, anybody can read them.&lt;/p&gt;
+
+&lt;p&gt;See the &lt;a href=&quot;https://gist.github.com/4172aab52ef0cc12623364765e0030f5&quot;&gt;example Notebook to read Zarr files&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;OpenStack Swift already provides an endpoint which has an interface compatible with Amazon S3, therefore
+we can directly use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S3FileSystem&lt;/code&gt; provided by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s3fs&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Then we can build a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;S3Map&lt;/code&gt; object which &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zarr&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask.array&lt;/code&gt; can access.&lt;/p&gt;
+
+&lt;p&gt;In this example I am using the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; scheduler on a single node, you can scale up your computation
+having workers distributed on multiple nodes, just make sure that all the workers have access to the
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zarr&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s3fs&lt;/code&gt; packages.&lt;/p&gt;
+
+&lt;h2 id=&quot;write-zarr-files-or-read-private-files&quot;&gt;Write Zarr files or read private files&lt;/h2&gt;
+
+&lt;p&gt;In this case we need authentication.&lt;/p&gt;
+
+&lt;p&gt;First you need to ask to the XSEDE helpdesk API access to Jetstream, this also gives access
+to the Horizon interface, which has many advanced features that are not available in Atmosphere.&lt;/p&gt;
+
+&lt;h3 id=&quot;create-a-bucket&quot;&gt;Create a bucket&lt;/h3&gt;
+
+&lt;p&gt;Object store systems are organized on buckets, which are like root folders of our filesystem.
+From the Horizon interface, we can choose Object Store -&amp;gt; Containers (quite confusing way of referring to buckets in OpenStack).
+Here we can check content of existing buckets or create a new one.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Make sure you create the bucket on the right project&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;get-credentials&quot;&gt;Get credentials&lt;/h3&gt;
+
+&lt;p&gt;Once you have Jetstream 2 application credentials on your system,
+you can first test you can check the content of the bucket we created above:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack object list my_bucket
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now create ec2 credentials with:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openstack ec2 credentials create
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This is going to display AWS access key and AWS secret, we can save credentials in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;~/.aws/credentials&lt;/code&gt;
+in the machine we want then use to write to object store.&lt;/p&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[default]
+region=RegionOne
+aws_access_key_id=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+aws_secret_access_key=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;test-access&quot;&gt;Test access&lt;/h3&gt;
+
+&lt;p&gt;We can check if we can successfully login using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;s3fs&lt;/code&gt;, notice we &lt;strong&gt;do not use&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;anon=True&lt;/code&gt; as
+we did before:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import s3fs
+fs = s3fs.S3FileSystem(client_kwargs=dict(endpoint_url=&quot;https://js2.jetstream-cloud.org:8001/&quot;))
+fs.ls(&quot;my_bucket&quot;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;generate-a-file-and-write-it-to-object-store&quot;&gt;Generate a file and write it to object store&lt;/h3&gt;
+
+&lt;p&gt;See a &lt;a href=&quot;https://gist.github.com/33b51f74d9252cc3e5d18d290393c33c&quot;&gt;Notebook example of creating a random array in dask and saving it in Zarr format to Object Store&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jupyter" /><category term="jetstream2" /><category term="zarr" /><summary type="html">Zarr</summary></entry><entry><title type="html">Deploy JupyterHub on Jetstream 2 on top of Kubernetes</title><link href="https://zonca.dev/2022/03/jetstream2-jupyterhub.html" rel="alternate" type="text/html" title="Deploy JupyterHub on Jetstream 2 on top of Kubernetes" /><published>2022-03-31T00:00:00-05:00</published><updated>2022-03-31T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jetstream2-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/03/jetstream2-jupyterhub.html">&lt;p&gt;This tutorial is a followup to: &lt;a href=&quot;&quot;&gt;Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0&lt;/a&gt;, so I’ll assume Kubernetes is already deployed with a default storageclass.&lt;/p&gt;
 
 &lt;h2 id=&quot;clone-the-configuration-files-repository&quot;&gt;Clone the configuration files repository&lt;/h2&gt;
 
@@ -371,7 +450,9 @@ If any of the tests hangs or cannot connect, there is probably a networking issu
 
 &lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
 
-&lt;p&gt;See &lt;a href=&quot;https://twitter.com/andreazonca/status/1506458567456411649&quot;&gt;this thread on Twitter&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="jupyter-notebook" /><category term="git" /><summary type="html">I’ll present here my strategy for keeping Jupyter Notebooks under version control.</summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
+&lt;p&gt;See &lt;a href=&quot;https://twitter.com/andreazonca/status/1506458567456411649&quot;&gt;this thread on Twitter&lt;/a&gt;&lt;/p&gt;</content><author><name></name></author><category term="jupyter-notebook" /><category term="git" /><summary type="html">I’ll present here my strategy for keeping Jupyter Notebooks under version control.</summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-01-27T00:00:00-06:00</published><updated>2022-01-27T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/01/dask-gateway-jupyterhub.html">&lt;p&gt;&lt;strong&gt;Tutorial OBSOLETE&lt;/strong&gt; Please check &lt;a href=&quot;&quot;&gt;the updated version of this tutorial&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This tutorial follows the work by the Pangeo collaboration,
 the main difference is that I prefer to keep JupyterHub and the Dask infrastructure
 in 2 separate &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Helm&lt;/code&gt; recipes.&lt;/p&gt;
 
@@ -484,7 +565,7 @@ through the cluster.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><category term="dask" /><summary type="html">This tutorial follows the work by the Pangeo collaboration, the main difference is that I prefer to keep JupyterHub and the Dask infrastructure in 2 separate Helm recipes.</summary></entry><entry><title type="html">Make for repeated commands</title><link href="https://zonca.dev/2022/01/make.html" rel="alternate" type="text/html" title="Make for repeated commands" /><published>2022-01-07T00:00:00-06:00</published><updated>2022-01-07T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/make</id><content type="html" xml:base="https://zonca.dev/2022/01/make.html">&lt;p&gt;I often find myself repeat the same commands in a project,
+&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><category term="dask" /><summary type="html">Tutorial OBSOLETE Please check the updated version of this tutorial.</summary></entry><entry><title type="html">Make for repeated commands</title><link href="https://zonca.dev/2022/01/make.html" rel="alternate" type="text/html" title="Make for repeated commands" /><published>2022-01-07T00:00:00-06:00</published><updated>2022-01-07T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/make</id><content type="html" xml:base="https://zonca.dev/2022/01/make.html">&lt;p&gt;I often find myself repeat the same commands in a project,
 for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).&lt;/p&gt;
 
 &lt;p&gt;Instead of relying on bash history or writing a few bash scripts, it is just easier
@@ -1510,16 +1591,4 @@ Launch a test MapReduce job to compute pi:&lt;/p&gt;
 
 &lt;p&gt;Connect locally to port 8088 to check the status of the jobs.&lt;/p&gt;
 
-&lt;p&gt;Make sure this port is never exposed publicly. I learned the hard way that there are botnets scanning the internet and compromising the YARN service for crypto-mining, see &lt;a href=&quot;https://tolisec.com/yarn-botnet/&quot;&gt;this article for details&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="jetstream" /><summary type="html">We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.</summary></entry><entry><title type="html">Plot HEALPix pixel boundaries</title><link href="https://zonca.dev/2021/10/healpix-plot-pixel-boundaries.html" rel="alternate" type="text/html" title="Plot HEALPix pixel boundaries" /><published>2021-10-06T00:00:00-05:00</published><updated>2021-10-06T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/healpix-plot-pixel-boundaries</id><content type="html" xml:base="https://zonca.dev/2021/10/healpix-plot-pixel-boundaries.html">&lt;p&gt;Some time ago I created a Jupyter Notebook based on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;plotly&lt;/code&gt; to create a 3D visualization of the boundaries of HEALPix pixels on the sphere.&lt;/p&gt;
-
-&lt;p&gt;The notebook is available on Gist at &lt;a href=&quot;https://gist.github.com/zonca/b3045651cbc90fe699d2e56df490b005&quot;&gt;https://gist.github.com/zonca/b3045651cbc90fe699d2e56df490b005&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;See below the outputs ranging from Nside 1 to 8:&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/healpix_nside_1.png&quot; alt=&quot;Nside 1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/healpix_nside_2.png&quot; alt=&quot;Nside 2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/healpix_nside_4.png&quot; alt=&quot;Nside 4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;/images/healpix_nside_8.png&quot; alt=&quot;Nside 8&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="healpy" /><summary type="html">Some time ago I created a Jupyter Notebook based on plotly to create a 3D visualization of the boundaries of HEALPix pixels on the sphere.</summary></entry></feed>
+&lt;p&gt;Make sure this port is never exposed publicly. I learned the hard way that there are botnets scanning the internet and compromising the YARN service for crypto-mining, see &lt;a href=&quot;https://tolisec.com/yarn-botnet/&quot;&gt;this article for details&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="jetstream" /><summary type="html">We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.</summary></entry></feed>
