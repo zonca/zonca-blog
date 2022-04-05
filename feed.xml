@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-05T00:44:50-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Use the distributed file format Zarr on Jetstream 2 object storage</title><link href="https://zonca.dev/2022/04/zarr-jetstream2.html" rel="alternate" type="text/html" title="Use the distributed file format Zarr on Jetstream 2 object storage" /><published>2022-04-04T18:00:00-05:00</published><updated>2022-04-04T18:00:00-05:00</updated><id>https://zonca.dev/2022/04/zarr-jetstream2</id><content type="html" xml:base="https://zonca.dev/2022/04/zarr-jetstream2.html">&lt;h2 id=&quot;zarr&quot;&gt;Zarr&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-05T00:49:49-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Use the distributed file format Zarr on Jetstream 2 object storage</title><link href="https://zonca.dev/2022/04/zarr-jetstream2.html" rel="alternate" type="text/html" title="Use the distributed file format Zarr on Jetstream 2 object storage" /><published>2022-04-04T18:00:00-05:00</published><updated>2022-04-04T18:00:00-05:00</updated><id>https://zonca.dev/2022/04/zarr-jetstream2</id><content type="html" xml:base="https://zonca.dev/2022/04/zarr-jetstream2.html">&lt;h2 id=&quot;zarr&quot;&gt;Zarr&lt;/h2&gt;
 
 &lt;p&gt;Zarr is a file format designed for cloud computing, see &lt;a href=&quot;http://zarr.readthedocs.io&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
 
@@ -77,7 +77,127 @@ fs.ls(&quot;my_bucket&quot;)
 
 &lt;h3 id=&quot;generate-a-file-and-write-it-to-object-store&quot;&gt;Generate a file and write it to object store&lt;/h3&gt;
 
-&lt;p&gt;See a &lt;a href=&quot;https://gist.github.com/33b51f74d9252cc3e5d18d290393c33c&quot;&gt;Notebook example of creating a random array in dask and saving it in Zarr format to Object Store&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jupyter" /><category term="jetstream2" /><category term="zarr" /><summary type="html">Zarr</summary></entry><entry><title type="html">Deploy JupyterHub on Jetstream 2 on top of Kubernetes</title><link href="https://zonca.dev/2022/03/jetstream2-jupyterhub.html" rel="alternate" type="text/html" title="Deploy JupyterHub on Jetstream 2 on top of Kubernetes" /><published>2022-03-31T00:00:00-05:00</published><updated>2022-03-31T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jetstream2-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/03/jetstream2-jupyterhub.html">&lt;p&gt;This tutorial is a followup to: &lt;a href=&quot;&quot;&gt;Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0&lt;/a&gt;, so I’ll assume Kubernetes is already deployed with a default storageclass.&lt;/p&gt;
+&lt;p&gt;See a &lt;a href=&quot;https://gist.github.com/33b51f74d9252cc3e5d18d290393c33c&quot;&gt;Notebook example of creating a random array in dask and saving it in Zarr format to Object Store&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jupyter" /><category term="jetstream2" /><category term="zarr" /><summary type="html">Zarr</summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/04/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-04-04T00:00:00-05:00</published><updated>2022-04-04T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/04/dask-gateway-jupyterhub.html">&lt;p&gt;In this tutorial we will install &lt;a href=&quot;https://gateway.dask.org/index.html&quot;&gt;Dask Gateway&lt;/a&gt; on Kubernetes and configure JupyterHub so
+Jupyter Notebook users can launch private Dask cluster and connect to them.&lt;/p&gt;
+
+&lt;p&gt;I assume to start from a Kubernetes cluster already running and
+JupyterHub deployed on top of it via Helm. And SSL encryption also activated (it isn’t probably necessary, but I haven’t tested that).
+I tested on Jetstream 2, but the recipe should be agnostic of that.&lt;/p&gt;
+
+&lt;h2 id=&quot;preparation&quot;&gt;Preparation&lt;/h2&gt;
+
+&lt;p&gt;Clone on the machine you use to run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;helm&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; the repository
+with the configuration files and scripts:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you need to setup one API token, create it with:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;openssl rand -hex 32
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then paste it both in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_dask-gateway.yaml&lt;/code&gt;,
+look for the string &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;TOKEN&lt;/code&gt; and replace it.&lt;/p&gt;
+
+&lt;h2 id=&quot;launch-dask-gateway&quot;&gt;Launch dask gateway&lt;/h2&gt;
+
+&lt;p&gt;The Dask Gateway helm recipe hasn’t been released since November 2021, and version 0.9.0, the last release, doesn’t support Kubernetes 1.22.&lt;/p&gt;
+
+&lt;p&gt;Therefore we need to install a development version of the Helm recipe.&lt;/p&gt;
+
+&lt;p&gt;in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt; folder, checkout the Dask Gateway repository:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/dask/dask-gateway
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You could try using the latest &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; or the same commit I used:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout 76f43c09db267e20f1bfce501e98a51a7621e694
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;run:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash install_dask-gateway.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You might want to check &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config_dask-gateway.yaml&lt;/code&gt; for extra configuration options, but for initial setup and testing it shouldn’t be necessary.&lt;/p&gt;
+
+&lt;p&gt;After this you should see the 3 dask gateway pods running, e.g.:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ kubectl -n jhub get pods
+NAME                                       READY   STATUS    RESTARTS   AGE
+api-dask-gateway-64bf5db96c-4xfd6          1/1     Running   2          23m
+controller-dask-gateway-7674bd545d-cwfnx   1/1     Running   0          23m
+traefik-dask-gateway-5bbd68c5fd-5drm8      1/1     Running   0          23m
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;modify-the-jupyterhub-configuration&quot;&gt;Modify the JupyterHub configuration&lt;/h2&gt;
+
+&lt;p&gt;Only 2 options need to be changed in JupyterHub:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;We need to run a image which has the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; we installed on Kubernetes (currently &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0.9.0&lt;/code&gt;)&lt;/li&gt;
+  &lt;li&gt;We need to proxy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt; through JupyterHub so the users can access the Dask dashboard&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;If you are using my &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;install_jhub.sh&lt;/code&gt; script to deploy JupyterHub,
+you can modify it and add another &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;values&lt;/code&gt; option at the end, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;--values dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;You can modify the image you are using for Jupyterhub in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt;. If this is not possible, you can test different combinations and they might work. The Pangeo notebook image I am using has a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt; version too new compared to Dask Gateway 0.9.0, so I downgrade it directly in the example Notebook.&lt;/p&gt;
+
+&lt;p&gt;Then redeploy JupyterHub:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_jhub.sh &amp;amp;&amp;amp; cd dask_gateway &amp;amp;&amp;amp; bash install_dask-gateway.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Check that the service is working correctly,
+if open a browser tab and access &lt;a href=&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&quot;&gt;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/api/health&lt;/a&gt;, you should see:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If this is not working, you can open login to JupyterHub, get a terminal and first check if the service is working:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt;  curl http://traefik-dask-gateway/services/dask-gateway/api/health
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Should give:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{&quot;status&quot;: &quot;pass&quot;}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;create-a-dask-cluster&quot;&gt;Create a dask cluster&lt;/h2&gt;
+
+&lt;p&gt;You can now login to JupyterHub and check you can connect properly to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask-gateway&lt;/code&gt;:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;dask_gateway&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://traefik-dask-gateway/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;public_address&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;https://js-XXX-YYY.jetstream-cloud.org/services/dask-gateway/&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;auth&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jupyterhub&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;list_clusters&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then create a cluster and use it:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gateway&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;new_cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scale&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cluster&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_client&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Client is a standard &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; client and all subsequent calls to dask will go
+through the cluster.&lt;/p&gt;
+
+&lt;p&gt;Printing the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cluster&lt;/code&gt; object gives the link to the Dask dashboard.&lt;/p&gt;
+
+&lt;p&gt;For a full example and screenshots of the widgets and of the dashboard see:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream2" /><category term="jupyterhub" /><category term="dask" /><summary type="html">In this tutorial we will install Dask Gateway on Kubernetes and configure JupyterHub so Jupyter Notebook users can launch private Dask cluster and connect to them.</summary></entry><entry><title type="html">Deploy JupyterHub on Jetstream 2 on top of Kubernetes</title><link href="https://zonca.dev/2022/03/jetstream2-jupyterhub.html" rel="alternate" type="text/html" title="Deploy JupyterHub on Jetstream 2 on top of Kubernetes" /><published>2022-03-31T00:00:00-05:00</published><updated>2022-03-31T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jetstream2-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/03/jetstream2-jupyterhub.html">&lt;p&gt;This tutorial is a followup to: &lt;a href=&quot;&quot;&gt;Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0&lt;/a&gt;, so I’ll assume Kubernetes is already deployed with a default storageclass.&lt;/p&gt;
 
 &lt;h2 id=&quot;clone-the-configuration-files-repository&quot;&gt;Clone the configuration files repository&lt;/h2&gt;
 
@@ -1536,59 +1656,4 @@ $1.6106127 \; \mathrm{Gbyte}$
 &lt;/div&gt;
     
 
-&lt;/div&gt;</content><author><name></name></author><category term="healpy" /><category term="pysm" /><category term="cmb" /><category term="cosmology" /><summary type="html"></summary></entry><entry><title type="html">Deploy Hadoop on Kubernetes on Jetstream</title><link href="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html" rel="alternate" type="text/html" title="Deploy Hadoop on Kubernetes on Jetstream" /><published>2021-10-12T00:00:00-05:00</published><updated>2021-10-12T00:00:00-05:00</updated><id>https://zonca.dev/2021/10/hadoop-kubernetes-jetstream</id><content type="html" xml:base="https://zonca.dev/2021/10/hadoop-kubernetes-jetstream.html">&lt;p&gt;We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.&lt;/p&gt;
-
-&lt;p&gt;As usual we start with a full-fledged Kubernetes deployment on Jetstream (1) &lt;a href=&quot;https://zonca.dev/2021/01/kubernetes-jetstream-kubespray.html&quot;&gt;deployed via Kubespray&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;deploy-hadoop-via-helm&quot;&gt;Deploy Hadoop via helm&lt;/h2&gt;
-
-&lt;p&gt;Fortunately we have a Helm chart which deploys all the Hadoop components.
-It is deprecated since November 2020, but it still works fine on Kubernetes 1.19.7.&lt;/p&gt;
-
-&lt;p&gt;Clone the usual repository with &lt;a href=&quot;https://cli.github.com/&quot;&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;gh&lt;/code&gt;&lt;/a&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;gh repo clone zonca/jupyterhub-deploy-kubernetes-jetstream
-cd hadoop/
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Verify the configuration in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;stable_hadoop_values.yaml&lt;/code&gt;, I’m currently keeping it simple,
-so no persistence.&lt;/p&gt;
-
-&lt;p&gt;Install Hadoop via Helm:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash install_hadoop.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Once the pods are running, you should see:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;gt; kubectl get pods
-NAME                      READY   STATUS    RESTARTS   AGE
-hadoop-hadoop-hdfs-dn-0   1/1     Running   0          144m
-hadoop-hadoop-hdfs-nn-0   1/1     Running   0          144m
-hadoop-hadoop-yarn-nm-0   1/1     Running   0          144m
-hadoop-hadoop-yarn-rm-0   1/1     Running   0          144m
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;launch-a-test-job&quot;&gt;Launch a test job&lt;/h2&gt;
-
-&lt;p&gt;Get a terminal on the YARN node manager:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash login_yarn.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You have now access to the Hadoop 2.9.0 cluster.
-Launch a test MapReduce job to compute pi:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bin/yarn jar share/hadoop/mapreduce/hadoop-mapreduce-examples-2.9.0.jar pi 16 1000
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;access-the-yarn-dashboard&quot;&gt;Access the YARN Dashboard&lt;/h2&gt;
-
-&lt;p&gt;You can also export the YARN dashboard from the cluster to your local machine.&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash expose_yarn.sh
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Connect locally to port 8088 to check the status of the jobs.&lt;/p&gt;
-
-&lt;p&gt;Make sure this port is never exposed publicly. I learned the hard way that there are botnets scanning the internet and compromising the YARN service for crypto-mining, see &lt;a href=&quot;https://tolisec.com/yarn-botnet/&quot;&gt;this article for details&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="jetstream" /><summary type="html">We are deploying the good old Hadoop on top of Kubernetes on Jetstream. Don’t ask why.</summary></entry></feed>
+&lt;/div&gt;</content><author><name></name></author><category term="healpy" /><category term="pysm" /><category term="cmb" /><category term="cosmology" /><summary type="html"></summary></entry></feed>
