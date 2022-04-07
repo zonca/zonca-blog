@@ -4,7 +4,7 @@ title: Science Gateway with Dask and Zarr
 categories: [kubernetes, openstack, jetstream2, jupyterhub, dask]
 ---
 
-This material was presented at the MiniGateways 2022 conference organized by the wonderful Science Gateways Community Institute (SGCI).
+This material was presented at the MiniGateways 2022 conference organized by the wonderful Science Gateways Community Institute (SGCI). See the [talk slides](https://docs.google.com/presentation/d/1TVtrVeFiVfSm2X-XQ7u-O9TBD9tStJ5yWzaQuV0frxU/edit?usp=sharing)
 
 In this tutorial, we will glue several intersting technologies together to show a toy Science Gateway deployment which runs inside Kubernetes, uses Dask to scale up distributed computations across multiple workers and writes output data to Object store using the Zarr format.
 
