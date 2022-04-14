@@ -1,4 +1,90 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-07T10:41:22-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Science Gateway with Dask and Zarr</title><link href="https://zonca.dev/2022/04/science-gateway-dask-zarr.html" rel="alternate" type="text/html" title="Science Gateway with Dask and Zarr" /><published>2022-04-05T00:00:00-05:00</published><updated>2022-04-05T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/science-gateway-dask-zarr</id><content type="html" xml:base="https://zonca.dev/2022/04/science-gateway-dask-zarr.html">&lt;p&gt;This material was presented on April 2022 at the &lt;a href=&quot;https://sciencegateways.org/minigateways2022&quot;&gt;MiniGateways 2022 conference&lt;/a&gt; organized by the wonderful Science Gateways Community Institute (SGCI). See the &lt;a href=&quot;https://docs.google.com/presentation/d/1TVtrVeFiVfSm2X-XQ7u-O9TBD9tStJ5yWzaQuV0frxU/edit?usp=sharing&quot;&gt;talk slides&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-14T12:52:34-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Custos authentication for JupyterHub</title><link href="https://zonca.dev/2022/04/jupyterhub-custos-authentication.html" rel="alternate" type="text/html" title="Custos authentication for JupyterHub" /><published>2022-04-13T00:00:00-05:00</published><updated>2022-04-13T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/jupyterhub-custos-authentication</id><content type="html" xml:base="https://zonca.dev/2022/04/jupyterhub-custos-authentication.html">&lt;p&gt;&lt;a href=&quot;https://airavata.apache.org/custos/&quot;&gt;Custos&lt;/a&gt; is a security middleware used to
+authenticate users to Airavata-based Science Gateways.
+It is relevant to the Science Gateways community to unify authentication and also
+authenticate users to JupyterHub using the same framework.&lt;/p&gt;
+
+&lt;p&gt;Custos is a hosted solution managed by Indiana University, therefore it has no maintenance burden
+and supports CILogon so that users can login with credentials from almost all US Higher Education
+Institutions.&lt;/p&gt;
+
+&lt;h2 id=&quot;requirements&quot;&gt;Requirements&lt;/h2&gt;
+
+&lt;p&gt;I have been testing on Jetstream 2, however it should work easily on any Kubernetes deployment.
+If you also are testing on Jetstream 2, you can follow my previous tutorials to:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html&quot;&gt;Deploy Kubernetes&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2022/03/jetstream2-jupyterhub.html&quot;&gt;Deploy JupyterHub&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html&quot;&gt;Deploy Cert-Manager for SSL support&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;configure-custos&quot;&gt;Configure Custos&lt;/h2&gt;
+
+&lt;p&gt;First you can request a new tenant on the Custos hosted service, for testing you can use the development version at:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://dev.portal.usecustos.org/&quot;&gt;https://dev.portal.usecustos.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;then, for production, switch to:&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://portal.usecustos.org/&quot;&gt;https://portal.usecustos.org/&lt;/a&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Login with CILogon (I tested using my XSEDE account)&lt;/li&gt;
+  &lt;li&gt;Click on create new tenant&lt;/li&gt;
+  &lt;li&gt;Redirect url &lt;a href=&quot;https://your.jupyterhub.com/hub/oauth_callback&quot;&gt;https://your.jupyterhub.com/hub/oauth_callback&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;your.jupyterhub.com&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Client URI &lt;a href=&quot;https://your.jupyterhub.com&quot;&gt;https://your.jupyterhub.com&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Logo URI, anything, for example I used my Github avatar&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After having completed the process, you should see that your tenant is in the “Requested” state,
+wait for the Custos admins to approve it.&lt;/p&gt;
+
+&lt;h2 id=&quot;configure-jupyterhub&quot;&gt;Configure JupyterHub&lt;/h2&gt;
+
+&lt;p&gt;Custom authenticators for JupyterHub need to be installed in the Docker image used to run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;hub&lt;/code&gt; pod.
+The Custos Authenticator for JupyterHub has &lt;a href=&quot;https://pypi.org/project/custos-jupyterhub-authenticator/&quot;&gt;a package on PyPI&lt;/a&gt; so it is easy to add it to the JupyterHub image.
+See &lt;a href=&quot;https://github.com/jupyterhub/zero-to-jupyterhub-k8s/issues/2265&quot;&gt;this issue on zero-to-jupyterhub for more details&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;The Custos developers maintain Docker images which have this patch already applied, see the &lt;a href=&quot;https://hub.docker.com/r/apachecustos/jupyter-hub-k8/tags&quot;&gt;repository on DockerHub&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;We can therefore modify the JupyterHub configuration (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config_standard_storage.yaml&lt;/code&gt; in my tutorials) and add:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hub:
+  image:
+    name: apachecustos/jupyter-hub-k8
+    tag: 1.2.0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Consider that this will need to be updated if we change the version of the Helm recipe (currently 1.2.0).&lt;/p&gt;
+
+&lt;h2 id=&quot;configure-the-custos-authenticator&quot;&gt;Configure the Custos Authenticator&lt;/h2&gt;
+
+&lt;p&gt;Once the Custos tenant has been approved, we can proceed to configure JupyterHub with the right credentials,
+again, modify &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config_standard_storage.yaml&lt;/code&gt; to add:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;hub:
+  extraConfig:
+      00-custos: |
+        from custosauthenticator.custos import CustosOAuthenticator
+        c.JupyterHub.authenticator_class = CustosOAuthenticator
+        c.CustosOAuthenticator.oauth_callback_url = &quot;https://your.jupyterhub.com/hub/oauth_callback&quot;
+        c.CustosOAuthenticator.client_id = &quot;custos-xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+        c.CustosOAuthenticator.client_secret = &quot;xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&quot;
+        c.CustosOAuthenticator.login_service = &quot;Custos Login&quot;
+        c.CustosOAuthenticator.custos_host= &quot;custos.scigap.org&quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Finally you can test in your browser, you probably need to test with an account different than the one you used to setup the tenant, so for example if you used XSEDE, now use CILogon with your institution or use ORCID.&lt;/p&gt;
+
+&lt;p&gt;With this default configuration, any user that can login to Custos can also login to JupyterHub, so if you already have permissions setup for your Custos gateway, those will be also applied to JupyterHub.&lt;/p&gt;
+
+&lt;h2 id=&quot;work-in-progress&quot;&gt;Work in progress&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/airavata-custos/issues/265&quot;&gt;Understand if we can login with owner account of tenant&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/apache/airavata-custos/issues/264&quot;&gt;Fix the logout button&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream2" /><category term="jupyterhub" /><summary type="html">Custos is a security middleware used to authenticate users to Airavata-based Science Gateways. It is relevant to the Science Gateways community to unify authentication and also authenticate users to JupyterHub using the same framework.</summary></entry><entry><title type="html">Science Gateway with Dask and Zarr</title><link href="https://zonca.dev/2022/04/science-gateway-dask-zarr.html" rel="alternate" type="text/html" title="Science Gateway with Dask and Zarr" /><published>2022-04-05T00:00:00-05:00</published><updated>2022-04-05T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/science-gateway-dask-zarr</id><content type="html" xml:base="https://zonca.dev/2022/04/science-gateway-dask-zarr.html">&lt;p&gt;This material was presented on April 2022 at the &lt;a href=&quot;https://sciencegateways.org/minigateways2022&quot;&gt;MiniGateways 2022 conference&lt;/a&gt; organized by the wonderful Science Gateways Community Institute (SGCI). See the &lt;a href=&quot;https://docs.google.com/presentation/d/1TVtrVeFiVfSm2X-XQ7u-O9TBD9tStJ5yWzaQuV0frxU/edit?usp=sharing&quot;&gt;talk slides&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;In this tutorial, we will glue several intersting technologies together to show a toy Science Gateway deployment which runs inside Kubernetes, uses Dask to scale up distributed computations across multiple workers and writes output data to Object store using the Zarr format.&lt;/p&gt;
 
@@ -829,69 +915,4 @@ After all, back in the day, everybody was paying for IDL licenses. Now, if Princ
 
 &lt;h2 id=&quot;feedback&quot;&gt;Feedback&lt;/h2&gt;
 
-&lt;p&gt;If you have any feedback, please &lt;a href=&quot;https://twitter.com/andreazonca&quot;&gt;tweet &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@andreazonca&lt;/code&gt;&lt;/a&gt; or email &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdsc.edu&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><category term="healpy" /><summary type="html">Github Sponsor page</summary></entry><entry><title type="html">Kubernetes certifications CKA and CKAD</title><link href="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html" rel="alternate" type="text/html" title="Kubernetes certifications CKA and CKAD" /><published>2021-11-04T00:00:00-05:00</published><updated>2021-11-04T00:00:00-05:00</updated><id>https://zonca.dev/2021/11/cka-ckad-kubernetes-certification</id><content type="html" xml:base="https://zonca.dev/2021/11/cka-ckad-kubernetes-certification.html">&lt;p&gt;I recently pursued 2 Kubernetes certifications by Linux Foundation:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Certified Kubernetes Administrator (CKA)&lt;/li&gt;
-  &lt;li&gt;Certified Kubernetes Application Developer (CKAD)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;I have been deploying, managing and using Kubernetes on Jetstream for more than 4 years
-(&lt;a href=&quot;https://zonca.dev/2017/12/scalable-jupyterhub-kubernetes-jetstream.html&quot;&gt;my first tutorial back in 2017&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;However I never did any formal training so my knowledge was sparse.
-I was extremely useful to follow the 2 classes by Linux Foundation related to the certifications, they gave
-me a more systematic view of all parts of Kubernetes.&lt;/p&gt;
-
-&lt;p&gt;I decided to follow both, but there is a lot of overlap, so better choose one of the 2,
-if you are more interested in using Kubernetes to deploy applications, do only CKAD and the related class,
-if you need to administer Kubernetes deployments, take only CKA.&lt;/p&gt;
-
-&lt;p&gt;The most important part of the training is the “test session” on Killer.sh, this is a simulation of the real
-certification exam and gives you a lot of experience in being fast in navigating the docs and using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt;.
-The exam itself also teaches a lot, you are logging into Kubernetes clusters, solving issues and performing real-world tasks.&lt;/p&gt;
-
-&lt;p&gt;The certification exam is done via proctoring, but the process is quite painless.
-For the exam you really need to be fast and know how to create resources with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl create&lt;/code&gt; instead of writing
-YAML every time, go for YAML just for the more complicated resources. I got to the end of both exams with 15 minutes to spare on the total of 2 hours, that I used to debug the questions I couldn’t do in the first pass.&lt;/p&gt;
-
-&lt;h2 id=&quot;suggestions-for-the-tests&quot;&gt;Suggestions for the tests&lt;/h2&gt;
-
-&lt;p&gt;Have bookmarks ready, I found a set on the web and added a few of my own, see &lt;a href=&quot;https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5&quot;&gt;https://gist.github.com/zonca/b1f7ee0f884cae8011e86a41e6c525d5&lt;/a&gt;, you can also copy the links to the YAML files and do &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wget&lt;/code&gt; from the terminal.&lt;/p&gt;
-
-&lt;h3 id=&quot;bash&quot;&gt;Bash&lt;/h3&gt;
-
-&lt;p&gt;You need to memorize these variables and aliases to type into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.bashrc&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;export do=&quot;--dry-run=client -o yaml&quot;
-export now=&quot;--force --grace-period 0&quot;
-alias  kr=&quot;kubectl --replace $now -f&quot;
-export VISUAL=vim
-export EDITOR=vim
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The variables about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; are needed to have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt; keybindings in TMUX.
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kr&lt;/code&gt; is very useful because you can use it instead of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k apply -f&lt;/code&gt; and you have it ready if you need to modify the YAML and replace the resource.&lt;/p&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$do&lt;/code&gt; is necessary to create the YAML for a resource with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;k create&lt;/code&gt; and then go from there.
-&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;$now&lt;/code&gt; just to quickly delete resources.&lt;/p&gt;
-
-&lt;h3 id=&quot;vim&quot;&gt;Vim&lt;/h3&gt;
-
-&lt;p&gt;Minimal &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.vimrc&lt;/code&gt; for editing YAML files:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set expandtab
-set shiftwidth=2
-set tabstop=2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;tmux&quot;&gt;TMux&lt;/h3&gt;
-
-&lt;p&gt;You already use TMux, so it is useful to have 2 windows, the first one for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; and the second for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim&lt;/code&gt;, it is important not to confuse them, you only go configure the environment in the first window, so you can run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl&lt;/code&gt; only there.&lt;/p&gt;
-
-&lt;p&gt;In case you use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;screen&lt;/code&gt; mode with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;CTRL-A&lt;/code&gt; as I do, no need to memorize the spell, just open &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;man tmux&lt;/code&gt;, search for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;default prefix&lt;/code&gt; and copy paste into &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.tmux.conf&lt;/code&gt;:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;set-option -g prefix C-a
-unbind-key C-b
-bind-key C-a send-prefix
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="kubernetes" /><summary type="html">I recently pursued 2 Kubernetes certifications by Linux Foundation:</summary></entry></feed>
+&lt;p&gt;If you have any feedback, please &lt;a href=&quot;https://twitter.com/andreazonca&quot;&gt;tweet &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;@andreazonca&lt;/code&gt;&lt;/a&gt; or email &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zonca&lt;/code&gt; on the domain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sdsc.edu&lt;/code&gt;.&lt;/p&gt;</content><author><name></name></author><category term="healpy" /><summary type="html">Github Sponsor page</summary></entry></feed>
