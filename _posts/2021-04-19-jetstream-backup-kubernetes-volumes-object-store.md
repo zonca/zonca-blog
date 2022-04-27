@@ -274,3 +274,7 @@ a  b  Healpix_3.70_2020Jul23.tar.gz  MosfireDRP-2018release.zip  plot_cl_TT.ipyn
 
 * Issue: Volumes cannot be mounted because they are in "Reserved" state in Openstack
 * Solution: Run `openstack volume set --state available <uuid>`, this is an [open issue affecting Jetstream](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/40)
+
+## Setup monitoring
+
+See the new tutorial on [how to setup a system to monitor that the backups are being executed](https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html)
