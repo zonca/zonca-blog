@@ -4,19 +4,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Page 8 of 22 for Andrea Zonca | Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</title>
+<title>Monitor Restic backups on Kubernetes | Andrea Zonca</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Andrea Zonca" />
+<meta property="og:title" content="Monitor Restic backups on Kubernetes" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<meta property="og:description" content="Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes" />
-<link rel="canonical" href="https://zonca.dev/page8/" />
-<meta property="og:url" content="https://zonca.dev/page8/" />
+<meta name="description" content="For one of my production JupyterHub deployments on Kubernetes, I have setup an automated system to perform nightly backup of the user data, see the full tutorial on how to set it up." />
+<meta property="og:description" content="For one of my production JupyterHub deployments on Kubernetes, I have setup an automated system to perform nightly backup of the user data, see the full tutorial on how to set it up." />
+<link rel="canonical" href="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html" />
+<meta property="og:url" content="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
-<link rel="prev" href="https://zonca.dev/page7/" />
-<link rel="next" href="https://zonca.dev/page9/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-04-27T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Andrea Zonca","url":"https://zonca.dev/page8/","@type":"WebPage","description":"Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes","@context":"https://schema.org"}</script>
+{"headline":"Monitor Restic backups on Kubernetes","url":"https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html","dateModified":"2022-04-27T00:00:00-05:00","datePublished":"2022-04-27T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html"},"description":"For one of my production JupyterHub deployments on Kubernetes, I have setup an automated system to perform nightly backup of the user data, see the full tutorial on how to set it up.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -84,86 +84,75 @@ window.onload = wrap_img;
 </header>
 <main class="page-content" aria-label="Content">
       <div class="wrapper">
-        <div class="home">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
-
-
-  
-
-  <!-- Hide posts if front matter flag hide:true -->
-  
-  
-
-  <!-- Sort posts by rank, then date -->
-  
-  
-  
-
- 
-  
-
-   <!-- Assemble final sorted posts array -->
-  
-  <ul class="post-list"><li><h3>
-    <a class="post-link" href="/2019/09/batch-notebook-execution.html">
-    Execute Jupyter Notebooks not interactively
-    </a>
-</h3><p class="post-meta">Sep 23, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/09/kubernetes-jetstream-autoscaler.html">
-    Deploy Cluster Autoscaler for Kubernetes on Jetstream
-    </a>
-</h3><p class="post-meta">Sep 12, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/08/github-for-research-groups.html">
-    Create a Github account for your research group with free private repositories
-    </a>
-</h3><p class="post-meta">Aug 24, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/08/large-files-python-packages.html">
-    Ship large files with Python packages
-    </a>
-</h3><p class="post-meta">Aug 21, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/06/kubernetes-jupyterhub-jetstream-magnum.html">
-    Deploy Kubernetes and JupyterHub on Jetstream with Magnum
-    </a>
-</h3><p class="post-meta">Jun 14, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/05/webinar-python-hpc.html">
-    Webinar about distributed computing with Python
-    </a>
-</h3><p class="post-meta">May 30, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/04/kubernetes-monitoring-prometheus-grafana.html">
-    Kubernetes monitoring with Prometheus and Grafana
-    </a>
-</h3><p class="post-meta">Apr 20, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/03/folder-inherit-group-permission.html">
-    Inherit group permission in folder
-    </a>
-</h3><p class="post-meta">Mar 24, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/02/scale-kubernetes-jupyterhub-manually.html">
-    Scale Kubernetes manually on Jetstream
-    </a>
-</h3><p class="post-meta">Feb 22, 2019</p>
-</li><li><h3>
-    <a class="post-link" href="/2019/02/scale-kubernetes-jupyterhub-manually.html">
-    Kubernetes monitoring with Dashboard, Prometheus, and Grafana
-    </a>
-</h3><p class="post-meta">Feb 22, 2019</p>
-</li></ul>
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Monitor Restic backups on Kubernetes</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2022-04-27T00:00:00-05:00" itemprop="datePublished">
+        Apr 27, 2022
+      </time>
+    </p>
 
     
-      <div class="pager">
-        <ul class="pagination">
-          <li><a href="/page7/" class="previous-page">7</a></li>
-          <li><div class="current-page">8</div></li>
-          <li><a href="/page9/" class="next-page">9</a></li>
-        </ul>
-      </div></div>
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/categories/#jetstream">jetstream</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/categories/#kubernetes">kubernetes</a>
+        
+      
+      </p>
+    
+
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/zonca/zonca-blog/tree/master/_posts/2022-04-27-monitor-restic-backups-kubernetes.md" role="button" target="_blank">
+<img class="notebook-badge-image" src="/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+    </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>For one of my production JupyterHub deployments on Kubernetes, I have setup an automated
+system to perform nightly backup of the user data, see <a href="https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html">the full tutorial on how to set it up</a>.</p>
+
+<p>The system writes the backups to Object store using <a href="https://restic.net/">Restic</a>.</p>
+
+<p>In this tutorial I’ll provide the configuration to have a CronJob on Kubernetes checking how old are the backups and be alerted if anything is not working using Healthchecks.io.</p>
+
+<p>Healthchecks.io is a free service that gives you a URL endpoint you should regularly send a GET request to, for example from a bash script, if they don’t receive a ping after a configurable amount of hours, they send an email.</p>
+
+<h2 id="setup-the-system">Setup the system</h2>
+
+<p>First register for a free account at <a href="https://healthchecks.io">https://healthchecks.io</a>, configure an endpoint and get the related URL.</p>
+
+<p>Checkout my usual <code class="language-plaintext highlighter-rouge">zonca/jupyterhub-deploy-kubernetes-jetstream</code> repository from Github, enter the <code class="language-plaintext highlighter-rouge">backup_volumes</code> folder.</p>
+
+<p>Make sure you have the Restic password and the AWS-style credentials saved in text files in the same folder, make sure there is no newline at the end of the files (use <code class="language-plaintext highlighter-rouge">vim -b</code> with <code class="language-plaintext highlighter-rouge">:set noeol</code>, yes, this is a reminder for myself).</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bash create_aws_secret.sh
+</code></pre></div></div>
+
+<p>Then enter the <code class="language-plaintext highlighter-rouge">backup_volumes/monitor</code> subfolder:</p>
+
+<ul>
+  <li>Edit <code class="language-plaintext highlighter-rouge">cronjob.yaml</code> and enter your Healthchecks.io URL</li>
+  <li>Run the <code class="language-plaintext highlighter-rouge">backup_is_current.sh</code> script locally to make sure it works properly</li>
+  <li>Run the <code class="language-plaintext highlighter-rouge">create_configmap_scripts.sh</code> bash script to load the previous script into Kubernetes as a configmap</li>
+  <li>Modify the schedule in <code class="language-plaintext highlighter-rouge">cronjob.yaml</code> to “* * * * *”, so every minute it has a chance to run correctly</li>
+  <li>Finally run <code class="language-plaintext highlighter-rouge">kubectl apply -f cronjob.yaml</code> to create the CronJob</li>
+  <li>Debug until it works!</li>
+  <li>If you login to Healthchecks.io, you should see the GET requests coming in every minute.</li>
+  <li>Relax, you’ll be notified if backups stop working for any reason.</li>
+</ul>
+
+  </div><a class="u-url" href="/2022/04/monitor-restic-backups-kubernetes.html" hidden></a>
+</article>
+
       </div>
     </main><footer class="site-footer h-card">
   <data class="u-url" href="/"></data>

@@ -841,6 +841,10 @@
 <lastmod>2022-04-15T00:00:00-05:00</lastmod>
 </url>
 <url>
+<loc>https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html</loc>
+<lastmod>2022-04-27T00:00:00-05:00</lastmod>
+</url>
+<url>
 <loc>https://zonca.dev/about/</loc>
 </url>
 <url>
@@ -914,5 +918,8 @@
 </url>
 <url>
 <loc>https://zonca.dev/page21/</loc>
+</url>
+<url>
+<loc>https://zonca.dev/page22/</loc>
 </url>
 </urlset>

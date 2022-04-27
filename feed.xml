@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-15T14:20:01-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Jetstream2 SU calculator</title><link href="https://zonca.dev/2022/04/jetstream2-su-calculator.html" rel="alternate" type="text/html" title="Jetstream2 SU calculator" /><published>2022-04-15T00:00:00-05:00</published><updated>2022-04-15T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/jetstream2-su-calculator</id><content type="html" xml:base="https://zonca.dev/2022/04/jetstream2-su-calculator.html">&lt;p&gt;Jupyter Notebook to compute daily, monthly, yearly consumption of SU based on the number and type of Virtual Machines:&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-27T18:46:47-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Monitor Restic backups on Kubernetes</title><link href="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html" rel="alternate" type="text/html" title="Monitor Restic backups on Kubernetes" /><published>2022-04-27T00:00:00-05:00</published><updated>2022-04-27T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/monitor-restic-backups-kubernetes</id><content type="html" xml:base="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html">&lt;p&gt;For one of my production JupyterHub deployments on Kubernetes, I have setup an automated
+system to perform nightly backup of the user data, see &lt;a href=&quot;https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html&quot;&gt;the full tutorial on how to set it up&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;The system writes the backups to Object store using &lt;a href=&quot;https://restic.net/&quot;&gt;Restic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;In this tutorial I’ll provide the configuration to have a CronJob on Kubernetes checking how old are the backups and be alerted if anything is not working using Healthchecks.io.&lt;/p&gt;
+
+&lt;p&gt;Healthchecks.io is a free service that gives you a URL endpoint you should regularly send a GET request to, for example from a bash script, if they don’t receive a ping after a configurable amount of hours, they send an email.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup-the-system&quot;&gt;Setup the system&lt;/h2&gt;
+
+&lt;p&gt;First register for a free account at &lt;a href=&quot;https://healthchecks.io&quot;&gt;https://healthchecks.io&lt;/a&gt;, configure an endpoint and get the related URL.&lt;/p&gt;
+
+&lt;p&gt;Checkout my usual &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;zonca/jupyterhub-deploy-kubernetes-jetstream&lt;/code&gt; repository from Github, enter the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;backup_volumes&lt;/code&gt; folder.&lt;/p&gt;
+
+&lt;p&gt;Make sure you have the Restic password and the AWS-style credentials saved in text files in the same folder, make sure there is no newline at the end of the files (use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;vim -b&lt;/code&gt; with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;:set noeol&lt;/code&gt;, yes, this is a reminder for myself).&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bash create_aws_secret.sh
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then enter the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;backup_volumes/monitor&lt;/code&gt; subfolder:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Edit &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cronjob.yaml&lt;/code&gt; and enter your Healthchecks.io URL&lt;/li&gt;
+  &lt;li&gt;Run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;backup_is_current.sh&lt;/code&gt; script locally to make sure it works properly&lt;/li&gt;
+  &lt;li&gt;Run the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;create_configmap_scripts.sh&lt;/code&gt; bash script to load the previous script into Kubernetes as a configmap&lt;/li&gt;
+  &lt;li&gt;Modify the schedule in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cronjob.yaml&lt;/code&gt; to “* * * * *”, so every minute it has a chance to run correctly&lt;/li&gt;
+  &lt;li&gt;Finally run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;kubectl apply -f cronjob.yaml&lt;/code&gt; to create the CronJob&lt;/li&gt;
+  &lt;li&gt;Debug until it works!&lt;/li&gt;
+  &lt;li&gt;If you login to Healthchecks.io, you should see the GET requests coming in every minute.&lt;/li&gt;
+  &lt;li&gt;Relax, you’ll be notified if backups stop working for any reason.&lt;/li&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="jetstream" /><category term="kubernetes" /><summary type="html">For one of my production JupyterHub deployments on Kubernetes, I have setup an automated system to perform nightly backup of the user data, see the full tutorial on how to set it up.</summary></entry><entry><title type="html">Jetstream2 SU calculator</title><link href="https://zonca.dev/2022/04/jetstream2-su-calculator.html" rel="alternate" type="text/html" title="Jetstream2 SU calculator" /><published>2022-04-15T00:00:00-05:00</published><updated>2022-04-15T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/jetstream2-su-calculator</id><content type="html" xml:base="https://zonca.dev/2022/04/jetstream2-su-calculator.html">&lt;p&gt;Jupyter Notebook to compute daily, monthly, yearly consumption of SU based on the number and type of Virtual Machines:&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/3cc70af86d24a0bcc176f2b18d0cc9dd#file-jetstream2_su_calculator-ipynb&quot;&gt;https://gist.github.com/zonca/3cc70af86d24a0bcc176f2b18d0cc9dd#file-jetstream2_su_calculator-ipynb&lt;/a&gt;&lt;/p&gt;
 
@@ -857,16 +888,4 @@ through the cluster.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><category term="dask" /><summary type="html">Tutorial OBSOLETE Please check the updated version of this tutorial.</summary></entry><entry><title type="html">Make for repeated commands</title><link href="https://zonca.dev/2022/01/make.html" rel="alternate" type="text/html" title="Make for repeated commands" /><published>2022-01-07T00:00:00-06:00</published><updated>2022-01-07T00:00:00-06:00</updated><id>https://zonca.dev/2022/01/make</id><content type="html" xml:base="https://zonca.dev/2022/01/make.html">&lt;p&gt;I often find myself repeat the same commands in a project,
-for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).&lt;/p&gt;
-
-&lt;p&gt;Instead of relying on bash history or writing a few bash scripts, it is just easier
-to write a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Makefile&lt;/code&gt;, even if you do not use the Make dependencies and you just use
-it as a collection of useful commands.&lt;/p&gt;
-
-&lt;p&gt;Here is a template to start from, which supports &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;make list&lt;/code&gt; to show available targets
-and shows how to pass arguments to a command:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://gist.github.com/zonca/fd1980c1aeac394bfc854fce24b9b0df&quot;&gt;https://gist.github.com/zonca/fd1980c1aeac394bfc854fce24b9b0df&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="make" /><summary type="html">I often find myself repeat the same commands in a project, for example in Openstack/Kubernetes, but also when I need to interface with Docker (build/push image).</summary></entry></feed>
+&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream" /><category term="jupyterhub" /><category term="dask" /><summary type="html">Tutorial OBSOLETE Please check the updated version of this tutorial.</summary></entry></feed>
