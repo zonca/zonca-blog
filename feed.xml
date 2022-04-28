@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-28T11:33:33-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Monitor Restic backups on Kubernetes</title><link href="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html" rel="alternate" type="text/html" title="Monitor Restic backups on Kubernetes" /><published>2022-04-27T00:00:00-05:00</published><updated>2022-04-27T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/monitor-restic-backups-kubernetes</id><content type="html" xml:base="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html">&lt;p&gt;For one of my production JupyterHub deployments on Kubernetes, I have setup an automated
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.1.1">Jekyll</generator><link href="https://zonca.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://zonca.dev/" rel="alternate" type="text/html" /><updated>2022-04-28T13:47:41-05:00</updated><id>https://zonca.dev/feed.xml</id><title type="html">Andrea Zonca</title><subtitle>Tutorials and blog posts by Andrea Zonca: Python, Jupyter, Kubernetes</subtitle><entry><title type="html">Monitor Restic backups on Kubernetes</title><link href="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html" rel="alternate" type="text/html" title="Monitor Restic backups on Kubernetes" /><published>2022-04-27T00:00:00-05:00</published><updated>2022-04-27T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/monitor-restic-backups-kubernetes</id><content type="html" xml:base="https://zonca.dev/2022/04/monitor-restic-backups-kubernetes.html">&lt;p&gt;For one of my production JupyterHub deployments on Kubernetes, I have setup an automated
 system to perform nightly backup of the user data, see &lt;a href=&quot;https://zonca.dev/2021/04/jetstream-backup-kubernetes-volumes-object-store.html&quot;&gt;the full tutorial on how to set it up&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;The system writes the backups to Object store using &lt;a href=&quot;https://restic.net/&quot;&gt;Restic&lt;/a&gt;.&lt;/p&gt;
@@ -284,7 +284,9 @@ fs.ls(&quot;my_bucket&quot;)
 
 &lt;h3 id=&quot;generate-a-file-and-write-it-to-object-store&quot;&gt;Generate a file and write it to object store&lt;/h3&gt;
 
-&lt;p&gt;See a &lt;a href=&quot;https://gist.github.com/33b51f74d9252cc3e5d18d290393c33c&quot;&gt;Notebook example of creating a random array in dask and saving it in Zarr format to Object Store&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jupyter" /><category term="jetstream2" /><category term="zarr" /><summary type="html">Zarr</summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/04/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-04-04T00:00:00-05:00</published><updated>2022-04-04T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/04/dask-gateway-jupyterhub.html">&lt;p&gt;In this tutorial we will install &lt;a href=&quot;https://gateway.dask.org/index.html&quot;&gt;Dask Gateway&lt;/a&gt; on Kubernetes and configure JupyterHub so
+&lt;p&gt;See a &lt;a href=&quot;https://gist.github.com/33b51f74d9252cc3e5d18d290393c33c&quot;&gt;Notebook example of creating a random array in dask and saving it in Zarr format to Object Store&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><category term="jupyter" /><category term="jetstream2" /><category term="zarr" /><summary type="html">Zarr</summary></entry><entry><title type="html">Deploy Dask Gateway with JupyterHub on Kubernetes</title><link href="https://zonca.dev/2022/04/dask-gateway-jupyterhub.html" rel="alternate" type="text/html" title="Deploy Dask Gateway with JupyterHub on Kubernetes" /><published>2022-04-04T00:00:00-05:00</published><updated>2022-04-04T00:00:00-05:00</updated><id>https://zonca.dev/2022/04/dask-gateway-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/04/dask-gateway-jupyterhub.html">&lt;p&gt;&lt;strong&gt;Updated 28 April 2022&lt;/strong&gt;: switched to Dask Gateway 2022.4.0&lt;/p&gt;
+
+&lt;p&gt;In this tutorial we will install &lt;a href=&quot;https://gateway.dask.org/index.html&quot;&gt;Dask Gateway&lt;/a&gt; on Kubernetes and configure JupyterHub so
 Jupyter Notebook users can launch private Dask cluster and connect to them.&lt;/p&gt;
 
 &lt;p&gt;I assume to start from a Kubernetes cluster already running and
@@ -309,21 +311,7 @@ look for the string &lt;code class=&quot;language-plaintext highlighter-rouge&qu
 
 &lt;h2 id=&quot;launch-dask-gateway&quot;&gt;Launch dask gateway&lt;/h2&gt;
 
-&lt;p&gt;The Dask Gateway helm recipe hasn’t been released since November 2021, and version 0.9.0, the last release, doesn’t support Kubernetes 1.22.&lt;/p&gt;
-
-&lt;p&gt;Therefore we need to install a development version of the Helm recipe.&lt;/p&gt;
-
-&lt;p&gt;in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt; folder, checkout the Dask Gateway repository:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git clone https://github.com/dask/dask-gateway
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;You could try using the latest &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main&lt;/code&gt; or the same commit I used:&lt;/p&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;git checkout 76f43c09db267e20f1bfce501e98a51a7621e694
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;run:&lt;/p&gt;
+&lt;p&gt;We can install version 2022.4.0 with:&lt;/p&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;$ bash install_dask-gateway.sh
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -353,7 +341,7 @@ you can modify it and add another &lt;code class=&quot;language-plaintext highli
 
 &lt;p&gt;You can modify the image you are using for Jupyterhub in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway/config_jupyterhub.yaml&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt;. If this is not possible, you can test different combinations and they might work. The Pangeo notebook image I am using has a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt; version too new compared to Dask Gateway 0.9.0, so I downgrade it directly in the example Notebook.&lt;/p&gt;
+&lt;p&gt;To assure that there are not compatibility issues, the “Client” (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;distributed&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dask_gateway&lt;/code&gt;. If this is not possible, you can test different combinations and they might work.&lt;/p&gt;
 
 &lt;p&gt;Then redeploy JupyterHub:&lt;/p&gt;
 
@@ -404,7 +392,7 @@ through the cluster.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&quot;&gt;https://gist.github.com/zonca/355a7ec6b5bd3f84b1413a8c29fbc877&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream2" /><category term="jupyterhub" /><category term="dask" /><summary type="html">In this tutorial we will install Dask Gateway on Kubernetes and configure JupyterHub so Jupyter Notebook users can launch private Dask cluster and connect to them.</summary></entry><entry><title type="html">Deploy JupyterHub on Jetstream 2 on top of Kubernetes</title><link href="https://zonca.dev/2022/03/jetstream2-jupyterhub.html" rel="alternate" type="text/html" title="Deploy JupyterHub on Jetstream 2 on top of Kubernetes" /><published>2022-03-31T00:00:00-05:00</published><updated>2022-03-31T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jetstream2-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/03/jetstream2-jupyterhub.html">&lt;p&gt;This tutorial is a followup to: &lt;a href=&quot;&quot;&gt;Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0&lt;/a&gt;, so I’ll assume Kubernetes is already deployed with a default storageclass.&lt;/p&gt;
+&lt;p&gt;(Click on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Raw&lt;/code&gt; button to download notebook and upload it to your session).&lt;/p&gt;</content><author><name></name></author><category term="kubernetes" /><category term="openstack" /><category term="jetstream2" /><category term="jupyterhub" /><category term="dask" /><summary type="html">Updated 28 April 2022: switched to Dask Gateway 2022.4.0</summary></entry><entry><title type="html">Deploy JupyterHub on Jetstream 2 on top of Kubernetes</title><link href="https://zonca.dev/2022/03/jetstream2-jupyterhub.html" rel="alternate" type="text/html" title="Deploy JupyterHub on Jetstream 2 on top of Kubernetes" /><published>2022-03-31T00:00:00-05:00</published><updated>2022-03-31T00:00:00-05:00</updated><id>https://zonca.dev/2022/03/jetstream2-jupyterhub</id><content type="html" xml:base="https://zonca.dev/2022/03/jetstream2-jupyterhub.html">&lt;p&gt;This tutorial is a followup to: &lt;a href=&quot;&quot;&gt;Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0&lt;/a&gt;, so I’ll assume Kubernetes is already deployed with a default storageclass.&lt;/p&gt;
 
 &lt;h2 id=&quot;clone-the-configuration-files-repository&quot;&gt;Clone the configuration files repository&lt;/h2&gt;
 
