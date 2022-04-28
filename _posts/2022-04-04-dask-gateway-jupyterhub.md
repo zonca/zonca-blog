@@ -4,6 +4,8 @@ title: Deploy Dask Gateway with JupyterHub on Kubernetes
 categories: [kubernetes, openstack, jetstream2, jupyterhub, dask]
 ---
 
+**Updated 28 April 2022**: switched to Dask Gateway 2022.4.0
+
 In this tutorial we will install [Dask Gateway](https://gateway.dask.org/index.html) on Kubernetes and configure JupyterHub so
 Jupyter Notebook users can launch private Dask cluster and connect to them.
 
@@ -27,19 +29,7 @@ look for the string `TOKEN` and replace it.
 
 ## Launch dask gateway
 
-The Dask Gateway helm recipe hasn't been released since November 2021, and version 0.9.0, the last release, doesn't support Kubernetes 1.22.
-
-Therefore we need to install a development version of the Helm recipe.
-
-in the `dask_gateway` folder, checkout the Dask Gateway repository:
-
-    git clone https://github.com/dask/dask-gateway
-
-You could try using the latest `main` or the same commit I used:
-
-    git checkout 76f43c09db267e20f1bfce501e98a51a7621e694
-
-run:
+We can install version 2022.4.0 with:
 
 	$ bash install_dask-gateway.sh
 
@@ -65,7 +55,7 @@ you can modify it and add another `values` option at the end, `--values dask_gat
 
 You can modify the image you are using for Jupyterhub in `dask_gateway/config_jupyterhub.yaml`.
 
-To assure that there are not compatibility issues, the "Client" (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of `dask`, `distributed` and `dask_gateway`. If this is not possible, you can test different combinations and they might work. The Pangeo notebook image I am using has a `dask` version too new compared to Dask Gateway 0.9.0, so I downgrade it directly in the example Notebook.
+To assure that there are not compatibility issues, the "Client" (JupyterHub session), the dask gateway server, the scheduler and the workers should all have the same version of Python and the same version of `dask`, `distributed` and `dask_gateway`. If this is not possible, you can test different combinations and they might work.
 
 Then redeploy JupyterHub:
 
