@@ -172,6 +172,13 @@ curl https://gist.github.com/zonca/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx/raw/xxxxxxxx
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>MariaDB-devel MariaDB-connect-engine
 </code></pre></div></div>
 
+<p>The connection string for SQLAlchemy will be:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from urllib.parse import quote_plus as urlquote
+pw = urlquote('xxxxxxxxxxxxxxxxxxxx')
+engine = sqlalchemy.create_engine(f"mariadb+mariadbconnector://mariadbuser:{pw}@mariadb.jhub.svc.cluster.local:3306/mariadbk8s")
+</code></pre></div></div>
+
   </div><a class="u-url" href="/2022/06/mariadb-jetstream2-kubernetes.html" hidden></a>
 </article>
 
