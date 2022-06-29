@@ -211,4 +211,4 @@ I tested with `v3.8.1`.
 
 ## Install Jupyterhub
 
-Follow up in the next tutorial: [Install JupyterHub on Jetstream 2 on top of Kubernetes]({{< relref "2022-03-31-jetstream2_jupyterhub.md" >}})
+Follow up in the next tutorial: [Install JupyterHub on Jetstream 2 on top of Kubernetes](https://zonca.dev/2022/03/jetstream2-jupyterhub.html)
