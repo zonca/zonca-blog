@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="This is the first tutorial targeted at Jetstream 2. The system is in early access and will be soon made available, see https://jetstream-cloud.org/." />
-<meta property="og:description" content="This is the first tutorial targeted at Jetstream 2. The system is in early access and will be soon made available, see https://jetstream-cloud.org/." />
+<meta name="description" content="Updated in August 2022 to add automatic jetstream-cloud.org subdomains" />
+<meta property="og:description" content="Updated in August 2022 to add automatic jetstream-cloud.org subdomains" />
 <link rel="canonical" href="https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html" />
 <meta property="og:url" content="https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-03-30T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0","url":"https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html","dateModified":"2022-03-30T00:00:00-05:00","datePublished":"2022-03-30T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html"},"description":"This is the first tutorial targeted at Jetstream 2. The system is in early access and will be soon made available, see https://jetstream-cloud.org/.","@context":"https://schema.org"}</script>
+{"headline":"Deploy Kubernetes on Jetstream 2 with Kubespray 2.18.0","url":"https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html","dateModified":"2022-03-30T00:00:00-05:00","datePublished":"2022-03-30T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2022/03/kubernetes-jetstream2-kubespray.html"},"description":"Updated in August 2022 to add automatic jetstream-cloud.org subdomains","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -120,7 +120,11 @@ window.onload = wrap_img;
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>This is the first tutorial targeted at Jetstream 2.
+    <ul>
+  <li>Updated in August 2022 to add automatic jetstream-cloud.org subdomains</li>
+</ul>
+
+<p>This is the first tutorial targeted at Jetstream 2.
 The system is in early access and will be soon made available, see <a href="https://jetstream-cloud.org/">https://jetstream-cloud.org/</a>.</p>
 
 <p>My latest tutorial on Jetstream 1 executed Kubespray 2.15.0, here we are also switching to Kubespray 2.18.0, which installs Kubernetes v1.22.5, released in December 2021.</p>
@@ -173,6 +177,27 @@ compared to Jetstream 1, there are no actual changes to the <code class="languag
 Anyway, it is convenient to just clone the repository.</p>
 
 <p>Notice also that the most important change compared to Jetstream 1 is that we are using the new External Openstack provider, instead of the internal Openstack provider which is being discontinued. This also pushed me to use the Cinder CSI plugin, which also has a more modern architecture.</p>
+
+<h3 id="get-a-projectsjetstream-cloudorg-subdomain">Get a projects.jetstream-cloud.org subdomain</h3>
+
+<p>One option is to use the Designate Openstack service deployed by Jetstream to get an automatically created domain for the instances.
+In this case the DNS name will be of the form:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubejs2-1.tg-xxxxxxxxx.projects.jetstream-cloud.org
+</code></pre></div></div>
+
+<p>where <code class="language-plaintext highlighter-rouge">tg-xxxxxxxxx</code> is the ID of your Jestream 2 allocation,
+you need to specify it at the bottom of <code class="language-plaintext highlighter-rouge">cluster.tfvars</code> before running Terraform.
+The first part of the URL is the instance name, we shortened it removing <code class="language-plaintext highlighter-rouge">k8s-master</code> because domains too long do not work with Letsencrypt.</p>
+
+<p>After having executed Terraform, you can pip install on your local machine the package <code class="language-plaintext highlighter-rouge">python-designateclient</code> to check what records were created (mind the final period):</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>openstack recordset list tg-xxxxxxxxx.projects.jetstream-cloud.org.
+</code></pre></div></div>
+
+<p>As usual with stuff related to DNS, there are delays, so your record could take up to 1 hour to work, or if you delete the instance and create it again with another IP it could take hours to update.</p>
+
+<p>Instead, if you have a way of getting a domain outside of Jetstream, better reserve a floating IP, see below.</p>
 
 <h3 id="reserve-a-floating-ip">Reserve a floating IP</h3>
 
