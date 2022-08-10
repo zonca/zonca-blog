@@ -5,6 +5,8 @@ categories: [kubernetes, kubespray, jetstream2]
 slug: kubernetes-jetstream2-kubespray
 ---
 
+* Updated in August 2022 to add automatic jetstream-cloud.org subdomains
+
 This is the first tutorial targeted at Jetstream 2.
 The system is in early access and will be soon made available, see <https://jetstream-cloud.org/>.
 
@@ -54,6 +56,25 @@ compared to Jetstream 1, there are no actual changes to the `kubespray` software
 Anyway, it is convenient to just clone the repository.
 
 Notice also that the most important change compared to Jetstream 1 is that we are using the new External Openstack provider, instead of the internal Openstack provider which is being discontinued. This also pushed me to use the Cinder CSI plugin, which also has a more modern architecture.
+
+### Get a projects.jetstream-cloud.org subdomain
+
+One option is to use the Designate Openstack service deployed by Jetstream to get an automatically created domain for the instances.
+In this case the DNS name will be of the form:
+
+    kubejs2-1.tg-xxxxxxxxx.projects.jetstream-cloud.org
+
+where `tg-xxxxxxxxx` is the ID of your Jestream 2 allocation,
+you need to specify it at the bottom of `cluster.tfvars` before running Terraform.
+The first part of the URL is the instance name, we shortened it removing `k8s-master` because domains too long do not work with Letsencrypt.
+
+After having executed Terraform, you can pip install on your local machine the package `python-designateclient` to check what records were created (mind the final period):
+
+    openstack recordset list tg-xxxxxxxxx.projects.jetstream-cloud.org.
+
+As usual with stuff related to DNS, there are delays, so your record could take up to 1 hour to work, or if you delete the instance and create it again with another IP it could take hours to update.
+
+Instead, if you have a way of getting a domain outside of Jetstream, better reserve a floating IP, see below.
 
 ### Reserve a floating IP
 

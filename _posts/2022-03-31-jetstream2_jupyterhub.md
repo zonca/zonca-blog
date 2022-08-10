@@ -74,6 +74,8 @@ for any other customizations, first authentication, you are in good hands as the
 Kubespray has the option of deploying also `cert-manager`, but I had trouble deploying an issuer,
 it was easier to just deploy it afterwards following [my previous tutorial](https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html), recently updated.
 
+Note the new step about binding the Cert Manager pods to the master node.
+
 ## Feedback
 
 Feedback on this is very welcome, please open an issue on the [Github repository](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream).
