@@ -8,15 +8,15 @@
 <meta name="generator" content="Jekyll v4.1.1" />
 <meta property="og:title" content="Setup HTTPS on Kubernetes with Letsencrypt" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Updated in March 2022: changes for Kubernetes 1.22, I am now creating a Cluster Issuer, which works on all namespaces, notice the related change in the configuration of JupyterHub." />
-<meta property="og:description" content="Updated in March 2022: changes for Kubernetes 1.22, I am now creating a Cluster Issuer, which works on all namespaces, notice the related change in the configuration of JupyterHub." />
+<meta name="description" content="Updated in August 2022: Add patching script to run on master node" />
+<meta property="og:description" content="Updated in August 2022: Add patching script to run on master node" />
 <link rel="canonical" href="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:url" content="https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html" />
 <meta property="og:site_name" content="Andrea Zonca" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-03-13T00:00:00-05:00" />
 <script type="application/ld+json">
-{"headline":"Setup HTTPS on Kubernetes with Letsencrypt","url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"description":"Updated in March 2022: changes for Kubernetes 1.22, I am now creating a Cluster Issuer, which works on all namespaces, notice the related change in the configuration of JupyterHub.","@context":"https://schema.org"}</script>
+{"headline":"Setup HTTPS on Kubernetes with Letsencrypt","url":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html","dateModified":"2020-03-13T00:00:00-05:00","datePublished":"2020-03-13T00:00:00-05:00","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://zonca.dev/2020/03/setup-https-kubernetes-letsencrypt.html"},"description":"Updated in August 2022: Add patching script to run on master node","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://zonca.dev/feed.xml" title="Andrea Zonca" /><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -123,7 +123,9 @@ window.onload = wrap_img;
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><strong>Updated in March 2022</strong>: changes for Kubernetes 1.22, I am now creating a Cluster Issuer, which works on all namespaces, notice the related change in the configuration of JupyterHub.</p>
+    <p><strong>Updated in August 2022</strong>: Add patching script to run on master node</p>
+
+<p><strong>Updated in March 2022</strong>: changes for Kubernetes 1.22, I am now creating a Cluster Issuer, which works on all namespaces, notice the related change in the configuration of JupyterHub.</p>
 
 <p>In this tutorial we will deploy <code class="language-plaintext highlighter-rouge">cert-manager</code> in Kubernetes to automatically provide SSL certificates to JupyterHub (and other services).</p>
 
@@ -164,6 +166,21 @@ deployment.apps/cert-manager-webhook      1/1     1            1           54s
                                                                                                                                      NAME                                                 DESIRED   CURRENT   READY   AGE
 replicaset.apps/cert-manager-77f4c9d4b               1         1         1       55s
 replicaset.apps/cert-manager-cainjector-7cd4857fc7   1         1         1       56s                                                 replicaset.apps/cert-manager-webhook-586c9597db      1         1         1       54s
+</code></pre></div></div>
+
+<h2 id="bind-the-pods-to-the-master-node">Bind the pods to the master node</h2>
+
+<p>In Jetstream 2 there are routing restrictions which allow Cert Manager to run only from the master node, <a href="https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/52">see the details on Github</a>.</p>
+
+<p>Unidata has contributed the script they created to patch the 3 Cert Manager pods to have them run on the master node, we can apply it with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cd setup_https
+bash deploymentPatch.sh
+</code></pre></div></div>
+
+<p>Then verify that the pods are redeployed on master:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubectl -n cert-manager get pods -o wide
 </code></pre></div></div>
 
 <h2 id="setup-jupyterhub">Setup JupyterHub</h2>
