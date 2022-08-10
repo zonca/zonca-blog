@@ -50,7 +50,7 @@ replicaset.apps/cert-manager-cainjector-7cd4857fc7   1         1         1      
 
 ## Bind the pods to the master node
 
-In Jetstream 2 there are routing restrictions which allow Cert Manager to run only from the master node, [see the details on Github](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/52).
+In Jetstream 2 there are routing restrictions which allow Cert Manager to run only from the master node, [see the details on Github](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/52). At least when the nodes do not have floating IPs, if all your Virtual Machines have a floating IP, you can safely skip this step.
 
 Unidata has contributed the script they created to patch the 3 Cert Manager pods to have them run on the master node, we can apply it with:
 
