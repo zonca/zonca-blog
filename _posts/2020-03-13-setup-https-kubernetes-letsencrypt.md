@@ -4,6 +4,8 @@ title: Setup HTTPS on Kubernetes with Letsencrypt
 categories: [kubernetes, openstack, jetstream, jupyterhub]
 ---
 
+**Updated in August 2022**: Add patching script to run on master node
+
 **Updated in March 2022**: changes for Kubernetes 1.22, I am now creating a Cluster Issuer, which works on all namespaces, notice the related change in the configuration of JupyterHub.
 
 In this tutorial we will deploy `cert-manager` in Kubernetes to automatically provide SSL certificates to JupyterHub (and other services).
@@ -45,6 +47,19 @@ deployment.apps/cert-manager-webhook      1/1     1            1           54s
 replicaset.apps/cert-manager-77f4c9d4b               1         1         1       55s
 replicaset.apps/cert-manager-cainjector-7cd4857fc7   1         1         1       56s                                                 replicaset.apps/cert-manager-webhook-586c9597db      1         1         1       54s
 ```
+
+## Bind the pods to the master node
+
+In Jetstream 2 there are routing restrictions which allow Cert Manager to run only from the master node, [see the details on Github](https://github.com/zonca/jupyterhub-deploy-kubernetes-jetstream/issues/52).
+
+Unidata has contributed the script they created to patch the 3 Cert Manager pods to have them run on the master node, we can apply it with:
+
+    cd setup_https
+    bash deploymentPatch.sh
+
+Then verify that the pods are redeployed on master:
+
+    kubectl -n cert-manager get pods -o wide
 
 ## Setup JupyterHub
 
