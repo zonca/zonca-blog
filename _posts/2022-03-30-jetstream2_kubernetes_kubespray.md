@@ -103,7 +103,8 @@ also `export CLUSTER=yourclustername` is useful to add to the `app*openrc.sh`.
 
 Open and modify `cluster.tfvars`, choose your image (by default Ubuntu 20) and number of nodes and the flavor of the nodes, by default they are medium instances (`"4"`).
 
-Paste the floating ip created previously into `k8s_master_fips`.
+Paste the floating ip created previously into `k8s_master_fips`, unless you are using a projects.jetstream-cloud.org subdomain.
+Make also sure you add your auto allocated router ID, see instructions inside `cluster.tfvars`.
 
 Initialize Terraform:
 
