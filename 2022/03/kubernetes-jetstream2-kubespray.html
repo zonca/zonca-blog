@@ -231,7 +231,8 @@ cd inventory/$CLUSTER
 <p>Open and modify <code class="language-plaintext highlighter-rouge">cluster.tfvars</code>, choose your image (by default Ubuntu 20) and number of nodes and the flavor of the nodes, by default they are medium instances (<code class="language-plaintext highlighter-rouge">"4"</code>).</p>
 
 <p>Paste the floating ip created previously into <code class="language-plaintext highlighter-rouge">k8s_master_fips</code>, unless you are using a projects.jetstream-cloud.org subdomain.
-Make also sure you add your auto allocated router ID, see instructions inside <code class="language-plaintext highlighter-rouge">cluster.tfvars</code>.</p>
+Make also sure you add your auto allocated router ID, see instructions inside <code class="language-plaintext highlighter-rouge">cluster.tfvars</code>.
+If you are running more than 1 Kubernetes cluster under your account, you should also set a unique CIDR for your subnet: <code class="language-plaintext highlighter-rouge">subnet_cidr = "10.0.1.0/24"</code> for example, again in <code class="language-plaintext highlighter-rouge">cluster.tfvars</code>.</p>
 
 <p>Initialize Terraform:</p>
 
