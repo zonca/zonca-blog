@@ -105,6 +105,7 @@ Open and modify `cluster.tfvars`, choose your image (by default Ubuntu 20) and n
 
 Paste the floating ip created previously into `k8s_master_fips`, unless you are using a projects.jetstream-cloud.org subdomain.
 Make also sure you add your auto allocated router ID, see instructions inside `cluster.tfvars`.
+If you are running more than 1 Kubernetes cluster under your account, you should also set a unique CIDR for your subnet: `subnet_cidr = "10.0.1.0/24"` for example, again in `cluster.tfvars`.
 
 Initialize Terraform:
 
