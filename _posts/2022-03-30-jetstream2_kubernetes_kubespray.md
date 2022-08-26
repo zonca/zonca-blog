@@ -114,6 +114,8 @@ Create the resources:
 
     bash terraform_apply.sh
 
+Terraform is very fast in building all the resources, sometimes resources are not ready yet, so the Apply command fails, just run it again, it happens regularly, nothing to worry about.
+
 You can SSH into the master node with:
 
     ssh ubuntu@$IP
